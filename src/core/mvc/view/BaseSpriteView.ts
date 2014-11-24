@@ -1,8 +1,8 @@
 /**
  * Created by yangsong on 2014/11/22.
- * View基类
+ * View基类，继承自egret.Sprite
  */
-class BaseView extends egret.Sprite{
+class BaseSpriteView extends egret.Sprite implements IBaseView{
 	private _controller:BaseController;
     private _myParent:egret.DisplayObjectContainer;
     private _isInit:boolean;
@@ -20,19 +20,10 @@ class BaseView extends egret.Sprite{
 	}
 
     /**
-     * 父级
-     * @returns {egret.DisplayObjectContainer}
-     * @constructor
-     */
-    public get Parent():egret.DisplayObjectContainer{
-        return this._myParent;
-    }
-
-    /**
      * 是否已经初始化
      * @returns {boolean}
      */
-    public get isInit():boolean{
+    public isInit():boolean{
         return this._isInit;
     }
 	
@@ -65,6 +56,20 @@ class BaseView extends egret.Sprite{
 	public isShow():boolean{
 		return this.stage && this.visible;
 	}
+
+    /**
+     * 添加到父级
+     */
+    public addToParent():void{
+        this._myParent.addChild(this);
+    }
+
+    /**
+     * 从父级移除
+     */
+    public removeFromParent():void{
+        this._myParent.removeChild(this);
+    }
 
     /**
      *对面板进行显示初始化，用于子类继承

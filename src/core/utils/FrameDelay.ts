@@ -3,8 +3,6 @@
  * 帧延迟处理
  */
 class FrameDelay{
-    private cnt:number;
-    private delay:number;
     private func:Function;
     private thisObj:any;
 
@@ -22,19 +20,12 @@ class FrameDelay{
      * @param thisObj 延迟执行的函数的所属对象
      */
     public delayCall(delayFrame:number, func:Function, thisObj:any):void{
-        this.cnt = 0;
-        this.delay = delayFrame;
         this.func = func;
         this.thisObj = thisObj;
-        egret.Ticker.getInstance().register(this.listener_enterFrame, this);
+        App.TimerManager.doFrame(delayFrame, 1, this.listener_enterFrame, this);
     }
 
-    private listener_enterFrame(e:egret.Event):void{
-        this.cnt ++ ;
-        if(this.cnt >= this.delay){
-            this.cnt = 0;
-            egret.Ticker.getInstance().unregister(this.listener_enterFrame, this);
-            this.func.call(this.thisObj);
-        }
+    private listener_enterFrame():void{
+        this.func.call(this.thisObj);
     }
 }

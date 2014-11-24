@@ -23,7 +23,7 @@ class ViewManager{
 	 * @param closeFunc 关闭函数
 	 * 
 	 */		
-	public register(key:number, view:BaseView):void{
+	public register(key:number, view:IBaseView):void{
 		this._views[key] = view;
 	}
 	
@@ -34,7 +34,7 @@ class ViewManager{
 	 * 
 	 */		
 	public open(key:number, ...param:any[]):void{
-		var view:BaseView = this._views[key];
+		var view:IBaseView = this._views[key];
 		if(view == null){
             Log.trace("UI"+key+"不存在");
             return;
@@ -44,11 +44,11 @@ class ViewManager{
 			return;
         }
 
-        if(!view.isInit){
+        view.addToParent();
+        if(!view.isInit()){
             view.initUI();
             view.initData();
         }
-        view.Parent.addChild(view);
         view.open(param);
 
 		this._opens.push(key);
@@ -61,7 +61,7 @@ class ViewManager{
 	 * 
 	 */		
 	public close(key:number, ...param:any[]):void{
-        var view:BaseView = this._views[key];
+        var view:IBaseView = this._views[key];
         if(view == null){
             Log.trace("UI"+key+"不存在");
             return;
@@ -71,7 +71,7 @@ class ViewManager{
 			return;
         }
 
-        view.Parent.removeChild(view);
+        view.removeFromParent();
         view.close(param);
 
 		this._opens.splice(this._opens.indexOf(key), 1);
