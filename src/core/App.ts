@@ -52,6 +52,11 @@ class App{
      * @type {RandomUtils}
      */
     public static RandomUtils:RandomUtils = new RandomUtils();
+    /**
+     * 显示对象工具类
+     * @type {DisplayUtils}
+     */
+    public static DisplayUtils:DisplayUtils = new DisplayUtils();
 
     /**
      * 初始化函数

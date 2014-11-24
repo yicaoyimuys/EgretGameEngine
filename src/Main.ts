@@ -36,6 +36,9 @@ class Main extends egret.DisplayObjectContainer{
         App.Init();
         //初始打开登陆页面
         App.ViewManager.open(ViewConst.LOGIN);
+        //StarlingSwf使用
+//        StarlingSwfFactory.getInstance().addSwf("a", null, null);
+//        StarlingSwfFactory.getInstance().makeMc("b");
     }
 }
 
