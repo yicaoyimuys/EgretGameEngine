@@ -52,7 +52,7 @@ class Http {
 	 * @param	type
 	 * @param	t_variables
 	 */
-	public postData(type:string, urlVariables:egret.URLVariables):void{
+	public send(type:string, urlVariables:egret.URLVariables):void{
 		this._cache.push([type, urlVariables]);
         this.post();
 	}

@@ -13,6 +13,11 @@ class App{
      */
     public static Http:Http = null;
     /**
+     * Socket请求
+     * @type {null}
+     */
+    public static Socket:Socket = null;
+    /**
      * 模块管理类
      * @type {ControllerManager}
      */
@@ -69,6 +74,8 @@ class App{
         App.TimerManager.doFrame(1, 0, App.MessageCenter.run, App.MessageCenter);
         //实例化Http请求
         App.Http = new Http("http://www.baidu.com");
+        //实例化Socket请求
+        App.Socket = new Socket("192.0.0.1", "8001");
         //初始化所有模块
         App.ControllerManager.add(ControllerConst.LOGIN, new LoginController());
     }

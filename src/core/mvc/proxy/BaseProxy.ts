@@ -48,7 +48,7 @@ class BaseProxy{
      * 发送消息到Socket服务器
      */
     public sendSocketMsg(msg:any):void{
-        //TODO 待实现
+        App.Socket.send(msg);
     }
 
     /**
@@ -57,7 +57,7 @@ class BaseProxy{
      * @param paramObj 消息参数 例如: var paramObj:any = {"uName":uName, "uPass":uPass};
      */
     public sendHttpMsg(type:string, paramObj:any = null):void{
-        App.Http.postData(type, this.getURLVariables(type, paramObj));
+        App.Http.send(type, this.getURLVariables(type, paramObj));
     }
 
     /**
