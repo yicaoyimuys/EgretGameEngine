@@ -254,5 +254,26 @@ module starlingswf{
             super.removeEventListener(type,listener,thisObject,useCapture);
             this._hasCompleteListener = this.hasEventListener(egret.Event.COMPLETE);
         }
+
+
+        /*****************************************以下为扩展代码*****************************************/
+
+        /**
+         * 获取某一标签的开始帧
+         * @param label 标签名
+         * @returns {any}
+         */
+        public getLabelStartFrame(label:string):number{
+            return this.getLabelData(label)[1];
+        }
+
+        /**
+         * 获取某一标签的结束帧
+         * @param label
+         * @returns {any}
+         */
+        public getLabelEndFrame(label:string):number{
+            return this.getLabelData(label)[2];
+        }
     }
 }

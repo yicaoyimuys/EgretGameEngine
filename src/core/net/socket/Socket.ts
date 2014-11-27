@@ -54,7 +54,7 @@ class Socket{
             }
         };
         this._socket.onerror = function(evt){
-            App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT, evt.data);
+            App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT);
         };
         this._socket.onmessage = function(evt) {
             var msg:any = this._msg.decode(evt.data);

@@ -73,10 +73,10 @@ class StarlingSwfMovieClip extends starlingswf.SwfMovieClip{
     }
 
     /**
-     * 重写update函数，处理帧事件
+     * 重写setCurrentFrame函数，处理帧事件
      */
-    public update():void {
-        super.update();
+    public setCurrentFrame(frame:number):void{
+        super.setCurrentFrame(frame);
 
         var currFrame:number = this.getCurrentFrame();
         if(this.preFrame != currFrame){
