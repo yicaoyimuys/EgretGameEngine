@@ -62,6 +62,10 @@ class App{
      * @type {DisplayUtils}
      */
     public static DisplayUtils:DisplayUtils = new DisplayUtils();
+    /*
+    * 图片合成数字工具类
+    * */
+    public static BitmapNumber:BitmapNumber= new BitmapNumber();
 
     /**
      * 初始化函数
