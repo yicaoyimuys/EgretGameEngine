@@ -33,7 +33,9 @@ class Main extends egret.DisplayObjectContainer{
 
     private onAddToStage(event:egret.Event){
         //初始化
-        App.Init();
+        App.Init(this.stage);
+        //初始显示UI场景
+        App.SceneManager.changeScene(SceneConsts.UI);
         //初始打开登陆页面
         App.ViewManager.open(ViewConst.LOGIN);
         //StarlingSwf使用

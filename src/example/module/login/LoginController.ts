@@ -13,7 +13,7 @@ class LoginController extends BaseController{
         super();
 
         //初始化UI
-        this.loginView = new LoginView(this, LayerManager.UI);
+        this.loginView = new LoginView(this, LayerManager.UI_Main);
         App.ViewManager.register(ViewConst.LOGIN, this.loginView);
 
         //初始化Proxy

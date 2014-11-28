@@ -11,12 +11,12 @@ class App{
      * Http请求
      * @type {Http}
      */
-    public static Http:Http = null;
+    public static Http:Http = new Http();
     /**
      * Socket请求
      * @type {null}
      */
-    public static Socket:Socket = null;
+    public static Socket:Socket = new Socket();
     /**
      * 模块管理类
      * @type {ControllerManager}
@@ -27,6 +27,11 @@ class App{
      * @type {ViewManager}
      */
     public static ViewManager:ViewManager = new ViewManager();
+    /**
+     * 场景管理类
+     * @type {SceneManager}
+     */
+    public static SceneManager:SceneManager = new SceneManager();
     /**
      * 调试工具
      * @type {DebugUtils}
@@ -63,23 +68,27 @@ class App{
      */
     public static DisplayUtils:DisplayUtils = new DisplayUtils();
     /*
-    * 图片合成数字工具类
-    * */
-    public static BitmapNumber:BitmapNumber= new BitmapNumber();
+     * 图片合成数字工具类
+     * */
+    public static BitmapNumber:BitmapNumber = new BitmapNumber();
 
     /**
      * 初始化函数
      * @constructor
      */
-    public static Init():void{
+    public static Init(stage:egret.Stage):void{
         //开启调试
         App.DebugUtils.isOpen(true);
         //开启服务器返回的消息侦听
         App.TimerManager.doFrame(1, 0, App.MessageCenter.run, App.MessageCenter);
         //实例化Http请求
-        App.Http = new Http("http://www.baidu.com");
+        App.Http.initServer("http://www.baidu.com");;
         //实例化Socket请求
-        App.Socket = new Socket("192.0.0.1", "8001");
+        App.Socket.initServer("192.0.0.1", "8001");
+        //初始化所有场景
+        App.SceneManager.init(stage);
+        App.SceneManager.add(SceneConsts.Game, new GameScene());
+        App.SceneManager.add(SceneConsts.UI, new UIScene());
         //初始化所有模块
         App.ControllerManager.add(ControllerConst.LOGIN, new LoginController());
     }

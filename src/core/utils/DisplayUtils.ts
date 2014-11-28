@@ -15,7 +15,12 @@ class DisplayUtils{
      * @param child
      */
     public removeFromParent(child:egret.DisplayObject){
-        if (child && child.parent) {
+        if(child.parent == null)
+            return;
+
+        if(child.parent.hasOwnProperty("removeElement")){
+            child.parent["removeElement"](child);
+        }else{
             child.parent.removeChild(child);
         }
     }

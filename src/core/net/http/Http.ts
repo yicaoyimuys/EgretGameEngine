@@ -13,11 +13,8 @@ class Http {
 
     /**
      * 构造函数
-     * @param serverUrl服务器链接地址
      */
-	public constructor(serverUrl:string){
-		this._serverUrl = serverUrl;
-		
+	public constructor(){
 		this._data = new DynamicChange();
 		
 		this._cache = [];
@@ -29,6 +26,14 @@ class Http {
 		this._urlLoader = new egret.URLLoader();
 		this._urlLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onError, this);
 	}
+
+    /**
+     * 初始化服务器地址
+     * @param serverUrl服务器链接地址
+     */
+    public initServer(serverUrl:string):void{
+        this._serverUrl = serverUrl;
+    }
 
     /**
      * 数据缓存

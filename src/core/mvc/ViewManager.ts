@@ -36,7 +36,7 @@ class ViewManager{
 	public open(key:number, ...param:any[]):void{
 		var view:IBaseView = this._views[key];
 		if(view == null){
-            Log.trace("UI"+key+"不存在");
+            Log.trace("UI_Main"+key+"不存在");
             return;
         }
 		
@@ -63,7 +63,7 @@ class ViewManager{
 	public close(key:number, ...param:any[]):void{
         var view:IBaseView = this._views[key];
         if(view == null){
-            Log.trace("UI"+key+"不存在");
+            Log.trace("UI_Main"+key+"不存在");
             return;
         }
 		

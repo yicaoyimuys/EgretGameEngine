@@ -17,6 +17,7 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
 		this._controller = $controller;
         this._myParent = $parent;
         this._isInit = false;
+        egret.MainContext.instance.stage.addEventListener(egret.Event.RESIZE, this.onResize, this);
 	}
 
     /**
@@ -100,6 +101,13 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      * @param param 参数
      */
     public close(...param:any[]):void{
+
+    }
+
+    /**
+     * 屏幕尺寸变化时调用
+     */
+    public onResize():void{
 
     }
 }

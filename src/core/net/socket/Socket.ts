@@ -14,13 +14,19 @@ class Socket{
 
     /**
      * 构造函数
+     */
+    public constructor() {
+        this._msg = new Msg();
+    }
+
+    /**
+     * 初始化服务区地址
      * @param host IP
      * @param port 端口
      */
-    public constructor(host:string, port:string) {
+    public initServer(host:string, port:string):void{
         this._host = host;
         this._port = port;
-        this._msg = new Msg();
     }
 
     /**
