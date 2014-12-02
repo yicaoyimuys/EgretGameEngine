@@ -9,7 +9,7 @@ class BaseProxy{
      * 构造函数
      * @param $controller 所属模块
      */
-	public constructor($controller:BaseController){
+	public constructor($controller:BaseController) {
 		this._controller = $controller;
 	}
 	
@@ -19,7 +19,7 @@ class BaseProxy{
 	 * @param param 参数
 	 * 
 	 */		
-	public applyFunc(key:any, ...param:any[]):void{
+	public applyFunc(key:any, ...param:any[]):void {
 		this._controller.applyFunc(key, param);
 	}
 

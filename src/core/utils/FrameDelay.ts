@@ -10,7 +10,7 @@ class FrameDelay{
      * 构造函数
      */
     public constructor() {
-        
+
     }
 
     /**
