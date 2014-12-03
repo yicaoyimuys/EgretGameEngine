@@ -71,6 +71,10 @@ class App{
      * 图片合成数字工具类
      * */
     public static BitmapNumber:BitmapNumber;
+    /**
+     * 引导工具类
+     */
+    public static GuideUtils:GuideUtils;
 
     /**
      * 初始化函数
@@ -112,5 +116,6 @@ class App{
         App.SceneManager = new SceneManager();
         App.TimerManager = new TimerManager();
         App.ViewManager = new ViewManager();
+        App.GuideUtils = new GuideUtils();
     }
 }
