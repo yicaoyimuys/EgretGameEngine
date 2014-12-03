@@ -75,6 +75,14 @@ class App{
      * 引导工具类
      */
     public static GuideUtils:GuideUtils;
+    /**
+     * Stage操作相关工具类
+     */
+    public static StageUtils:StageUtils;
+    /**
+     * Effect工具类
+     */
+    public static EffectUtils:EffectUtils;
 
     /**
      * 初始化函数
@@ -103,6 +111,7 @@ class App{
      * 初始化所有utils
      */
     private static initUtils():void {
+        App.StageUtils = new StageUtils();
         App.Http = new Http();
         App.BitmapNumber = new BitmapNumber();
         App.Socket = new Socket();
@@ -117,5 +126,6 @@ class App{
         App.TimerManager = new TimerManager();
         App.ViewManager = new ViewManager();
         App.GuideUtils = new GuideUtils();
+        App.EffectUtils = new EffectUtils();
     }
 }
