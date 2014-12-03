@@ -10,7 +10,7 @@ class DateUtils{
     /**
      * 根据秒数格式化字符串
      * @param second 秒数
-     * @param type 1:00:00:00   2:yyyy-mm-dd h:m:s 3:00:00
+     * @param type 1:00:00:00   2:yyyy-mm-dd h:m:s    3:00:00   4:xx天前，xx小时前，xx分钟前
      * @return
      *
      */
@@ -25,6 +25,9 @@ class DateUtils{
                 break;
             case 3:
                 str = this.getFormatBySecond3(second);
+                break;
+            case 4:
+                str = this.getFormatBySecond4(second);
                 break;
         }
         return str;
@@ -98,4 +101,21 @@ class DateUtils{
         var second:number = date.getSeconds();
         return year + "-" + month + "-" + day + " " + hours + ":" + minute + ":" + second;
     }
+
+    //4:xx天前，xx小时前，xx分钟前
+    private getFormatBySecond4(time:number):string {
+        var t = Math.floor(time / 3600);
+        if (t > 0) {
+            if (t > 24) {
+                return Math.floor(t / 24) + "天前";
+            }
+            else {
+                return t + "小时前";
+            }
+        }
+        else {
+            return Math.floor(time / 60) + "分钟前";
+        }
+    }
+
 }
