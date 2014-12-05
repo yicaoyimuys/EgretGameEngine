@@ -61,6 +61,9 @@ class GuideView extends egret.Sprite{
      * @param data
      */
     public setData(obj:egret.DisplayObject, data:any):void{
+        if(obj == null){
+            return;
+        }
         this._obj = obj;
         this._data = data;
 

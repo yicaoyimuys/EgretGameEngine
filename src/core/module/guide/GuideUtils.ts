@@ -173,4 +173,11 @@ class GuideUtils{
     private hide():void{
         App.DisplayUtils.removeFromParent(this.view);
     }
+
+    /**
+     * 引导是否显示
+     */
+    public isShow():boolean{
+        return this.view != null && this.view.parent != null;
+    }
 }
