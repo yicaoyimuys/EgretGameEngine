@@ -51,8 +51,15 @@ class GuideView extends egret.Sprite{
      */
     private onResize():void{
         if(this.stage){
-            this.setData(this._obj, this._data);
+            egret.setTimeout(this.refurbish, this, 500);
         }
+    }
+
+    /**
+     * 刷新
+     */
+    private refurbish():void{
+        this.setData(this._obj, this._data);
     }
 
     /**
