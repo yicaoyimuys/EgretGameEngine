@@ -76,12 +76,16 @@ class GuideView extends egret.Sprite{
 
         this._obj.localToGlobal(0, 0, this._objGlobalPoint);
         this._obj.getBounds(this._objRec);
+        
+        this._objGlobalPoint.x = Math.ceil(this._objGlobalPoint.x);
+        this._objGlobalPoint.y = Math.ceil(this._objGlobalPoint.y);
 
-        var tmp:number = 5;
-        this._objRec.x = this._objGlobalPoint.x - tmp;
-        this._objRec.y = this._objGlobalPoint.y - tmp;
-        this._objRec.width += tmp*2;
-        this._objRec.height += tmp*2;
+        var tmpX:number = 15;
+        var tmpy:number = 15;
+        this._objRec.x = this._objGlobalPoint.x - tmpX;
+        this._objRec.y = this._objGlobalPoint.y - tmpy;
+        this._objRec.width += tmpX*2;
+        this._objRec.height += tmpy*2;
 
         //不透明区域
         this._bg.init(egret.MainContext.instance.stage.stageWidth, egret.MainContext.instance.stage.stageHeight);
