@@ -83,6 +83,10 @@ class App{
      * Effect工具类
      */
     public static EffectUtils:EffectUtils;
+    /**
+     * 字符串工具类
+     */
+    public static StringUtils:StringUtils;
 
     /**
      * 初始化函数
@@ -127,5 +131,6 @@ class App{
         App.ViewManager = new ViewManager();
         App.GuideUtils = new GuideUtils();
         App.EffectUtils = new EffectUtils();
+        App.StringUtils = new StringUtils();
     }
 }
