@@ -14,7 +14,7 @@ class BaseClass{
     public static getInstance(...args:any[]):any{
         var Class:any = this;
         if(!Class._instance){
-            Class._instance = Class.create.apply(Class, arguments);
+            Class._instance = new Class(arguments);
         }
         return Class._instance;
     }
