@@ -28,7 +28,7 @@ class SceneManager extends BaseClass{
      * @param key Scene唯一标识
      * @param scene Scene对象
      */
-    public add(key:number, scene:BaseScene):void{
+    public add(key:number, scene:IBaseScene):void{
         this._scenes[key] = scene;
     }
 
@@ -37,13 +37,13 @@ class SceneManager extends BaseClass{
      * @param key 场景唯一标识
      */
     public changeScene(key:number):void{
-        var nowScene:BaseScene = this._scenes[key];
+        var nowScene:any = this._scenes[key];
         if(nowScene == null){
             Log.trace("场景"+key+"不存在");
             return;
         }
 
-        var oldScene:BaseScene = this._scenes[this._currScene];
+        var oldScene:any = this._scenes[this._currScene];
         if(oldScene){
             this._stage.removeChild(oldScene);
             oldScene.onExit();

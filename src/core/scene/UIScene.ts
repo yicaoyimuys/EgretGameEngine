@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/28.
  * UI场景层
  */
-class UIScene extends BaseScene{
+class UIScene extends BaseSpriteScene{
     /**
      * 构造函数
      */

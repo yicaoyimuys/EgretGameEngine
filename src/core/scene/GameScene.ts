@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/28.
  * 游戏场景
  */
-class GameScene extends BaseScene{
+class GameScene extends BaseSpriteScene{
     /**
      * 构造函数
      */

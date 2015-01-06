@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/28.
  * Scene基类
  */
-class BaseScene extends egret.DisplayObjectContainer{
+class BaseSpriteScene extends egret.DisplayObjectContainer implements IBaseScene{
     /**
      * 构造函数
      */
