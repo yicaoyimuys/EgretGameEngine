@@ -2,12 +2,12 @@
  * Created by yangsong on 2014/12/3.
  * Stage相关工具类
  */
-class StageUtils{
+class StageUtils extends BaseClass{
     /**
      * 构造函数
      */
     public constructor(){
-
+        super();
     }
 
     /**

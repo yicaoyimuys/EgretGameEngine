@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/23.
  * Timer管理器
  */
-class TimerManager {
+class TimerManager extends BaseClass{
 	private _handlers:Array<TimerHandler>;
     private _delHandlers:Array<TimerHandler>;
 	private _currTime:number;
@@ -13,6 +13,7 @@ class TimerManager {
      * 构造函数
      */
 	public constructor() {
+        super();
 		this._handlers = new Array<TimerHandler>();
         this._delHandlers = new Array<TimerHandler>();
 		this._currTime = egret.getTimer();

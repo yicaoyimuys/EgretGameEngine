@@ -1,4 +1,4 @@
-class ViewManager{
+class ViewManager extends BaseClass{
 	/**
 	 * 已注册的UI 
 	 */		
@@ -12,6 +12,7 @@ class ViewManager{
      * 构造函数
      */
     public constructor(){
+        super();
         this._views = {};
         this._opens = new Array<number>();
     }

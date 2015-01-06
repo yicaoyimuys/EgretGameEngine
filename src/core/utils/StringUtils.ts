@@ -2,12 +2,12 @@
  * Created by yangsong on 14/12/18.
  * 字符串操作工具类
  */
-class StringUtils{
+class StringUtils extends BaseClass{
     /**
      * 构造函数
      */
     public constructor(){
-
+        super();
     }
 
     /**

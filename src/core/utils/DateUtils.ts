@@ -2,9 +2,9 @@
  * Created by yangsong on 2014/11/22.
  * Date工具类
  */
-class DateUtils{
+class DateUtils extends BaseClass{
     public constructor(){
-
+        super();
     }
 
     /**

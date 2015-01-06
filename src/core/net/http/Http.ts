@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/22.
  * Http请求处理
  */
-class Http {
+class Http extends BaseClass{
 	private _serverUrl:string;
 	private _urlLoader:egret.URLLoader;
 	private _request:egret.URLRequest;
@@ -15,6 +15,7 @@ class Http {
      * 构造函数
      */
 	public constructor(){
+        super();
 		this._data = new DynamicChange();
 		
 		this._cache = [];

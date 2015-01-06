@@ -2,12 +2,12 @@
  * Created by yangsong on 2014/11/24.
  * 显示对象工具类
  */
-class DisplayUtils{
+class DisplayUtils extends BaseClass{
     /**
      * 构造函数
      */
     public constructor(){
-
+        super();
     }
 
     /**

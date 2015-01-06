@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/22.
  * 数学计算工具类
  */
-class MathUtils{
+class MathUtils extends BaseClass{
     /**
      * 弧度制转换为角度值
      * @param radian 弧度制

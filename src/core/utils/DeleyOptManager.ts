@@ -2,7 +2,8 @@
  * Created by Saco on 2014/8/2.
  */
 class DeleyOptManager extends BaseClass{
-    private TIME_THRESHOLD:number = 3;        //每帧运算逻辑的时间阈值，执行代码超过这个时间就跳过到下一帧继续执行，根据实际情况调整，因为每一帧除了这里的逻辑还有别的逻辑要做对吧
+    //每帧运算逻辑的时间阈值，执行代码超过这个时间就跳过到下一帧继续执行，根据实际情况调整，因为每一帧除了这里的逻辑还有别的逻辑要做对吧
+    private TIME_THRESHOLD:number = 3;
     private _delayOpts:any[];
 
     public constructor()

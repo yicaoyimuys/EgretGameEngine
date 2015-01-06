@@ -2,13 +2,14 @@
  * Created by yangsong on 2014/11/22.
  * Controller管理类
  */
-class ControllerManager{
+class ControllerManager extends BaseClass{
 	private _modules:any;
 
     /**
      * 构造函数
      */
 	public constructor(){
+        super();
 		this._modules = {};
 	}
 	

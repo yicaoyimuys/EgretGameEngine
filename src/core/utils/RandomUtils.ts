@@ -1,7 +1,7 @@
 /**
  * Created by yangsong on 2014/11/23.
  */
-class RandomUtils{
+class RandomUtils extends BaseClass{
     /**
      * 获取一个区间的随机数
      * @param $from 最小值

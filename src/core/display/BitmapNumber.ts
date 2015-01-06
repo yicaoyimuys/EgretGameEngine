@@ -8,12 +8,13 @@
  *
  * Created by Saco on 2014/8/1.
  */
-class BitmapNumber
+class BitmapNumber extends BaseClass
 {
     private _imgPool:egret.Bitmap[];
     private _containerPool:egret.DisplayObjectContainer[];
     public constructor()
     {
+        super();
         this._imgPool = [];
         this._containerPool = [];
     }

@@ -2,12 +2,12 @@
  * Created by yangsong on 2014/12/3.
  * 各种效果工具类
  */
-class EffectUtils{
+class EffectUtils extends BaseClass{
     /**
      * 构造函数
      */
     public constructor(){
-
+        super();
     }
 
     /**

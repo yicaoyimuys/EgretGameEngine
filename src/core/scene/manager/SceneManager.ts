@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/28.
  * 场景管理类
  */
-class SceneManager{
+class SceneManager extends BaseClass{
     private _scenes:any;
     private _stage:egret.Stage;
     private _currScene:number;
@@ -11,6 +11,7 @@ class SceneManager{
      * 构造函数
      */
     public constructor(){
+        super();
         this._scenes = {};
     }
 

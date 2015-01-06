@@ -2,12 +2,13 @@
  * Created by yangsong on 2014/11/23.
  * Debug调试工具
  */
-class DebugUtils{
+class DebugUtils extends BaseClass{
 	private _isOpen:boolean;
 	private _key:string;
 	private _startTime:number = 0;
 	
 	public constructor(){
+        super();
 	}
 	
 	/**

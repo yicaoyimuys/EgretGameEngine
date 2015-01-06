@@ -2,12 +2,13 @@
  * Created by yangsong on 2014/11/23.
  * 服务端返回消息处理
  */
-class MessageCenter{
+class MessageCenter extends BaseClass{
 	private dict:any;
 	private eVec:Array<MessageVo>;
 	private lastRunTime:number;
 	
 	public constructor(){
+        super();
 		this.dict = {};
 		this.eVec = new Array<MessageVo>();
         this.lastRunTime = 0;

@@ -11,96 +11,128 @@ class App{
      * Http请求
      * @type {Http}
      */
-    public static Http:Http;
+    public static get Http():Http{
+        return Http.getInstance();
+    }
     /**
      * Socket请求
      * @type {null}
      */
-    public static Socket:Socket;
+    public static get Socket():Socket{
+        return Socket.getInstance();
+    }
     /**
      * 模块管理类
      * @type {ControllerManager}
      */
-    public static ControllerManager:ControllerManager;
+    public static get ControllerManager():ControllerManager{
+        return ControllerManager.getInstance();
+    }
     /**
      * View管理类
      * @type {ViewManager}
      */
-    public static ViewManager:ViewManager;
+    public static get ViewManager():ViewManager{
+        return ViewManager.getInstance();
+    }
     /**
      * 场景管理类
      * @type {SceneManager}
      */
-    public static SceneManager:SceneManager;
+    public static get SceneManager():SceneManager{
+        return SceneManager.getInstance();
+    }
     /**
      * 调试工具
      * @type {DebugUtils}
      */
-    public static DebugUtils:DebugUtils;
+    public static get DebugUtils():DebugUtils{
+        return DebugUtils.getInstance();
+    }
     /**
      * 服务器返回的消息处理中心
      * @type {MessageCenter}
      */
-    public static MessageCenter:MessageCenter;
+    public static get MessageCenter():MessageCenter{
+        return MessageCenter.getInstance();
+    }
     /**
      * 统一的计时器和帧刷管理类
      * @type {TimerManager}
      */
-    public static TimerManager:TimerManager;
+    public static get TimerManager():TimerManager{
+        return TimerManager.getInstance();
+    }
     /**
      * 日期工具类
      * @type {DateUtils}
      */
-    public static DateUtils:DateUtils;
+    public static get DateUtils():DateUtils{
+        return DateUtils.getInstance();
+    }
     /**
      * 数学计算工具类
      * @type {MathUtils}
      */
-    public static MathUtils:MathUtils;
+    public static get MathUtils():MathUtils{
+        return MathUtils.getInstance();
+    }
     /**
      * 随机数工具类
      * @type {RandomUtils}
      */
-    public static RandomUtils:RandomUtils;
+    public static get RandomUtils():RandomUtils{
+        return RandomUtils.getInstance();
+    }
     /**
      * 显示对象工具类
      * @type {DisplayUtils}
      */
-    public static DisplayUtils:DisplayUtils;
+    public static get DisplayUtils():DisplayUtils{
+        return DisplayUtils.getInstance();
+    }
     /*
      * 图片合成数字工具类
      * */
-    public static BitmapNumber:BitmapNumber;
+    public static get BitmapNumber():BitmapNumber{
+        return BitmapNumber.getInstance();
+    }
     /**
      * 引导工具类
      */
-    public static GuideUtils:GuideUtils;
+    public static get GuideUtils():GuideUtils{
+        return GuideUtils.getInstance();
+    }
     /**
      * Stage操作相关工具类
      */
-    public static StageUtils:StageUtils;
+    public static get StageUtils():StageUtils{
+        return StageUtils.getInstance();
+    }
     /**
      * Effect工具类
      */
-    public static EffectUtils:EffectUtils;
+    public static get EffectUtils():EffectUtils{
+        return EffectUtils.getInstance();
+    }
     /**
      * 字符串工具类
      */
-    public static StringUtils:StringUtils;
+    public static get StringUtils():StringUtils{
+        return StringUtils.getInstance();
+    }
 
     /**
      * 初始化函数
      * @constructor
      */
     public static Init(stage:egret.Stage):void{
-        //初始化所有utils
-        App.initUtils();
         //开启调试
         App.DebugUtils.isOpen(true);
         //开启服务器返回的消息侦听
         App.TimerManager.doFrame(1, 0, App.MessageCenter.run, App.MessageCenter);
         //实例化Http请求
-        App.Http.initServer("http://www.baidu.com");;
+        App.Http.initServer("http://www.baidu.com");
         //实例化Socket请求
         App.Socket.initServer("192.0.0.1", "8001");
         //初始化所有场景
@@ -109,28 +141,5 @@ class App{
         App.SceneManager.add(SceneConsts.UI, new UIScene());
         //初始化所有模块
         App.ControllerManager.add(ControllerConst.LOGIN, new LoginController());
-    }
-
-    /**
-     * 初始化所有utils
-     */
-    private static initUtils():void {
-        App.StageUtils = new StageUtils();
-        App.Http = new Http();
-        App.BitmapNumber = new BitmapNumber();
-        App.Socket = new Socket();
-        App.ControllerManager = new ControllerManager();
-        App.DateUtils = new DateUtils();
-        App.DebugUtils = new DebugUtils();
-        App.DisplayUtils = new DisplayUtils();
-        App.MathUtils = new MathUtils();
-        App.MessageCenter = new MessageCenter();
-        App.RandomUtils = new RandomUtils();
-        App.SceneManager = new SceneManager();
-        App.TimerManager = new TimerManager();
-        App.ViewManager = new ViewManager();
-        App.GuideUtils = new GuideUtils();
-        App.EffectUtils = new EffectUtils();
-        App.StringUtils = new StringUtils();
     }
 }

@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/25.
  * Socket类
  */
-class Socket{
+class Socket extends BaseClass{
     private _needReconnect:boolean = true;
     private _maxReconnectCount = 3;
 
@@ -16,6 +16,7 @@ class Socket{
      * 构造函数
      */
     public constructor() {
+        super();
         this._msg = new Msg();
     }
 
