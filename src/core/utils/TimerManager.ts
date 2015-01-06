@@ -34,7 +34,7 @@ class TimerManager {
 			var handler:TimerHandler = this._handlers[i];
 			var t:number = handler.userFrame ? this._currFrame : this._currTime;
 			if (t >= handler.exeTime) {
-                handler.method.apply(handler.methodObj, this._currTime - handler.dealTime);
+                handler.method.call(handler.methodObj, this._currTime - handler.dealTime);
                 handler.dealTime = this._currTime;
                 handler.exeTime += handler.delay;
 				if(!handler.repeat){
