@@ -37,7 +37,7 @@ class ViewManager extends BaseClass{
 	public open(key:number, ...param:any[]):void{
 		var view:IBaseView = this._views[key];
 		if(view == null){
-            Log.trace("UI_Main"+key+"不存在");
+            Log.trace("UI_"+key+"不存在");
             return;
         }
 		
@@ -50,7 +50,7 @@ class ViewManager extends BaseClass{
             view.initUI();
             view.initData();
         }
-        view.open(param);
+        view.open.apply(view, param);
 
 		this._opens.push(key);
 	}
@@ -64,7 +64,7 @@ class ViewManager extends BaseClass{
 	public close(key:number, ...param:any[]):void{
         var view:IBaseView = this._views[key];
         if(view == null){
-            Log.trace("UI_Main"+key+"不存在");
+            Log.trace("UI_"+key+"不存在");
             return;
         }
 		
@@ -73,10 +73,25 @@ class ViewManager extends BaseClass{
         }
 
         view.removeFromParent();
-        view.close(param);
+        view.close.apply(view, param);
 
 		this._opens.splice(this._opens.indexOf(key), 1);
 	}
+
+    /**
+     * 关闭面板
+     * @param view
+     * @param param
+     */
+    public closeView(view:IBaseView, ...param:any[]):void{
+        var key:number = this.getViewKey(view);
+        var params = [];
+        params[0] = key;
+        for (var i = 1; i < arguments.length; i++) {
+            params[i] = arguments[i];
+        }
+        this.close.apply(this, params);
+    }
 	
 	/**
 	 * 开启或关闭面板 
@@ -101,4 +116,18 @@ class ViewManager extends BaseClass{
 	public isOpen(key:number):boolean{
 		return this._opens.indexOf(key) >= 0;
 	}
+
+    /**
+     * 获取一个View对应的Key值
+     * @param view
+     * @returns {*}
+     */
+    public getViewKey(view:IBaseView):number{
+        for(var k in this._views){
+            if(this._views[k] == view){
+                return parseInt(k);
+            }
+        }
+        return 0;
+    }
 }

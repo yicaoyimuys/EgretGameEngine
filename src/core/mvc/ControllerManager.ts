@@ -19,7 +19,7 @@ class ControllerManager extends BaseClass{
 	 * @param manager Manager
 	 * 
 	 */		
-	public add(key:number, control:BaseController):void{
+	public register(key:number, control:BaseController):void{
 		if(this.isExists(key))
 			return;
 
@@ -31,7 +31,7 @@ class ControllerManager extends BaseClass{
 	 * @param key 唯一标识
 	 * 
 	 */		
-	public remove(key:number):void{
+	public unregister(key:number):void{
 		if(!this.isExists(key))
 			return;
 
@@ -58,7 +58,11 @@ class ControllerManager extends BaseClass{
 	public applyFunc(moduleID:number, key:number, ...param:any[]):void{
 		var manager:BaseController = this._modules[moduleID];
 		if(manager){
-            manager.applyFunc(key, param);
+            var params = [];
+            for (var i = 1; i < arguments.length; i++) {
+                params[i - 1] = arguments[i];
+            }
+            manager.applyFunc.apply(manager, params);
         }else{
             Log.trace("模块"+moduleID+"不存在");
         }

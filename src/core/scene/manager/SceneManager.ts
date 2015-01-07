@@ -4,8 +4,8 @@
  */
 class SceneManager extends BaseClass{
     private _scenes:any;
-    private _stage:egret.Stage;
     private _currScene:number;
+    private _scenesStack:Array<number>;
 
     /**
      * 构造函数
@@ -13,14 +13,7 @@ class SceneManager extends BaseClass{
     public constructor(){
         super();
         this._scenes = {};
-    }
-
-    /**
-     * 初始化
-     * @param stage
-     */
-    public init(stage:egret.Stage):void{
-        this._stage = stage;
+        this._scenesStack = new Array<number>();
     }
 
     /**
@@ -28,7 +21,7 @@ class SceneManager extends BaseClass{
      * @param key Scene唯一标识
      * @param scene Scene对象
      */
-    public add(key:number, scene:IBaseScene):void{
+    public register(key:number, scene:BaseScene):void{
         this._scenes[key] = scene;
     }
 
@@ -36,21 +29,52 @@ class SceneManager extends BaseClass{
      * 切换场景
      * @param key 场景唯一标识
      */
-    public changeScene(key:number):void{
-        var nowScene:any = this._scenes[key];
+    public runScene(key:number):void{
+        var nowScene:BaseScene = this._scenes[key];
         if(nowScene == null){
             Log.trace("场景"+key+"不存在");
             return;
         }
 
-        var oldScene:any = this._scenes[this._currScene];
+        while(this._scenesStack.length){
+            var stackScene:BaseScene = this._scenes[this._scenesStack.pop()];
+            stackScene.onExit();
+        }
+
+        var oldScene:BaseScene = this._scenes[this._currScene];
         if(oldScene){
-            this._stage.removeChild(oldScene);
             oldScene.onExit();
         }
 
-        this._stage.addChild(nowScene);
         nowScene.onEnter();
         this._currScene = key;
+    }
+
+    /**
+     * 压入一个Scene
+     * @param key
+     */
+    public pushScene(key:number):void{
+        var nowScene:BaseScene = this._scenes[key];
+        if(nowScene == null){
+            Log.trace("场景"+key+"不存在");
+            return;
+        }
+
+        nowScene.onEnter();
+        this._scenesStack.push(key);
+    }
+
+    /**
+     * 回到上一个scene
+     */
+    public popScene():void{
+        if(this._scenesStack.length == 0){
+            return;
+        }
+
+        var key:number = this._scenesStack.pop();
+        var nowScene:BaseScene = this._scenes[key];
+        nowScene.onExit();
     }
 }

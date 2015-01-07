@@ -2,21 +2,12 @@
  * Created by yangsong on 2014/11/28.
  * 游戏场景
  */
-class GameScene extends BaseSpriteScene{
+class GameScene extends BaseScene{
     /**
      * 构造函数
      */
     public constructor(){
         super();
-        this.addLayer();
-    }
-
-    /**
-     * 添加容器层级
-     */
-    private addLayer():void{
-        this.addChild(LayerManager.Game_Bg);
-        this.addChild(LayerManager.Game_Main);
     }
 
     /**
@@ -24,6 +15,9 @@ class GameScene extends BaseSpriteScene{
      */
     public onEnter():void{
         super.onEnter();
+
+        this.addLayer(LayerManager.Game_Bg);
+        this.addLayer(LayerManager.Game_Main);
     }
 
     /**

@@ -126,7 +126,7 @@ class App{
      * 初始化函数
      * @constructor
      */
-    public static Init(stage:egret.Stage):void{
+    public static Init():void{
         //开启调试
         App.DebugUtils.isOpen(true);
         //开启服务器返回的消息侦听
@@ -135,11 +135,21 @@ class App{
         App.Http.initServer("http://www.baidu.com");
         //实例化Socket请求
         App.Socket.initServer("192.0.0.1", "8001");
+
         //初始化所有场景
-        App.SceneManager.init(stage);
-        App.SceneManager.add(SceneConsts.Game, new GameScene());
-        App.SceneManager.add(SceneConsts.UI, new UIScene());
+        App.SceneManager.register(SceneConsts.Game, new GameScene());
+        App.SceneManager.register(SceneConsts.UI, new UIScene());
+        App.SceneManager.register(SceneConsts.LOADING, new LoadingScene());
+
         //初始化所有模块
-        App.ControllerManager.add(ControllerConst.LOGIN, new LoginController());
+        App.ControllerManager.register(ControllerConst.Loading, new LoadingController());
+        App.ControllerManager.register(ControllerConst.Login, new LoginController());
+        App.ControllerManager.register(ControllerConst.Home, new HomeController());
+        App.ControllerManager.register(ControllerConst.Friend, new FriendController());
+        App.ControllerManager.register(ControllerConst.Shop, new ShopController());
+        App.ControllerManager.register(ControllerConst.Warehouse, new WarehouseController());
+        App.ControllerManager.register(ControllerConst.Factory, new FactoryController());
+        App.ControllerManager.register(ControllerConst.Task, new TaskController());
+        App.ControllerManager.register(ControllerConst.Mail, new MailController());
     }
 }

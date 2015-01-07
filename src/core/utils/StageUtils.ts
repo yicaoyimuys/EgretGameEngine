@@ -3,11 +3,19 @@
  * Stage相关工具类
  */
 class StageUtils extends BaseClass{
+    //UIStage单例
+    private static _uiStage:any;
+
     /**
      * 构造函数
      */
     public constructor(){
         super();
+
+        if(StageUtils._uiStage == null){
+            StageUtils._uiStage = new egret.gui.UIStage();
+            this.getStage().addChild(StageUtils._uiStage);
+        }
     }
 
     /**
@@ -56,5 +64,13 @@ class StageUtils extends BaseClass{
      */
     public getStage():egret.Stage{
         return egret.MainContext.instance.stage;
+    }
+
+    /**
+     * 获取唯一UIStage
+     * @returns {egret.gui.UIStage}
+     */
+    public getUIStage():any{
+        return StageUtils._uiStage;
     }
 }

@@ -14,7 +14,7 @@ class LoginController extends BaseController{
 
         //初始化UI
         this.loginView = new LoginView(this, LayerManager.UI_Main);
-        App.ViewManager.register(ViewConst.LOGIN, this.loginView);
+        App.ViewManager.register(ViewConst.Login, this.loginView);
 
         //初始化Proxy
         this.proxy = new LoginProxy(this);
@@ -46,7 +46,6 @@ class LoginController extends BaseController{
         //本模块UI处理
         this.loginView.loginSuccess();
         //UI跳转
-        App.ViewManager.close(ViewConst.LOGIN);
-        App.ViewManager.open(ViewConst.ROLE);
+        App.ViewManager.close(ViewConst.Login);
     }
 }

@@ -13,4 +13,10 @@ class SceneConsts{
      * @type {number}
      */
     public static UI:number = 2;
+
+    /**
+     * Loading场景
+     * @type {number}
+     */
+    public static LOADING:number = 3;
 }

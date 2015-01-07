@@ -17,6 +17,9 @@ class BaseGuiView extends egret.gui.SkinnableContainer implements IBaseView{
         this._controller = $controller;
         this._myParent = $parent;
         this._isInit = false;
+
+        this.percentHeight = 100;
+        this.percentWidth = 100;
     }
 
     /**

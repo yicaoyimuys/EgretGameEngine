@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2014/11/23.
  */
-class LoginView extends BaseSpriteView {
-    public constructor($controller:BaseController, $parent:egret.DisplayObjectContainer){
+class LoginView extends BaseGuiView {
+    public constructor($controller:BaseController, $parent:egret.gui.Group){
         super($controller, $parent);
     }
 

@@ -26,18 +26,71 @@
  */
 
 class Main extends egret.DisplayObjectContainer{
+
     public constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
     }
 
     private onAddToStage(event:egret.Event){
+        //注入自定义的素材解析器
+        egret.Injector.mapClass("egret.gui.IAssetAdapter",AssetAdapter);
+
         //初始化
-        App.Init(this.stage);
+        App.Init();
+
+        //设置加载进度界面
+        App.SceneManager.runScene(SceneConsts.LOADING);
+
+        //初始化Resource资源加载库
+        RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
+        RES.loadConfig("resource/resource.json", "resource/");
+    }
+
+    /**
+     * 配置文件加载完成,开始预加载preload资源组。
+     */
+    private onConfigComplete(event:RES.ResourceEvent):void{
+        RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
+        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
+        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
+        RES.loadGroup("preload");
+    }
+
+    /**
+     * preload资源组加载完成
+     */
+    private onResourceLoadComplete(event:RES.ResourceEvent):void {
+        if(event.groupName == "preload"){
+            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
+            RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
+            this.startGame();
+        }
+    }
+
+    /**
+     * preload资源组加载进度
+     */
+    private onResourceProgress(event:RES.ResourceEvent):void {
+        if(event.groupName == "preload"){
+            App.ControllerManager.applyFunc(ControllerConst.Loading, LoadingConst.SetProgress, event.itemsLoaded, event.itemsTotal);
+        }
+    }
+
+    /**
+     * 开始游戏
+     */
+    private startGame():void{
+        //添加一个纯色背景
+        var rect:egret.gui.Rect = new egret.gui.Rect();
+        rect.fillColor = 0x78b93f;
+        rect.percentHeight = 100;
+        rect.percentWidth = 100;
+        App.StageUtils.getUIStage().addElement(rect);
+
         //初始显示UI场景
-        App.SceneManager.changeScene(SceneConsts.UI);
-        //初始打开登陆页面
-        App.ViewManager.open(ViewConst.LOGIN);
+        App.SceneManager.runScene(SceneConsts.UI);
+
         //StarlingSwf使用
 //        StarlingSwfFactory.getInstance().addSwf("a", null, null);
 //        StarlingSwfFactory.getInstance().makeMc("b");
