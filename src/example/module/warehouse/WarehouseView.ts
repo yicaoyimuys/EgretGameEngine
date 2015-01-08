@@ -60,13 +60,11 @@ class WarehouseView extends BasePanelView {
         dp.addItem({title:"飞速化肥",price:"15",time:"-30分钟",icon:"icon_fertilizer04"});
 
         var tabbar:TabBarContainer = new TabBarContainer();
-        var dp:egret.gui.ArrayCollection = new egret.gui.ArrayCollection();
-        dp.addItem({title:"text_seed01",titleSelected:"text_seed02",content:taskList1});
-        dp.addItem({title:"text_fruit_01",titleSelected:"text_fruit_02",content:taskList2});
-        dp.addItem({title:"text_fruit_juice_01",titleSelected:"text_fruit_juice_02",content:taskList2});
-        tabbar.dataProvider = dp;
-        this.addElement(tabbar);
+        tabbar.addViewStackElement("text_seed01", "text_seed02", taskList1);
+        tabbar.addViewStackElement("text_fruit_01", "text_fruit_02", taskList2);
+        tabbar.addViewStackElement("text_fruit_juice_01", "text_fruit_juice_02", taskList2);
         tabbar.verticalCenter = 0;
         tabbar.horizontalCenter = 0;
+        this.addElement(tabbar);
     }
 }

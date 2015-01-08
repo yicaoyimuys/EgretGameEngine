@@ -91,6 +91,8 @@ class Main extends egret.DisplayObjectContainer{
         //初始显示UI场景
         App.SceneManager.runScene(SceneConsts.UI);
 
+        egret.__START_TIME
+
         //StarlingSwf使用
 //        StarlingSwfFactory.getInstance().addSwf("a", null, null);
 //        StarlingSwfFactory.getInstance().makeMc("b");
