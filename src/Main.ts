@@ -38,6 +38,8 @@ class Main extends egret.DisplayObjectContainer{
 
         //初始化
         App.Init();
+        this.initScene();
+        this.initModule();
 
         //设置加载进度界面
         App.SceneManager.runScene(SceneConsts.LOADING);
@@ -91,11 +93,33 @@ class Main extends egret.DisplayObjectContainer{
         //初始显示UI场景
         App.SceneManager.runScene(SceneConsts.UI);
 
-        egret.__START_TIME
-
         //StarlingSwf使用
 //        StarlingSwfFactory.getInstance().addSwf("a", null, null);
 //        StarlingSwfFactory.getInstance().makeMc("b");
+    }
+
+    /**
+     * 初始化所有场景
+     */
+    private initScene():void{
+        App.SceneManager.register(SceneConsts.Game, new GameScene());
+        App.SceneManager.register(SceneConsts.UI, new UIScene());
+        App.SceneManager.register(SceneConsts.LOADING, new LoadingScene());
+    }
+
+    /**
+     * 初始化所有模块
+     */
+    private initModule():void{
+        App.ControllerManager.register(ControllerConst.Loading, new LoadingController());
+        App.ControllerManager.register(ControllerConst.Login, new LoginController());
+        App.ControllerManager.register(ControllerConst.Home, new HomeController());
+        App.ControllerManager.register(ControllerConst.Friend, new FriendController());
+        App.ControllerManager.register(ControllerConst.Shop, new ShopController());
+        App.ControllerManager.register(ControllerConst.Warehouse, new WarehouseController());
+        App.ControllerManager.register(ControllerConst.Factory, new FactoryController());
+        App.ControllerManager.register(ControllerConst.Task, new TaskController());
+        App.ControllerManager.register(ControllerConst.Mail, new MailController());
     }
 }
 
