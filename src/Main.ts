@@ -37,7 +37,6 @@ class Main extends egret.DisplayObjectContainer{
         egret.Injector.mapClass("egret.gui.IAssetAdapter",AssetAdapter);
 
         //初始化
-        App.Init();
         this.initScene();
         this.initModule();
 
@@ -83,6 +82,8 @@ class Main extends egret.DisplayObjectContainer{
      * 开始游戏
      */
     private startGame():void{
+        App.Init();
+
         //添加一个纯色背景
         var rect:egret.gui.Rect = new egret.gui.Rect();
         rect.fillColor = 0x78b93f;

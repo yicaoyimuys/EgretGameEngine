@@ -8,6 +8,12 @@ class App{
      */
     public static ProxyUserFlag:string = "";
     /**
+     * 全局配置数据
+     * @type {null}
+     */
+    public static GlobalData:any = null;
+
+    /**
      * Http请求
      * @type {Http}
      */
@@ -127,13 +133,15 @@ class App{
      * @constructor
      */
     public static Init():void{
+        //全局配置数据
+        App.GlobalData = RES.getRes("global");
         //开启调试
-        App.DebugUtils.isOpen(true);
+        App.DebugUtils.isOpen(App.GlobalData.IsDebug);
+        //实例化Http请求
+        App.Http.initServer(App.GlobalData.HttpSerever);
+        //实例化Socket请求
+        App.Socket.initServer(App.GlobalData.SocketServer, App.GlobalData.SocketPort);
         //开启服务器返回的消息侦听
         App.TimerManager.doFrame(1, 0, App.MessageCenter.run, App.MessageCenter);
-        //实例化Http请求
-        App.Http.initServer("http://www.baidu.com");
-        //实例化Socket请求
-        App.Socket.initServer("192.0.0.1", "8001");
     }
 }
