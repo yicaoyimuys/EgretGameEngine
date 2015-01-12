@@ -127,6 +127,12 @@ class App{
     public static get StringUtils():StringUtils{
         return StringUtils.getInstance();
     }
+    /**
+     * 通过工具类
+     */
+    public static get CommonUtils():CommonUtils{
+        return CommonUtils.getInstance();
+    }
 
     /**
      * 初始化函数
