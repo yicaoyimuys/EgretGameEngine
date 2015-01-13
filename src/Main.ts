@@ -45,7 +45,7 @@ class Main extends egret.DisplayObjectContainer{
 
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
-        RES.loadConfig("resource/resource.json", "resource/");
+        RES.loadConfig("resource/resource.json", "resource/1/");
     }
 
     /**
