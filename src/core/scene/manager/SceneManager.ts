@@ -48,6 +48,9 @@ class SceneManager extends BaseClass{
 
         nowScene.onEnter();
         this._currScene = key;
+
+        //让Fps永远显示在最上层
+        App.DebugUtils.openFps();
     }
 
     /**
@@ -63,6 +66,9 @@ class SceneManager extends BaseClass{
 
         nowScene.onEnter();
         this._scenesStack.push(key);
+
+        //让Fps永远显示在最上层
+        App.DebugUtils.openFps();
     }
 
     /**

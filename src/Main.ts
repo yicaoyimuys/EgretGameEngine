@@ -83,6 +83,7 @@ class Main extends egret.DisplayObjectContainer{
      */
     private startGame():void{
         App.Init();
+        App.DebugUtils.setFpsColor(0x000000);
 
         //添加一个纯色背景
         var rect:egret.gui.Rect = new egret.gui.Rect();

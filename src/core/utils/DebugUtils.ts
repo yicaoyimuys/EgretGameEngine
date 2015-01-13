@@ -6,6 +6,7 @@ class DebugUtils extends BaseClass{
 	private _isOpen:boolean;
 	private _key:string;
 	private _startTime:number = 0;
+    private _fpsColor:number = 0xFFFFFF;
 	
 	public constructor(){
         super();
@@ -64,6 +65,30 @@ class DebugUtils extends BaseClass{
         if(!this._isOpen){
             return;
         }
-        egret.Profiler.getInstance().run();
+
+        var txt:egret.TextField = egret.Profiler.getInstance()["_txt"];
+        if(!txt){
+            egret.Profiler.getInstance().run();
+            txt = egret.Profiler.getInstance()["_txt"];
+            txt.textColor = this._fpsColor;
+        }
+        App.StageUtils.getStage().addChild(txt);
 	}
+
+    /**
+     * 设置Fps颜色值
+     * @param color
+     */
+    public setFpsColor(color:number):void{
+        if(!this._isOpen){
+            return;
+        }
+
+        this._fpsColor = color;
+
+        var txt:egret.TextField = egret.Profiler.getInstance()["_txt"];
+        if(txt){
+            txt.textColor = this._fpsColor;
+        }
+    }
 }
