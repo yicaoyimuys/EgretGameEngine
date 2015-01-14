@@ -133,6 +133,12 @@ class App{
     public static get CommonUtils():CommonUtils{
         return CommonUtils.getInstance();
     }
+    /**
+     * 音乐管理类
+     */
+    public static get SoundManager():SoundManager{
+        return SoundManager.getInstance();
+    }
 
     /**
      * 初始化函数
