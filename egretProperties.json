@@ -6,6 +6,9 @@
         },
         {
             "name": "gui"
+        },
+        {
+            "name": "dragonBones"
         }
     ],
     "native": {
