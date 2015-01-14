@@ -107,6 +107,7 @@ class Main extends egret.DisplayObjectContainer{
         App.SceneManager.register(SceneConsts.Game, new GameScene());
         App.SceneManager.register(SceneConsts.UI, new UIScene());
         App.SceneManager.register(SceneConsts.LOADING, new LoadingScene());
+        DragonBonesFactory.getInstance();
     }
 
     /**
