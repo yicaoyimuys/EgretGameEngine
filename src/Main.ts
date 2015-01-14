@@ -96,8 +96,8 @@ class Main extends egret.DisplayObjectContainer{
         App.SceneManager.runScene(SceneConsts.UI);
 
         //StarlingSwf使用
-//        StarlingSwfFactory.getInstance().addSwf("a", null, null);
-//        StarlingSwfFactory.getInstance().makeMc("b");
+//        StarlingSwfFactory.getInstance().addSwf("bossMC", RES.getRes("bossMC_swf_json"), RES.getRes("bossMC_json"));
+//        var mc:StarlingSwfMovieClip = StarlingSwfFactory.getInstance().makeMc("boss_whiteBear");
     }
 
     /**
