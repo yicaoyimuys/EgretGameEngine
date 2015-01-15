@@ -22,6 +22,8 @@ class SoundManager extends BaseClass{
         super();
         this.bg = new SoundBg();
         this.effect = new SoundEffects();
+        this.bgOn = true;
+        this.effectOn = true;
     }
 
     /**

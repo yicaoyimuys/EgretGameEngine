@@ -24,6 +24,9 @@ class UIScene extends BaseScene{
 
         //初始打开Home页面
         App.ViewManager.open(ViewConst.Home);
+
+        //播放背景音乐
+        App.SoundManager.playBg("sound_bg");
     }
 
     /**

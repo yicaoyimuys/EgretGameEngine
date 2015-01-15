@@ -49,11 +49,7 @@ class BaseSound{
             }
 
             this._loadingCache.push(key);
-            RES.createGroup(key, [key], true);
-            if(this._loadingCache.length == 1){
-                RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-            }
-            RES.loadGroup(key);
+            RES.getResAsync(key, this.onResourceLoadComplete, this);
         }
         return sound;
     }
@@ -62,14 +58,10 @@ class BaseSound{
      * 资源加载完成
      * @param event
      */
-    private onResourceLoadComplete(event:RES.ResourceEvent):void {
-        var key:string = event.groupName;
+    private onResourceLoadComplete(data:any, key:string):void {
         var index:number = this._loadingCache.indexOf(key);
         if(index != -1){
             this._loadingCache.splice(index, 1);
-            if(this._loadingCache.length == 0){
-                RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-            }
             this._cache[key] = egret.getTimer();
             this.loadedPlay(key);
         }
