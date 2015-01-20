@@ -51,18 +51,12 @@ class Hero extends BaseMoveGameObject{
                 enemy.hart();
             }
         }
-        if(attackObjs.length){
-            if(frameLabel == "attack1"){
-                App.SoundManager.playEffect("sound_jida1");
-            }else{
-                App.SoundManager.playEffect("sound_jida");
-            }
-        }
     }
 
     public attack():void{
         this.gotoAttack();
         this.armature.play(Hero["ACTION_Attack" + this.attackIndex], 1);
+        App.SoundManager.playEffect("sound_heroAttack");
     }
 
     private nextAttack():void{
@@ -87,6 +81,8 @@ class Hero extends BaseMoveGameObject{
 //            this.addChild(this.skill4Armature);
 //            this.currSkillArmature = this.skill4Armature;
 //        }
+
+        App.SoundManager.playEffect("sound_heroSkill");
     }
 
     private removeSkillArmature():void{

@@ -50,8 +50,6 @@ class GameUIView extends egret.DisplayObjectContainer{
         this.addChild(this.moveFlag);
 
         this.touchEnabled = true;
-        this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.startHeroMove, this);
-        this.addEventListener(egret.TouchEvent.TOUCH_END, this.stopHeroMove, this);
         this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.heroMove, this);
     }
 

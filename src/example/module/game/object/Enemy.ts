@@ -40,6 +40,12 @@ class Enemy extends BaseAIGameObject{
     public gotoAttack():void{
         super.gotoAttack();
         this.armature.play(Enemy.ACTION_Attack, 1);
+        App.SoundManager.playEffect("sound_enemyAttack");
+    }
+
+    public gotoLand():void{
+        super.gotoLand();
+        App.SoundManager.playEffect("sound_enenyLand");
     }
 
     private onAttack():boolean{

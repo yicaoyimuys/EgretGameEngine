@@ -57,7 +57,7 @@ class GameView extends BaseSpriteView{
         this.gameUI = new GameUIView(this.hero);
         this.addChild(this.gameUI);
 
-        if(egret.MainContext.deviceType != egret.MainContext.DEVICE_MOBILE){
+        if(!App.DeviceUtils.IsMobile){
             this.touchEnabled = true;
             this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick, this);
         }

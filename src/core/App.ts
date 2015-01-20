@@ -139,6 +139,12 @@ class App{
     public static get SoundManager():SoundManager{
         return SoundManager.getInstance();
     }
+    /**
+     * 设备工具类
+     */
+    public static get DeviceUtils():DeviceUtils{
+        return DeviceUtils.getInstance();
+    }
 
     /**
      * 初始化函数
