@@ -30,7 +30,7 @@ class SoundBg extends BaseSound{
      * 播放某个音乐
      * @param effectName
      */
-    public play(effectName:string, volume:number = 0.5):void{
+    public play(effectName:string, volume:number):void{
         this._volume = volume;
         if(this._currBg == effectName)
             return;

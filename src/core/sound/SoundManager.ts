@@ -41,12 +41,12 @@ class SoundManager extends BaseClass{
      * 播放背景音乐
      * @param key
      */
-    public playBg(bgName:string):void{
+    public playBg(bgName:string, volume:number = 0.5):void{
         this.currBg = bgName;
         if(!this.bgOn)
             return;
 
-        this.bg.play(bgName);
+        this.bg.play(bgName, volume);
     }
 
     /**

@@ -63,7 +63,7 @@ class GameView extends BaseSpriteView{
         }
 
         App.TimerManager.doTimer(3, 0, this.sortGameObjs, this);
-        App.SoundManager.playBg("sound_bg");
+        App.SoundManager.playBg("sound_bg", 0.3);
     }
 
     /**
