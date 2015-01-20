@@ -320,7 +320,7 @@
         {
             "name":"sound_enemyAttack",
             "type":"sound",
-            "url":"sound/enemyAttack.wav"
+            "url":"sound/enemyAttack.mp3"
         },
         {
             "name":"sound_enenyLand",
@@ -335,7 +335,7 @@
         {
             "name":"sound_heroSkill",
             "type":"sound",
-            "url":"sound/heroSkill.wav"
+            "url":"sound/heroSkill.mp3"
         },
         {
             "name":"sound_dianji",
