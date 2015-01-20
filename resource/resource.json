@@ -5,7 +5,7 @@
             "name":"preload"
         },
         {
-            "keys":"global,sound_jida,sound_bg,map_jpg,losehp_png,ui_btnAttack_png,ui_btnAttack1_png,ui_btnSkill_png,ui_btnSkill1_png,ui_move_png,ui_moveBg_png,zhujue_skeleton_json, zhujue_texture_png, zhujue_texture_json, enemy_skeleton_json,enemy_texture_png,enemy_texture_json",
+            "keys":"global,sound_enemyAttack,sound_enenyLand,sound_heroAttack,sound_heroSkill,sound_bg,map_jpg,losehp_png,ui_btnAttack_png,ui_btnAttack1_png,ui_btnSkill_png,ui_btnSkill1_png,ui_move_png,ui_moveBg_png,zhujue_skeleton_json, zhujue_texture_png, zhujue_texture_json, enemy_skeleton_json,enemy_texture_png,enemy_texture_json",
             "name":"battleRes"
         }
     ],
@@ -318,14 +318,24 @@
             "url":"sound/bg.mp3"
         },
         {
-            "name":"sound_jida",
+            "name":"sound_enemyAttack",
             "type":"sound",
-            "url":"sound/jida.wav"
+            "url":"sound/enemyAttack.wav"
         },
         {
-            "name":"sound_jida1",
+            "name":"sound_enenyLand",
             "type":"sound",
-            "url":"sound/jida1.wav"
+            "url":"sound/enenyLand.wav"
+        },
+        {
+            "name":"sound_heroAttack",
+            "type":"sound",
+            "url":"sound/heroAttack.wav"
+        },
+        {
+            "name":"sound_heroSkill",
+            "type":"sound",
+            "url":"sound/heroSkill.wav"
         },
         {
             "name":"sound_dianji",
