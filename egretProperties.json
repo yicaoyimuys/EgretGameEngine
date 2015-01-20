@@ -1,20 +1,18 @@
 {
-    "document_class": "Main",
-    "modules": [
-        {
-            "name": "core"
-        },
-        {
-            "name": "gui"
-        },
-        {
-            "name": "dragonBones"
-        }
-    ],
-    "native": {
-        "path_ignore": [
-
-        ]
-    },
-    "egret_version":"1.5.1"
+	"document_class": "Main",
+	"modules": [
+		{
+			"name": "core"
+		},
+		{
+			"name": "gui"
+		},
+		{
+			"name": "dragonBones"
+		}
+	],
+	"native": {
+		"path_ignore": []
+	},
+	"egret_version": "1.5.2"
 }
