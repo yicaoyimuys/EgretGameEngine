@@ -7,9 +7,10 @@ class Log{
      * @param messsage 内容
      * @constructor
      */
-    public static trace(message?: any, ...optionalParams: any[]):void{
+    public static trace(...optionalParams: any[]):void{
         if(App.DebugUtils.isDebug){
-            console.log("[DebugLog]" + message, optionalParams);
+            optionalParams[0] = "[DebugLog]" + optionalParams[0];
+            console.log.apply(console, optionalParams);
         }
     }
 }

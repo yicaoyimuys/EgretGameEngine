@@ -31,12 +31,13 @@ class BaseController{
 	 * @param param 所需参数
 	 * 
 	 */		
-	public applyFunc(key:any, ...param:any[]):void{
+	public applyFunc(key:any, ...param:any[]):any{
         var listen:any = this._messages[key];
 		if(listen){
-            listen[0].apply(listen[1], param);
+            return listen[0].apply(listen[1], param);
 		}else{
             Log.trace("消息"+key+"不存在侦听");
+            return null;
         }
 	}
 
@@ -47,7 +48,7 @@ class BaseController{
      * @param param 所需参数
      *
      */
-    public applyControllerFunc(controllerKey:number, key:any, ...param:any[]):void{
-        App.ControllerManager.applyFunc(controllerKey, key, param);
+    public applyControllerFunc(controllerKey:number, key:any, ...param:any[]):any{
+        return App.ControllerManager.applyFunc(controllerKey, key, param);
     }
 }

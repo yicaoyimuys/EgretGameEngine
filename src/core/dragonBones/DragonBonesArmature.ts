@@ -60,7 +60,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
     private completeHandler(e:dragonBones.AnimationEvent):void {
         for (var i:number=0, len=this._completeCalls.length; i < len; i++) {
             var arr:Array<any> = this._completeCalls[i];
-            arr[0].apply(arr[1], e.animationName);
+            arr[0].apply(arr[1], [e.animationName]);
         }
     }
 
@@ -80,14 +80,19 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * @param name 名称
      * @param playNum 播放次数，0:为循环播放
      */
-    public play(name:string, playNum:number = 0) {
+    public play(name:string, playNum:number = 0):dragonBones.AnimationState {
+        if(this._playName == name){
+            return;
+        }
         this._playName = name;
-        this.getAnimation().gotoAndPlay(name, undefined, undefined, playNum);
+        var state:dragonBones.AnimationState = this.getAnimation().gotoAndPlay(name, undefined, undefined, playNum);
         if(!this._isPlay){
             this._clock.add(this._armature);
             this._isPlay = true;
             this.addListeners();
         }
+        state.autoTween = false;
+        return state;
     }
 
     /**

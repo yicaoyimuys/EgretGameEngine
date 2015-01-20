@@ -16,8 +16,11 @@ class GameScene extends BaseScene{
     public onEnter():void{
         super.onEnter();
 
-        this.addLayer(LayerManager.Game_Bg);
-        this.addLayer(LayerManager.Game_Main);
+        this.addLayerAt(LayerManager.Game_Main, 0);
+
+        App.ViewManager.open(ViewConst.Game);
+
+        egret.RenderFilter.getInstance().addDrawArea(new egret.Rectangle(0, 0, App.StageUtils.getWidth(), App.StageUtils.getHeight()));
     }
 
     /**

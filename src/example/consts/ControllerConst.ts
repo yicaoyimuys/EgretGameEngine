@@ -11,4 +11,5 @@ class ControllerConst{
     public static Factory:number = 10006;
     public static Task:number = 10007;
     public static Mail:number = 10009;
+    public static Game:number = 20000;
 }

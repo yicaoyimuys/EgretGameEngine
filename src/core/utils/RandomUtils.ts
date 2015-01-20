@@ -16,6 +16,16 @@ class RandomUtils extends BaseClass{
     }
 
     /**
+     * 获取一个区间的随机数(帧数)
+     * @param $from 最小值
+     * @param $end 最大值
+     * @returns {number}
+     */
+    public limitInteger($from:number, $end:number):number{
+        return Math.floor(this.limit($from, $end));
+    }
+
+    /**
      * 在一个数组中随机获取一个元素
      * @param arr 数组
      * @returns {any} 随机出来的结果

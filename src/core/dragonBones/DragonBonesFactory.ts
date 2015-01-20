@@ -42,11 +42,15 @@ class DragonBonesFactory{
 
     /**
      * 创建一个动画
-     * @param name
+     * @param name 动作名称
+     * @param fromDragonBonesDataName 动画文件名称
      * @returns {Armature}
      */
-    public makeArmature(name:string):DragonBonesArmature{
-        var armature:dragonBones.Armature = this.factory.buildArmature(name);
+    public makeArmature(name:string, fromDragonBonesDataName?:string):DragonBonesArmature{
+        var armature:dragonBones.Armature = this.factory.buildArmature(name, fromDragonBonesDataName);
+        if(armature == null){
+            Log.trace("不存在Armature： "+name);
+        }
         var result:DragonBonesArmature = new DragonBonesArmature(armature, dragonBones.WorldClock.clock);
         return result;
     }

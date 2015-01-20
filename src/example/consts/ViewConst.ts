@@ -12,4 +12,6 @@ class ViewConst{
     public static Task:number = 10007;
     public static Daily:number = 10008;
     public static Mail:number = 10009;
+
+    public static Game:number = 20000;
 }

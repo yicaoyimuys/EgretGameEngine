@@ -34,8 +34,8 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
 	 * @param param 参数
 	 * 
 	 */		
-	public applyFunc(key:any, ...param:any[]):void{
-		this._controller.applyFunc(key, param);
+	public applyFunc(key:any, ...param:any[]):any{
+		return this._controller.applyFunc(key, param);
 	}
 
     /**
@@ -45,8 +45,8 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      * @param param 所需参数
      *
      */
-    public applyControllerFunc(controllerKey:number, key:any, ...param:any[]):void{
-        this._controller.applyControllerFunc(controllerKey, key, param);
+    public applyControllerFunc(controllerKey:number, key:any, ...param:any[]):any{
+        return this._controller.applyControllerFunc(controllerKey, key, param);
     }
 	
 	/**

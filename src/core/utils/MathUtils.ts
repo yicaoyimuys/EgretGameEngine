@@ -19,4 +19,33 @@ class MathUtils extends BaseClass{
     public getRadian(angle:number):number{
         return Math.PI = angle / 180 * Math.PI;
     }
+
+    /**
+     * 获取两点间弧度
+     * @param p1X
+     * @param p1Y
+     * @param p2X
+     * @param p2Y
+     * @returns {number}
+     */
+    public getRadian2(p1X:number, p1Y:number, p2X:number, p2Y:number):number{
+        var xdis:number = p2X - p1X;
+        var ydis:number = p2Y - p1Y;
+        return Math.atan2(ydis, xdis);
+    }
+
+    /**
+     * 获取两点间距离
+     * @param p1X
+     * @param p1Y
+     * @param p2X
+     * @param p2Y
+     * @returns {number}
+     */
+    public getDistance(p1X:number, p1Y:number, p2X:number, p2Y:number):number{
+        var disX:number = p2X - p1X;
+        var disY:number = p2Y - p1Y;
+        var disQ:number = disX * disX + disY * disY;
+        return Math.sqrt(disQ);
+    }
 }

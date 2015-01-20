@@ -26,6 +26,7 @@
  */
 
 class Main extends egret.DisplayObjectContainer{
+    private joinUI:boolean = false;
 
     public constructor() {
         super();
@@ -55,14 +56,18 @@ class Main extends egret.DisplayObjectContainer{
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
-        RES.loadGroup("preload");
+        if(this.joinUI){
+            RES.loadGroup("preload");
+        }else{
+            RES.loadGroup("battleRes");
+        }
     }
 
     /**
      * preload资源组加载完成
      */
     private onResourceLoadComplete(event:RES.ResourceEvent):void {
-        if(event.groupName == "preload"){
+        if(event.groupName == "preload" || event.groupName == "battleRes"){
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
             this.startGame();
@@ -73,7 +78,7 @@ class Main extends egret.DisplayObjectContainer{
      * preload资源组加载进度
      */
     private onResourceProgress(event:RES.ResourceEvent):void {
-        if(event.groupName == "preload"){
+        if(event.groupName == "preload" || event.groupName == "battleRes"){
             App.ControllerManager.applyFunc(ControllerConst.Loading, LoadingConst.SetProgress, event.itemsLoaded, event.itemsTotal);
         }
     }
@@ -83,17 +88,27 @@ class Main extends egret.DisplayObjectContainer{
      */
     private startGame():void{
         App.Init();
-        App.DebugUtils.setFpsColor(0x000000);
 
-        //添加一个纯色背景
-        var rect:egret.gui.Rect = new egret.gui.Rect();
-        rect.fillColor = 0x78b93f;
-        rect.percentHeight = 100;
-        rect.percentWidth = 100;
-        App.StageUtils.getUIStage().addElement(rect);
+        //初始显示场景
+        if(this.joinUI){
+            App.DebugUtils.setFpsColor(0x000000);
+            //添加一个纯色背景
+            var rect:egret.gui.Rect = new egret.gui.Rect();
+            rect.fillColor = 0x78b93f;
+            rect.percentHeight = 100;
+            rect.percentWidth = 100;
+            App.StageUtils.getUIStage().addElement(rect);
 
-        //初始显示UI场景
-        App.SceneManager.runScene(SceneConsts.UI);
+            App.SceneManager.runScene(SceneConsts.UI);
+        }else{
+            App.DebugUtils.setFpsColor(0xFFFFFF);
+
+            var arr:Array<string> = ["zhujue", "enemy"];
+            for(var i:number=0, len:number=arr.length; i<len; i++){
+                DragonBonesFactory.getInstance().initArmatureFile(RES.getRes(arr[i]+"_skeleton_json"), RES.getRes(arr[i]+"_texture_png"), RES.getRes(arr[i]+"_texture_json"));
+            }
+            App.SceneManager.runScene(SceneConsts.Game);
+        }
 
         //StarlingSwf使用
 //        StarlingSwfFactory.getInstance().addSwf("bossMC", RES.getRes("bossMC_swf_json"), RES.getRes("bossMC_json"));
@@ -123,6 +138,8 @@ class Main extends egret.DisplayObjectContainer{
         App.ControllerManager.register(ControllerConst.Factory, new FactoryController());
         App.ControllerManager.register(ControllerConst.Task, new TaskController());
         App.ControllerManager.register(ControllerConst.Mail, new MailController());
+
+        App.ControllerManager.register(ControllerConst.Game, new GameController());
     }
 }
 

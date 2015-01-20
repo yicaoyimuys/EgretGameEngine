@@ -14,7 +14,7 @@ class ControllerManager extends BaseClass{
 	}
 	
 	/**
-	 * 动态添加的Manager 
+	 * 动态添加的Controller
 	 * @param key 唯一标识
 	 * @param manager Manager
 	 * 
@@ -27,7 +27,7 @@ class ControllerManager extends BaseClass{
 	}
 	
 	/**
-	 * 动态移除Manager 
+	 * 动态移除Controller
 	 * @param key 唯一标识
 	 * 
 	 */		
@@ -40,7 +40,7 @@ class ControllerManager extends BaseClass{
 	}
 	
 	/**
-	 * 是否已经存在Manager
+	 * 是否已经存在Controller
 	 * @param key 唯一标识
 	 * @return Boolean
 	 * 
@@ -51,21 +51,21 @@ class ControllerManager extends BaseClass{
 	
 	/**
 	 * 跨模块消息传递 
-	 * @param moduleID
-	 * @param key
+	 * @param controllerD Controller唯一标识
+	 * @param key 消息唯一标识
 	 * 
 	 */		
-	public applyFunc(moduleID:number, key:number, ...param:any[]):void{
-		var manager:BaseController = this._modules[moduleID];
+	public applyFunc(controllerD:number, key:number, ...param:any[]):any{
+		var manager:BaseController = this._modules[controllerD];
 		if(manager){
             var params = [];
             for (var i = 1; i < arguments.length; i++) {
                 params[i - 1] = arguments[i];
             }
-            manager.applyFunc.apply(manager, params);
+            return manager.applyFunc.apply(manager, params);
         }else{
-            Log.trace("模块"+moduleID+"不存在");
+            Log.trace("模块"+controllerD+"不存在");
+            return null;
         }
 	}
-	
 }
