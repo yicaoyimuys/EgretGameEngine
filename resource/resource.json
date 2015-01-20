@@ -1,10 +1,36 @@
 {
 	"groups":[
-	{
-		"keys":"btn_wrong,table_activity,table_bg,table_box_down,table_box_down_2,table_box_middle,table_box_up,table_cloud_top,table_cloud_bottom,btn_shrink_bg,btn_shrink,menu_bg,btn_mail,btn_mission,btn_activity,table_task,table_mail,task_bg,icon_diamond,icon_experience,icon_fertilization,icon_gold,icon_friend,icon_more,icon_shop,icon_warehouse,icon_factory,icon_name,icon_head,icon_line,icon_LV,icon_badge,table_shop,table_tittle,table_warehouse,icon_factory_tittle,tabBar_selected_down,text_fertilizer01,text_fertilizer02,text_seed01,text_seed02,tabBar_down,sto_table_tittle,card_bg,icon_fertilizer02,icon_fertilizer03,icon_fertilizer04,icon_fertilizer05,icon_02,bbs,text_fruit_01,text_fruit_02,text_fruit_juice_01,text_fruit_juice_02,icon_sale,global",
-		"name":"preload"
-	}],
+        {
+            "keys":"global,btn_wrong,table_activity,table_bg,table_box_down,table_box_down_2,table_box_middle,table_box_up,table_cloud_top,table_cloud_bottom,btn_shrink_bg,btn_shrink,menu_bg,btn_mail,btn_mission,btn_activity,table_task,table_mail,task_bg,icon_diamond,icon_experience,icon_fertilization,icon_gold,icon_friend,icon_more,icon_shop,icon_warehouse,icon_factory,icon_name,icon_head,icon_line,icon_LV,icon_badge,table_shop,table_tittle,table_warehouse,icon_factory_tittle,tabBar_selected_down,text_fertilizer01,text_fertilizer02,text_seed01,text_seed02,tabBar_down,sto_table_tittle,card_bg,icon_fertilizer02,icon_fertilizer03,icon_fertilizer04,icon_fertilizer05,icon_02,bbs,text_fruit_01,text_fruit_02,text_fruit_juice_01,text_fruit_juice_02,icon_sale",
+            "name":"preload"
+        },
+        {
+            "keys":"global,sound_jida,sound_bg,map_jpg,losehp_png,ui_btnAttack_png,ui_btnAttack1_png,ui_btnSkill_png,ui_btnSkill1_png,ui_move_png,ui_moveBg_png,zhujue_skeleton_json, zhujue_texture_png, zhujue_texture_json, enemy_skeleton_json,enemy_texture_png,enemy_texture_json",
+            "name":"battleRes"
+        }
+    ],
 	"resources":[
+        {"name":"zhujue_skeleton_json","type":"json","url":"assets/animation/zhujue/skeleton.json"},
+        {"name":"zhujue_texture_png","type":"image","url":"assets/animation/zhujue/texture.png"},
+        {"name":"zhujue_texture_json","type":"json","url":"assets/animation/zhujue/texture.json"},
+
+        {"name":"enemy_skeleton_json","type":"json","url":"assets/animation/enemy/skeleton.json"},
+        {"name":"enemy_texture_png","type":"image","url":"assets/animation/enemy/texture.png"},
+        {"name":"enemy_texture_json","type":"json","url":"assets/animation/enemy/texture.json"},
+
+        {"name":"skill4_skeleton_json","type":"json","url":"assets/animation/skill4/skeleton.json"},
+        {"name":"skill4_texture_png","type":"image","url":"assets/animation/skill4/texture.png"},
+        {"name":"skill4_texture_json","type":"json","url":"assets/animation/skill4/texture.json"},
+
+        {"name":"map_jpg","type":"image","url":"assets/bg/map.jpg"},
+        {"name":"ui_btnAttack_png","type":"image","url":"assets/ui/btnAttack.png"},
+        {"name":"ui_btnAttack1_png","type":"image","url":"assets/ui/btnAttack1.png"},
+        {"name":"ui_btnSkill_png","type":"image","url":"assets/ui/btnSkill.png"},
+        {"name":"ui_btnSkill1_png","type":"image","url":"assets/ui/btnSkill1.png"},
+        {"name":"ui_move_png","type":"image","url":"assets/ui/move.png"},
+        {"name":"ui_moveBg_png","type":"image","url":"assets/ui/moveBg.png"},
+        {"name":"losehp_png","type":"image","url":"assets/ui/-10.png"},
+
         {
             "name":"btn_wrong",
             "type":"image",
@@ -290,6 +316,16 @@
             "name":"sound_bg",
             "type":"sound",
             "url":"sound/bg.mp3"
+        },
+        {
+            "name":"sound_jida",
+            "type":"sound",
+            "url":"sound/jida.wav"
+        },
+        {
+            "name":"sound_jida1",
+            "type":"sound",
+            "url":"sound/jida1.wav"
         },
         {
             "name":"sound_dianji",
