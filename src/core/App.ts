@@ -145,6 +145,12 @@ class App{
     public static get DeviceUtils():DeviceUtils{
         return DeviceUtils.getInstance();
     }
+    /**
+     * 引擎扩展类
+     */
+    public static get EgretExpandUtils():EgretExpandUtils{
+        return EgretExpandUtils.getInstance();
+    }
 
     /**
      * 初始化函数
@@ -155,6 +161,8 @@ class App{
         App.GlobalData = RES.getRes("global");
         //开启调试
         App.DebugUtils.isOpen(App.GlobalData.IsDebug);
+        //扩展功能初始化
+        App.EgretExpandUtils.init();
         //实例化Http请求
         App.Http.initServer(App.GlobalData.HttpSerever);
         //实例化Socket请求
