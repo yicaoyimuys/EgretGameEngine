@@ -5,11 +5,15 @@
             "name":"preload"
         },
         {
-            "keys":"global,sound_enemyAttack,sound_enenyLand,sound_heroAttack,sound_heroSkill,sound_bg,map_jpg,losehp_png,ui_btnAttack_png,ui_btnAttack1_png,ui_btnSkill_png,ui_btnSkill1_png,ui_move_png,ui_moveBg_png,zhujue_skeleton_json, zhujue_texture_png, zhujue_texture_json, enemy_skeleton_json,enemy_texture_png,enemy_texture_json",
+            "keys":"global,attack_json,sound_enemyAttack,sound_enenyLand,sound_heroAttack,sound_heroSkill,sound_bg,map_jpg,losehp_png,ui_btnAttack_png,ui_btnAttack1_png,ui_btnSkill_png,ui_btnSkill1_png,ui_move_png,ui_moveBg_png,zhujue_skeleton_json, zhujue_texture_png, zhujue_texture_json, enemy_skeleton_json,enemy_texture_png,enemy_texture_json",
             "name":"battleRes"
         }
     ],
 	"resources":[
+
+        {"name":"global", "type":"json", "url":"config/global.json"},
+        {"name":"attack_json", "type":"json", "url":"config/attack.json"},
+
         {"name":"zhujue_skeleton_json","type":"json","url":"assets/animation/zhujue/skeleton.json"},
         {"name":"zhujue_texture_png","type":"image","url":"assets/animation/zhujue/texture.png"},
         {"name":"zhujue_texture_json","type":"json","url":"assets/animation/zhujue/texture.json"},
@@ -306,11 +310,6 @@
             "name":"icon_sale",
             "type":"image",
             "url":"assets/example/icon_sale.png"
-        },
-        {
-            "name":"global",
-            "type":"json",
-            "url":"config/global.json"
         },
         {
             "name":"sound_bg",
