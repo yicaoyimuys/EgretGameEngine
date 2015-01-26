@@ -7,6 +7,7 @@ class Hero extends BaseMoveGameObject{
     private static ACTION_Attack0:string = "gongji1";
     private static ACTION_Skill1:string = "jineng1";
 
+    private attackConfig:any;
     private attackIndex:number = 0;
     private currSkillArmature:DragonBonesArmature;
 
@@ -14,6 +15,8 @@ class Hero extends BaseMoveGameObject{
 
     public constructor($controller:BaseController){
         super("zhujue1", $controller);
+
+        this.attackConfig = RES.getRes("attack_json");
 
         this.armature.addCompleteCallFunc(this.armaturePlayEnd, this);
         this.armature.addFrameCallFunc(this.armaturePlaying, this);
@@ -34,21 +37,21 @@ class Hero extends BaseMoveGameObject{
     }
 
     private armaturePlaying(bone:any, frameLabel:string):void{
-        var attackObjs:Array<BaseGameObject> = this.gameController.getMyAttackObjects(this, 200);
+        var attDis:Array<number> = this.attackConfig[frameLabel].dis;
+        var attackObjs:Array<BaseGameObject> = this.gameController.getMyAttackObjects(this, attDis);
         for(var i:number=0, len=attackObjs.length; i<len; i++){
             var enemy:Enemy = <Enemy>attackObjs[i];
-            enemy.scaleX = -this.scaleX;
             if(frameLabel == "attack1"){
                 if(Math.random() > 0.5)
-                    enemy.fly(enemy.x > this.x ? 1 : -1);
+                    enemy.fly(this);
                 else
-                    enemy.hart();
+                    enemy.hart(this);
             }
             else if(frameLabel == "skill1_fly"){
-                enemy.fly(enemy.x > this.x ? 1 : -1);
+                enemy.fly(this);
             }
             else if(frameLabel == "skill1"){
-                enemy.hart();
+                enemy.hart(this);
             }
         }
     }

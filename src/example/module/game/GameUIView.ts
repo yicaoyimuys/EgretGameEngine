@@ -49,8 +49,80 @@ class GameUIView extends egret.DisplayObjectContainer{
         this.moveFlag.addEventListener(egret.TouchEvent.TOUCH_TAP, this.stopEvent, this);
         this.addChild(this.moveFlag);
 
-        this.touchEnabled = true;
-        this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.heroMove, this);
+        if(App.DeviceUtils.IsHtml5){
+            this.touchEnabled = true;
+            this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.heroMove, this);
+
+            App.KeyboardUtils.addKeyDown(this.onKeyDown, this);
+            App.KeyboardUtils.addKeyUp(this.onKeyUp, this);
+        }
+    }
+
+    private onKeyDown(keyCode:number):void{
+        switch (keyCode){
+            case Keyboard.A:
+                this.keys[0] = -1;
+                this.startCheckKey();
+                break;
+            case Keyboard.D:
+                this.keys[0] = 1;
+                this.startCheckKey();
+                break;
+            case Keyboard.W:
+                this.keys[1] = -1;
+                this.startCheckKey();
+                break;
+            case Keyboard.S:
+                this.keys[1] = 1;
+                this.startCheckKey();
+                break;
+            default :
+                break;
+        }
+    }
+
+    private onKeyUp(keyCode:number):void{
+        switch (keyCode){
+            case Keyboard.A:
+                if(this.keys[0] == -1){
+                    this.keys[0] = 0;
+                }
+                break;
+            case Keyboard.D:
+                if(this.keys[0] == 1){
+                    this.keys[0] = 0;
+                }
+                break;
+            case Keyboard.W:
+                if(this.keys[1] == -1){
+                    this.keys[1] = 0;
+                }
+                break;
+            case Keyboard.S:
+                if(this.keys[1] == 1){
+                    this.keys[1] = 0;
+                }
+                break;
+            case Keyboard.J:
+                this.heroAttack();
+                break;
+            case Keyboard.K:
+                break;
+            case Keyboard.L:
+                this.heroSkill1();
+                break;
+            case Keyboard.I:
+//                this.heroSkill2();
+                break;
+            case Keyboard.O:
+//                this.heroSkill3();
+                break;
+            case Keyboard.P:
+//                this.heroSkill4();
+                break;
+            default :
+                break;
+        }
     }
 
     private startCheckKey():void{

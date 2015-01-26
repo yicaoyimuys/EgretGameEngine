@@ -9,25 +9,32 @@ class BaseAIGameObject extends BaseMoveGameObject{
 
     private move_time:number = 3000;
     private attack_time:number = 3000;
-    private attack_dis:number = 100;
+    private attack_dis:Array<number> = [100, 0, 30, 30];
+
+    public isAi:boolean;
 
     private currAiState:string;
     private currTime:number;
-    private attackObjs:Array<BaseGameObject>;
+    private attackObj:BaseGameObject;
 
     public constructor($dragonBonesDataName:string, $controller:BaseController) {
         super($dragonBonesDataName, $controller);
         this.move_time = App.RandomUtils.limitInteger(2000, 5000);
         this.attack_time = App.RandomUtils.limitInteger(2000, 4000);
+        this.isAi = true;
     }
 
     public isCanAttack():boolean{
-        this.attackObjs = this.gameController.getMyAttackObjects(this, this.attack_dis);
-        return this.attackObjs != null && this.attackObjs.length > 0;
+        this.attackObj = this.gameController.getMyAttackObjects(this, this.attack_dis)[0];
+        return this.attackObj != null;
     }
 
     public update(time:number):void{
         super.update(time);
+
+        if(!this.isAi){
+            return;
+        }
 
         var func:string = "state_"+this.currAiState;
         if(this.currAiState){
@@ -85,7 +92,7 @@ class BaseAIGameObject extends BaseMoveGameObject{
     public gotoAttack():void{
         super.gotoAttack();
         this.gotoAiAttack();
-        this.scaleX = this.attackObjs[0].x >= this.x ? 1 : -1;
+        this.scaleX = this.attackObj.x >= this.x ? 1 : -1;
     }
 
     public gotoAiIdle():void{

@@ -7,6 +7,7 @@ class BaseMoveGameObject extends BaseGameObject{
     private static STATE_ATTACK:string = "attack";
     private static STATE_JUMP:string = "jump";
     private static STATE_LAND:string = "land";
+    private static STATE_HURT:string = "hurt";
 
     private maxSpeedZ:number = 30;
     private gravitySpeed:number = 1;
@@ -18,6 +19,7 @@ class BaseMoveGameObject extends BaseGameObject{
     private speedZ:number;
     private endX:number;
     private endY:number;
+    private radian:number;
     private landTime:number;
 
     public constructor($dragonBonesDataName:string, $controller:BaseController) {
@@ -43,10 +45,11 @@ class BaseMoveGameObject extends BaseGameObject{
     }
 
     public state_move(time:number):void{
+        var useSpeed:number = this.speed/(1000/60) * time;
         if(this.endX && this.endY){
-            var radian:number = App.MathUtils.getRadian2(this.x, this.y, this.endX, this.endY);
-            this.speedX = Math.cos(radian) * this.speed;
-            this.speedY = Math.sin(radian) * this.speed * 0.65;
+            this.radian = App.MathUtils.getRadian2(this.x, this.y, this.endX, this.endY);
+            this.speedX = Math.cos(this.radian) * useSpeed;
+            this.speedY = Math.sin(this.radian) * useSpeed * 0.65;
 
             var gotoX:number = this.x + this.speedX;
             var gotoY:number = this.y + this.speedY;
@@ -65,6 +68,8 @@ class BaseMoveGameObject extends BaseGameObject{
             this.y = gotoY;
         }
         else{
+            this.speedX = Math.cos(this.radian) * useSpeed;
+            this.speedY = Math.sin(this.radian) * useSpeed * 0.65;
             var gotoX:number = this.x + this.speedX;
             var gotoY:number = this.y + this.speedY;
 
@@ -110,39 +115,46 @@ class BaseMoveGameObject extends BaseGameObject{
         }
     }
 
+    public state_hurt(time:number):void{
+        this.state_move(time);
+    }
+
     public stopJump():void{
         this.gotoLand();
     }
 
     public stopMove():void{
-        this.gotoIdle();
+        if(!this.isHurt){
+            this.gotoIdle();
+        }
     }
 
-    public goto($speed:number, $endX:number, $endY:number):void{
+    public goto($speed:number, $endX:number, $endY:number, $isGotoMove:boolean = true):void{
         this.speed = $speed;
         this.endX = $endX;
         this.endY = $endY;
-        this.scaleX = this.endX >= this.x ? 1 : -1;
-        this.gotoMove();
+        this.radian = 0;
+        if($isGotoMove){
+            this.scaleX = this.endX >= this.x ? 1 : -1;
+            this.gotoMove();
+        }
     }
 
     public addSpeedXY(xFlag:number, yFlag:number, $speed:number):void{
         this.speed = $speed;
         this.endX = 0;
         this.endY = 0;
-        var radian:number = Math.atan2(yFlag, xFlag);
-        this.speedX = Math.cos(radian) * this.speed;
-        this.speedY = Math.sin(radian) * this.speed * 0.65;
+        this.radian = Math.atan2(yFlag, xFlag);
         this.scaleX = xFlag > 0 ? 1 : -1;
         this.gotoMove();
     }
 
-    public addSpeedZ($speedZ:number, $speedX:number=0, $speedY:number=0):void{
-        this.speedX = $speedX;
-        this.speedY = $speedY;
-        this.speedZ = $speedZ;
+    public addSpeedZ($speedZ:number, $speedX:number=0):void{
+        this.speed = Math.abs($speedX);
         this.endX = 0;
         this.endY = 0;
+        this.radian = Math.atan2(0, $speedX>0?1:-1);
+        this.speedZ = $speedZ;
         this.gotoJump();
     }
 
@@ -167,6 +179,10 @@ class BaseMoveGameObject extends BaseGameObject{
         this.currState = BaseMoveGameObject.STATE_LAND;
     }
 
+    public gotoHurt():void{
+        this.currState = BaseMoveGameObject.STATE_HURT;
+    }
+
     public get isIdle():boolean{
         return this.currState == BaseMoveGameObject.STATE_IDLE;
     }
@@ -185,5 +201,9 @@ class BaseMoveGameObject extends BaseGameObject{
 
     public get isLand():boolean{
         return this.currState == BaseMoveGameObject.STATE_LAND;
+    }
+
+    public get isHurt():boolean{
+        return this.currState == BaseMoveGameObject.STATE_HURT;
     }
 }

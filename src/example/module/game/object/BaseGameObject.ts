@@ -87,4 +87,28 @@ class BaseGameObject extends egret.DisplayObjectContainer {
     public get gameController():GameController{
         return <GameController>this.controller;
     }
+
+    public isMyFront(obj:BaseGameObject):boolean{
+        return this.scaleX == 1 ? this.x <= obj.x : this.x >= obj.x;
+    }
+
+    public isMyBack(obj:BaseGameObject):boolean{
+        return this.scaleX == -1 ? this.x <= obj.x : this.x >= obj.x;
+    }
+
+    public isMyLeft(obj:BaseGameObject):boolean{
+        return this.scaleX == -1 ? this.y <= obj.y : this.y >= obj.y;
+    }
+
+    public isMyRight(obj:BaseGameObject):boolean{
+        return this.scaleX == 1 ? this.y <= obj.y : this.y >= obj.y;
+    }
+
+    public isMyTop(obj:BaseGameObject):boolean{
+        return this.z >= obj.z;
+    }
+
+    public isMyDown(obj:BaseGameObject):boolean{
+        return this.z <= obj.z;
+    }
 }
