@@ -151,6 +151,12 @@ class App{
     public static get EgretExpandUtils():EgretExpandUtils{
         return EgretExpandUtils.getInstance();
     }
+    /**
+     * 键盘操作工具类
+     */
+    public static get KeyboardUtils():KeyboardUtils{
+        return KeyboardUtils.getInstance();
+    }
 
     /**
      * 初始化函数
