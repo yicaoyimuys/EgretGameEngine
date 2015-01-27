@@ -2,11 +2,12 @@
  * Created by Channing on 2014/12/6.
  * 震动
  */
-class ShockUtils
+class ShockUtils extends BaseClass
 {
-    constructor()
-    {
+    public constructor(){
+        super();
     }
+
     public MAP:number = 0;
     public SPRITE:number = 1;
     private mapPoss:Array<any> = [new egret.Point(0,3),new egret.Point(3,2),new egret.Point(-3,-2)];

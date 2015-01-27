@@ -157,6 +157,18 @@ class App{
     public static get KeyboardUtils():KeyboardUtils{
         return KeyboardUtils.getInstance();
     }
+    /**
+     * 摇杆操作工具类
+     */
+    public static get RockerUtils():RockerUtils{
+        return RockerUtils.getInstance();
+    }
+    /**
+     * 震动类
+     */
+    public static get ShockUtils():ShockUtils{
+        return ShockUtils.getInstance();
+    }
 
     /**
      * 初始化函数
