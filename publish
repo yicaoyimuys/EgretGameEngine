@@ -1,0 +1,11 @@
+h5发布命令
+1: egret b -e
+2: egret publish
+3: cd release
+4: egret compress_json
+
+runtime发布流程(必须要有android项目):
+1: egret b -e --runtime native
+2: egret publish --runtime native -compile
+3: cd release
+4: egret compress_json
