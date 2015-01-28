@@ -1,18 +1,1 @@
-{
-	"document_class": "Main",
-	"modules": [
-		{
-			"name": "core"
-		},
-		{
-			"name": "gui"
-		},
-		{
-			"name": "dragonBones"
-		}
-	],
-	"native": {
-		"path_ignore": []
-	},
-	"egret_version": "1.5.2"
-}
+{"document_class":"Main","modules":[{"name":"core"},{"name":"gui"},{"name":"dragonBones"}],"native":{"path_ignore":[],"android_path":"../android/egret-projects/EgretGameEngine"},"egret_version":"1.5.2"}
