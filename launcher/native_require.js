@@ -45,9 +45,9 @@ egret_native.egretInit = function () {
     context.touchContext = new egret.NativeTouchContext();
     context.deviceContext = new egret.NativeDeviceContext();
 
-    egret.StageDelegate.getInstance().setDesignSize(480, 800);
+    egret.StageDelegate.getInstance().setDesignSize(960, 640);
     context.stage = new egret.Stage();
-    context.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
+    context.stage.scaleMode = egret.StageScaleMode.NO_BORDER;
 
     egret.RendererContext.texture_scale_factor = 1;
 
