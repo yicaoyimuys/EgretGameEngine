@@ -169,6 +169,12 @@ class App{
     public static get ShockUtils():ShockUtils{
         return ShockUtils.getInstance();
     }
+    /**
+     * hack引擎的点击事件
+     */
+    public static get TouchEventHook():TouchEventHook{
+        return TouchEventHook.getInstance();
+    }
 
     /**
      * 初始化函数

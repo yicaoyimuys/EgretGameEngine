@@ -29,8 +29,9 @@ class RockerUtils extends BaseClass{
      * @param moveFlag 摇杆图标
      * @param delaKeyFunc 摇杆移动时处理函数
      * @param delaKeyTarget 摇杆移动时处理函数所属对象
+     * @param useNb 是否使用nb效率
      */
-    public init(moveBg:egret.Bitmap, moveFlag:egret.Bitmap, delaKeyFunc:Function, delaKeyTarget:any):void{
+    public init(moveBg:egret.Bitmap, moveFlag:egret.Bitmap, delaKeyFunc:Function, delaKeyTarget:any, useNb:boolean = true):void{
         this.keys = [0, 0];
 
         this.moveFlag = moveFlag;
@@ -47,7 +48,11 @@ class RockerUtils extends BaseClass{
         this.moveFlag.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.startMove, this);
         this.moveFlag.addEventListener(egret.TouchEvent.TOUCH_END, this.stopMove, this);
         this.moveFlag.addEventListener(egret.TouchEvent.TOUCH_TAP, this.stopEvent, this);
-        App.StageUtils.getStage().addEventListener(egret.TouchEvent.TOUCH_MOVE, this.heroMove, this);
+        if(useNb){
+            App.TouchEventHook.hookTouchEvent(egret.TouchEvent.TOUCH_MOVE, this.runMove.bind(this));
+        }else{
+            App.StageUtils.getStage().addEventListener(egret.TouchEvent.TOUCH_MOVE, this.heroMoveEvent, this);
+        }
 
         //键盘控制
         App.KeyboardUtils.addKeyDown(this.onKeyDown, this);
@@ -141,22 +146,30 @@ class RockerUtils extends BaseClass{
     }
 
     /**
+     * 摇杆移动事件
+     * @param e
+     */
+    private heroMoveEvent(e:egret.TouchEvent):void{
+        this.runMove(e.localX, e.localY)
+    }
+
+    /**
      * 摇杆移动
      * @param e
      */
-    private heroMove(e:egret.TouchEvent):void{
+    private runMove(localX:number, localY:number):void{
         if(!this.isMoveing)
             return;
 
-        if(!this.moveFlagCheckRec.contains(e.localX, e.localY)){
+        if(!this.moveFlagCheckRec.contains(localX, localY)){
             return;
         }
 
-        if(this.moveFlagRec.contains(e.localX, e.localY)){
-            this.moveFlagGoX = e.localX;
-            this.moveFlagGoY = e.localY;
+        if(this.moveFlagRec.contains(localX, localY)){
+            this.moveFlagGoX = localX;
+            this.moveFlagGoY = localY;
         }else{
-            var radian:number = App.MathUtils.getRadian2(this.moveFlagX, this.moveFlagY, e.localX, e.localY);
+            var radian:number = App.MathUtils.getRadian2(this.moveFlagX, this.moveFlagY, localX, localY);
             this.moveFlagGoX = this.moveFlagX + Math.cos(radian) * this.moveFlagWidthHelf;
             this.moveFlagGoY = this.moveFlagY + Math.sin(radian) * this.moveFlagWidthHelf;
         }
