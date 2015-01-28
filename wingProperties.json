@@ -290,6 +290,61 @@
 				"isFolder":false,
 				"key":"text_fruit_juice_02",
 				"name":"text_fruit_juice_02"
+			},
+			{
+				"isFolder":false,
+				"key":"enemy_texture_png",
+				"name":"enemy_texture_png"
+			},
+			{
+				"isFolder":false,
+				"key":"losehp_png",
+				"name":"losehp_png"
+			},
+			{
+				"isFolder":false,
+				"key":"map_jpg",
+				"name":"map_jpg"
+			},
+			{
+				"isFolder":false,
+				"key":"ui_btnAttack1_png",
+				"name":"ui_btnAttack1_png"
+			},
+			{
+				"isFolder":false,
+				"key":"ui_btnAttack_png",
+				"name":"ui_btnAttack_png"
+			},
+			{
+				"isFolder":false,
+				"key":"ui_btnSkill1_png",
+				"name":"ui_btnSkill1_png"
+			},
+			{
+				"isFolder":false,
+				"key":"ui_btnSkill_png",
+				"name":"ui_btnSkill_png"
+			},
+			{
+				"isFolder":false,
+				"key":"ui_moveBg_png",
+				"name":"ui_moveBg_png"
+			},
+			{
+				"isFolder":false,
+				"key":"ui_move_png",
+				"name":"ui_move_png"
+			},
+			{
+				"isFolder":false,
+				"key":"zhujue_texture_png",
+				"name":"zhujue_texture_png"
+			},
+			{
+				"isFolder":false,
+				"key":"zhujueEffect_texture_png",
+				"name":"zhujueEffect_texture_png"
 			}]
 		}
 	},
