@@ -21,7 +21,7 @@ module starlingswf{
             updateManager._currentTime = 0;
             updateManager.setFps(fps);
 
-            egret.Ticker.getInstance().register(updateManager.update,updateManager);
+            App.TimerManager.doFrame(1, 0, updateManager.update,updateManager);
 
             return updateManager;
         }
@@ -34,11 +34,11 @@ module starlingswf{
 
         public stop():void{
             this.clear();
-            egret.Ticker.getInstance().unregister(this.update, this);
+            App.TimerManager.remove(this.update, this);
         }
 
         public play():void{
-            egret.Ticker.getInstance().register(this.update, this);
+            App.TimerManager.doFrame(1, 0, this.update, this);
         }
 
         public setFps(fps:number):void{

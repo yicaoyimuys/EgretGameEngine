@@ -3,19 +3,50 @@
  */
 class GameController extends BaseController {
     private gameView:GameView;
+    private gameUIView:GameUIView;
 
     public constructor() {
         super();
 
         this.gameView = new GameView(this, LayerManager.Game_Main);
         App.ViewManager.register(ViewConst.Game, this.gameView);
+
+        this.gameUIView = new GameUIView(this, LayerManager.Game_Main);
+        App.ViewManager.register(ViewConst.GameUI, this.gameUIView);
+
+        this.registerFunc(GameConst.Get_Hero, this.getHero, this);
+        this.registerFunc(GameConst.Remove_Enemy, this.removeEnemy, this);
+
+        App.SoundManager.setBgOn(false);
+        App.SoundManager.setEffectOn(false);
     }
 
-    //获取可攻击对象
-    private canAttackObjs:Array<BaseGameObject>;
-    public getMyAttackObjects(me:BaseGameObject, meAttackDis:Array<number>):Array<BaseGameObject>{
+    /**
+     * 获取主角
+     * @returns {Hero}
+     */
+    public getHero():Hero{
+        return this.gameView.hero;
+    }
+
+    private removeEnemy(enemy:Enemy):void{
+        this.gameView.removeEnemy(enemy);
+    }
+
+    /**
+     * 震动
+     */
+    public shock():void{
+        App.ShockUtils.shock(App.ShockUtils.MAP, this.gameView);
+    }
+
+    /**
+     * 获取可攻击对象
+     */
+    private canAttackObjs:Array<BaseHitGameObject>;
+    public getMyAttackObjects(me:BaseGameObject, meAttackDis:Array<number>):Array<BaseHitGameObject>{
         if(this.canAttackObjs == null){
-            this.canAttackObjs = new Array<BaseGameObject>();
+            this.canAttackObjs = new Array<BaseHitGameObject>();
         }
         this.canAttackObjs.length = 0;
         if(me instanceof Enemy){
@@ -26,7 +57,7 @@ class GameController extends BaseController {
         else if(me instanceof Hero){
             for(var i:number=0, len=this.gameView.enemys.length; i<len; i++){
                 var enemy:Enemy = this.gameView.enemys[i];
-                if(!enemy.isLand && this.checkIsInDis(me, enemy, meAttackDis)){
+                if(!enemy.isDie && !enemy.isLand && this.checkIsInDis(me, enemy, meAttackDis)){
                     this.canAttackObjs.push(enemy);
                 }
             }
@@ -35,7 +66,9 @@ class GameController extends BaseController {
     }
 
 
-    //六方向检测是否在攻击范围内
+    /**
+     * 六方向检测是否在攻击范围内
+     */
     private checkHitRectangle_Att:egret.Rectangle = new egret.Rectangle();
     private checkHitRectangle_Def:egret.Rectangle = new egret.Rectangle();
     private checkIsInDis(attactObj:BaseGameObject, defenceObj:BaseGameObject, attackDis:Array<number>):Boolean{

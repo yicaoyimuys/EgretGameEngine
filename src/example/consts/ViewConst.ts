@@ -14,4 +14,5 @@ class ViewConst{
     public static Mail:number = 10009;
 
     public static Game:number = 20000;
+    public static GameUI:number = 20001;
 }

@@ -8,7 +8,6 @@ class GameView extends BaseSpriteView{
     private objectContainer:egret.DisplayObjectContainer;
     public hero:Hero;
     public enemys:Array<Enemy>;
-    private gameUI:GameUIView;
 
     public constructor($controller:BaseController, $parent:egret.DisplayObjectContainer){
         super($controller, $parent);
@@ -22,8 +21,8 @@ class GameView extends BaseSpriteView{
     public initUI():void{
         super.initUI();
 
-        GameData.MIN_X = 10;
-        GameData.MAX_X = App.StageUtils.getWidth() - 10;
+        GameData.MIN_X = 50;
+        GameData.MAX_X = App.StageUtils.getWidth() - 50;
         GameData.MIN_Y = App.StageUtils.getHeight() - 300;
         GameData.MAX_Y = App.StageUtils.getHeight() - 10;
 
@@ -37,25 +36,14 @@ class GameView extends BaseSpriteView{
         this.objectContainer = new egret.DisplayObjectContainer();
         this.addChild(this.objectContainer);
 
-        this.hero = new Hero(this.controller);
+        this.hero = ObjectPool.pop(Hero, this.controller);
+        this.hero.init();
         this.hero.x = App.StageUtils.getWidth() * 0.3;
         this.hero.y = App.StageUtils.getHeight() * 0.7;
         this.objectContainer.addChild(this.hero);
 
         this.enemys = new Array<Enemy>();
-        for(var i:number=0; i<4; i++){
-            var gotoX:number = App.RandomUtils.limit(GameData.MIN_X, GameData.MAX_X);
-            var gotoY:number = App.RandomUtils.limit(GameData.MIN_Y, GameData.MAX_Y);
-            var enemy:Enemy = new Enemy(this.controller);
-            enemy.x = gotoX;
-            enemy.y = gotoY;
-            enemy.scaleX = Math.random()<0.5 ? 1 : -1;
-            this.objectContainer.addChild(enemy);
-            this.enemys.push(enemy);
-        }
-
-        this.gameUI = new GameUIView(this.hero);
-        this.addChild(this.gameUI);
+        App.TimerManager.doTimer(2000, 0, this.createEnemy, this);
 
         if(!App.DeviceUtils.IsMobile){
             this.touchEnabled = true;
@@ -72,6 +60,30 @@ class GameView extends BaseSpriteView{
      */
     public initData():void{
         super.initData();
+    }
+
+    private createEnemy():void{
+        if(this.enemys.length < 4){
+            var initX:number = Math.random() > 0.5 ? GameData.MAX_X+200 : GameData.MIN_X-200;
+            var initY:number = App.RandomUtils.limit(GameData.MIN_Y, GameData.MAX_Y);
+            var enemy:Enemy = ObjectPool.pop(Enemy, this.controller);
+            enemy.init();
+            enemy.x = initX;
+            enemy.y = initY;
+            enemy.setPos();
+            enemy.scaleX = Math.random()<0.5 ? 1 : -1;
+            this.objectContainer.addChild(enemy);
+            this.enemys.push(enemy);
+
+            var gotoX:number = App.RandomUtils.limit(GameData.MIN_X, GameData.MAX_X);
+            var gotoY:number = initY;
+            enemy.command_in(3, gotoX, gotoY);
+        }
+    }
+
+    public removeEnemy(enemy:Enemy):void{
+        var index:number = this.enemys.indexOf(enemy);
+        this.enemys.splice(index, 1);
     }
 
     private sortGameObjs():void{
@@ -100,8 +112,7 @@ class GameView extends BaseSpriteView{
             return;
         }
 
-        this.gameUI.stopCheckKey();
-        this.gameUI.stopHeroMove();
-        this.hero.goto(5, evt.localX, evt.localY);
+        App.RockerUtils.stop();
+        this.hero.walkTo(5, evt.localX, evt.localY);
     }
 }

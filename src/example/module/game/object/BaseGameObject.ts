@@ -2,6 +2,13 @@
  * Created by egret on 15-1-16.
  */
 class BaseGameObject extends egret.DisplayObjectContainer {
+    public static ACTION_Idle:string = "daiji";
+    public static ACTION_Move:string = "yidong";
+    public static ACTION_Hart:string = "beiji";
+    public static ACTION_Fly:string = "jifei";
+    public static ACTION_Land:string = "daodi";
+    public static ACTION_jump:string = "jump";
+
     private originX:number = 0;
     private originY:number = 0;
     private originZ:number = 0;
@@ -10,6 +17,8 @@ class BaseGameObject extends egret.DisplayObjectContainer {
     public dragonBonesDataName:string;
     public controller:BaseController;
     public armature:DragonBonesArmature;
+    public hp:number;
+    public isDie:boolean;
 
     public constructor($dragonBonesDataName:string, $controller:BaseController) {
         super();
@@ -18,7 +27,19 @@ class BaseGameObject extends egret.DisplayObjectContainer {
         this.addChild(this.armature);
 
         this.controller = $controller;
+    }
+
+    public init():void{
+        this.hp = 100;
+        this.isDie = false;
         App.TimerManager.doFrame(1, 0, this.onFrame, this);
+    }
+
+    public destory():void{
+        this.armature.stop();
+        App.TimerManager.remove(this.onFrame, this);
+        App.DisplayUtils.removeFromParent(this);
+        ObjectPool.push(this);
     }
 
     private onFrame(time:number):void{
@@ -67,21 +88,6 @@ class BaseGameObject extends egret.DisplayObjectContainer {
 
     public get z():number {
         return this.originZ;
-    }
-
-    public loseHp():void{
-        var txt:egret.Bitmap = ObjectPool.pop(egret.Bitmap);
-        if(txt.texture == null){
-            txt.texture = RES.getRes("losehp_png");
-        }
-        txt.x = this.x;
-        txt.y = this.y-100;
-        txt.anchorX = 0.5;
-        egret.Tween.get(txt).to({y: this.y-300},500).call(function():void{
-            LayerManager.Game_Main.removeChild(txt);
-            ObjectPool.push(txt);
-        }, this);
-        LayerManager.Game_Main.addChild(txt);
     }
 
     public get gameController():GameController{

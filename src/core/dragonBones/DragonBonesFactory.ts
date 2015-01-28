@@ -68,7 +68,7 @@ class DragonBonesFactory{
      */
     public stop():void{
         if(this.isPlay){
-            egret.Ticker.getInstance().unregister(this.onEnterFrame, this);
+            App.TimerManager.remove(this.onEnterFrame, this);
             this.isPlay = false;
         }
     }
@@ -79,7 +79,7 @@ class DragonBonesFactory{
     public start():void{
         if (!this.isPlay) {
             this.isPlay = true;
-            egret.Ticker.getInstance().register(this.onEnterFrame, this);
+            App.TimerManager.doFrame(1, 0, this.onEnterFrame, this);
         }
     }
 }

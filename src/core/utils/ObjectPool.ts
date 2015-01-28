@@ -48,7 +48,7 @@ class ObjectPool{
      * @return Object
      *
      */
-    public static pop(ref:any):any{
+    public static pop(ref:any, ...args:any[]):any{
         if(!ObjectPool._content[ref]){
             ObjectPool._content[ref] = [];
         }
@@ -57,7 +57,19 @@ class ObjectPool{
         if(list.length){
             return list.pop();
         }else{
-            return new ref();
+            if(args.length == 0){
+                return new ref();
+            }else if(args.length == 1){
+                return new ref(args[0]);
+            }else if(args.length == 2){
+                return new ref(args[0], args[1]);
+            }else if(args.length == 3){
+                return new ref(args[0], args[1], args[2]);
+            }else if(args.length == 4){
+                return new ref(args[0], args[1], args[2], args[3]);
+            }else if(args.length == 5){
+                return new ref(args[0], args[1], args[2], args[3], args[4]);
+            }
         }
     }
 

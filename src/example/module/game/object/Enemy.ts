@@ -1,19 +1,23 @@
 /**
  * Created by yangsong on 15-1-16.
  */
-class Enemy extends BaseAIGameObject{
-    private static ACTION_Idle:string = "daiji";
-    private static ACTION_Move:string = "yidong";
+class Enemy extends BaseFrameGameObject{
     private static ACTION_Attack:string = "gongji";
-    private static ACTION_Hart:string = "shouji";
-    private static ACTION_Fly:string = "daodi";
 
     public constructor($controller:BaseController){
         super("guaiwu001", $controller);
 
         this.armature.addCompleteCallFunc(this.armaturePlayEnd, this);
+    }
+
+    public init():void {
+        super.init();
         this.gotoIdle();
-//        this.isAi = false;
+    }
+
+    public destory():void {
+        super.destory();
+        this.controller.applyFunc(GameConst.Remove_Enemy, this);
     }
 
     private armaturePlayEnd(animationName:string):void{
@@ -24,18 +28,11 @@ class Enemy extends BaseAIGameObject{
             this.gotoIdle();
         }
         else if(animationName == Enemy.ACTION_Fly){
-
+            this.armature.stop();
         }
-    }
-
-    public gotoIdle():void{
-        super.gotoIdle();
-        this.armature.play(Enemy.ACTION_Idle);
-    }
-
-    public gotoMove():void{
-        super.gotoMove();
-        this.armature.play(Enemy.ACTION_Move);
+        else if(animationName == Enemy.ACTION_Land){
+            this.armature.stop();
+        }
     }
 
     public gotoAttack():void{
@@ -47,45 +44,7 @@ class Enemy extends BaseAIGameObject{
     public gotoLand():void{
         super.gotoLand();
         App.SoundManager.playEffect("sound_enenyLand");
-    }
-
-    public gotoHurt():void{
-        super.gotoHurt();
-        this.armature.play(Enemy.ACTION_Hart, 1);
-    }
-
-    private onAttack():boolean{
-        if(this.isJump){
-            return false;
-        }
-        if(this.isAttack){
-            return false;
-        }
-        if(this.isMove){
-            this.stopMove();
-        }
-
-        this.stopAi();
-        return true;
-    }
-
-    public fly(attackObj:BaseGameObject):void{
-        if(this.onAttack()){
-            var xFlag:number = this.x > attackObj.x ? 1 : -1;
-            this.scaleX = attackObj.isMyFront(this) ? -attackObj.scaleX : attackObj.scaleX;
-            this.addSpeedZ(-20, xFlag*3);
-            this.armature.play(Enemy.ACTION_Fly, 1);
-        }
-        this.loseHp();
-    }
-
-    public hart(attackObj:BaseGameObject):void{
-        if(this.onAttack()){
-            this.scaleX = attackObj.isMyFront(this) ? -attackObj.scaleX : attackObj.scaleX;
-            this.goto(2, this.x - (this.scaleX * 20), this.y, false);
-            this.gotoHurt();
-        }
-        this.loseHp();
+        this.gameController.shock();
     }
 
 }

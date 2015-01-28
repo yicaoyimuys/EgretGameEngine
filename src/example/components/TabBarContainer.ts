@@ -19,7 +19,7 @@ class TabBarContainer extends egret.gui.TabBar{
     public viewStack:egret.gui.ViewStack;
     public partAdded(partName:string, instance:any):void{
         super.partAdded(partName,instance);
-        if(instance == this.viewStack) {;
+        if(instance == this.viewStack) {
             for (var i = 0; i < this.preList.length; i++){
                 this.viewStack.addElement(this.preList[i]);
             }

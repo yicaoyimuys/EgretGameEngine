@@ -22,13 +22,27 @@ class BaseMoveGameObject extends BaseGameObject{
     private radian:number;
     private landTime:number;
 
+    private isCommand:boolean;
+
     public constructor($dragonBonesDataName:string, $controller:BaseController) {
         super($dragonBonesDataName, $controller);
+    }
+
+    public init():void{
+        super.init();
+        this.speed = 0;
         this.speedX = 0;
         this.speedY = 0;
         this.speedZ = 0;
         this.endX = 0;
         this.endY = 0;
+        this.radian = 0;
+        this.alpha = 1;
+        this.isCommand = false;
+    }
+
+    public destory():void{
+        super.destory();
     }
 
     public update(time:number):void{
@@ -54,12 +68,18 @@ class BaseMoveGameObject extends BaseGameObject{
             var gotoX:number = this.x + this.speedX;
             var gotoY:number = this.y + this.speedY;
 
+            if(!this.isCommand){
+                if(gotoX < GameData.MIN_X
+                    || gotoX > GameData.MAX_X
+                    || gotoY < GameData.MIN_Y
+                    || gotoY > GameData.MAX_Y){
+                    this.stopMove();
+                    return;
+                }
+            }
+
             var dis:number = App.MathUtils.getDistance(this.x, this.y, this.endX, this.endY);
-            if(gotoX < GameData.MIN_X
-                || gotoX > GameData.MAX_X
-                || gotoY < GameData.MIN_Y
-                || gotoY > GameData.MAX_Y
-                || dis < Math.abs(this.speedX) + Math.abs(this.speedY)){
+            if(dis < Math.abs(this.speedX) + Math.abs(this.speedY)){
                 this.stopMove();
                 return;
             }
@@ -87,11 +107,16 @@ class BaseMoveGameObject extends BaseGameObject{
     }
 
     public state_attack(time:number):void{
-
+        if(this.speedZ){
+            this.state_jump(time);
+        }
+        else if(this.speed){
+            this.state_move(time);
+        }
     }
 
     public state_jump(time:number):void{
-        if(this.speedX || this.speedY){
+        if(this.speed){
             this.state_move(time);
         }
 
@@ -100,7 +125,7 @@ class BaseMoveGameObject extends BaseGameObject{
         } else {
             this.speedZ += this.gravitySpeed;
         }
-        var gotoZ:number = this.z + this.speedZ;
+        var gotoZ:number = this.z + this.speedZ/(1000/60) * time;
         if(gotoZ > 0){
             gotoZ = 0;
             this.stopJump();
@@ -109,38 +134,66 @@ class BaseMoveGameObject extends BaseGameObject{
     }
 
     public state_land(time:number):void{
+        if(this.isDie){
+            return;
+        }
+
         this.landTime += time;
-        if(this.landTime >= 1000){
-            this.gotoIdle();
+        if(this.landTime >= 1500){
+            this.leave();
         }
     }
 
     public state_hurt(time:number):void{
-        this.state_move(time);
+        if(this.speedZ || this.z < 0){
+            this.state_jump(time);
+        }
+        else if(this.speed){
+            this.state_move(time);
+        }
     }
 
     public stopJump():void{
-        this.gotoLand();
+        this.speedZ = 0;
+
+        if(!this.isAttack){
+            this.gotoLand();
+        }
+
+        if(this.isDie){
+            egret.Tween.get(this).to({alpha: 0}, 2000).call(this.destory, this);
+        }
     }
 
     public stopMove():void{
-        if(!this.isHurt){
+        this.speed = 0;
+        this.isCommand = false;
+        if(!this.isHurt && !this.isAttack){
             this.gotoIdle();
         }
     }
 
-    public goto($speed:number, $endX:number, $endY:number, $isGotoMove:boolean = true):void{
+    public leave():void{
+        this.gotoIdle();
+    }
+
+    //只移动不切换动作
+    public moveTo($speed:number, $endX:number, $endY:number):void{
         this.speed = $speed;
         this.endX = $endX;
         this.endY = $endY;
         this.radian = 0;
-        if($isGotoMove){
-            this.scaleX = this.endX >= this.x ? 1 : -1;
-            this.gotoMove();
-        }
     }
 
-    public addSpeedXY(xFlag:number, yFlag:number, $speed:number):void{
+    //行走到某个点
+    public walkTo($speed:number, $endX:number, $endY:number):void{
+        this.moveTo($speed, $endX, $endY);
+        this.scaleX = this.endX >= this.x ? 1 : -1;
+        this.gotoMove();
+    }
+
+    //行走
+    public walk(xFlag:number, yFlag:number, $speed:number):void{
         this.speed = $speed;
         this.endX = 0;
         this.endY = 0;
@@ -149,21 +202,36 @@ class BaseMoveGameObject extends BaseGameObject{
         this.gotoMove();
     }
 
-    public addSpeedZ($speedZ:number, $speedX:number=0):void{
+    //跳起不切换动作
+    public moveToZ($speedZ:number):void{
+        this.speedZ = $speedZ;
+    }
+
+    //强制落地
+    public standLand():void{
+        this.speedZ = 0;
+        this.z = 0;
+    }
+
+    //跳起
+    public jump($speedZ:number, $speedX:number=0):void{
         this.speed = Math.abs($speedX);
+        this.radian = Math.atan2(0, $speedX>0?1:-1);
         this.endX = 0;
         this.endY = 0;
-        this.radian = Math.atan2(0, $speedX>0?1:-1);
         this.speedZ = $speedZ;
         this.gotoJump();
     }
 
     public gotoIdle():void{
+        this.speed = 0;
         this.currState = BaseMoveGameObject.STATE_IDLE;
+        this.armature.play(BaseMoveGameObject.ACTION_Idle);
     }
 
     public gotoMove():void{
         this.currState = BaseMoveGameObject.STATE_MOVE;
+        this.armature.play(BaseMoveGameObject.ACTION_Move);
     }
 
     public gotoAttack():void{
@@ -177,10 +245,21 @@ class BaseMoveGameObject extends BaseGameObject{
     public gotoLand():void{
         this.landTime = 0;
         this.currState = BaseMoveGameObject.STATE_LAND;
+        this.armature.play(BaseMoveGameObject.ACTION_Land, 1);
+    }
+
+    public gotoHurtState():void{
+        this.currState = BaseMoveGameObject.STATE_HURT;
     }
 
     public gotoHurt():void{
-        this.currState = BaseMoveGameObject.STATE_HURT;
+        this.gotoHurtState();
+        this.armature.play(BaseMoveGameObject.ACTION_Hart, 1);
+    }
+
+    public command_in(speed:number, toX:number, toY:number):void{
+        this.isCommand = true;
+        this.walkTo(speed, toX, toY);
     }
 
     public get isIdle():boolean{

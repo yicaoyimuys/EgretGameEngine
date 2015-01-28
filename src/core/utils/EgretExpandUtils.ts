@@ -21,9 +21,11 @@ class EgretExpandUtils extends BaseClass{
      * 在高分辨率屏幕会显示半屏的bug修复
      */
     private bug_half_screen():void{
-        egret.HTML5CanvasRenderer.prototype.clearRect = function (x, y, w, h) {
-            this.canvasContext.clearRect(x, y, w * window.devicePixelRatio, h * window.devicePixelRatio);
-        };
+        if(App.DeviceUtils.IsHtml5){
+            egret.HTML5CanvasRenderer.prototype.clearRect = function (x, y, w, h) {
+                this.canvasContext.clearRect(x, y, w * window.devicePixelRatio, h * window.devicePixelRatio);
+            };
+        }
     }
 
     /**

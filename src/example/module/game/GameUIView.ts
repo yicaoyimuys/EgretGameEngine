@@ -1,26 +1,19 @@
 /**
  * Created by egret on 15-1-19.
  */
-class GameUIView extends egret.DisplayObjectContainer{
-
-    private keys:Array<number>;
-
-    private moveFlagCheckRec:egret.Rectangle;
-    private moveFlag:egret.Bitmap;
-    private moveFlagX:number;
-    private moveFlagY:number;
-    private isMoveing:boolean;
-    private moveFlagGoX:number;
-    private moveFlagGoY:number;
-    private checkKeying:boolean;
+class GameUIView extends BaseSpriteView{
 
     private hero:Hero;
-    public constructor($hero:Hero){
-        super();
+    public constructor($controller:BaseController, $parent:egret.DisplayObjectContainer){
+        super($controller, $parent);
+    }
 
-        this.hero = $hero;
-
-        this.keys = [0, 0];
+    /**
+     *对面板进行显示初始化，用于子类继承
+     *
+     */
+    public initUI():void {
+        super.initUI();
 
         //攻击图标
         this.addChild(this.createImageButton("ui_btnAttack_png", "ui_btnAttack1_png", App.StageUtils.getWidth()-55, App.StageUtils.getHeight() - 53, this.heroAttack));
@@ -28,197 +21,81 @@ class GameUIView extends egret.DisplayObjectContainer{
         this.addChild(this.createImageButton("ui_btnSkill_png", "ui_btnSkill1_png", App.StageUtils.getWidth()-155, App.StageUtils.getHeight() - 45, this.heroSkill1));
 
         //摇杆
-        this.moveFlagX = 120;
-        this.moveFlagY = App.StageUtils.getHeight() - 120;
+        var moveFlagX:number = 120;
+        var moveFlagY:number = App.StageUtils.getHeight() - 120;
 
         var moveBg:egret.Bitmap = App.DisplayUtils.createBitmap("ui_moveBg_png");
         moveBg.anchorX = moveBg.anchorY = 0.5;
-        moveBg.x = this.moveFlagX;
-        moveBg.y = this.moveFlagY;
+        moveBg.x = moveFlagX;
+        moveBg.y = moveFlagY;
         this.addChild(moveBg);
 
-        this.moveFlagCheckRec = new egret.Rectangle(this.moveFlagX - moveBg.width, this.moveFlagY - moveBg.height, moveBg.width*2, moveBg.height*2);
+        var moveFlag:egret.Bitmap = App.DisplayUtils.createBitmap("ui_move_png");
+        moveFlag.anchorX = moveFlag.anchorY = 0.5;
+        moveFlag.x = moveFlagX;
+        moveFlag.y = moveFlagY;
+        this.addChild(moveFlag);
 
-        this.moveFlag = App.DisplayUtils.createBitmap("ui_move_png");
-        this.moveFlag.touchEnabled = true;
-        this.moveFlag.anchorX = this.moveFlag.anchorY = 0.5;
-        this.moveFlag.x = this.moveFlagX;
-        this.moveFlag.y = this.moveFlagY;
-        this.moveFlag.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.startHeroMove, this);
-        this.moveFlag.addEventListener(egret.TouchEvent.TOUCH_END, this.stopHeroMove, this);
-        this.moveFlag.addEventListener(egret.TouchEvent.TOUCH_TAP, this.stopEvent, this);
-        this.addChild(this.moveFlag);
+        //摇杆控制
+        App.RockerUtils.init(moveBg, moveFlag, this.dealKey, this);
 
-        if(App.DeviceUtils.IsHtml5){
-            this.touchEnabled = true;
-            this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.heroMove, this);
-
-            App.KeyboardUtils.addKeyDown(this.onKeyDown, this);
-            App.KeyboardUtils.addKeyUp(this.onKeyUp, this);
-        }
+        //键盘控制
+        App.KeyboardUtils.addKeyUp(this.onKeyUp, this);
     }
 
-    private onKeyDown(keyCode:number):void{
-        switch (keyCode){
-            case Keyboard.A:
-                this.keys[0] = -1;
-                this.startCheckKey();
-                break;
-            case Keyboard.D:
-                this.keys[0] = 1;
-                this.startCheckKey();
-                break;
-            case Keyboard.W:
-                this.keys[1] = -1;
-                this.startCheckKey();
-                break;
-            case Keyboard.S:
-                this.keys[1] = 1;
-                this.startCheckKey();
-                break;
-            default :
-                break;
+    /**
+     *对面板进行显示初始化，用于子类继承
+     *
+     */
+    public initData():void{
+        super.initData();
+        this.hero = this.applyFunc(GameConst.Get_Hero);
+    }
+
+    private dealKey(xFlag:number, yFlag:number):void{
+        if(this.hero.isAttack){
+            return;
+        }
+
+        if(xFlag || yFlag){
+            this.hero.walk(xFlag, yFlag, 5);
+        }
+        else{
+            if(this.hero.isMove){
+                this.hero.stopMove();
+            }
         }
     }
 
     private onKeyUp(keyCode:number):void{
         switch (keyCode){
-            case Keyboard.A:
-                if(this.keys[0] == -1){
-                    this.keys[0] = 0;
-                }
-                break;
-            case Keyboard.D:
-                if(this.keys[0] == 1){
-                    this.keys[0] = 0;
-                }
-                break;
-            case Keyboard.W:
-                if(this.keys[1] == -1){
-                    this.keys[1] = 0;
-                }
-                break;
-            case Keyboard.S:
-                if(this.keys[1] == 1){
-                    this.keys[1] = 0;
-                }
-                break;
             case Keyboard.J:
                 this.heroAttack();
                 break;
             case Keyboard.K:
                 break;
-            case Keyboard.L:
+            case Keyboard.U:
                 this.heroSkill1();
                 break;
             case Keyboard.I:
-//                this.heroSkill2();
+                this.heroSkill2();
                 break;
             case Keyboard.O:
-//                this.heroSkill3();
+                this.heroSkill3();
                 break;
             case Keyboard.P:
-//                this.heroSkill4();
+                this.heroSkill4();
                 break;
             default :
                 break;
         }
     }
 
-    private startCheckKey():void{
-        if(!this.checkKeying){
-            this.checkKeying = true;
-            App.TimerManager.doFrame(1, 0, this.delKeys, this);
-        }
-    }
-
-    public stopCheckKey():void{
-        this.keys[0] = 0;
-        this.keys[1] = 0;
-        if(this.checkKeying){
-            App.TimerManager.remove(this.delKeys, this);
-            this.checkKeying = false;
-        }
-    }
-
-    private delKeys():void{
-        if(this.hero.isAttack){
-            return;
-        }
-
-        if(!this.moveFlagCheckRec.contains(this.moveFlagGoX, this.moveFlagGoY)){
-            this.stopHeroMove();
-        }
-
-        if(this.moveFlag.x != this.moveFlagGoX){
-            this.moveFlag.x = this.moveFlagGoX;
-        }
-
-        if(this.moveFlag.y != this.moveFlagGoY){
-            this.moveFlag.y = this.moveFlagGoY;
-        }
-
-        if(this.keys[0] || this.keys[1]){
-            this.hero.addSpeedXY(this.keys[0], this.keys[1], 5);
-        }
-        else{
-            if(this.hero.isMove){
-                this.hero.stopMove();
-                this.stopCheckKey();
-            }
-        }
-    }
-
-    private stopEvent(e:egret.TouchEvent):void {
-        e.stopPropagation();
-    }
-
-    private startHeroMove():void{
-        this.isMoveing = true;
-        this.moveFlagGoX = this.moveFlagX;
-        this.moveFlagGoY = this.moveFlagY;
-    }
-
-    public stopHeroMove():void{
-        this.isMoveing = false;
-        this.keys[0] = 0;
-        this.keys[1] = 0;
-        this.moveFlagGoX = this.moveFlagX;
-        this.moveFlagGoY = this.moveFlagY;
-    }
-
-    private heroMove(e:egret.TouchEvent):void{
-        if(!this.isMoveing)
-            return;
-
-        if(e.localX > App.StageUtils.getWidth()*0.3)
-            return;
-
-        this.moveFlagGoX = e.localX;
-        this.moveFlagGoY = e.localY;
-
-        if(this.moveFlagGoX > this.moveFlagX && Math.abs(this.moveFlagGoX - this.moveFlagX) > 10){
-            this.keys[0] = 1;
-        }else if(this.moveFlagGoX < this.moveFlagX && Math.abs(this.moveFlagGoX - this.moveFlagX) > 10){
-            this.keys[0] = -1;
-        }else{
-            this.keys[0] = 0;
-        }
-
-        if(this.moveFlagGoY > this.moveFlagY && Math.abs(this.moveFlagGoY - this.moveFlagY) > 10){
-            this.keys[1] = 1;
-        }else if(this.moveFlagGoY < this.moveFlagY && Math.abs(this.moveFlagGoY - this.moveFlagY) > 10){
-            this.keys[1] = -1;
-        }else{
-            this.keys[1] = 0;
-        }
-
-        this.startCheckKey();
-    }
-
     private heroAttack():void{
-        if(this.hero.isAttack)
+        if(this.hero.isAttack){
+            this.hero.addMaxAttack();
             return;
+        }
         this.hero.attack();
     }
 
@@ -244,12 +121,6 @@ class GameUIView extends egret.DisplayObjectContainer{
         if(this.hero.isAttack)
             return;
         this.hero.skill(4);
-    }
-
-    private heroSkill5():void{
-        if(this.hero.isAttack)
-            return;
-        this.hero.skill(5);
     }
 
     private createImageButton(imgName1:string, imgName2:string, $x:number, $y:number, callBack:Function):egret.Bitmap{

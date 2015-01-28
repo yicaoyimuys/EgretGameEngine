@@ -19,6 +19,7 @@ class GameScene extends BaseScene{
         this.addLayerAt(LayerManager.Game_Main, 0);
 
         App.ViewManager.open(ViewConst.Game);
+        App.ViewManager.open(ViewConst.GameUI);
 
         egret.RenderFilter.getInstance().addDrawArea(new egret.Rectangle(0, 0, App.StageUtils.getWidth(), App.StageUtils.getHeight()));
     }

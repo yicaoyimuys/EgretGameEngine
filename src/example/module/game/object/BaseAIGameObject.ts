@@ -9,7 +9,7 @@ class BaseAIGameObject extends BaseMoveGameObject{
 
     private move_time:number = 3000;
     private attack_time:number = 3000;
-    private attack_dis:Array<number> = [100, 0, 30, 30];
+    private attack_dis:Array<number> = [100, 0, 30, 30, 0, 0];
 
     public isAi:boolean;
 
@@ -19,9 +19,18 @@ class BaseAIGameObject extends BaseMoveGameObject{
 
     public constructor($dragonBonesDataName:string, $controller:BaseController) {
         super($dragonBonesDataName, $controller);
+    }
+
+    public init():void {
+        super.init();
+
         this.move_time = App.RandomUtils.limitInteger(2000, 5000);
         this.attack_time = App.RandomUtils.limitInteger(2000, 4000);
         this.isAi = true;
+    }
+
+    public destory():void {
+        super.destory();
     }
 
     public isCanAttack():boolean{
@@ -32,9 +41,8 @@ class BaseAIGameObject extends BaseMoveGameObject{
     public update(time:number):void{
         super.update(time);
 
-        if(!this.isAi){
+        if(!this.isAi)
             return;
-        }
 
         var func:string = "state_"+this.currAiState;
         if(this.currAiState){
@@ -68,31 +76,72 @@ class BaseAIGameObject extends BaseMoveGameObject{
     }
 
     public state_ai_attack(time:number):void{
-        if(this.isCanAttack()){
-            if(this.currTime >= this.attack_time){
-                this.gotoAttack();
-            }
-        }
-        else{
-            this.gotoIdle();
-        }
+
     }
 
 
     public gotoIdle():void{
         super.gotoIdle();
+
+        if(!this.isAi)
+            return;
+
         this.gotoAiIdle();
     }
 
     public gotoMove():void{
         super.gotoMove();
+
+        if(!this.isAi)
+            return;
+
         this.gotoAiMove();
     }
 
     public gotoAttack():void{
         super.gotoAttack();
+
+        if(!this.isAi)
+            return;
+
         this.gotoAiAttack();
         this.scaleX = this.attackObj.x >= this.x ? 1 : -1;
+    }
+
+    public gotoHurt():void{
+        super.gotoHurt();
+
+        if(!this.isAi)
+            return;
+
+        this.stopAi();
+    }
+
+    public gotoJump():void{
+        super.gotoJump();
+
+        if(!this.isAi)
+            return;
+
+        this.stopAi();
+    }
+
+    public gotoLand():void{
+        super.gotoLand();
+
+        if(!this.isAi)
+            return;
+
+        this.stopAi();
+    }
+
+    public leave():void{
+        super.leave();
+
+        if(!this.isAi)
+            return;
+
+        this.moveRandom();
     }
 
     public gotoAiIdle():void{
@@ -118,6 +167,6 @@ class BaseAIGameObject extends BaseMoveGameObject{
     private moveRandom():void{
         var gotoX:number = App.RandomUtils.limit(GameData.MIN_X, GameData.MAX_X);
         var gotoY:number = App.RandomUtils.limit(GameData.MIN_Y, GameData.MAX_Y);
-        this.goto(3, gotoX, gotoY);
+        this.walkTo(3, gotoX, gotoY);
     }
 }

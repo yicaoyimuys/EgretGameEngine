@@ -113,7 +113,7 @@ class RockerUtils extends BaseClass{
     }
 
     /**
-     * 时间拦截
+     * 事件拦截
      * @param e
      */
     private stopEvent(e:egret.TouchEvent):void {
@@ -141,7 +141,7 @@ class RockerUtils extends BaseClass{
     }
 
     /**
-     * 鼠标移动
+     * 摇杆移动
      * @param e
      */
     private heroMove(e:egret.TouchEvent):void{

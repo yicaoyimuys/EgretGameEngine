@@ -1,64 +1,76 @@
 /**
  * Created by yangsong on 15-1-15.
  */
-class Hero extends BaseMoveGameObject{
-    private static ACTION_Idle:string = "daiji";
-    private static ACTION_Move:string = "yidong";
+class Hero extends BaseFrameGameObject{
     private static ACTION_Attack0:string = "gongji1";
+    private static ACTION_Attack1:string = "gongji2";
+    private static ACTION_Attack2:string = "gongji3";
+    private static ACTION_Attack3:string = "gongji4";
     private static ACTION_Skill1:string = "jineng1";
+    private static ACTION_Skill2:string = "jineng2";
+    private static ACTION_Skill3:string = "jineng3";
+    private static ACTION_Skill4:string = "jineng4";
 
-    private attackConfig:any;
+    private attackMaxIndex:number = 0;
     private attackIndex:number = 0;
-    private currSkillArmature:DragonBonesArmature;
-
-//    private skill4Armature:DragonBonesArmature;
+    private effectArmature:DragonBonesArmature;
 
     public constructor($controller:BaseController){
         super("zhujue1", $controller);
 
-        this.attackConfig = RES.getRes("attack_json");
-
         this.armature.addCompleteCallFunc(this.armaturePlayEnd, this);
-        this.armature.addFrameCallFunc(this.armaturePlaying, this);
 
+        this.effectArmature = DragonBonesFactory.getInstance().makeArmature("zhujue1_effect", "zhujue1_effect");
+    }
+
+    public init():void {
+        super.init();
+
+        this.isAi = false;
         this.gotoIdle();
+    }
 
-//        this.skill4Armature = DragonBonesFactory.getInstance().makeArmature("元件 1", "CHAR03_E19_1");
-//        this.skill4Armature.addCompleteCallFunc(this.removeSkillArmature, this);
+    public destory():void {
+        super.destory();
+        this.removeEffect();
     }
 
     private armaturePlayEnd(animationName:string):void{
-        if(animationName == Hero.ACTION_Attack0){
+        if(animationName == Hero.ACTION_Attack0
+            || animationName == Hero.ACTION_Attack1
+            || animationName == Hero.ACTION_Attack2){
+            if(this.attackMaxIndex > this.attackIndex){
+                this.nextAttack();
+            }else{
+                this.overAttack();
+            }
+        }
+        else if(animationName == Hero.ACTION_Attack3){
             this.overAttack();
         }
-        else if(animationName == Hero.ACTION_Skill1){
+        else if(animationName == Hero.ACTION_Skill1
+            || animationName == Hero.ACTION_Skill2
+            || animationName == Hero.ACTION_Skill3
+            || animationName == Hero.ACTION_Skill4){
             this.overSkill();
+        }
+        else if(animationName == Hero.ACTION_Hart){
+            this.gotoIdle();
         }
     }
 
-    private armaturePlaying(bone:any, frameLabel:string):void{
-        var attDis:Array<number> = this.attackConfig[frameLabel].dis;
-        var attackObjs:Array<BaseGameObject> = this.gameController.getMyAttackObjects(this, attDis);
-        for(var i:number=0, len=attackObjs.length; i<len; i++){
-            var enemy:Enemy = <Enemy>attackObjs[i];
-            if(frameLabel == "attack1"){
-                if(Math.random() > 0.5)
-                    enemy.fly(this);
-                else
-                    enemy.hart(this);
-            }
-            else if(frameLabel == "skill1_fly"){
-                enemy.fly(this);
-            }
-            else if(frameLabel == "skill1"){
-                enemy.hart(this);
-            }
+    public addMaxAttack():void{
+        this.attackMaxIndex ++;
+        if(this.attackMaxIndex > 3){
+            this.attackMaxIndex = 3;
         }
     }
 
     public attack():void{
         this.gotoAttack();
         this.armature.play(Hero["ACTION_Attack" + this.attackIndex], 1);
+        this.playEffect(Hero["ACTION_Attack" + this.attackIndex]);
+
         App.SoundManager.playEffect("sound_heroAttack");
     }
 
@@ -68,6 +80,7 @@ class Hero extends BaseMoveGameObject{
     }
 
     private overAttack():void{
+        this.attackMaxIndex = 0;
         this.attackIndex = 0;
         this.gotoIdle();
     }
@@ -75,44 +88,33 @@ class Hero extends BaseMoveGameObject{
     public skill(id:number):void{
         this.gotoAttack();
         this.armature.play(Hero["ACTION_Skill" + id], 1);
-
-        this.removeSkillArmature();
-
-//        if(id == 4){
-//            this.skill4Armature.y = -50;
-//            this.skill4Armature.play("cha_CHAR03_E19_1", 1);
-//            this.addChild(this.skill4Armature);
-//            this.currSkillArmature = this.skill4Armature;
-//        }
+        this.playEffect(Hero["ACTION_Skill" + id]);
 
         App.SoundManager.playEffect("sound_heroSkill");
-    }
-
-    private removeSkillArmature():void{
-        if(this.currSkillArmature){
-            this.currSkillArmature.stop();
-            this.removeChild(this.currSkillArmature);
-            this.currSkillArmature = null;
-        }
     }
 
     private overSkill():void{
         this.gotoIdle();
     }
 
-    /**
-     * 重写父类
-     */
-    public gotoMove():void{
-        super.gotoMove();
-        this.armature.play(Hero.ACTION_Move);
-    }
-
-    /**
-     * 重写父类
-     */
     public gotoIdle():void{
         super.gotoIdle();
-        this.armature.play(Hero.ACTION_Idle);
+        this.removeEffect();
+    }
+
+    private removeEffect():void{
+        this.effectArmature.stop();
+        App.EgretExpandUtils.removeFromParent(this.effectArmature);
+    }
+
+    private playEffect(actionName:string):void{
+        if(this.effectArmature.play(actionName, 1)){
+            App.EgretExpandUtils.addChild(this, this.effectArmature);
+        }else{
+            this.removeEffect();
+        }
+    }
+
+    public die():void{
     }
 }

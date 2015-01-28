@@ -54,7 +54,7 @@ class ShockUtils extends BaseClass
         {
             this._rx = this._target.x;
             this._ry = this._target.y;
-            egret.Ticker.getInstance().register(this.onShockEnter,this);
+            App.TimerManager.doFrame(1, 0, this.onShockEnter,this);
         }
     }
     public stop():void
@@ -63,10 +63,10 @@ class ShockUtils extends BaseClass
         {
             this._target.x = this._rx;
             this._target.y = this._ry;
-            egret.Ticker.getInstance().unregister(this.onShockEnter,this);
+            App.TimerManager.remove(this.onShockEnter,this);
         }
     }
-    private onShockEnter(e:Event):void
+    private onShockEnter(time:number):void
     {
         var maxCount:number = this._shockLength*this._repeatCount;
         if(this._shockCount >= maxCount)
