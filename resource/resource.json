@@ -1,15 +1,15 @@
 {
-	"groups":[
+    "groups":[
         {
             "keys":"global,btn_wrong,table_activity,table_bg,table_box_down,table_box_down_2,table_box_middle,table_box_up,table_cloud_top,table_cloud_bottom,btn_shrink_bg,btn_shrink,menu_bg,btn_mail,btn_mission,btn_activity,table_task,table_mail,task_bg,icon_diamond,icon_experience,icon_fertilization,icon_gold,icon_friend,icon_more,icon_shop,icon_warehouse,icon_factory,icon_name,icon_head,icon_line,icon_LV,icon_badge,table_shop,table_tittle,table_warehouse,icon_factory_tittle,tabBar_selected_down,text_fertilizer01,text_fertilizer02,text_seed01,text_seed02,tabBar_down,sto_table_tittle,card_bg,icon_fertilizer02,icon_fertilizer03,icon_fertilizer04,icon_fertilizer05,icon_02,bbs,text_fruit_01,text_fruit_02,text_fruit_juice_01,text_fruit_juice_02,icon_sale",
             "name":"preload"
         },
         {
-            "keys":"global,attack_json,sound_enemyAttack,sound_enenyLand,sound_heroAttack,sound_heroSkill,sound_bg,map_jpg,losehp_png,ui_btnAttack_png,ui_btnAttack1_png,ui_btnSkill_png,ui_btnSkill1_png,ui_move_png,ui_moveBg_png,zhujue_skeleton_json, zhujue_texture_png, zhujue_texture_json, enemy_skeleton_json,enemy_texture_png,enemy_texture_json",
+            "keys":"global,attack_json,zhujueEffect_skeleton_json,zhujueEffect_texture_png,zhujueEffect_texture_json,map_jpg,losehp_png,ui_btnAttack_png,ui_btnAttack1_png,ui_btnSkill_png,ui_btnSkill1_png,ui_move_png,ui_moveBg_png,zhujue_skeleton_json, zhujue_texture_png, zhujue_texture_json, enemy_skeleton_json,enemy_texture_png,enemy_texture_json",
             "name":"battleRes"
         }
     ],
-	"resources":[
+    "resources":[
 
         {"name":"global", "type":"json", "url":"config/global.json"},
         {"name":"attack_json", "type":"json", "url":"config/attack.json"},
@@ -22,9 +22,9 @@
         {"name":"enemy_texture_png","type":"image","url":"assets/animation/enemy/texture.png"},
         {"name":"enemy_texture_json","type":"json","url":"assets/animation/enemy/texture.json"},
 
-        {"name":"skill4_skeleton_json","type":"json","url":"assets/animation/skill4/skeleton.json"},
-        {"name":"skill4_texture_png","type":"image","url":"assets/animation/skill4/texture.png"},
-        {"name":"skill4_texture_json","type":"json","url":"assets/animation/skill4/texture.json"},
+        {"name":"zhujueEffect_skeleton_json","type":"json","url":"assets/animation/zhujueEffect/skeleton.json"},
+        {"name":"zhujueEffect_texture_png","type":"image","url":"assets/animation/zhujueEffect/texture.png"},
+        {"name":"zhujueEffect_texture_json","type":"json","url":"assets/animation/zhujueEffect/texture.json"},
 
         {"name":"map_jpg","type":"image","url":"assets/bg/map.jpg"},
         {"name":"ui_btnAttack_png","type":"image","url":"assets/ui/btnAttack.png"},
