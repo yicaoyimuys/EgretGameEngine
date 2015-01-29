@@ -17,8 +17,8 @@ class BaseAIGameObject extends BaseMoveGameObject{
     private currTime:number;
     private attackObj:BaseGameObject;
 
-    public constructor($dragonBonesDataName:string, $controller:BaseController) {
-        super($dragonBonesDataName, $controller);
+    public constructor($dragonBonesDataName:string, $controller:BaseController, $playSpeed:number) {
+        super($dragonBonesDataName, $controller, $playSpeed);
     }
 
     public init():void {

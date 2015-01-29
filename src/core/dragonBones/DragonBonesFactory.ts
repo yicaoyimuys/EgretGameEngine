@@ -19,12 +19,15 @@ class DragonBonesFactory{
 
     private factory:dragonBones.EgretFactory;
     private isPlay:boolean;
+    private clocks:any;
 
     /**
      * 构造函数
      */
     public constructor(){
         this.factory = new dragonBones.EgretFactory();
+        this.clocks = {};
+        this.clocks[1] = dragonBones.WorldClock.clock;
         //默认开启
         this.start();
     }
@@ -46,12 +49,17 @@ class DragonBonesFactory{
      * @param fromDragonBonesDataName 动画文件名称
      * @returns {Armature}
      */
-    public makeArmature(name:string, fromDragonBonesDataName?:string):DragonBonesArmature{
+    public makeArmature(name:string, fromDragonBonesDataName?:string, playSpeed:number = 1):DragonBonesArmature{
         var armature:dragonBones.Armature = this.factory.buildArmature(name, fromDragonBonesDataName);
         if(armature == null){
             Log.trace("不存在Armature： "+name);
         }
-        var result:DragonBonesArmature = new DragonBonesArmature(armature, dragonBones.WorldClock.clock);
+        var clock:dragonBones.WorldClock = this.clocks[playSpeed];
+        if(clock == null){
+            clock = new dragonBones.WorldClock();
+            this.clocks[playSpeed] = clock;
+        }
+        var result:DragonBonesArmature = new DragonBonesArmature(armature, clock);
         return result;
     }
 
@@ -60,7 +68,11 @@ class DragonBonesFactory{
      * @param advancedTime
      */
     private onEnterFrame(advancedTime:number):void {
-        dragonBones.WorldClock.clock.advanceTime(advancedTime / 1000);
+        var time:number = advancedTime / 1000;
+        for(var key in this.clocks){
+            var clock:dragonBones.WorldClock = this.clocks[key];
+            clock.advanceTime(time * key);
+        }
     }
 
     /**

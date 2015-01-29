@@ -24,8 +24,8 @@ class BaseMoveGameObject extends BaseGameObject{
 
     private isCommand:boolean;
 
-    public constructor($dragonBonesDataName:string, $controller:BaseController) {
-        super($dragonBonesDataName, $controller);
+    public constructor($dragonBonesDataName:string, $controller:BaseController, $playSpeed:number) {
+        super($dragonBonesDataName, $controller, $playSpeed);
     }
 
     public init():void{
@@ -67,12 +67,11 @@ class BaseMoveGameObject extends BaseGameObject{
 
             var gotoX:number = this.x + this.speedX;
             var gotoY:number = this.y + this.speedY;
-
-            if(!this.isCommand){
-                if(gotoX < GameData.MIN_X
-                    || gotoX > GameData.MAX_X
-                    || gotoY < GameData.MIN_Y
-                    || gotoY > GameData.MAX_Y){
+            if(gotoX < GameData.MIN_X
+                || gotoX > GameData.MAX_X
+                || gotoY < GameData.MIN_Y
+                || gotoY > GameData.MAX_Y){
+                if(!this.isCommand){
                     this.stopMove();
                     return;
                 }
@@ -168,7 +167,7 @@ class BaseMoveGameObject extends BaseGameObject{
     public stopMove():void{
         this.speed = 0;
         this.isCommand = false;
-        if(!this.isHurt && !this.isAttack){
+        if(!this.isHurt && !this.isAttack && this.z == 0){
             this.gotoIdle();
         }
     }
@@ -260,6 +259,11 @@ class BaseMoveGameObject extends BaseGameObject{
     public command_in(speed:number, toX:number, toY:number):void{
         this.isCommand = true;
         this.walkTo(speed, toX, toY);
+    }
+
+    public get isInScreen():boolean{
+        return this.x >= GameData.MIN_X && this.x <= GameData.MAX_X
+            && this.y >= GameData.MIN_Y && this.y <= GameData.MAX_Y;
     }
 
     public get isIdle():boolean{

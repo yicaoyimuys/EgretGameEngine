@@ -57,7 +57,13 @@ class GameController extends BaseController {
         else if(me instanceof Hero){
             for(var i:number=0, len=this.gameView.enemys.length; i<len; i++){
                 var enemy:Enemy = this.gameView.enemys[i];
-                if(!enemy.isDie && !enemy.isLand && this.checkIsInDis(me, enemy, meAttackDis)){
+                if(enemy.isDie)
+                    continue;
+                if(enemy.isLand)
+                    continue;
+                if(!enemy.isInScreen)
+                    continue;
+                if(this.checkIsInDis(me, enemy, meAttackDis)){
                     this.canAttackObjs.push(enemy);
                 }
             }

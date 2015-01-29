@@ -5,7 +5,7 @@ class Enemy extends BaseFrameGameObject{
     private static ACTION_Attack:string = "gongji";
 
     public constructor($controller:BaseController){
-        super("guaiwu001", $controller);
+        super("guaiwu001", $controller, 1.2);
 
         this.armature.addCompleteCallFunc(this.armaturePlayEnd, this);
     }

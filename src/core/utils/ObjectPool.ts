@@ -43,33 +43,49 @@ class ObjectPool{
     }
 
     /**
+     * 获取出来Class的唯一key值
+     * @param classZ
+     * @returns {string}
+     */
+    private static getClassKey(classZ:any):string{
+        var str:string = classZ.toString();
+        var arr:any = /function +(\w+) *\(/.exec(str);
+        return arr[1];
+    }
+
+    /**
      * 取出一个对象
-     * @param ref Class
+     * @param classZ Class
      * @return Object
      *
      */
-    public static pop(ref:any, ...args:any[]):any{
-        if(!ObjectPool._content[ref]){
-            ObjectPool._content[ref] = [];
+    public static pop(classZ:any, ...args:any[]):any{
+        var refKey:string = ObjectPool.getClassKey(classZ);
+        if(!ObjectPool._content[refKey]){
+            ObjectPool._content[refKey] = [];
         }
 
-        var list:Array<any> = ObjectPool._content[ref];
+        var list:Array<any> = ObjectPool._content[refKey];
         if(list.length){
             return list.pop();
         }else{
-            if(args.length == 0){
-                return new ref();
-            }else if(args.length == 1){
-                return new ref(args[0]);
-            }else if(args.length == 2){
-                return new ref(args[0], args[1]);
-            }else if(args.length == 3){
-                return new ref(args[0], args[1], args[2]);
-            }else if(args.length == 4){
-                return new ref(args[0], args[1], args[2], args[3]);
-            }else if(args.length == 5){
-                return new ref(args[0], args[1], args[2], args[3], args[4]);
+            var argsLen:number = args.length;
+            var obj:any;
+            if(argsLen == 0){
+                obj = new classZ();
+            }else if(argsLen == 1){
+                obj = new classZ(args[0]);
+            }else if(argsLen == 2){
+                obj = new classZ(args[0], args[1]);
+            }else if(argsLen == 3){
+                obj = new classZ(args[0], args[1], args[2]);
+            }else if(argsLen == 4){
+                obj = new classZ(args[0], args[1], args[2], args[3]);
+            }else if(argsLen == 5){
+                obj = new classZ(args[0], args[1], args[2], args[3], args[4]);
             }
+            obj.ObjectPoolKey = refKey;
+            return obj;
         }
     }
 
@@ -83,13 +99,13 @@ class ObjectPool{
             return false;
         }
 
-        var ref:any = obj.constructor;
+        var refKey:any = obj.ObjectPoolKey;
         //保证只有pop出来的对象可以放进来，或者是已经清除的无法放入
-        if(!ObjectPool._content[ref]){
+        if(!ObjectPool._content[refKey]){
             return false;
         }
 
-        ObjectPool._content[ref].push(obj);
+        ObjectPool._content[refKey].push(obj);
         return true;
     }
 
@@ -102,11 +118,12 @@ class ObjectPool{
 
     /**
      * 清除某一类对象
-     * @param ref Class
+     * @param classZ Class
      * @param clearFuncName 清除对象需要执行的函数
      */
-    public static clearClass(ref:any, clearFuncName:string = null):void{
-        var list:Array<any> = ObjectPool._content[ref];
+    public static clearClass(classZ:any, clearFuncName:string = null):void{
+        var refKey:string = ObjectPool.getClassKey(classZ);
+        var list:Array<any> = ObjectPool._content[refKey];
         while(list && list.length){
             var obj:any = list.pop();
             if(clearFuncName){
@@ -114,17 +131,18 @@ class ObjectPool{
             }
             obj = null;
         }
-        ObjectPool._content[ref] = null;
-        delete ObjectPool._content[ref];
+        ObjectPool._content[refKey] = null;
+        delete ObjectPool._content[refKey];
     }
 
     /**
      * 缓存中对象统一执行一个函数
-     * @param ref Class
+     * @param classZ Class
      * @param dealFuncName 要执行的函数名称
      */
-    public static dealFunc(ref:any, dealFuncName:string):void{
-        var list:Array<any> = ObjectPool._content[ref];
+    public static dealFunc(classZ:any, dealFuncName:string):void{
+        var refKey:string = ObjectPool.getClassKey(classZ);
+        var list:Array<any> = ObjectPool._content[refKey];
         if(list == null){
             return;
         }

@@ -17,8 +17,14 @@ class GameUIView extends BaseSpriteView{
 
         //攻击图标
         this.addChild(this.createImageButton("ui_btnAttack_png", "ui_btnAttack1_png", App.StageUtils.getWidth()-55, App.StageUtils.getHeight() - 53, this.heroAttack));
-        //技能图标
-        this.addChild(this.createImageButton("ui_btnSkill_png", "ui_btnSkill1_png", App.StageUtils.getWidth()-155, App.StageUtils.getHeight() - 45, this.heroSkill1));
+        //技能1图标
+        this.addChild(this.createImageButton("ui_btnSkill1_png", "ui_btnSkill1_1_png", App.StageUtils.getWidth()-120, App.StageUtils.getHeight() - 140, this.heroSkill1));
+        //技能2图标
+        this.addChild(this.createImageButton("ui_btnSkill2_png", "ui_btnSkill2_1_png", App.StageUtils.getWidth()-40, App.StageUtils.getHeight() - 160, this.heroSkill2));
+        //技能3图标
+        this.addChild(this.createImageButton("ui_btnSkill3_png", "ui_btnSkill3_1_png", App.StageUtils.getWidth()-180, App.StageUtils.getHeight() - 40, this.heroSkill3));
+        //技能4图标
+        this.addChild(this.createImageButton("ui_btnSkill4_png", "ui_btnSkill4_1_png", App.StageUtils.getWidth()-200, App.StageUtils.getHeight() - 120, this.heroSkill4));
 
         //摇杆
         var moveFlagX:number = 120;
@@ -58,7 +64,7 @@ class GameUIView extends BaseSpriteView{
         }
 
         if(xFlag || yFlag){
-            this.hero.walk(xFlag, yFlag, 5);
+            this.hero.walk(xFlag, yFlag, 7);
         }
         else{
             if(this.hero.isMove){

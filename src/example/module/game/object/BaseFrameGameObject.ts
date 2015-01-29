@@ -4,8 +4,8 @@
 class BaseFrameGameObject extends BaseHitGameObject{
     private attackConfig:any;
 
-    public constructor($dragonBonesDataName:string, $controller:BaseController) {
-        super($dragonBonesDataName, $controller);
+    public constructor($dragonBonesDataName:string, $controller:BaseController, $playSpeed:number) {
+        super($dragonBonesDataName, $controller, $playSpeed);
 
         this.attackConfig = RES.getRes("attack_json")[$dragonBonesDataName];
         if(this.attackConfig){
@@ -43,11 +43,11 @@ class BaseFrameGameObject extends BaseHitGameObject{
         }
     }
 
-    public frameEnemyHartMoveToZ(frameLabel:string, speedZ:string):void{
+    public frameEnemyHartMoveToZ(frameLabel:string, speedZ:string, attract:string="0"):void{
         var attDis:Array<number> = this.attackConfig[frameLabel].dis;
         var attackObjs:Array<BaseHitGameObject> = this.gameController.getMyAttackObjects(this, attDis);
         for(var i:number=0, len=attackObjs.length; i<len; i++){
-            attackObjs[i].hartFly(this, parseInt(speedZ));
+            attackObjs[i].hartFly(this, parseInt(speedZ), parseInt(attract) == 1);
         }
     }
 

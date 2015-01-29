@@ -14,6 +14,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
 
     private _isPlay:boolean;
     private _playName:string;
+    private _isFirstPlay:boolean;
 
     /**
      * 构造函数
@@ -35,6 +36,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
 
         this._isPlay = false;
         this._playName = "";
+        this._isFirstPlay = true;
     }
 
     /**
@@ -89,7 +91,13 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
         }
         this._playName = name;
         var state:dragonBones.AnimationState = this.getAnimation().gotoAndPlay(name, undefined, undefined, playNum);
-        this.getAnimation()._advanceTime(0);//此行代码用于处理动画第一次播放时，显示异常的bug
+        //此行代码用于处理动画第一次播放时，显示异常的bug
+        {
+            if(this._isFirstPlay){
+                this._isFirstPlay = false;
+                this.getAnimation()._advanceTime(0);
+            }
+        }
         if(state){
             state.autoTween = false;
         }

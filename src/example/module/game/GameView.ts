@@ -43,6 +43,14 @@ class GameView extends BaseSpriteView{
         this.objectContainer.addChild(this.hero);
 
         this.enemys = new Array<Enemy>();
+        for(var i:number=0; i<10; i++){
+            var enemy:Enemy = ObjectPool.pop(Enemy, this.controller);
+            enemy.init();
+            this.enemys.push(enemy);
+        }
+        while(this.enemys.length){
+            this.enemys[0].destory();
+        }
         App.TimerManager.doTimer(2000, 0, this.createEnemy, this);
 
         if(!App.DeviceUtils.IsMobile){
@@ -72,8 +80,8 @@ class GameView extends BaseSpriteView{
             enemy.y = initY;
             enemy.setPos();
             enemy.scaleX = Math.random()<0.5 ? 1 : -1;
-            this.objectContainer.addChild(enemy);
             this.enemys.push(enemy);
+            App.EgretExpandUtils.addChild(this.objectContainer, enemy);
 
             var gotoX:number = App.RandomUtils.limit(GameData.MIN_X, GameData.MAX_X);
             var gotoY:number = initY;

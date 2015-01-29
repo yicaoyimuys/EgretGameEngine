@@ -2,8 +2,8 @@
  * Created by egret on 15-1-27.
  */
 class BaseHitGameObject extends BaseAIGameObject{
-    public constructor($dragonBonesDataName:string, $controller:BaseController) {
-        super($dragonBonesDataName, $controller);
+    public constructor($dragonBonesDataName:string, $controller:BaseController, $playSpeed:number) {
+        super($dragonBonesDataName, $controller, $playSpeed);
     }
 
     private onAttack():boolean{
@@ -65,9 +65,15 @@ class BaseHitGameObject extends BaseAIGameObject{
         this.loseHp();
     }
 
-    public hartFly(attackObj:BaseGameObject, speedZ:number):void{
+    public hartFly(attackObj:BaseGameObject, speedZ:number, attract:boolean):void{
         if(this.onAttack()){
-            this.moveToZ(speedZ);
+            if(attract){
+                this.moveTo(1, attackObj.x, attackObj.y);
+                this.moveToZ(speedZ);
+            }
+            else{
+                this.moveToZ(speedZ);
+            }
             if(this.z == 0){
                 this.scaleX = attackObj.isMyFront(this) ? -attackObj.scaleX : attackObj.scaleX;
                 this.armature.play(BaseGameObject.ACTION_Fly, 1);

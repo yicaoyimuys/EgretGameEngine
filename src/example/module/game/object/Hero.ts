@@ -16,11 +16,11 @@ class Hero extends BaseFrameGameObject{
     private effectArmature:DragonBonesArmature;
 
     public constructor($controller:BaseController){
-        super("zhujue1", $controller);
+        super("zhujue1", $controller, 1.4);
 
         this.armature.addCompleteCallFunc(this.armaturePlayEnd, this);
 
-        this.effectArmature = DragonBonesFactory.getInstance().makeArmature("zhujue1_effect", "zhujue1_effect");
+        this.effectArmature = DragonBonesFactory.getInstance().makeArmature("zhujue1_effect", "zhujue1_effect", 1.4);
     }
 
     public init():void {
@@ -67,6 +67,10 @@ class Hero extends BaseFrameGameObject{
     }
 
     public attack():void{
+        if(this.isMove){
+            this.stopMove();
+        }
+
         this.gotoAttack();
         this.armature.play(Hero["ACTION_Attack" + this.attackIndex], 1);
         this.playEffect(Hero["ACTION_Attack" + this.attackIndex]);
@@ -86,6 +90,10 @@ class Hero extends BaseFrameGameObject{
     }
 
     public skill(id:number):void{
+        if(this.isMove){
+            this.stopMove();
+        }
+
         this.gotoAttack();
         this.armature.play(Hero["ACTION_Skill" + id], 1);
         this.playEffect(Hero["ACTION_Skill" + id]);
