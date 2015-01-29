@@ -19,20 +19,26 @@ class BaseHitGameObject extends BaseAIGameObject{
     }
 
     public loseHp():void{
+        var isBao:boolean = Math.random() >= 0.95;
         var txt:egret.Bitmap = ObjectPool.pop(egret.Bitmap);
-        if(txt.texture == null){
-            txt.texture = RES.getRes("losehp_png");
-        }
+        txt.alpha = 1;
         txt.x = this.x;
         txt.y = this.y + this.z - 100;
         txt.anchorX = 0.5;
-        egret.Tween.get(txt).to({y: this.y + this.z -300},500).call(function():void{
+        txt.texture = isBao ? RES.getRes("losehp_baoji_png") : RES.getRes("losehp_png");
+
+        egret.Tween.get(txt).to({y: this.y + this.z -300},1000, egret.Ease.backOut).to({alpha: 0, y:this.y + this.z -400}, 300).call(function():void{
             App.EgretExpandUtils.removeFromParent(txt);
             ObjectPool.push(txt);
         }, this);
         App.EgretExpandUtils.addChild(LayerManager.Game_Main, txt);
 
-        this.hp -= 10;
+        if(isBao){
+            this.hp -= 30;
+        }else{
+            this.hp -= 10;
+        }
+
         if(this.hp <= 0){
             this.die();
         }
