@@ -5,7 +5,7 @@
             "name":"preload"
         },
         {
-            "keys":"global,attack_json,ui_btnSkill1_png,ui_btnSkill1_1_png,ui_btnSkill3_png,ui_btnSkill3_1_png,ui_btnSkill4_png,ui_btnSkill4_1_png,zhujueEffect_skeleton_json,zhujueEffect_texture_png,zhujueEffect_texture_json,map_jpg,losehp_png,ui_btnAttack_png,ui_btnAttack1_png,ui_btnSkill2_png,ui_btnSkill2_1_png,ui_move_png,ui_moveBg_png,zhujue_skeleton_json, zhujue_texture_png, zhujue_texture_json, enemy_skeleton_json,enemy_texture_png,enemy_texture_json",
+            "keys":"global,attack_json,ui_btnSkill1_png,ui_btnSkill1_1_png,ui_btnSkill3_png,ui_btnSkill3_1_png,ui_btnSkill4_png,ui_btnSkill4_1_png,zhujueEffect_skeleton_json,zhujueEffect_texture_png,zhujueEffect_texture_json,map_jpg,losehp_baoji_png,losehp_png,ui_btnAttack_png,ui_btnAttack1_png,ui_btnSkill2_png,ui_btnSkill2_1_png,ui_move_png,ui_moveBg_png,zhujue_skeleton_json, zhujue_texture_png, zhujue_texture_json, enemy_skeleton_json,enemy_texture_png,enemy_texture_json",
             "name":"battleRes"
         }
     ],
@@ -40,6 +40,7 @@
         {"name":"ui_move_png","type":"image","url":"assets/ui/move.png"},
         {"name":"ui_moveBg_png","type":"image","url":"assets/ui/moveBg.png"},
         {"name":"losehp_png","type":"image","url":"assets/ui/-10.png"},
+        {"name":"losehp_baoji_png","type":"image","url":"assets/ui/baoji.png"},
 
         {
             "name":"btn_wrong",
