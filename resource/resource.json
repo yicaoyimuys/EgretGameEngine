@@ -5,7 +5,7 @@
             "name":"preload"
         },
         {
-            "keys":"global,attack_json,ui_btnSkill1_png,ui_btnSkill1_1_png,ui_btnSkill3_png,ui_btnSkill3_1_png,ui_btnSkill4_png,ui_btnSkill4_1_png,zhujueEffect_skeleton_json,zhujueEffect_texture_png,zhujueEffect_texture_json,map_jpg,losehp_baoji_png,losehp_png,ui_btnAttack_png,ui_btnAttack1_png,ui_btnSkill2_png,ui_btnSkill2_1_png,ui_move_png,ui_moveBg_png,zhujue_skeleton_json, zhujue_texture_png, zhujue_texture_json, enemy_skeleton_json,enemy_texture_png,enemy_texture_json",
+            "keys":"global,attack_json,jineng1_skeleton_json,jineng1_texture_png,jineng1_texture_json,jineng2_skeleton_json,jineng2_texture_png,jineng2_texture_json,zhujue1_skeleton_json,zhujue1_texture_png,zhujue1_texture_json,zhujue2_skeleton_json,zhujue2_texture_png,zhujue2_texture_json,ui_btnSkill1_png,ui_btnSkill1_1_png,ui_btnSkill3_png,ui_btnSkill3_1_png,ui_btnSkill4_png,ui_btnSkill4_1_png,map_jpg,losehp_baoji_png,losehp_png,ui_btnAttack_png,ui_btnAttack1_png,ui_btnSkill2_png,ui_btnSkill2_1_png,ui_move_png,ui_moveBg_png,enemy_skeleton_json,enemy_texture_png,enemy_texture_json",
             "name":"battleRes"
         }
     ],
@@ -14,17 +14,23 @@
         {"name":"global", "type":"json", "url":"config/global.json"},
         {"name":"attack_json", "type":"json", "url":"config/attack.json"},
 
-        {"name":"zhujue_skeleton_json","type":"json","url":"assets/animation/zhujue/skeleton.json"},
-        {"name":"zhujue_texture_png","type":"image","url":"assets/animation/zhujue/texture.png"},
-        {"name":"zhujue_texture_json","type":"json","url":"assets/animation/zhujue/texture.json"},
+        {"name":"zhujue1_skeleton_json","type":"json","url":"assets/animation/zhujue1/skeleton.json"},
+        {"name":"zhujue1_texture_png","type":"image","url":"assets/animation/zhujue1/texture.png"},
+        {"name":"zhujue1_texture_json","type":"json","url":"assets/animation/zhujue1/texture.json"},
+        {"name":"zhujue2_skeleton_json","type":"json","url":"assets/animation/zhujue2/skeleton.json"},
+        {"name":"zhujue2_texture_png","type":"image","url":"assets/animation/zhujue2/texture.png"},
+        {"name":"zhujue2_texture_json","type":"json","url":"assets/animation/zhujue2/texture.json"},
+
+        {"name":"jineng1_skeleton_json","type":"json","url":"assets/animation/jineng1/skeleton.json"},
+        {"name":"jineng1_texture_png","type":"image","url":"assets/animation/jineng1/texture.png"},
+        {"name":"jineng1_texture_json","type":"json","url":"assets/animation/jineng1/texture.json"},
+        {"name":"jineng2_skeleton_json","type":"json","url":"assets/animation/jineng2/skeleton.json"},
+        {"name":"jineng2_texture_png","type":"image","url":"assets/animation/jineng2/texture.png"},
+        {"name":"jineng2_texture_json","type":"json","url":"assets/animation/jineng2/texture.json"},
 
         {"name":"enemy_skeleton_json","type":"json","url":"assets/animation/enemy/skeleton.json"},
         {"name":"enemy_texture_png","type":"image","url":"assets/animation/enemy/texture.png"},
         {"name":"enemy_texture_json","type":"json","url":"assets/animation/enemy/texture.json"},
-
-        {"name":"zhujueEffect_skeleton_json","type":"json","url":"assets/animation/zhujueEffect/skeleton.json"},
-        {"name":"zhujueEffect_texture_png","type":"image","url":"assets/animation/zhujueEffect/texture.png"},
-        {"name":"zhujueEffect_texture_json","type":"json","url":"assets/animation/zhujueEffect/texture.json"},
 
         {"name":"map_jpg","type":"image","url":"assets/bg/map.jpg"},
         {"name":"ui_btnAttack_png","type":"image","url":"assets/ui/btnAttack.png"},
@@ -347,6 +353,11 @@
             "name":"sound_dianji",
             "type":"sound",
             "url":"sound/dianji.mp3"
+        },
+        {
+            "name":"sound_beiji",
+            "type":"sound",
+            "url":"sound/beiji.wav"
         }
     ]
 }
