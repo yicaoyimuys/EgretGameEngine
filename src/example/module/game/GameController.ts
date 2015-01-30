@@ -17,8 +17,8 @@ class GameController extends BaseController {
         this.registerFunc(GameConst.Get_Hero, this.getHero, this);
         this.registerFunc(GameConst.Remove_Enemy, this.removeEnemy, this);
 
-        App.SoundManager.setBgOn(false);
-        App.SoundManager.setEffectOn(false);
+        App.SoundManager.setBgOn(true);
+        App.SoundManager.setEffectOn(!App.DeviceUtils.IsHtml5 || !App.DeviceUtils.IsMobile);
     }
 
     /**

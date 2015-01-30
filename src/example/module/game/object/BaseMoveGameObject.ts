@@ -22,10 +22,10 @@ class BaseMoveGameObject extends BaseGameObject{
     private radian:number;
     private landTime:number;
 
-    private isCommand:boolean;
+    public isCommand:boolean;
 
-    public constructor($dragonBonesDataName:string, $controller:BaseController, $playSpeed:number) {
-        super($dragonBonesDataName, $controller, $playSpeed);
+    public constructor($controller:BaseController) {
+        super($controller);
     }
 
     public init():void{
@@ -262,8 +262,8 @@ class BaseMoveGameObject extends BaseGameObject{
     }
 
     public get isInScreen():boolean{
-        return this.x >= GameData.MIN_X && this.x <= GameData.MAX_X
-            && this.y >= GameData.MIN_Y && this.y <= GameData.MAX_Y;
+        return this.x > GameData.MIN_X && this.x < GameData.MAX_X
+            && this.y > GameData.MIN_Y && this.y < GameData.MAX_Y;
     }
 
     public get isIdle():boolean{

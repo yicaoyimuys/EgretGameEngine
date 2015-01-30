@@ -4,9 +4,11 @@
 class BaseFrameGameObject extends BaseHitGameObject{
     private attackConfig:any;
 
-    public constructor($dragonBonesDataName:string, $controller:BaseController, $playSpeed:number) {
-        super($dragonBonesDataName, $controller, $playSpeed);
+    public constructor($controller:BaseController) {
+        super($controller);
+    }
 
+    public initFrameData($dragonBonesDataName:string):void{
         this.attackConfig = RES.getRes("attack_json")[$dragonBonesDataName];
         if(this.attackConfig){
             this.armature.addFrameCallFunc(this.armatureEventHandle, this);

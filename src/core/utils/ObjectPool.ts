@@ -47,10 +47,13 @@ class ObjectPool{
      * @param classZ
      * @returns {string}
      */
-    private static getClassKey(classZ:any):string{
-        var str:string = classZ.toString();
-        var arr:any = /function +(\w+) *\(/.exec(str);
-        return arr[1];
+    private static getClassKey(classZ:any):any{
+        return classZ;
+
+        //下面正则在runtime上有问题，不知为何
+//        var str:string = classZ.toString();
+//        var arr:any = /function +(\w+) *\(/.exec(str);
+//        return arr[1];
     }
 
     /**
@@ -60,7 +63,7 @@ class ObjectPool{
      *
      */
     public static pop(classZ:any, ...args:any[]):any{
-        var refKey:string = ObjectPool.getClassKey(classZ);
+        var refKey:any = ObjectPool.getClassKey(classZ);
         if(!ObjectPool._content[refKey]){
             ObjectPool._content[refKey] = [];
         }
@@ -122,7 +125,7 @@ class ObjectPool{
      * @param clearFuncName 清除对象需要执行的函数
      */
     public static clearClass(classZ:any, clearFuncName:string = null):void{
-        var refKey:string = ObjectPool.getClassKey(classZ);
+        var refKey:any = ObjectPool.getClassKey(classZ);
         var list:Array<any> = ObjectPool._content[refKey];
         while(list && list.length){
             var obj:any = list.pop();
@@ -141,7 +144,7 @@ class ObjectPool{
      * @param dealFuncName 要执行的函数名称
      */
     public static dealFunc(classZ:any, dealFuncName:string):void{
-        var refKey:string = ObjectPool.getClassKey(classZ);
+        var refKey:any = ObjectPool.getClassKey(classZ);
         var list:Array<any> = ObjectPool._content[refKey];
         if(list == null){
             return;

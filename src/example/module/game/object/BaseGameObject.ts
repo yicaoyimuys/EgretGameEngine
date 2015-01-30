@@ -14,24 +14,21 @@ class BaseGameObject extends egret.DisplayObjectContainer {
     private originZ:number = 0;
     private trueY:number = 0;
 
-    public dragonBonesDataName:string;
     public controller:BaseController;
-    public armature:DragonBonesArmature;
+    public armature:DragonBonesArmatureContainer;
     public hp:number;
     public isDie:boolean;
 
-    public constructor($dragonBonesDataName:string, $controller:BaseController, $playSpeed:number) {
+    public constructor($controller:BaseController) {
         super();
-        this.dragonBonesDataName = $dragonBonesDataName;
-        this.armature = DragonBonesFactory.getInstance().makeArmature($dragonBonesDataName, $dragonBonesDataName, $playSpeed);
+        this.armature = new DragonBonesArmatureContainer();
         this.addChild(this.armature);
 
         this.controller = $controller;
     }
 
     public init():void{
-        this.hp = 150;
-        this.hp = 10000;
+        this.hp = 300;
         this.isDie = false;
         App.TimerManager.doFrame(1, 0, this.onFrame, this);
     }

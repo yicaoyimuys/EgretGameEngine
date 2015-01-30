@@ -36,14 +36,9 @@ class GameView extends BaseSpriteView{
         this.objectContainer = new egret.DisplayObjectContainer();
         this.addChild(this.objectContainer);
 
-        this.hero = ObjectPool.pop(Hero, this.controller);
-        this.hero.init();
-        this.hero.x = App.StageUtils.getWidth() * 0.3;
-        this.hero.y = App.StageUtils.getHeight() * 0.7;
-        this.objectContainer.addChild(this.hero);
-
+        //提前初始化好怪物
         this.enemys = new Array<Enemy>();
-        for(var i:number=0; i<10; i++){
+        for(var i:number=0; i<4; i++){
             var enemy:Enemy = ObjectPool.pop(Enemy, this.controller);
             enemy.init();
             this.enemys.push(enemy);
@@ -52,6 +47,13 @@ class GameView extends BaseSpriteView{
             this.enemys[0].destory();
         }
         App.TimerManager.doTimer(2000, 0, this.createEnemy, this);
+
+        //创建主角
+        this.hero = ObjectPool.pop(Hero, this.controller);
+        this.hero.init();
+        this.hero.x = App.StageUtils.getWidth() * 0.3;
+        this.hero.y = App.StageUtils.getHeight() * 0.7;
+        this.objectContainer.addChild(this.hero);
 
         if(!App.DeviceUtils.IsMobile){
             this.touchEnabled = true;

@@ -5,9 +5,20 @@ class Enemy extends BaseFrameGameObject{
     private static ACTION_Attack:string = "gongji";
 
     public constructor($controller:BaseController){
-        super("guaiwu001", $controller, 1.2);
+        super($controller);
+
+        this.armature.register(DragonBonesFactory.getInstance().makeArmature("guaiwu001", "guaiwu001", 1.2), [
+            BaseGameObject.ACTION_Idle,
+            BaseGameObject.ACTION_Move,
+            BaseGameObject.ACTION_Hart,
+            BaseGameObject.ACTION_Fly,
+            BaseGameObject.ACTION_Land,
+            BaseGameObject.ACTION_jump,
+            Enemy.ACTION_Attack
+        ]);
 
         this.armature.addCompleteCallFunc(this.armaturePlayEnd, this);
+        this.initFrameData("guaiwu001");
     }
 
     public init():void {
@@ -47,4 +58,18 @@ class Enemy extends BaseFrameGameObject{
         this.gameController.shock();
     }
 
+    public fly(attackObj:BaseGameObject, speedZ:number, speedX:number):void{
+        super.fly(attackObj, speedZ, speedX);
+        App.SoundManager.playEffect("sound_beiji");
+    }
+
+    public hart(attackObj:BaseGameObject, speed:number, xMoveDis:number):void{
+        super.hart(attackObj, speed, xMoveDis);
+        App.SoundManager.playEffect("sound_beiji");
+    }
+
+    public hartFly(attackObj:BaseGameObject, speedZ:number, attract:boolean):void{
+        super.hartFly(attackObj, speedZ, attract);
+        App.SoundManager.playEffect("sound_beiji");
+    }
 }

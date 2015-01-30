@@ -73,7 +73,9 @@ class SoundManager extends BaseClass{
         if(!this.bgOn){
             this.stopBg();
         }else{
-            this.playBg(this.currBg);
+            if(this.currBg){
+                this.playBg(this.currBg);
+            }
         }
     }
 }

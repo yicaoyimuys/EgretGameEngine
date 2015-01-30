@@ -2,8 +2,8 @@
  * Created by egret on 15-1-27.
  */
 class BaseHitGameObject extends BaseAIGameObject{
-    public constructor($dragonBonesDataName:string, $controller:BaseController, $playSpeed:number) {
-        super($dragonBonesDataName, $controller, $playSpeed);
+    public constructor($controller:BaseController) {
+        super($controller);
     }
 
     private onAttack():boolean{

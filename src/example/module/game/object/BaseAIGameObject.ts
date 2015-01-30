@@ -17,8 +17,8 @@ class BaseAIGameObject extends BaseMoveGameObject{
     private currTime:number;
     private attackObj:BaseGameObject;
 
-    public constructor($dragonBonesDataName:string, $controller:BaseController, $playSpeed:number) {
-        super($dragonBonesDataName, $controller, $playSpeed);
+    public constructor($controller:BaseController) {
+        super($controller);
     }
 
     public init():void {
@@ -42,6 +42,9 @@ class BaseAIGameObject extends BaseMoveGameObject{
         super.update(time);
 
         if(!this.isAi)
+            return;
+
+        if(this.isCommand)
             return;
 
         var func:string = "state_"+this.currAiState;
