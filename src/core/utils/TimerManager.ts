@@ -8,6 +8,7 @@ class TimerManager extends BaseClass{
 	private _currTime:number;
 	private _currFrame:number;
 	private _count:number;
+    private _timeScale:number;
 
     /**
      * 构造函数
@@ -19,9 +20,18 @@ class TimerManager extends BaseClass{
 		this._currTime = egret.getTimer();
         this._currFrame = 0;
         this._count = 0;
+        this._timeScale = 1;
 
         egret.Ticker.getInstance().register(this.onEnterFrame, this);
 	}
+
+    /**
+     * 设置时间参数
+     * @param timeScale
+     */
+    public setTimeScale(timeScale:number):void{
+        this._timeScale = timeScale;
+    }
 
     /**
      * 每帧执行函数
@@ -36,7 +46,7 @@ class TimerManager extends BaseClass{
 			var t:number = handler.userFrame ? this._currFrame : this._currTime;
 			if (t >= handler.exeTime) {
 //                App.DebugUtils.start(handler.method.toString());
-                handler.method.call(handler.methodObj, this._currTime - handler.dealTime);
+                handler.method.call(handler.methodObj, (this._currTime - handler.dealTime)*this._timeScale);
 //                App.DebugUtils.stop();
                 handler.dealTime = this._currTime;
                 handler.exeTime += handler.delay;

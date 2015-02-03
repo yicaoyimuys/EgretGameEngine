@@ -73,4 +73,12 @@ class StageUtils extends BaseClass{
     public getUIStage():any{
         return StageUtils._uiStage;
     }
+
+    /**
+     * 设置游戏帧频
+     * @param timeScale
+     */
+    public setTimeScale(timeScale:number):any{
+        egret.Ticker.getInstance().setTimeScale(timeScale);
+    }
 }

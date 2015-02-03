@@ -39,7 +39,24 @@ class DragonBonesFactory{
      * @param textureData 动画资源描述文件
      */
     public initArmatureFile(skeletonData:any, texture:egret.Texture, textureData:any):void{
+        this.addSkeletonData(skeletonData);
+        this.addTextureAtlas(texture, textureData);
+    }
+
+    /**
+     * 添加动画描述文件
+     * @param skeletonData
+     */
+    public addSkeletonData(skeletonData:any):void{
         this.factory.addSkeletonData(dragonBones.DataParser.parseDragonBonesData(skeletonData));
+    }
+
+    /**
+     * 添加动画所需资源
+     * @param texture 动画资源
+     * @param textureData 动画资源描述文件
+     */
+    public addTextureAtlas(texture:egret.Texture, textureData:any):void{
         this.factory.addTextureAtlas(new dragonBones.EgretTextureAtlas(texture, textureData));
     }
 
