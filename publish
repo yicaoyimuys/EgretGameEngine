@@ -9,3 +9,7 @@ runtime发布流程(必须要有android项目):
 2: egret publish --runtime native -compile
 3: cd release
 4: egret compress_json
+
+
+//外网地址
+http://static.egret-labs.org/h5game/kuaida/runtime_v1.html
