@@ -33,8 +33,9 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
      * 播放动作
      * @param action
      * @param playNum
+     * @param isRefurbish
      */
-    public play(action:string, playNum:number = 0):dragonBones.AnimationState{
+    public play(action:string, playNum:number = 0, isRefurbish:boolean = false):dragonBones.AnimationState{
         var armatureIndex:number = this.actions[action];
         if(armatureIndex != this.currArmatureIndex){
             this.remove();
@@ -44,7 +45,7 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
         if(newArm){
             App.EgretExpandUtils.addChild(this, newArm);
             this.currArmatureIndex = armatureIndex;
-            return newArm.play(action, playNum);
+            return newArm.play(action, playNum, isRefurbish);
         }
 
         return null;

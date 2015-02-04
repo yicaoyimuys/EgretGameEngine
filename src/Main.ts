@@ -103,7 +103,7 @@ class Main extends egret.DisplayObjectContainer{
         }else{
             App.DebugUtils.setFpsColor(0xFFFFFF);
 
-            var arr:Array<string> = ["zhujue1", "zhujue2", "enemy", "jineng1", "jineng2"];
+            var arr:Array<string> = ["zhujue1", "zhujue2", "enemy", "jineng1", "jineng2", "guaiwu002", "guaiwu002_effect"];
             for(var i:number=0, len:number=arr.length; i<len; i++){
                 DragonBonesFactory.getInstance().initArmatureFile(RES.getRes(arr[i]+"_skeleton_json"), RES.getRes(arr[i]+"_texture_png"), RES.getRes(arr[i]+"_texture_json"));
             }
@@ -130,16 +130,19 @@ class Main extends egret.DisplayObjectContainer{
      */
     private initModule():void{
         App.ControllerManager.register(ControllerConst.Loading, new LoadingController());
-        App.ControllerManager.register(ControllerConst.Login, new LoginController());
-        App.ControllerManager.register(ControllerConst.Home, new HomeController());
-        App.ControllerManager.register(ControllerConst.Friend, new FriendController());
-        App.ControllerManager.register(ControllerConst.Shop, new ShopController());
-        App.ControllerManager.register(ControllerConst.Warehouse, new WarehouseController());
-        App.ControllerManager.register(ControllerConst.Factory, new FactoryController());
-        App.ControllerManager.register(ControllerConst.Task, new TaskController());
-        App.ControllerManager.register(ControllerConst.Mail, new MailController());
-
-        App.ControllerManager.register(ControllerConst.Game, new GameController());
+        if(this.joinUI){
+            App.ControllerManager.register(ControllerConst.Login, new LoginController());
+            App.ControllerManager.register(ControllerConst.Home, new HomeController());
+            App.ControllerManager.register(ControllerConst.Friend, new FriendController());
+            App.ControllerManager.register(ControllerConst.Shop, new ShopController());
+            App.ControllerManager.register(ControllerConst.Warehouse, new WarehouseController());
+            App.ControllerManager.register(ControllerConst.Factory, new FactoryController());
+            App.ControllerManager.register(ControllerConst.Task, new TaskController());
+            App.ControllerManager.register(ControllerConst.Mail, new MailController());
+        }
+        else{
+            App.ControllerManager.register(ControllerConst.Game, new GameController());
+        }
     }
 }
 

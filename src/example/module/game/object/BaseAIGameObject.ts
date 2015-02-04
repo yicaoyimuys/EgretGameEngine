@@ -7,14 +7,14 @@ class BaseAIGameObject extends BaseMoveGameObject{
     private static STATE_AI_MOVE:string = "ai_move";
     private static STATE_AI_ATTACK:string = "ai_attack";
 
-    private move_time:number = 3000;
-    private attack_time:number = 3000;
-    private attack_dis:Array<number> = [100, 0, 30, 30, 0, 0];
+    public move_time:number = 3000;
+    public attack_time:number = 3000;
+    public ai_attack_dis:Array<number> = [100, 0, 30, 30, 0, 0];
+    public ai_currTime:number;
 
     public isAi:boolean;
 
     private currAiState:string;
-    private currTime:number;
     private attackObj:BaseGameObject;
 
     public constructor($controller:BaseController) {
@@ -26,6 +26,8 @@ class BaseAIGameObject extends BaseMoveGameObject{
 
         this.move_time = App.RandomUtils.limitInteger(2000, 5000);
         this.attack_time = App.RandomUtils.limitInteger(2000, 4000);
+        this.ai_attack_dis = [100, 0, 30, 30, 0, 0];
+        this.ai_currTime = 0;
         this.isAi = true;
     }
 
@@ -34,7 +36,7 @@ class BaseAIGameObject extends BaseMoveGameObject{
     }
 
     public isCanAttack():boolean{
-        this.attackObj = this.gameController.getMyAttackObjects(this, this.attack_dis)[0];
+        this.attackObj = this.gameController.getMyAttackObjects(this, this.ai_attack_dis)[0];
         return this.attackObj != null;
     }
 
@@ -49,7 +51,7 @@ class BaseAIGameObject extends BaseMoveGameObject{
 
         var func:string = "state_"+this.currAiState;
         if(this.currAiState){
-            this.currTime += time;
+            this.ai_currTime += time;
             this[func](time);
         }
     }
@@ -60,13 +62,13 @@ class BaseAIGameObject extends BaseMoveGameObject{
 
     public state_ai_idle(time:number):void{
         if(this.isCanAttack()){
-            if(this.currTime >= this.attack_time){
+            if(this.ai_currTime >= this.attack_time){
                 this.gotoAttack();
             }
         }
         else{
-            if(this.currTime >= this.move_time){
-                this.moveRandom();
+            if(this.ai_currTime >= this.move_time){
+                this.aiMove();
             }
         }
     }
@@ -147,24 +149,56 @@ class BaseAIGameObject extends BaseMoveGameObject{
         this.moveRandom();
     }
 
+    public stopMove():void{
+        super.stopMove();
+        this.ai_currTime = this.attack_time;
+    }
+
     public gotoAiIdle():void{
-        this.currTime = 0;
+        this.ai_currTime = 0;
         this.currAiState = BaseAIGameObject.STATE_AI_IDLE;
     }
 
     public gotoAiMove():void{
-        this.currTime = 0;
+        this.ai_currTime = 0;
         this.currAiState = BaseAIGameObject.STATE_AI_MOVE;
     }
 
     public gotoAiAttack():void{
-        this.currTime = 0;
+        this.ai_currTime = 0;
         this.currAiState = BaseAIGameObject.STATE_AI_ATTACK;
     }
 
     public stopAi():void{
-        this.currTime = 0;
+        this.ai_currTime = 0;
         this.currAiState = BaseAIGameObject.STATE_AI_NONE;
+    }
+
+    private aiMove():void{
+        if(Math.random() > 0.7){
+            this.moveRandom();
+        }else{
+            this.moveToTarget();
+        }
+    }
+
+    private moveToTarget():void{
+        var target:BaseGameObject = this.gameController.getMyNearAttackObjects(this);
+        var gotoX:number;
+        var gotoY:number;
+        if(target.isMyFront(this)){
+            gotoX = target.x + this.scaleX * App.RandomUtils.limit(0, this.ai_attack_dis[0]);
+        }
+        else if(target.isMyBack(this)){
+            gotoX = target.x - this.scaleX * App.RandomUtils.limit(0, this.ai_attack_dis[1]);
+        }
+        if(target.isMyLeft(this)){
+            gotoY = target.y - this.scaleX * App.RandomUtils.limit(0, this.ai_attack_dis[2]);
+        }
+        else if(target.isMyRight(this)){
+            gotoY = target.y + this.scaleX * App.RandomUtils.limit(0, this.ai_attack_dis[3]);
+        }
+        this.walkTo(3, gotoX, gotoY);
     }
 
     private moveRandom():void{

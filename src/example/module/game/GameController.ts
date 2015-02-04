@@ -2,11 +2,14 @@
  * Created by egret on 15-1-16.
  */
 class GameController extends BaseController {
+    private canAttackObjs:Array<BaseHitGameObject>;
     private gameView:GameView;
     private gameUIView:GameUIView;
 
     public constructor() {
         super();
+
+        this.canAttackObjs = new Array<BaseHitGameObject>();
 
         this.gameView = new GameView(this, LayerManager.Game_Main);
         App.ViewManager.register(ViewConst.Game, this.gameView);
@@ -29,7 +32,12 @@ class GameController extends BaseController {
     }
 
     private removeEnemy(enemy:Enemy):void{
-        this.gameView.removeEnemy(enemy);
+        if(enemy instanceof Boss){
+            this.gameView.startCreateEnemy();
+        }
+        else{
+            this.gameView.removeEnemy(enemy);
+        }
     }
 
     /**
@@ -40,13 +48,32 @@ class GameController extends BaseController {
     }
 
     /**
+     * 慢镜头
+     */
+    public slowMotion():void{
+        this.gameView.anchorX = 0.5;
+        this.gameView.anchorY = 0.5;
+        this.gameView.x = App.StageUtils.getWidth()*0.5;
+        this.gameView.y = App.StageUtils.getHeight()*0.5;
+        this.gameView.width = App.StageUtils.getWidth();
+        this.gameView.height = App.StageUtils.getHeight();
+
+        App.TimerManager.setTimeScale(0.1);
+        egret.Tween.get(this.gameView).to({scaleX:1.1, scaleY:1.1}, 1200).to({scaleX:1, scaleY:1}, 300).call(this.slowMotionEnd, this);
+    }
+
+    private slowMotionEnd():void{
+        this.gameView.anchorX = 0;
+        this.gameView.anchorY = 0;
+        this.gameView.x = 0;
+        this.gameView.y = 0;
+        App.TimerManager.setTimeScale(1);
+    }
+
+    /**
      * 获取可攻击对象
      */
-    private canAttackObjs:Array<BaseHitGameObject>;
     public getMyAttackObjects(me:BaseGameObject, meAttackDis:Array<number>):Array<BaseHitGameObject>{
-        if(this.canAttackObjs == null){
-            this.canAttackObjs = new Array<BaseHitGameObject>();
-        }
         this.canAttackObjs.length = 0;
         if(me instanceof Enemy){
             if(!this.gameView.hero.isLand && this.checkIsInDis(me, this.gameView.hero, meAttackDis)){
@@ -68,6 +95,19 @@ class GameController extends BaseController {
             }
         }
         return this.canAttackObjs;
+    }
+
+    /**
+     * 获取离自己最近的对象
+     * @param me
+     */
+    public getMyNearAttackObjects(me:BaseGameObject):BaseHitGameObject{
+        if(me instanceof Enemy){
+            return this.gameView.hero;
+        }
+        else if(me instanceof Hero){
+        }
+        return null;
     }
 
 

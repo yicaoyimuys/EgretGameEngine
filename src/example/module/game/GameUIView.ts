@@ -63,6 +63,18 @@ class GameUIView extends BaseSpriteView{
             return;
         }
 
+        if(this.hero.isJump){
+            return;
+        }
+
+        if(this.hero.isHurt){
+            return;
+        }
+
+        if(this.hero.isLand){
+            return;
+        }
+
         if(xFlag || yFlag){
             this.hero.walk(xFlag, yFlag, 7);
         }
@@ -74,6 +86,18 @@ class GameUIView extends BaseSpriteView{
     }
 
     private onKeyUp(keyCode:number):void{
+        if(this.hero.isJump){
+            return;
+        }
+
+        if(this.hero.isHurt){
+            return;
+        }
+
+        if(this.hero.isLand){
+            return;
+        }
+
         switch (keyCode){
             case Keyboard.J:
                 this.heroAttack();

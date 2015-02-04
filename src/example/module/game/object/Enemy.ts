@@ -2,11 +2,16 @@
  * Created by yangsong on 15-1-16.
  */
 class Enemy extends BaseFrameGameObject{
-    private static ACTION_Attack:string = "gongji";
+    public static ACTION_Attack:string = "gongji";
+    public static ACTION_Skill:string = "jineng";
 
     public constructor($controller:BaseController){
         super($controller);
 
+        this.createArmature();
+    }
+
+    public createArmature():void{
         this.armature.register(DragonBonesFactory.getInstance().makeArmature("guaiwu001", "guaiwu001", 1.2), [
             BaseGameObject.ACTION_Idle,
             BaseGameObject.ACTION_Move,
@@ -26,12 +31,15 @@ class Enemy extends BaseFrameGameObject{
         this.gotoIdle();
     }
 
-    public destory():void {
-        super.destory();
+    /**
+     * 死亡消失
+     */
+    public disappear():void{
+        super.disappear();
         this.controller.applyFunc(GameConst.Remove_Enemy, this);
     }
 
-    private armaturePlayEnd(animationName:string):void{
+    public armaturePlayEnd(animationName:string):void{
         if(animationName == Enemy.ACTION_Attack){
             this.gotoIdle();
         }
@@ -48,12 +56,18 @@ class Enemy extends BaseFrameGameObject{
 
     public gotoAttack():void{
         super.gotoAttack();
+        this.playAttackArmature();
+    }
+
+    public playAttackArmature():void{
         this.armature.play(Enemy.ACTION_Attack, 1);
         App.SoundManager.playEffect("sound_enemyAttack");
     }
 
     public gotoLand():void{
         super.gotoLand();
+        if(this.isDie)
+            return;
         App.SoundManager.playEffect("sound_enenyLand");
         this.gameController.shock();
     }

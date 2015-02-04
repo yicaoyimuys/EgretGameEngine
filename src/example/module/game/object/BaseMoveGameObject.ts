@@ -160,8 +160,18 @@ class BaseMoveGameObject extends BaseGameObject{
         }
 
         if(this.isDie){
-            egret.Tween.get(this).to({alpha: 0}, 2000).call(this.destory, this);
+            egret.Tween.get(this).to({alpha: 0}, 2000).call(function():void{
+                this.disappear();
+                this.destory();
+            }, this);
         }
+    }
+
+    /**
+     * 死亡消失
+     */
+    public disappear():void{
+
     }
 
     public stopMove():void{
@@ -253,7 +263,7 @@ class BaseMoveGameObject extends BaseGameObject{
 
     public gotoHurt():void{
         this.gotoHurtState();
-        this.armature.play(BaseMoveGameObject.ACTION_Hart, 1);
+        this.armature.play(BaseMoveGameObject.ACTION_Hart, 1, true);
     }
 
     public command_in(speed:number, toX:number, toY:number):void{

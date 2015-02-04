@@ -44,9 +44,12 @@ class GameView extends BaseSpriteView{
             this.enemys.push(enemy);
         }
         while(this.enemys.length){
-            this.enemys[0].destory();
+            this.enemys.pop().destory();
         }
-        App.TimerManager.doTimer(2000, 0, this.createEnemy, this);
+
+        //提前初始化好Boss
+        var boss:Boss = ObjectPool.pop(Boss, this.controller);
+        boss.destory();
 
         //创建主角
         this.hero = ObjectPool.pop(Hero, this.controller);
@@ -54,6 +57,10 @@ class GameView extends BaseSpriteView{
         this.hero.x = App.StageUtils.getWidth() * 0.3;
         this.hero.y = App.StageUtils.getHeight() * 0.7;
         this.objectContainer.addChild(this.hero);
+
+        //创建Enemy
+        //this.startCreateEnemy();
+        this.createBoss();
 
         if(!App.DeviceUtils.IsMobile){
             this.touchEnabled = true;
@@ -72,28 +79,56 @@ class GameView extends BaseSpriteView{
         super.initData();
     }
 
-    private createEnemy():void{
-        if(this.enemys.length < 4){
-            var initX:number = Math.random() > 0.5 ? GameData.MAX_X+200 : GameData.MIN_X-200;
-            var initY:number = App.RandomUtils.limit(GameData.MIN_Y, GameData.MAX_Y);
-            var enemy:Enemy = ObjectPool.pop(Enemy, this.controller);
-            enemy.init();
-            enemy.x = initX;
-            enemy.y = initY;
-            enemy.setPos();
-            enemy.scaleX = Math.random()<0.5 ? 1 : -1;
-            this.enemys.push(enemy);
-            App.EgretExpandUtils.addChild(this.objectContainer, enemy);
+    /**
+     * 开始创建怪物
+     */
+    public startCreateEnemy():void{
+        this.enemys.length = 0;
+        App.TimerManager.doTimer(100, 0, this.createEnemy, this);
+    }
 
-            var gotoX:number = App.RandomUtils.limit(GameData.MIN_X, GameData.MAX_X);
-            var gotoY:number = initY;
-            enemy.command_in(3, gotoX, gotoY);
+    /**
+     * 创建怪物
+     */
+    private createEnemy():void{
+        this.enemys.push(this.createEnemySingle(Enemy));
+        if(this.enemys.length >= 4){
+            App.TimerManager.remove(this.createEnemy, this);
         }
+    }
+
+    /**
+     * 创建Boss
+     */
+    private createBoss():void{
+        this.enemys.push(this.createEnemySingle(Boss));
+    }
+
+    private createEnemySingle(cls:any):Enemy{
+        var initX:number = Math.random() > 0.5 ? GameData.MAX_X+200 : GameData.MIN_X-200;
+        var initY:number = App.RandomUtils.limit(GameData.MIN_Y, GameData.MAX_Y);
+        var enemy:Enemy = ObjectPool.pop(cls, this.controller);
+        enemy.init();
+        enemy.x = initX;
+        enemy.y = initY;
+        enemy.setPos();
+        enemy.scaleX = Math.random()<0.5 ? 1 : -1;
+        App.EgretExpandUtils.addChild(this.objectContainer, enemy);
+
+        var gotoX:number = App.RandomUtils.limit(GameData.MIN_X, GameData.MAX_X);
+        var gotoY:number = initY;
+        enemy.command_in(3, gotoX, gotoY);
+        return enemy;
     }
 
     public removeEnemy(enemy:Enemy):void{
         var index:number = this.enemys.indexOf(enemy);
-        this.enemys.splice(index, 1);
+        if(index != -1){
+            this.enemys.splice(index, 1);
+            if(this.enemys.length == 0){
+                this.createBoss();
+            }
+        }
     }
 
     private sortGameObjs():void{

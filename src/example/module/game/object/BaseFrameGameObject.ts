@@ -2,7 +2,7 @@
  * Created by egret on 15-1-27.
  */
 class BaseFrameGameObject extends BaseHitGameObject{
-    private attackConfig:any;
+    public attackConfig:any;
 
     public constructor($controller:BaseController) {
         super($controller);

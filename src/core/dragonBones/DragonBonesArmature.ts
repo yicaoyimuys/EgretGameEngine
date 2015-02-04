@@ -84,11 +84,15 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * 播放名为name的动作
      * @param name 名称
      * @param playNum 播放次数，0:为循环播放
+     * @param isRefurbish 是否刷新动作
      */
-    public play(name:string, playNum:number = 0):dragonBones.AnimationState {
-        if(this._playName == name){
-            return null;
+    public play(name:string, playNum:number = 0, isRefurbish:boolean = false):dragonBones.AnimationState {
+        if(!isRefurbish){
+            if(this._playName == name){
+                return null;
+            }
         }
+
         this._playName = name;
         var state:dragonBones.AnimationState = this.getAnimation().gotoAndPlay(name, undefined, undefined, playNum);
         //此行代码用于处理动画第一次播放时，显示异常的bug

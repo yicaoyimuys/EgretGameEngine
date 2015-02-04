@@ -6,7 +6,7 @@ class BaseHitGameObject extends BaseAIGameObject{
         super($controller);
     }
 
-    private onAttack():boolean{
+    public onAttack():boolean{
         if(this.isAttack){
             return false;
         }
@@ -22,7 +22,15 @@ class BaseHitGameObject extends BaseAIGameObject{
         var isBao:boolean = Math.random() >= 0.95;
         var txt:egret.Bitmap = ObjectPool.pop(egret.Bitmap);
         txt.alpha = 1;
-        txt.x = this.x;
+        if(this.x < 50){
+            txt.x = this.x + App.RandomUtils.limit(0, 100);
+        }
+        else if(this.x > App.StageUtils.getHeight() - 50){
+            txt.x = this.x - App.RandomUtils.limit(0, 100);
+        }
+        else{
+            txt.x = this.x + (Math.random() > 0.5 ? App.RandomUtils.limit(0, 100) : -App.RandomUtils.limit(0, 100));
+        }
         txt.y = this.y + this.z - 100;
         txt.anchorX = 0.5;
         txt.texture = isBao ? RES.getRes("losehp_baoji_png") : RES.getRes("losehp_png");
