@@ -146,6 +146,14 @@ class RockerUtils extends BaseClass{
     }
 
     /**
+     * 复位摇杆位置
+     */
+    private resetRockerPos():void{
+        this.moveFlag.x = this.moveFlagX;
+        this.moveFlag.y = this.moveFlagY;
+    }
+
+    /**
      * 摇杆移动事件
      * @param e
      */
@@ -235,7 +243,9 @@ class RockerUtils extends BaseClass{
             this.stopCheckKey();
         }
 
-        this.delaKeyFunc.call(this.delaKeyTarget, this.keys[0], this.keys[1]);
+        if(!this.delaKeyFunc.call(this.delaKeyTarget, this.keys[0], this.keys[1])){
+            this.resetRockerPos();
+        }
     }
 
     /**

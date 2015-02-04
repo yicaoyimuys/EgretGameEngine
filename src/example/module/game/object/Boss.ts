@@ -94,7 +94,9 @@ class Boss extends Enemy{
 
     public leave():void{
         super.leave();
+        this.stopMove();
         this.setAttackType(2);
+        this.gotoAttack();
     }
 
     public gotoIdle():void{

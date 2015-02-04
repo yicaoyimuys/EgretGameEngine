@@ -110,7 +110,9 @@ class BaseAIGameObject extends BaseMoveGameObject{
             return;
 
         this.gotoAiAttack();
-        this.scaleX = this.attackObj.x >= this.x ? 1 : -1;
+        if(this.attackObj){
+            this.scaleX = this.attackObj.x >= this.x ? 1 : -1;
+        }
     }
 
     public gotoHurt():void{

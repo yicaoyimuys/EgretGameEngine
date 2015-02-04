@@ -58,46 +58,36 @@ class GameUIView extends BaseSpriteView{
         this.hero = this.applyFunc(GameConst.Get_Hero);
     }
 
-    private dealKey(xFlag:number, yFlag:number):void{
+    private dealKey(xFlag:number, yFlag:number):boolean{
         if(this.hero.isAttack){
-            return;
+            return false;
         }
 
         if(this.hero.isJump){
-            return;
+            return false;
         }
 
         if(this.hero.isHurt){
-            return;
+            return false;
         }
 
         if(this.hero.isLand){
-            return;
+            return false;
         }
 
         if(xFlag || yFlag){
             this.hero.walk(xFlag, yFlag, 7);
+            return true;
         }
         else{
             if(this.hero.isMove){
                 this.hero.stopMove();
             }
         }
+        return false;
     }
 
     private onKeyUp(keyCode:number):void{
-        if(this.hero.isJump){
-            return;
-        }
-
-        if(this.hero.isHurt){
-            return;
-        }
-
-        if(this.hero.isLand){
-            return;
-        }
-
         switch (keyCode){
             case Keyboard.J:
                 this.heroAttack();
@@ -123,33 +113,25 @@ class GameUIView extends BaseSpriteView{
 
     private heroAttack():void{
         if(this.hero.isAttack){
-            this.hero.addMaxAttack();
+            this.hero.addMaxAttackIndex();
             return;
         }
         this.hero.attack();
     }
 
     private heroSkill1():void{
-        if(this.hero.isAttack)
-            return;
         this.hero.skill(1);
     }
 
     private heroSkill2():void{
-        if(this.hero.isAttack)
-            return;
         this.hero.skill(2);
     }
 
     private heroSkill3():void{
-        if(this.hero.isAttack)
-            return;
         this.hero.skill(3);
     }
 
     private heroSkill4():void{
-        if(this.hero.isAttack)
-            return;
         this.hero.skill(4);
     }
 

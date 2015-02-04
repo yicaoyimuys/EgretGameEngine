@@ -59,8 +59,8 @@ class GameView extends BaseSpriteView{
         this.objectContainer.addChild(this.hero);
 
         //创建Enemy
-        //this.startCreateEnemy();
-        this.createBoss();
+        this.startCreateEnemy();
+//        this.createBoss();
 
         if(!App.DeviceUtils.IsMobile){
             this.touchEnabled = true;

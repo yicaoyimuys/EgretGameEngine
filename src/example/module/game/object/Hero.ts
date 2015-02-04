@@ -90,7 +90,7 @@ class Hero extends BaseFrameGameObject{
         }
     }
 
-    public addMaxAttack():void{
+    public addMaxAttackIndex():void{
         this.attackMaxIndex ++;
         if(this.attackMaxIndex > 3){
             this.attackMaxIndex = 3;
@@ -98,6 +98,15 @@ class Hero extends BaseFrameGameObject{
     }
 
     public attack():void{
+        if(this.isJump)
+            return;
+
+        if(this.isHurt)
+            return;
+
+        if(this.isLand)
+            return;
+
         if(this.isMove){
             this.stopMove();
         }
@@ -121,6 +130,18 @@ class Hero extends BaseFrameGameObject{
     }
 
     public skill(id:number):void{
+        if(this.isAttack)
+            return;
+
+        if(this.isJump)
+            return;
+
+        if(this.isHurt)
+            return;
+
+        if(this.isLand)
+            return;
+
         if(this.isMove){
             this.stopMove();
         }
