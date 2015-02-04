@@ -58,5 +58,19 @@
             "dis": [100, 0, 30, 30, 0, 0],
             "action": "frameEnemyHart_0_0"
         }
+    },
+    "guaiwu002": {
+        "attack1": {
+            "dis": [100, 0, 30, 30, 0, 0],
+            "action": "frameEnemyHart_0_0"
+        },
+        "skill1": {
+            "dis": [200, 200, 100, 100, 200, 0],
+            "action": "frameEnemyHartMoveToZ_-10_1"
+        },
+        "skill1_fly": {
+            "dis": [200, 200, 100, 100, 200, 0],
+            "action": "frameEnemyFly_-30_4"
+        }
     }
 }
