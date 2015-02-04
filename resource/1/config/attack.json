@@ -70,7 +70,7 @@
         },
         "skill1_fly": {
             "dis": [200, 200, 100, 100, 200, 0],
-            "action": "frameEnemyFly_-30_4"
+            "action": "frameEnemyFly_-20_6"
         }
     }
 }
