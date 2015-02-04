@@ -29,17 +29,23 @@ class BaseFrameGameObject extends BaseHitGameObject{
 
 
 
-    public frameEnemyHart(frameLabel:string, speed:string, xMoveDis:string):void{
+    public frameEnemyHart(frameLabel:string, speed:string, xMoveDis:string, shock:string = "0"):void{
         var attDis:Array<number> = this.attackConfig[frameLabel].dis;
         var attackObjs:Array<BaseHitGameObject> = this.gameController.getMyAttackObjects(this, attDis);
+        if(attackObjs.length && shock == "1"){
+            this.frameShock();
+        }
         for(var i:number=0, len=attackObjs.length; i<len; i++){
             attackObjs[i].hart(this, parseInt(speed), parseInt(xMoveDis));
         }
     }
 
-    public frameEnemyFly(frameLabel:string, speedZ:string, speedX:string):void{
+    public frameEnemyFly(frameLabel:string, speedZ:string, speedX:string, shock:string = "0"):void{
         var attDis:Array<number> = this.attackConfig[frameLabel].dis;
         var attackObjs:Array<BaseHitGameObject> = this.gameController.getMyAttackObjects(this, attDis);
+        if(attackObjs.length && shock == "1"){
+            this.frameShock();
+        }
         for(var i:number=0, len=attackObjs.length; i<len; i++){
             attackObjs[i].fly(this, parseInt(speedZ), parseInt(speedX));
         }
@@ -63,5 +69,9 @@ class BaseFrameGameObject extends BaseHitGameObject{
 
     public frameThisStandLand(frameLabel:string):void{
         this.standLand();
+    }
+
+    public frameShock(frameLabel:string = null):void{
+        this.gameController.shock();
     }
 }

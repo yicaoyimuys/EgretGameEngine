@@ -60,7 +60,6 @@ class GameView extends BaseSpriteView{
 
         //创建Enemy
         this.startCreateEnemy();
-//        this.createBoss();
 
         if(!App.DeviceUtils.IsMobile){
             this.touchEnabled = true;
@@ -82,7 +81,7 @@ class GameView extends BaseSpriteView{
     /**
      * 开始创建怪物
      */
-    public startCreateEnemy():void{
+    private startCreateEnemy():void{
         this.enemys.length = 0;
         App.TimerManager.doTimer(100, 0, this.createEnemy, this);
     }
@@ -101,6 +100,11 @@ class GameView extends BaseSpriteView{
      * 创建Boss
      */
     private createBoss():void{
+        for(var i:number=0, len:number=this.enemys.length; i<len; i++){
+            if(this.enemys[i] instanceof Boss){
+                return;
+            }
+        }
         this.enemys.push(this.createEnemySingle(Boss));
     }
 
@@ -126,6 +130,9 @@ class GameView extends BaseSpriteView{
         if(index != -1){
             this.enemys.splice(index, 1);
             if(this.enemys.length == 0){
+                this.startCreateEnemy();
+            }
+            else if(this.enemys.length == 2){
                 this.createBoss();
             }
         }

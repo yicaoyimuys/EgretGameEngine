@@ -177,4 +177,19 @@ class Hero extends BaseFrameGameObject{
 
     public die():void{
     }
+
+    public fly(attackObj:BaseGameObject, speedZ:number, speedX:number):void{
+        super.fly(attackObj, speedZ, speedX);
+        App.SoundManager.playEffect("sound_heroBeiji");
+    }
+
+    public hart(attackObj:BaseGameObject, speed:number, xMoveDis:number):void{
+        super.hart(attackObj, speed, xMoveDis);
+        App.SoundManager.playEffect("sound_heroBeiji");
+    }
+
+    public hartFly(attackObj:BaseGameObject, speedZ:number, attract:boolean):void{
+        super.hartFly(attackObj, speedZ, attract);
+        App.SoundManager.playEffect("sound_heroBeiji");
+    }
 }

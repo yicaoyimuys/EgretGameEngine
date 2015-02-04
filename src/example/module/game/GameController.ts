@@ -32,12 +32,7 @@ class GameController extends BaseController {
     }
 
     private removeEnemy(enemy:Enemy):void{
-        if(enemy instanceof Boss){
-            this.gameView.startCreateEnemy();
-        }
-        else{
-            this.gameView.removeEnemy(enemy);
-        }
+        this.gameView.removeEnemy(enemy);
     }
 
     /**
@@ -51,6 +46,8 @@ class GameController extends BaseController {
      * 慢镜头
      */
     public slowMotion():void{
+        App.ShockUtils.stop();
+
         this.gameView.anchorX = 0.5;
         this.gameView.anchorY = 0.5;
         this.gameView.x = App.StageUtils.getWidth()*0.5;

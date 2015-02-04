@@ -11,6 +11,8 @@ class Boss extends Enemy{
 
     public init():void{
         super.init();
+        this.move_time = App.RandomUtils.limitInteger(1000, 2000);
+        this.attack_time = App.RandomUtils.limitInteger(1000, 2000);
         this.hp = 1000;
         this.setAttackType(1);
     }
@@ -66,8 +68,10 @@ class Boss extends Enemy{
         var anmatureName:string;
         if(this.attackType == 1){
             anmatureName = Enemy.ACTION_Attack;
+            App.SoundManager.playEffect("sound_bossAttack");
         }else if(this.attackType == 2){
             anmatureName = Enemy.ACTION_Skill;
+            App.SoundManager.playEffect("sound_bossSkill");
         }
         this.armature.play(anmatureName, 1);
         this.playEffect(anmatureName);
