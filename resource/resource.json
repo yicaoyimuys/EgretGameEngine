@@ -373,6 +373,24 @@
             "type":"sound",
             "soundType":"effect",
             "url":"sound/beiji.wav"
+        },
+        {
+            "name":"sound_bossSkill",
+            "type":"sound",
+            "soundType":"effect",
+            "url":"sound/bossSkill.mp3"
+        },
+        {
+            "name":"sound_bossAttack",
+            "type":"sound",
+            "soundType":"effect",
+            "url":"sound/bossAttack.mp3"
+        },
+        {
+            "name":"sound_heroBeiji",
+            "type":"sound",
+            "soundType":"effect",
+            "url":"sound/heroBeiji.wav"
         }
     ]
 }
