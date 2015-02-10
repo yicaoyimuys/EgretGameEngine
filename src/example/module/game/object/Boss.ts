@@ -13,7 +13,7 @@ class Boss extends Enemy{
         super.init();
         this.move_time = App.RandomUtils.limitInteger(1000, 2000);
         this.attack_time = App.RandomUtils.limitInteger(1000, 2000);
-        this.hp = 1000;
+        this.hp = 500;
         this.setAttackType(1);
     }
 
@@ -26,7 +26,10 @@ class Boss extends Enemy{
             BaseGameObject.ACTION_Land,
             BaseGameObject.ACTION_jump,
             Enemy.ACTION_Attack,
-            Enemy.ACTION_Skill
+            Enemy.ACTION_Skill1
+        ]);
+        this.armature.register(DragonBonesFactory.getInstance().makeArmature("guaiwu003", "guaiwu003", 1.2), [
+            Enemy.ACTION_Skill2
         ]);
 
         this.armature.addCompleteCallFunc(this.armaturePlayEnd, this);
@@ -35,7 +38,10 @@ class Boss extends Enemy{
         this.effectArmature = new DragonBonesArmatureContainer();
         this.effectArmature.register(DragonBonesFactory.getInstance().makeArmature("guaiwu002_effect", "guaiwu002_effect", 1.2), [
             Enemy.ACTION_Attack,
-            Enemy.ACTION_Skill
+            Enemy.ACTION_Skill1
+        ]);
+        this.effectArmature.register(DragonBonesFactory.getInstance().makeArmature("guaiwu003_effect", "guaiwu003_effect", 1.2), [
+            Enemy.ACTION_Skill2
         ]);
     }
 
@@ -46,6 +52,9 @@ class Boss extends Enemy{
         }
         else if(this.attackType == 2){
             this.ai_attack_dis = this.attackConfig["skill1"].dis;
+        }
+        else if(this.attackType == 3){
+            this.ai_attack_dis = this.attackConfig["skill2_3"].dis;
         }
     }
 
@@ -58,7 +67,11 @@ class Boss extends Enemy{
         if(animationName == Enemy.ACTION_Attack){
             this.setAttackType(2);
         }
-        else if(animationName == Enemy.ACTION_Skill){
+        else if(animationName == Enemy.ACTION_Skill1){
+            this.gotoIdle();
+            this.setAttackType(3);
+        }
+        else if(animationName == Enemy.ACTION_Skill2){
             this.gotoIdle();
             this.setAttackType(1);
         }
@@ -70,7 +83,11 @@ class Boss extends Enemy{
             anmatureName = Enemy.ACTION_Attack;
             App.SoundManager.playEffect("sound_bossAttack");
         }else if(this.attackType == 2){
-            anmatureName = Enemy.ACTION_Skill;
+            anmatureName = Enemy.ACTION_Skill1;
+            App.SoundManager.playEffect("sound_bossSkill");
+        }
+        else if(this.attackType == 3){
+            anmatureName = Enemy.ACTION_Skill2;
             App.SoundManager.playEffect("sound_bossSkill");
         }
         this.armature.play(anmatureName, 1);

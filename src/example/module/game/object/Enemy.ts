@@ -3,7 +3,8 @@
  */
 class Enemy extends BaseFrameGameObject{
     public static ACTION_Attack:string = "gongji";
-    public static ACTION_Skill:string = "jineng";
+    public static ACTION_Skill1:string = "jineng";
+    public static ACTION_Skill2:string = "jineng2";
 
     public constructor($controller:BaseController){
         super($controller);

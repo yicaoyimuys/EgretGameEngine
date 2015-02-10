@@ -103,7 +103,7 @@ class Main extends egret.DisplayObjectContainer{
         }else{
             App.DebugUtils.setFpsColor(0xFFFFFF);
 
-            var arr:Array<string> = ["zhujue1", "zhujue2", "enemy", "jineng1", "jineng2", "guaiwu002", "guaiwu002_effect"];
+            var arr:Array<string> = ["zhujue1", "zhujue2", "enemy", "jineng1", "jineng2", "guaiwu002", "guaiwu002_effect", "guaiwu003", "guaiwu003_effect"];
             for(var i:number=0, len:number=arr.length; i<len; i++){
                 DragonBonesFactory.getInstance().initArmatureFile(RES.getRes(arr[i]+"_skeleton_json"), RES.getRes(arr[i]+"_texture_png"), RES.getRes(arr[i]+"_texture_json"));
             }
