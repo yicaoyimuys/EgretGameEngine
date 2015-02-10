@@ -71,6 +71,22 @@
         "skill1_fly": {
             "dis": [200, 200, 100, 100, 200, 0],
             "action": "frameEnemyFly_-20_6"
+        },
+        "skill2_1": {
+            "dis": [0, 0, 80, 0, 0, 0],
+            "action": "frameEnemyHart_0_0"
+        },
+        "skill2_2": {
+            "dis": [100, 0, 80, 0, 0, 0],
+            "action": "frameEnemyHart_0_0"
+        },
+        "skill2_3": {
+            "dis": [100, 0, 80, 80, 0, 0],
+            "action": "frameEnemyHart_0_0"
+        },
+        "skill2_fly": {
+            "dis": [200, 0, 80, 80, 0, 0],
+            "action": "frameEnemyFly_-20_6"
         }
     }
 }
