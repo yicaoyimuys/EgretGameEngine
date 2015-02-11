@@ -9,11 +9,14 @@
 		},
 		{
 			"name": "dragonBones"
-		}
+		},
+        {
+            "name": "socket"
+        }
 	],
 	"native": {
 		"path_ignore": [],
 		"android_path": "../android/egret-projects/EgretGameEngine"
 	},
-	"egret_version": "1.5.3"
+	"egret_version": "1.5.4"
 }
