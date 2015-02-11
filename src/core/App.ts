@@ -175,6 +175,12 @@ class App{
     public static get TouchEventHook():TouchEventHook{
         return TouchEventHook.getInstance();
     }
+    /**
+     * 多个资源配置文件加载类
+     */
+    public static get ResourceUtils():ResourceUtils{
+        return ResourceUtils.getInstance();
+    }
 
     /**
      * 初始化函数
@@ -190,7 +196,7 @@ class App{
         //实例化Http请求
         App.Http.initServer(App.GlobalData.HttpSerever);
         //实例化Socket请求
-        App.Socket.initServer(App.GlobalData.SocketServer, App.GlobalData.SocketPort);
+        App.Socket.initServer(App.GlobalData.SocketServer, App.GlobalData.SocketPort, new ByteArrayMsg());
         //开启服务器返回的消息侦听
         App.TimerManager.doFrame(1, 0, App.MessageCenter.run, App.MessageCenter);
     }
