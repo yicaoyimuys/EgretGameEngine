@@ -6,28 +6,89 @@ class Socket extends BaseClass{
     private _needReconnect:boolean = true;
     private _maxReconnectCount = 3;
 
-    private _msg:Msg;
     private _reconnectCount:number;
-    private _socket:WebSocket;
     private _host:string;
-    private _port:string;
+    private _port:any;
+    private _socket:egret.WebSocket;
+    private _msg:BaseMsg;
 
     /**
      * 构造函数
      */
     public constructor() {
         super();
-        this._msg = new Msg();
+    }
+
+    /**
+     * 添加事件监听
+     */
+    private addEvents(){
+        this._socket.addEventListener(egret.ProgressEvent.SOCKET_DATA, this.onReceiveMessage, this);
+        this._socket.addEventListener(egret.Event.CONNECT, this.onSocketOpen, this);
+        this._socket.addEventListener(egret.Event.CLOSE, this.onSocketClose, this);
+        this._socket.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onSocketError, this);
+    }
+
+    /**
+     * 移除事件监听
+     */
+    private removeEvents():void{
+        this._socket.removeEventListener(egret.ProgressEvent.SOCKET_DATA, this.onReceiveMessage, this);
+        this._socket.removeEventListener(egret.Event.CONNECT, this.onSocketOpen, this);
+        this._socket.removeEventListener(egret.Event.CLOSE, this.onSocketClose, this);
+        this._socket.removeEventListener(egret.IOErrorEvent.IO_ERROR, this.onSocketError, this);
+    }
+
+    /**
+     * 服务器连接成功
+     */
+    private onSocketOpen():void {
+        if (this._reconnectCount > 0) {
+            this._reconnectCount = 0;
+            App.MessageCenter.dispatch(SocketConst.SOCKET_RECONNECT);
+        } else {
+            App.MessageCenter.dispatch(SocketConst.SOCKET_CONNECT);
+        }
+    }
+
+    /**
+     * 服务器断开连接
+     */
+    private onSocketClose():void {
+        if(this._needReconnect) {
+            this._reconnectCount = 0;
+            this.reconnect();
+            App.MessageCenter.dispatch(SocketConst.SOCKET_START_RECONNECT);
+        }else{
+            App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
+        }
+    }
+
+    /**
+     * 服务器连接错误
+     */
+    private onSocketError():void {
+        App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT);
+    }
+
+    /**
+     * 收到服务器消息
+     * @param e
+     */
+    public onReceiveMessage(e:egret.Event):void {
+        this._msg.receive(this._socket);
     }
 
     /**
      * 初始化服务区地址
      * @param host IP
      * @param port 端口
+     * @param msg 消息发送接受处理类
      */
-    public initServer(host:string, port:string):void{
+    public initServer(host:string, port:any, msg:BaseMsg):void{
         this._host = host;
         this._port = port;
+        this._msg = msg;
     }
 
     /**
@@ -38,37 +99,9 @@ class Socket extends BaseClass{
             egret.Logger.fatal("不支持WebSocket");
             return;
         }
-        this._socket = new WebSocket("ws://" + this._host + ":" + this._port);
-        this.addListeners();
-    }
-
-    private addListeners():void {
-        var that:any = this;
-        this._socket.onopen = function (evt) {
-            if (that._reconnectCount > 0) {
-                that._reconnectCount = 0;
-                App.MessageCenter.dispatch(SocketConst.SOCKET_RECONNECT);
-            } else {
-                App.MessageCenter.dispatch(SocketConst.SOCKET_CONNECT);
-            }
-        };
-        this._socket.onclose = function (evt) {
-            if (that._needReconnect) {
-                that._reconnectCount = 0;
-                that.reconnect();
-            }else{
-                App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
-            }
-        };
-        this._socket.onerror = function(evt){
-            App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT);
-        };
-        this._socket.onmessage = function(evt) {
-            var msg:any = this._msg.decode(evt.data);
-            App.MessageCenter.dispatch(msg.id, msg);
-
-            this.debugInfo("接收到服务器消息：" + msg.id);
-        };
+        this._socket = new egret.WebSocket();
+        this._socket.connect(this._host, this._port);
+        this.addEvents();
     }
 
     /**
@@ -88,10 +121,7 @@ class Socket extends BaseClass{
      * @param msg
      */
     public send(msg:any):void {
-        this.debugInfo("客户端发送消息：" + msg.id);
-
-        var sendMsg:string = this._msg.encode(msg);
-        this._socket.send(sendMsg);
+        this._msg.send(this._socket, msg);
     }
 
     /**
@@ -99,6 +129,7 @@ class Socket extends BaseClass{
      */
     public close():void {
         this._socket.close();
+        this.removeEvents();
     }
 
     /**
@@ -108,4 +139,5 @@ class Socket extends BaseClass{
     private debugInfo(str:String):void{
         App.MessageCenter.dispatch(SocketConst.SOCKET_DEBUG_INFO, str);
     }
+
 }
