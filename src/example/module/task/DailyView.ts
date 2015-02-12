@@ -8,15 +8,12 @@ class DailyView extends BaseTaskView {
         this.icon = "table_activity";
     }
 
-    public partAdded(partName:string, instance:any):void {
-        super.partAdded(partName, instance);
-    }
-
-    public createChildren():void {
-        super.createChildren();
-
-        super.childrenCreated();
-
+    /**
+     *对面板数据的初始化，用于子类继承
+     *
+     */
+    public initData():void {
+        super.initData();
 
         this.dataProvider.addItem({icon:"icon_experience",gold:"+50",seed:"+200",label:"帮助好友5次",progress:"0/5"});
         this.dataProvider.addItem({icon:"icon_fertilization",gold:"+120",seed:"+100",label:"帮助好友10次",progress:"0/10"});

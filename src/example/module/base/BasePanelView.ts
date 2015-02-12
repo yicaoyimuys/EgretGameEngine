@@ -37,17 +37,24 @@ class BasePanelView extends BaseGuiView {
     public closeBtn:egret.gui.Button;
     public iconDisplay:egret.gui.UIAsset;
     public button:egret.gui.UIAsset;
-    public partAdded(partName: string, instance: any): void{
-        super.partAdded(partName,instance);
-        if(instance == this.closeBtn){
-            this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_END,this.closeBtnClickHandler,this)
-        }
-        if(instance == this.iconDisplay){
-            this.iconDisplay.source = this._icon;
-        }
-        if(instance == this.button){
-            this.button.source = this._btn;
-        }
+
+    /**
+     *对面板进行显示初始化，用于子类继承
+     *
+     */
+    public initUI():void {
+        super.initUI();
+        this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_END,this.closeBtnClickHandler,this);
+    }
+
+    /**
+     *对面板数据的初始化，用于子类继承
+     *
+     */
+    public initData():void{
+        super.initData();
+        this.iconDisplay.source = this._icon;
+        this.button.source = this._btn;
     }
 
     private closeBtnClickHandler(e:egret.TouchEvent):void{

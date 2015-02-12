@@ -12,8 +12,12 @@ class BaseTaskView extends BasePanelView {
         this.dataProvider = new egret.gui.ArrayCollection();
     }
 
-    public createChildren():void{
-        super.createChildren();
+    /**
+     *对面板进行显示初始化，用于子类继承
+     *
+     */
+    public initUI():void{
+        super.initUI();
 
         this.taskList = new egret.gui.List();
         this.taskList.skinName = "skins.ListSkin";
@@ -25,7 +29,11 @@ class BaseTaskView extends BasePanelView {
         this.taskList.itemRendererSkinName = "skins.TaskItemRendererSkin";
     }
 
-    public partAdded(partName:string, instance:any):void {
-        super.partAdded(partName, instance);
+    /**
+     *对面板数据的初始化，用于子类继承
+     *
+     */
+    public initData():void{
+        super.initData();
     }
 }

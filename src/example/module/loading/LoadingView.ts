@@ -9,9 +9,6 @@ class LoadingView extends BaseGuiView{
     }
 
     public txtMsg:egret.gui.Label;
-    public partAdded(partName: string, instance: any): void {
-        super.partAdded(partName, instance);
-    }
 
     public setProgress(current:number, total:number):void {
         this.txtMsg.text = "资源加载中..." + current + "/" + total;

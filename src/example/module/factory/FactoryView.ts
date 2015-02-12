@@ -7,8 +7,4 @@ class FactoryView extends BasePanelView {
 
         this.icon = "icon_factory_tittle";
     }
-
-    public partAdded(partName:string, instance:any):void {
-        super.partAdded(partName, instance);
-    }
 }

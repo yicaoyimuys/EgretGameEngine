@@ -26,7 +26,7 @@
  */
 
 class Main extends egret.DisplayObjectContainer{
-    private joinUI:boolean = false;
+    private joinUI:boolean = true;
 
     public constructor() {
         super();

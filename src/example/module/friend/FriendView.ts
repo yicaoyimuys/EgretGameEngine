@@ -7,8 +7,4 @@ class FriendView extends BasePanelView {
 
         this.icon = "table_tittle";
     }
-
-    public partAdded(partName:string, instance:any):void {
-        super.partAdded(partName, instance);
-    }
 }

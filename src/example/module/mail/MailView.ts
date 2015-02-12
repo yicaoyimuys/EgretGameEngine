@@ -7,8 +7,4 @@ class MailView extends BasePanelView {
 
         this.icon = "table_mail";
     }
-
-    public partAdded(partName:string, instance:any):void {
-        super.partAdded(partName, instance);
-    }
 }

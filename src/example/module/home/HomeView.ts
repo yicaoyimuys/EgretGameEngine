@@ -17,39 +17,21 @@ class HomeView extends BaseGuiView{
     public factoryBtn:egret.gui.UIAsset;
     public moreBtn:egret.gui.UIAsset;
 
-    public partAdded(partName: string, instance: any): void
-    {
-        super.partAdded(partName,instance);
-        if(this.menuBtn == instance)
-        {
-            this.menuBtn.addEventListener(egret.Event.CHANGE,this.menuBtnChangeHandler,this);
-        }
-        if(this.menu == instance)
-        {
-            this.menu.touchChildren = true;
-            this.menu.touchEnabled = true;
-            this.menu.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.menuClickHandler,this);
-        }
-        if(this.friendBtn == instance)
-        {
-            this.friendBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.friendClickHandler,this);
-        }
-        if(this.shopBtn == instance)
-        {
-            this.shopBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.shopClickHandler,this);
-        }
-        if(this.warehouseBtn == instance)
-        {
-            this.warehouseBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.warehouseClickHandler,this);
-        }
-        if(this.factoryBtn == instance)
-        {
-            this.factoryBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.factoryClickHandler,this);
-        }
-        if(this.moreBtn == instance)
-        {
-            this.moreBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.moreClickHandler,this);
-        }
+    /**
+     *对面板进行显示初始化，用于子类继承
+     *
+     */
+    public initUI():void{
+        super.initUI();
+        this.menu.touchChildren = true;
+        this.menu.touchEnabled = true;
+        this.menu.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.menuClickHandler,this);
+        this.menuBtn.addEventListener(egret.Event.CHANGE,this.menuBtnChangeHandler,this);
+        this.friendBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.friendClickHandler,this);
+        this.shopBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.shopClickHandler,this);
+        this.warehouseBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.warehouseClickHandler,this);
+        this.factoryBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.factoryClickHandler,this);
+        this.moreBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.moreClickHandler,this);
     }
 
     private playSound():void{
@@ -107,10 +89,5 @@ class HomeView extends BaseGuiView{
             this.menuBtn.selected = false;
             this.menu.visible = false;
         }
-    }
-
-    public createChildren():void
-    {
-        super.createChildren();
     }
 }

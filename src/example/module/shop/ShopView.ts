@@ -8,12 +8,12 @@ class ShopView extends BasePanelView {
         this.icon = "table_shop";
     }
 
-    public partAdded(partName:string, instance:any):void {
-        super.partAdded(partName, instance);
-    }
-
-    public createChildren():void{
-        super.createChildren();
+    /**
+     *对面板数据的初始化，用于子类继承
+     *
+     */
+    public initData():void{
+        super.initData();
 
         var taskList1:egret.gui.List = new egret.gui.List();
         taskList1.skinName = "skins.TileListSkin";
