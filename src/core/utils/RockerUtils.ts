@@ -14,6 +14,8 @@ class RockerUtils extends BaseClass{
     private isMoveing:boolean;
     private moveFlagGoX:number;
     private moveFlagGoY:number;
+    private mouseX:number;
+    private mouseY:number;
     private checkKeying:boolean;
 
     private delaKeyFunc:Function;
@@ -34,6 +36,9 @@ class RockerUtils extends BaseClass{
     public init(moveBg:egret.Bitmap, moveFlag:egret.Bitmap, delaKeyFunc:Function, delaKeyTarget:any, useNb:boolean = true):void{
         this.keys = [0, 0];
 
+        this.mouseX = -1;
+        this.mouseY = -1;
+
         this.moveFlag = moveFlag;
         this.moveFlagX = moveFlag.x;
         this.moveFlagY = moveFlag.y;
@@ -48,6 +53,7 @@ class RockerUtils extends BaseClass{
         this.moveFlag.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.startMove, this);
         this.moveFlag.addEventListener(egret.TouchEvent.TOUCH_END, this.stopMove, this);
         this.moveFlag.addEventListener(egret.TouchEvent.TOUCH_TAP, this.stopEvent, this);
+        App.StageUtils.getStage().addEventListener(egret.TouchEvent.TOUCH_END, this.leaveStateEvent, this);
         if(useNb){
             App.TouchEventHook.hookTouchEvent(egret.TouchEvent.TOUCH_MOVE, this.runMove.bind(this));
         }else{
@@ -126,12 +132,24 @@ class RockerUtils extends BaseClass{
     }
 
     /**
+     * 手指离开Stage事件处理
+     * @param e
+     */
+    private leaveStateEvent(e:egret.TouchEvent):void{
+        if(e.localX == this.mouseX && e.localY == this.mouseY){
+            this.stopMove();
+        }
+    }
+
+    /**
      * 开始移动
      */
-    private startMove():void{
+    private startMove(e:egret.TouchEvent):void{
         this.isMoveing = true;
         this.moveFlagGoX = this.moveFlagX;
         this.moveFlagGoY = this.moveFlagY;
+        this.mouseX = e.localX;
+        this.mouseY = e.localY;
     }
 
     /**
@@ -143,6 +161,8 @@ class RockerUtils extends BaseClass{
         this.keys[1] = 0;
         this.moveFlagGoX = this.moveFlagX;
         this.moveFlagGoY = this.moveFlagY;
+        this.mouseX = -1;
+        this.mouseY = -1;
     }
 
     /**
@@ -166,18 +186,24 @@ class RockerUtils extends BaseClass{
      * @param e
      */
     private runMove(localX:number, localY:number):void{
-        if(!this.isMoveing)
-            return;
-
-        if(!this.moveFlagCheckRec.contains(localX, localY)){
+        if(!this.isMoveing){
             return;
         }
 
-        if(this.moveFlagRec.contains(localX, localY)){
-            this.moveFlagGoX = localX;
-            this.moveFlagGoY = localY;
+        if(!this.moveFlagCheckRec.contains(localX, localY)){
+            if(Math.abs(this.mouseX - localX) > 50 || Math.abs(this.mouseY - localY) > 50){
+                return;
+            }
+        }
+
+        this.mouseX = localX;
+        this.mouseY = localY;
+
+        if(this.moveFlagRec.contains(this.mouseX, this.mouseY)){
+            this.moveFlagGoX = this.mouseX;
+            this.moveFlagGoY = this.mouseY;
         }else{
-            var radian:number = App.MathUtils.getRadian2(this.moveFlagX, this.moveFlagY, localX, localY);
+            var radian:number = App.MathUtils.getRadian2(this.moveFlagX, this.moveFlagY, this.mouseX, this.mouseY);
             this.moveFlagGoX = this.moveFlagX + Math.cos(radian) * this.moveFlagWidthHelf;
             this.moveFlagGoY = this.moveFlagY + Math.sin(radian) * this.moveFlagWidthHelf;
         }
@@ -227,7 +253,7 @@ class RockerUtils extends BaseClass{
      * 检测
      */
     private delKeys():void{
-        if(!this.moveFlagCheckRec.contains(this.moveFlagGoX, this.moveFlagGoY)){
+        if(!this.moveFlagCheckRec.contains(this.mouseX, this.mouseY)){
             this.stopMove();
         }
 
