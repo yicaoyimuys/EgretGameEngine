@@ -176,7 +176,7 @@ class App{
         return TouchEventHook.getInstance();
     }
     /**
-     * 多个资源配置文件加载类
+     * 资源加载类
      */
     public static get ResourceUtils():ResourceUtils{
         return ResourceUtils.getInstance();

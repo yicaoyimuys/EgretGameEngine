@@ -45,42 +45,35 @@ class Main extends egret.DisplayObjectContainer{
         App.SceneManager.runScene(SceneConsts.LOADING);
 
         //初始化Resource资源加载库
-        RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
-        RES.loadConfig("resource/resource.json", "resource/1/");
+        App.ResourceUtils.addConfig("resource/resource.json", "resource/1/");
+        App.ResourceUtils.loadConfig(this.onConfigComplete, this);
     }
 
     /**
      * 配置文件加载完成,开始预加载preload资源组。
      */
-    private onConfigComplete(event:RES.ResourceEvent):void{
-        RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
+    private onConfigComplete():void{
+        var loadGroup:string;
         if(this.joinUI){
-            RES.loadGroup("preload");
+            loadGroup = "preload";
         }else{
-            RES.loadGroup("battleRes");
+            loadGroup = "battleRes";
         }
+        App.ResourceUtils.loadGroup(loadGroup, this.onResourceLoadComplete, this.onResourceLoadProgress, this);
     }
 
     /**
-     * preload资源组加载完成
+     * 资源组加载完成
      */
-    private onResourceLoadComplete(event:RES.ResourceEvent):void {
-        if(event.groupName == "preload" || event.groupName == "battleRes"){
-            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceProgress,this);
-            this.startGame();
-        }
+    private onResourceLoadComplete():void {
+        this.startGame();
     }
 
     /**
-     * preload资源组加载进度
+     * 资源组加载进度
      */
-    private onResourceProgress(event:RES.ResourceEvent):void {
-        if(event.groupName == "preload" || event.groupName == "battleRes"){
-            App.ControllerManager.applyFunc(ControllerConst.Loading, LoadingConst.SetProgress, event.itemsLoaded, event.itemsTotal);
-        }
+    private onResourceLoadProgress(itemsLoaded:number, itemsTotal:number):void {
+        App.ControllerManager.applyFunc(ControllerConst.Loading, LoadingConst.SetProgress, itemsLoaded, itemsTotal);
     }
 
     /**
