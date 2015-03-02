@@ -96,7 +96,7 @@ class Socket extends BaseClass{
      */
     public connect():void{
         if (!window["WebSocket"]) {
-            egret.Logger.fatal("不支持WebSocket");
+            Log.trace("不支持WebSocket");
             return;
         }
         this._socket = new egret.WebSocket();
