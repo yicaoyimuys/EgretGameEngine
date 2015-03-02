@@ -11,6 +11,7 @@ class ResourceUtils extends BaseClass{
     private _onConfigCompleteTarget:any;
 
     private _groups:any;
+    private _groupIndex:number = 0;
 
     /**
      * 构造函数
@@ -84,6 +85,31 @@ class ResourceUtils extends BaseClass{
     }
 
     /**
+     * 混合加载资源组
+     * @param $resources 资源数组
+     * @param $groups 资源组数组
+     * @param $onResourceLoadComplete 资源加载完成执行函数
+     * @param $onResourceLoadProgress 资源加载进度监听函数
+     * @param $onResourceLoadTarget 资源加载监听函数所属对象
+     */
+    public loadResource($resources = [], $groups = [], $onResourceLoadComplete:Function = null, $onResourceLoadProgress:Function = null, $onResourceLoadTarget:any = null):void{
+        var needLoadArr = $resources;
+        var index = 0;
+        var resItems;
+        for(index; index < $groups.length; index ++){
+            resItems = RES.getGroupByName($groups[index]);
+            for (var i = 0; i < resItems.length; i ++){
+                needLoadArr.push(resItems[i].name);
+            }
+        }
+
+        var groupName = "loadGroup" + this._groupIndex++;
+        RES.createGroup(groupName, needLoadArr, true);
+        this._groups[groupName] = [$onResourceLoadComplete, $onResourceLoadProgress, $onResourceLoadTarget];
+        RES.loadGroup(groupName);
+    }
+
+    /**
      * 静默加载
      * @param $groupName 资源组名称
      */
@@ -100,7 +126,8 @@ class ResourceUtils extends BaseClass{
         if(this._groups[groupName]){
             var loadComplete:Function = this._groups[groupName][0];
             var loadCompleteTarget:any = this._groups[groupName][2];
-            loadComplete.call(loadCompleteTarget);
+            if(loadComplete != null)
+                loadComplete.call(loadCompleteTarget);
 
             this._groups[groupName] = null;
             delete this._groups[groupName];
@@ -115,7 +142,8 @@ class ResourceUtils extends BaseClass{
         if(this._groups[groupName]){
             var loadProgress:Function = this._groups[groupName][1];
             var loadProgressTarget:any = this._groups[groupName][2];
-            loadProgress.call(loadProgressTarget, event.itemsLoaded, event.itemsTotal);
+            if(loadProgress != null)
+                loadProgress.call(loadProgressTarget, event.itemsLoaded, event.itemsTotal);
         }
     }
 }

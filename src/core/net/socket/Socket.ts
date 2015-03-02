@@ -100,6 +100,9 @@ class Socket extends BaseClass{
             return;
         }
         this._socket = new egret.WebSocket();
+        if(this._msg instanceof ByteArrayMsg){
+            this._socket.type = egret.WebSocket.TYPE_BINARY;
+        }
         this._socket.connect(this._host, this._port);
         this.addEvents();
     }
