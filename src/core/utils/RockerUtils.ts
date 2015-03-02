@@ -253,7 +253,7 @@ class RockerUtils extends BaseClass{
      * 检测
      */
     private delKeys():void{
-        if(!this.moveFlagCheckRec.contains(this.mouseX, this.mouseY)){
+        if(this.mouseX != -1 && !this.moveFlagCheckRec.contains(this.mouseX, this.mouseY)){
             this.stopMove();
         }
 
