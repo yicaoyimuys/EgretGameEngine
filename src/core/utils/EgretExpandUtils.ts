@@ -15,6 +15,9 @@ class EgretExpandUtils extends BaseClass{
      */
     public init():void{
         this.bug_half_screen();
+        if(App.GlobalData.CocosStudio2DragonBones){
+            this.cocosStudio2DragonBones_egretFactory();
+        }
     }
 
     /**
@@ -26,6 +29,57 @@ class EgretExpandUtils extends BaseClass{
                 this.canvasContext.clearRect(x, y, w * window.devicePixelRatio, h * window.devicePixelRatio);
             };
         }
+    }
+
+    /**
+     * dragonBones创建图片修改
+     * cocostudio动画转dragonBones专用
+     */
+    private cocosStudio2DragonBones_egretFactory():void{
+        dragonBones.EgretFactory.prototype._generateDisplay = function (textureAtlas, fullName, pivotX, pivotY) {
+            if(fullName.indexOf("particles_") != -1){
+                var particleConfig = RES.getRes(fullName);
+                if(particleConfig){
+                    particleConfig.emitter = {"x":0, "y":0};
+
+                    var particleTexture = RES.getRes(particleConfig.texture);
+                    if(particleTexture == null){
+                        Log.trace("粒子图片"+particleConfig.texture+"不存在");
+                    }
+                    var particleSystem = new particle.GravityParticleSystem(particleTexture, particleConfig);
+                    particleSystem.addEventListener(egret.Event.COMPLETE, function():void{
+                        particleSystem.stop();
+                    }, this);
+                    return particleSystem;
+                }else{
+                    Log.trace("粒子配置文件"+fullName+"不存在");
+                    return new egret.DisplayObjectContainer();
+                }
+            }else{
+                var c = new egret.DisplayObjectContainer();
+                var bitmap = new egret.Bitmap();
+                bitmap.texture = textureAtlas.getTexture(fullName);
+                if(bitmap.texture){
+                    bitmap.anchorX = pivotX;
+                    bitmap.anchorY = pivotY;
+                    if(textureAtlas["getFrame"]){
+                        var frame:dragonBones.Rectangle = textureAtlas["getFrame"](fullName);
+                        bitmap.x = frame.x;
+                        bitmap.y = -frame.y;
+                    }
+                }
+                c.addChild(bitmap);
+                return c;
+            }
+        };
+
+        dragonBones.EgretSlot.prototype._updateDisplay = function (value) {
+            this._egretDisplay = value;
+            if(value instanceof particle.GravityParticleSystem && value.visible){
+                var particleSystem = (<particle.GravityParticleSystem>value);
+                particleSystem.start(parseFloat(particleSystem.particleConfig.duration));
+            }
+        };
     }
 
     /**

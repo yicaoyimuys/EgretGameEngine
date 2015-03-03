@@ -4,7 +4,7 @@
  */
 class BaseGuiView extends egret.gui.SkinnableContainer implements IBaseView{
     private _controller:BaseController;
-    private _myParent:egret.gui.Group;
+    private _myParent:egret.gui.IVisualElementContainer;
     private _isInit:boolean;
 
     /**
@@ -12,7 +12,7 @@ class BaseGuiView extends egret.gui.SkinnableContainer implements IBaseView{
      * @param $controller 所属模块
      * @param $parent 父级
      */
-    public constructor($controller:BaseController, $parent:egret.gui.Group){
+    public constructor($controller:BaseController, $parent:egret.gui.IVisualElementContainer){
         super();
         this._controller = $controller;
         this._myParent = $parent;
@@ -71,7 +71,8 @@ class BaseGuiView extends egret.gui.SkinnableContainer implements IBaseView{
      * 从父级移除
      */
     public removeFromParent():void{
-        this._myParent.removeElement(this);
+        if(this._myParent.getElementIndex(this) >= 0)
+            this._myParent.removeElement(this);
     }
 
     /**
