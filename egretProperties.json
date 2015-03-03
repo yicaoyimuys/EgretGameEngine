@@ -5,18 +5,21 @@
 			"name": "core"
 		},
 		{
+			"name": "res"
+		},
+		{
 			"name": "gui"
 		},
 		{
 			"name": "dragonBones"
 		},
-        {
-            "name": "socket"
-        }
+		{
+			"name": "socket"
+		}
 	],
 	"native": {
 		"path_ignore": [],
 		"android_path": "../android/egret-projects/EgretGameEngine"
 	},
-	"egret_version": "1.5.4"
+	"egret_version": "1.5.5"
 }
