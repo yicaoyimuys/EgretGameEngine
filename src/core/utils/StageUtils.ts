@@ -78,7 +78,7 @@ class StageUtils extends BaseClass{
      * 设置游戏帧频
      * @param timeScale
      */
-    public setTimeScale(timeScale:number):any{
+    public setTimeScale(timeScale:number):void{
         egret.Ticker.getInstance().setTimeScale(timeScale);
     }
 }
