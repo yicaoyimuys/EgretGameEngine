@@ -1,69 +1,11 @@
 {
     "groups":[
         {
-            "keys":"global,btn_wrong,table_activity,table_bg,table_box_down,table_box_down_2,table_box_middle,table_box_up,table_cloud_top,table_cloud_bottom,btn_shrink_bg,btn_shrink,menu_bg,btn_mail,btn_mission,btn_activity,table_task,table_mail,task_bg,icon_diamond,icon_experience,icon_fertilization,icon_gold,icon_friend,icon_more,icon_shop,icon_warehouse,icon_factory,icon_name,icon_head,icon_line,icon_LV,icon_badge,table_shop,table_tittle,table_warehouse,icon_factory_tittle,tabBar_selected_down,text_fertilizer01,text_fertilizer02,text_seed01,text_seed02,tabBar_down,sto_table_tittle,card_bg,icon_fertilizer02,icon_fertilizer03,icon_fertilizer04,icon_fertilizer05,icon_02,bbs,text_fruit_01,text_fruit_02,text_fruit_juice_01,text_fruit_juice_02,icon_sale",
-            "name":"preload"
-        },
-        {
-            "keys":"global,attack_json,sound_bg,guaiwu002_effect_skeleton_json,guaiwu003_skeleton_json,guaiwu003_texture_png,guaiwu003_texture_json,guaiwu003_effect_skeleton_json,guaiwu003_effect_texture_png,guaiwu003_effect_texture_json,guaiwu002_effect_texture_png,guaiwu002_effect_texture_json,guaiwu002_skeleton_json,guaiwu002_texture_png,guaiwu002_texture_json,jineng1_skeleton_json,jineng1_texture_png,jineng1_texture_json,jineng2_skeleton_json,jineng2_texture_png,jineng2_texture_json,zhujue1_skeleton_json,zhujue1_texture_png,zhujue1_texture_json,zhujue2_skeleton_json,zhujue2_texture_png,zhujue2_texture_json,ui_btnSkill1_png,ui_btnSkill1_1_png,ui_btnSkill3_png,ui_btnSkill3_1_png,ui_btnSkill4_png,ui_btnSkill4_1_png,map_jpg,losehp_baoji_png,losehp_png,ui_btnAttack_png,ui_btnAttack1_png,ui_btnSkill2_png,ui_btnSkill2_1_png,ui_move_png,ui_moveBg_png,enemy_skeleton_json,enemy_texture_png,enemy_texture_json",
-            "name":"battleRes"
+            "keys":"btn_wrong,table_activity,table_bg,table_box_down,table_box_down_2,table_box_middle,table_box_up,table_cloud_top,table_cloud_bottom,btn_shrink_bg,btn_shrink,menu_bg,btn_mail,btn_mission,btn_activity,table_task,table_mail,task_bg,icon_diamond,icon_experience,icon_fertilization,icon_gold,icon_friend,icon_more,icon_shop,icon_warehouse,icon_factory,icon_name,icon_head,icon_line,icon_LV,icon_badge,table_shop,table_tittle,table_warehouse,icon_factory_tittle,tabBar_selected_down,text_fertilizer01,text_fertilizer02,text_seed01,text_seed02,tabBar_down,sto_table_tittle,card_bg,icon_fertilizer02,icon_fertilizer03,icon_fertilizer04,icon_fertilizer05,icon_02,bbs,text_fruit_01,text_fruit_02,text_fruit_juice_01,text_fruit_juice_02,icon_sale",
+            "name":"preload_ui"
         }
     ],
     "resources":[
-
-        {"name":"global", "type":"json", "url":"config/global.json"},
-        {"name":"attack_json", "type":"json", "url":"config/attack.json"},
-
-        {"name":"zhujue1_skeleton_json","type":"json","url":"assets/animation/zhujue1/skeleton.json"},
-        {"name":"zhujue1_texture_png","type":"image","url":"assets/animation/zhujue1/texture.png"},
-        {"name":"zhujue1_texture_json","type":"json","url":"assets/animation/zhujue1/texture.json"},
-        {"name":"zhujue2_skeleton_json","type":"json","url":"assets/animation/zhujue2/skeleton.json"},
-        {"name":"zhujue2_texture_png","type":"image","url":"assets/animation/zhujue2/texture.png"},
-        {"name":"zhujue2_texture_json","type":"json","url":"assets/animation/zhujue2/texture.json"},
-
-        {"name":"jineng1_skeleton_json","type":"json","url":"assets/animation/jineng1/skeleton.json"},
-        {"name":"jineng1_texture_png","type":"image","url":"assets/animation/jineng1/texture.png"},
-        {"name":"jineng1_texture_json","type":"json","url":"assets/animation/jineng1/texture.json"},
-        {"name":"jineng2_skeleton_json","type":"json","url":"assets/animation/jineng2/skeleton.json"},
-        {"name":"jineng2_texture_png","type":"image","url":"assets/animation/jineng2/texture.png"},
-        {"name":"jineng2_texture_json","type":"json","url":"assets/animation/jineng2/texture.json"},
-
-        {"name":"enemy_skeleton_json","type":"json","url":"assets/animation/enemy/skeleton.json"},
-        {"name":"enemy_texture_png","type":"image","url":"assets/animation/enemy/texture.png"},
-        {"name":"enemy_texture_json","type":"json","url":"assets/animation/enemy/texture.json"},
-
-        {"name":"guaiwu002_skeleton_json","type":"json","url":"assets/animation/guaiwu002/skeleton.json"},
-        {"name":"guaiwu002_texture_png","type":"image","url":"assets/animation/guaiwu002/texture.png"},
-        {"name":"guaiwu002_texture_json","type":"json","url":"assets/animation/guaiwu002/texture.json"},
-
-        {"name":"guaiwu002_effect_skeleton_json","type":"json","url":"assets/animation/guaiwu002_effect/skeleton.json"},
-        {"name":"guaiwu002_effect_texture_png","type":"image","url":"assets/animation/guaiwu002_effect/texture.png"},
-        {"name":"guaiwu002_effect_texture_json","type":"json","url":"assets/animation/guaiwu002_effect/texture.json"},
-
-        {"name":"guaiwu003_skeleton_json","type":"json","url":"assets/animation/guaiwu003/skeleton.json"},
-        {"name":"guaiwu003_texture_png","type":"image","url":"assets/animation/guaiwu003/texture.png"},
-        {"name":"guaiwu003_texture_json","type":"json","url":"assets/animation/guaiwu003/texture.json"},
-
-        {"name":"guaiwu003_effect_skeleton_json","type":"json","url":"assets/animation/guaiwu003_effect/skeleton.json"},
-        {"name":"guaiwu003_effect_texture_png","type":"image","url":"assets/animation/guaiwu003_effect/texture.png"},
-        {"name":"guaiwu003_effect_texture_json","type":"json","url":"assets/animation/guaiwu003_effect/texture.json"},
-
-        {"name":"map_jpg","type":"image","url":"assets/bg/map.jpg"},
-        {"name":"ui_btnAttack_png","type":"image","url":"assets/ui/btnAttack.png"},
-        {"name":"ui_btnAttack1_png","type":"image","url":"assets/ui/btnAttack1.png"},
-        {"name":"ui_btnSkill1_png","type":"image","url":"assets/ui/btnSkill1.png"},
-        {"name":"ui_btnSkill1_1_png","type":"image","url":"assets/ui/btnSkill1_1.png"},
-        {"name":"ui_btnSkill2_png","type":"image","url":"assets/ui/btnSkill2.png"},
-        {"name":"ui_btnSkill2_1_png","type":"image","url":"assets/ui/btnSkill2_1.png"},
-        {"name":"ui_btnSkill3_png","type":"image","url":"assets/ui/btnSkill3.png"},
-        {"name":"ui_btnSkill3_1_png","type":"image","url":"assets/ui/btnSkill3_1.png"},
-        {"name":"ui_btnSkill4_png","type":"image","url":"assets/ui/btnSkill4.png"},
-        {"name":"ui_btnSkill4_1_png","type":"image","url":"assets/ui/btnSkill4_1.png"},
-        {"name":"ui_move_png","type":"image","url":"assets/ui/move.png"},
-        {"name":"ui_moveBg_png","type":"image","url":"assets/ui/moveBg.png"},
-        {"name":"losehp_png","type":"image","url":"assets/ui/-10.png"},
-        {"name":"losehp_baoji_png","type":"image","url":"assets/ui/baoji.png"},
-
         {
             "name":"btn_wrong",
             "type":"image",
@@ -339,66 +281,6 @@
             "name":"icon_sale",
             "type":"image",
             "url":"assets/example/icon_sale.png"
-        },
-        {
-            "name":"sound_bg",
-            "type":"sound",
-            "soundType":"music",
-            "url":"sound/bg.mp3"
-        },
-        {
-            "name":"sound_enemyAttack",
-            "type":"sound",
-            "soundType":"effect",
-            "url":"sound/enemyAttack.mp3"
-        },
-        {
-            "name":"sound_enenyLand",
-            "type":"sound",
-            "soundType":"effect",
-            "url":"sound/enenyLand.wav"
-        },
-        {
-            "name":"sound_heroAttack",
-            "type":"sound",
-            "soundType":"effect",
-            "url":"sound/heroAttack.wav"
-        },
-        {
-            "name":"sound_heroSkill",
-            "type":"sound",
-            "soundType":"effect",
-            "url":"sound/heroSkill.mp3"
-        },
-        {
-            "name":"sound_dianji",
-            "type":"sound",
-            "soundType":"effect",
-            "url":"sound/dianji.mp3"
-        },
-        {
-            "name":"sound_beiji",
-            "type":"sound",
-            "soundType":"effect",
-            "url":"sound/beiji.wav"
-        },
-        {
-            "name":"sound_bossSkill",
-            "type":"sound",
-            "soundType":"effect",
-            "url":"sound/bossSkill.mp3"
-        },
-        {
-            "name":"sound_bossAttack",
-            "type":"sound",
-            "soundType":"effect",
-            "url":"sound/bossAttack.mp3"
-        },
-        {
-            "name":"sound_heroBeiji",
-            "type":"sound",
-            "soundType":"effect",
-            "url":"sound/heroBeiji.wav"
         }
     ]
 }
