@@ -45,7 +45,9 @@ class Main extends egret.DisplayObjectContainer{
         App.SceneManager.runScene(SceneConsts.LOADING);
 
         //初始化Resource资源加载库
-        App.ResourceUtils.addConfig("resource/resource.json", "resource/1/");
+        App.ResourceUtils.addConfig("resource/resource_core.json", "resource/1/");
+        App.ResourceUtils.addConfig("resource/resource_ui.json", "resource/1/");
+        App.ResourceUtils.addConfig("resource/resource_battle.json", "resource/1/");
         App.ResourceUtils.loadConfig(this.onConfigComplete, this);
     }
 
@@ -53,13 +55,14 @@ class Main extends egret.DisplayObjectContainer{
      * 配置文件加载完成,开始预加载preload资源组。
      */
     private onConfigComplete():void{
-        var loadGroup:string;
+        var groupName:string = "preload";
+        var subGroups:Array<string> = ["preload_core"];
         if(this.joinUI){
-            loadGroup = "preload";
+            subGroups.push("preload_ui");
         }else{
-            loadGroup = "battleRes";
+            subGroups.push("preload_battle");
         }
-        App.ResourceUtils.loadGroup(loadGroup, this.onResourceLoadComplete, this.onResourceLoadProgress, this);
+        App.ResourceUtils.loadGroups(groupName, subGroups, this.onResourceLoadComplete, this.onResourceLoadProgress, this);
     }
 
     /**
@@ -82,30 +85,37 @@ class Main extends egret.DisplayObjectContainer{
     private startGame():void{
         App.Init();
 
+        //音乐音效处理
+        App.SoundManager.setBgOn(true);
+        App.SoundManager.setEffectOn(!App.DeviceUtils.IsHtml5 || !App.DeviceUtils.IsMobile);
+
         //初始显示场景
         if(this.joinUI){
             App.DebugUtils.setFpsColor(0x000000);
-            //添加一个纯色背景
-            var rect:egret.gui.Rect = new egret.gui.Rect();
-            rect.fillColor = 0x78b93f;
-            rect.percentHeight = 100;
-            rect.percentWidth = 100;
-            App.StageUtils.getUIStage().addElement(rect);
-
             App.SceneManager.runScene(SceneConsts.UI);
         }else{
+            this.initBattleDragonBones();
             App.DebugUtils.setFpsColor(0xFFFFFF);
-
-            var arr:Array<string> = ["zhujue1", "zhujue2", "enemy", "jineng1", "jineng2", "guaiwu002", "guaiwu002_effect", "guaiwu003", "guaiwu003_effect"];
-            for(var i:number=0, len:number=arr.length; i<len; i++){
-                DragonBonesFactory.getInstance().initArmatureFile(RES.getRes(arr[i]+"_skeleton_json"), RES.getRes(arr[i]+"_texture_png"), RES.getRes(arr[i]+"_texture_json"));
-            }
             App.SceneManager.runScene(SceneConsts.Game);
         }
 
         //StarlingSwf使用
 //        StarlingSwfFactory.getInstance().addSwf("bossMC", RES.getRes("bossMC_swf_json"), RES.getRes("bossMC_json"));
 //        var mc:StarlingSwfMovieClip = StarlingSwfFactory.getInstance().makeMc("boss_whiteBear");
+    }
+
+    /**
+     * 初始化战斗使用的动画
+     */
+    private initBattleDragonBones():void{
+        var arr:Array<string> = ["zhujue1", "zhujue2", "guaiwu001", "jineng1", "jineng2", "guaiwu002", "guaiwu002_effect", "guaiwu003", "guaiwu003_effect"];
+        for(var i:number=0, len:number=arr.length; i<len; i++){
+            var dbName:string = arr[i];
+            var skeletonData:any = RES.getRes(dbName+"_skeleton_json");
+            var texturePng:egret.Texture = RES.getRes(dbName+"_texture_png");
+            var textureData:any = RES.getRes(dbName+"_texture_json");
+            DragonBonesFactory.getInstance().initArmatureFile(skeletonData, texturePng, textureData);
+        }
     }
 
     /**

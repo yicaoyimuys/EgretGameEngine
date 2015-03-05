@@ -22,6 +22,9 @@ class GameScene extends BaseScene{
         App.ViewManager.open(ViewConst.GameUI);
 
         egret.RenderFilter.getInstance().addDrawArea(new egret.Rectangle(0, 0, App.StageUtils.getWidth(), App.StageUtils.getHeight()));
+
+        //播放背景音乐
+        App.SoundManager.playBg("sound_bg", 0.3);
     }
 
     /**

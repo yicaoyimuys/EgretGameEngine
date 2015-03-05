@@ -20,6 +20,7 @@ class DragonBonesFactory{
     private factory:dragonBones.EgretFactory;
     private isPlay:boolean;
     private clocks:any;
+    private files:Array<string>;
 
     /**
      * 构造函数
@@ -28,6 +29,7 @@ class DragonBonesFactory{
         this.factory = new dragonBones.EgretFactory();
         this.clocks = {};
         this.clocks[1] = dragonBones.WorldClock.clock;
+        this.files = [];
         //默认开启
         this.start();
     }
@@ -41,6 +43,7 @@ class DragonBonesFactory{
     public initArmatureFile(skeletonData:any, texture:egret.Texture, textureData:any):void{
         this.addSkeletonData(skeletonData);
         this.addTextureAtlas(texture, textureData);
+        this.files.push(skeletonData.name);
     }
 
     /**
@@ -62,6 +65,28 @@ class DragonBonesFactory{
     }
 
     /**
+     * 移除动画文件
+     * @param name
+     */
+    public removeArmatureFile(name:string):void{
+        var index:number = this.files.indexOf(name);
+        if(index != -1){
+            this.removeSkeletonData(name);
+            this.removeTextureAtlas(name);
+            this.files.splice(index, 1);
+        }
+    }
+
+    /**
+     * 清空所有动画
+     */
+    public clear():void{
+        while(this.files.length){
+            this.removeArmatureFile(this.files[0]);
+        }
+    }
+
+    /**
      * 添加动画描述文件
      * @param skeletonData
      */
@@ -76,6 +101,23 @@ class DragonBonesFactory{
      */
     public addTextureAtlas(texture:egret.Texture, textureData:any):void{
         this.factory.addTextureAtlas(new dragonBones.EgretTextureAtlas(texture, textureData));
+    }
+
+    /**
+     * 移除动画描述文件
+     * @param skeletonData
+     */
+    public removeSkeletonData(name:string):void{
+        this.factory.removeSkeletonData(name);
+    }
+
+    /**
+     * 移除动画所需资源
+     * @param texture 动画资源
+     * @param textureData 动画资源描述文件
+     */
+    public removeTextureAtlas(name:string):void{
+        this.factory.removeTextureAtlas(name);
     }
 
     /**

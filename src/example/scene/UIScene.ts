@@ -22,6 +22,13 @@ class UIScene extends BaseScene{
         this.addLayer(LayerManager.UI_Message);
         this.addLayer(LayerManager.UI_Tips);
 
+        //添加一个纯色背景
+        var rect:egret.gui.Rect = new egret.gui.Rect();
+        rect.fillColor = 0x78b93f;
+        rect.percentHeight = 100;
+        rect.percentWidth = 100;
+        LayerManager.UI_Main.addElement(rect);
+
         //初始打开Home页面
         App.ViewManager.open(ViewConst.Home);
 

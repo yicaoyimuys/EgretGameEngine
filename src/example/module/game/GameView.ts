@@ -66,8 +66,8 @@ class GameView extends BaseSpriteView{
             this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick, this);
         }
 
+        //深度排序
         App.TimerManager.doTimer(3, 0, this.sortGameObjs, this);
-        App.SoundManager.playBg("sound_bg", 0.3);
     }
 
     /**
