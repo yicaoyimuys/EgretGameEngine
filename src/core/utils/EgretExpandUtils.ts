@@ -15,20 +15,93 @@ class EgretExpandUtils extends BaseClass{
      */
     public init():void{
         this.bug_half_screen();
-        if(App.GlobalData.CocosStudio2DragonBones){
-            this.cocosStudio2DragonBones_egretFactory();
-        }
+        this.bug_qqBrowser_CanvasNum();
+        this.cocosStudio2DragonBones_egretFactory();
     }
 
     /**
      * 在高分辨率屏幕会显示半屏的bug修复
      */
     private bug_half_screen():void{
-        if(App.DeviceUtils.IsHtml5){
-            egret.HTML5CanvasRenderer.prototype.clearRect = function (x, y, w, h) {
-                this.canvasContext.clearRect(x, y, w * window.devicePixelRatio, h * window.devicePixelRatio);
-            };
+        if(!App.DeviceUtils.IsHtml5){
+            return;
         }
+
+        egret.HTML5CanvasRenderer.prototype.clearRect = function (x, y, w, h) {
+            this.canvasContext.clearRect(x, y, w * window.devicePixelRatio, h * window.devicePixelRatio);
+        };
+    }
+
+    /**
+     * cacheAsBitmap的替代方案，解决QQ浏览器在1G内存的机器上最多能使用20个Canvas的限制
+     */
+    private bug_qqBrowser_CanvasNum():void{
+        if(!App.DeviceUtils.IsHtml5){
+            return;
+        }
+
+        egret.DisplayObject.prototype._makeBitmapCache = function () {
+            if (this.stage == null || this.visible == false){
+                return false;
+            }
+
+            if (!this.renderTexture) {
+                this.renderTexture = App.RenderTextureManager.pop();
+            }
+
+            if (!this.renderTexture) {
+                return false;
+            }
+
+            var result = this.renderTexture.drawToTexture(this);
+            if (result) {
+                this._texture_to_render = this.renderTexture;
+            }
+            else {
+                App.RenderTextureManager.push(this.renderTexture);
+                this._texture_to_render = null;
+                this.renderTexture = null;
+            }
+            return result;
+        };
+
+        egret.DisplayObject.prototype._onRemoveFromStage = function () {
+            egret.DisplayObjectContainer.__EVENT__REMOVE_FROM_STAGE_LIST.push(this);
+
+            if(this.renderTexture){
+                App.RenderTextureManager.push(this.renderTexture);
+                this._texture_to_render = null;
+                this.renderTexture = null;
+            }
+        };
+
+        Object.defineProperty(egret.DisplayObject.prototype, "cacheAsBitmap", {
+            /**
+             * 如果设置为 true，则 egret 运行时将缓存显示对象的内部位图表示形式。此缓存可以提高包含复杂矢量内容的显示对象的性能。
+             * 具有已缓存位图的显示对象的所有矢量数据都将被绘制到位图而不是主显示。像素按一对一与父对象进行映射。如果位图的边界发生更改，则将重新创建位图而不会拉伸它。
+             * 除非将 cacheAsBitmap 属性设置为 true，否则不会创建内部位图。
+             * @member {number} egret.DisplayObject#cacheAsBitmap
+             */
+            get: function () {
+                return this._cacheAsBitmap;
+            },
+            set: function (bool) {
+                this._cacheAsBitmap = bool;
+                if (bool) {
+                    egret.callLater(this._makeBitmapCache, this);
+                }
+                else {
+                    if(this.renderTexture){
+                        App.RenderTextureManager.push(this.renderTexture);
+                        this._texture_to_render = null;
+                        this.renderTexture = null;
+                    }
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+
     }
 
     /**
@@ -36,6 +109,10 @@ class EgretExpandUtils extends BaseClass{
      * cocostudio动画转dragonBones专用
      */
     private cocosStudio2DragonBones_egretFactory():void{
+        if(!App.GlobalData.CocosStudio2DragonBones){
+            return;
+        }
+
         dragonBones.EgretFactory.prototype._generateDisplay = function (textureAtlas, fullName, pivotX, pivotY) {
             if(fullName.indexOf("particles_") != -1){
                 var particleConfig = RES.getRes(fullName);

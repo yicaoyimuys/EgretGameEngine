@@ -181,6 +181,12 @@ class App{
     public static get ResourceUtils():ResourceUtils{
         return ResourceUtils.getInstance();
     }
+    /**
+     * RenderTextureManager
+     */
+    public static get RenderTextureManager():RenderTextureManager{
+        return RenderTextureManager.getInstance();
+    }
 
     /**
      * 初始化函数
