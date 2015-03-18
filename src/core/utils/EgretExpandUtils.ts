@@ -222,4 +222,23 @@ class EgretExpandUtils extends BaseClass{
             this.removeChildAt(container, 0);
         }
     }
+
+    /**
+     * 设置输入框的输入类型
+     * @param txt 要处理的输入框
+     * @param typeStr 输入类型
+     *      "number"：数字输入
+     *      "email"：Email输入
+     *      "url"：Url输入
+     *      "tel"：电话号码输入
+     *      "date"：日期输入
+     *      "time"：时间输入
+     *      "datetime"：日期和时间输入
+     *      "month"：月份输入
+     */
+    public setTextFieldInputType(txt:egret.TextField, typeStr:string):void{
+        txt.addEventListener(egret.TouchEvent.TOUCH_TAP, function():void{
+            txt["_inputUtils"]["stageText"]["inputElement"].type = typeStr;
+        }, this);
+    }
 }
