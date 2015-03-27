@@ -1,0 +1,36 @@
+//1
+message Person {
+	required string name = 1;
+	required string address = 2;
+	required string phone_number = 3;
+	required int32 age = 4;
+	optional Location location = 5;
+}
+
+//2
+message Location {
+    required string region = 1;
+    required string country = 2;
+}
+
+//10000
+message user_login_c2s {
+	required int32 accid = 1;		//平台用户ID
+	required int32 tstamp = 2;		//时间戳
+	required string ticket = 3;		//验证码
+}
+
+//10001
+message user_login_s2c {
+	required int32 flag = 1;		//0:验证错误 1:登录成功，2:需要注册
+}
+
+//10002
+message user_register_c2s {
+	required string user_name = 1;		//用户名
+}
+
+//10003
+message user_register_s2c {
+	required int32 flag = 1;		//注册返回
+}
