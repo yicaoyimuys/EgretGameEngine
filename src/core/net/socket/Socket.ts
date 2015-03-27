@@ -4,9 +4,10 @@
  */
 class Socket extends BaseClass{
     private _needReconnect:boolean = true;
-    private _maxReconnectCount = 3;
+    private _maxReconnectCount = 10;
 
-    private _reconnectCount:number;
+    private _reconnectCount:number = 0;
+    private _connectFlag:boolean;
     private _host:string;
     private _port:any;
     private _socket:egret.WebSocket;
@@ -43,12 +44,15 @@ class Socket extends BaseClass{
      * 服务器连接成功
      */
     private onSocketOpen():void {
-        if (this._reconnectCount > 0) {
-            this._reconnectCount = 0;
+        this._reconnectCount = 0;
+
+        if (this._connectFlag) {
             App.MessageCenter.dispatch(SocketConst.SOCKET_RECONNECT);
         } else {
             App.MessageCenter.dispatch(SocketConst.SOCKET_CONNECT);
         }
+
+        this._connectFlag = true;
     }
 
     /**
@@ -56,7 +60,6 @@ class Socket extends BaseClass{
      */
     private onSocketClose():void {
         if(this._needReconnect) {
-            this._reconnectCount = 0;
             this.reconnect();
             App.MessageCenter.dispatch(SocketConst.SOCKET_START_RECONNECT);
         }else{
@@ -68,14 +71,18 @@ class Socket extends BaseClass{
      * 服务器连接错误
      */
     private onSocketError():void {
-        App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT);
+        if(this._needReconnect) {
+            this.reconnect();
+        }else{
+            App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT);
+        }
     }
 
     /**
      * 收到服务器消息
      * @param e
      */
-    public onReceiveMessage(e:egret.Event):void {
+    private onReceiveMessage(e:egret.Event):void {
         this._msg.receive(this._socket);
     }
 
@@ -111,11 +118,17 @@ class Socket extends BaseClass{
      * 重新连接
      */
     private reconnect():void {
+        this.close();
         this._reconnectCount++;
         if (this._reconnectCount < this._maxReconnectCount) {
             this.connect();
         } else {
-            App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
+            this._reconnectCount = 0;
+            if(this._connectFlag){
+                App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
+            }else{
+                App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT);
+            }
         }
     }
 
@@ -131,8 +144,9 @@ class Socket extends BaseClass{
      * 关闭Socket连接
      */
     public close():void {
-        this._socket.close();
         this.removeEvents();
+        this._socket.close();
+        this._socket = null;
     }
 
     /**

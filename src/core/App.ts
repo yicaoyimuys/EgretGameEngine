@@ -12,6 +12,16 @@ class App{
      * @type {null}
      */
     public static GlobalData:any = null;
+    /**
+     * ProtoFile
+     * @type {null}
+     */
+    public static ProtoFile:any = null;
+    /**
+     * ProtoConfig
+     * @type {null}
+     */
+    public static ProtoConfig:any = null;
 
     /**
      * Http请求
@@ -202,7 +212,10 @@ class App{
         //实例化Http请求
         App.Http.initServer(App.GlobalData.HttpSerever);
         //实例化Socket请求
-        App.Socket.initServer(App.GlobalData.SocketServer, App.GlobalData.SocketPort, new ByteArrayMsg());
+        App.Socket.initServer(App.GlobalData.SocketServer, App.GlobalData.SocketPort, new ByteArrayMsgByProtobuf());
+        //实例化ProtoBuf
+        App.ProtoFile = dcodeIO.ProtoBuf.loadProto(RES.getRes(App.GlobalData.ProtoFile));
+        App.ProtoConfig = RES.getRes(App.GlobalData.ProtoConfig);
         //开启服务器返回的消息侦听
         App.TimerManager.doFrame(1, 0, App.MessageCenter.run, App.MessageCenter);
     }

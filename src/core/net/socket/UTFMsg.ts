@@ -28,6 +28,7 @@ class UTFMsg implements BaseMsg{
     public send(socket:egret.WebSocket, msg:any):void{
         var obj:any = this.encode(msg);
         if(obj){
+            socket.type = egret.WebSocket.TYPE_STRING;
             socket.writeUTF(obj);
         }
     }

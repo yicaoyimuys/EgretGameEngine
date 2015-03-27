@@ -26,14 +26,14 @@
  */
 
 class Main extends egret.DisplayObjectContainer{
-    private joinUI:boolean = true;
-
     public constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
     }
 
     private onAddToStage(event:egret.Event){
+        this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
+
         //注入自定义的素材解析器
         egret.Injector.mapClass("egret.gui.IAssetAdapter",AssetAdapter);
 
@@ -55,77 +55,19 @@ class Main extends egret.DisplayObjectContainer{
      * 配置文件加载完成,开始预加载preload资源组。
      */
     private onConfigComplete():void{
-        var groupName:string = "preload";
-        var subGroups:Array<string> = ["preload_core"];
-        if(this.joinUI){
-            subGroups.push("preload_ui");
-        }else{
-            subGroups.push("preload_battle");
-        }
-        App.ResourceUtils.loadGroups(groupName, subGroups, this.onResourceLoadComplete, this.onResourceLoadProgress, this);
-    }
-
-    /**
-     * 资源组加载完成
-     */
-    private onResourceLoadComplete():void {
-        this.startGame();
-    }
-
-    /**
-     * 资源组加载进度
-     */
-    private onResourceLoadProgress(itemsLoaded:number, itemsTotal:number):void {
-        App.ControllerManager.applyFunc(ControllerConst.Loading, LoadingConst.SetProgress, itemsLoaded, itemsTotal);
-    }
-
-    /**
-     * 开始游戏
-     */
-    private startGame():void{
-        App.Init();
-
-        //音乐音效处理
-        App.SoundManager.setBgOn(true);
-        App.SoundManager.setEffectOn(!App.DeviceUtils.IsHtml5 || !App.DeviceUtils.IsMobile);
-
-        //初始显示场景
-        if(this.joinUI){
-            App.DebugUtils.setFpsColor(0x000000);
-            App.SceneManager.runScene(SceneConsts.UI);
-        }else{
-            this.initBattleDragonBones();
-            App.DebugUtils.setFpsColor(0xFFFFFF);
-            App.SceneManager.runScene(SceneConsts.Game);
-        }
-
-        //StarlingSwf使用
-//        StarlingSwfFactory.getInstance().addSwf("bossMC", RES.getRes("bossMC_swf_json"), RES.getRes("bossMC_json"));
-//        var mc:StarlingSwfMovieClip = StarlingSwfFactory.getInstance().makeMc("boss_whiteBear");
-    }
-
-    /**
-     * 初始化战斗使用的动画
-     */
-    private initBattleDragonBones():void{
-        var arr:Array<string> = ["zhujue1", "zhujue2", "guaiwu001", "jineng1", "jineng2", "guaiwu002", "guaiwu002_effect", "guaiwu003", "guaiwu003_effect"];
-        for(var i:number=0, len:number=arr.length; i<len; i++){
-            var dbName:string = arr[i];
-            var skeletonData:any = RES.getRes(dbName+"_skeleton_json");
-            var texturePng:egret.Texture = RES.getRes(dbName+"_texture_png");
-            var textureData:any = RES.getRes(dbName+"_texture_json");
-            DragonBonesFactory.getInstance().initArmatureFile(skeletonData, texturePng, textureData);
-        }
+        new GUITest();
+//        new ActTest();
+//        new ProtoBufTest();
+//        new StarlingSwfTest();
     }
 
     /**
      * 初始化所有场景
      */
     private initScene():void{
-        App.SceneManager.register(SceneConsts.Game, new GameScene());
-        App.SceneManager.register(SceneConsts.UI, new UIScene());
         App.SceneManager.register(SceneConsts.LOADING, new LoadingScene());
-        DragonBonesFactory.getInstance();
+        App.SceneManager.register(SceneConsts.UI, new UIScene());
+        App.SceneManager.register(SceneConsts.Game, new GameScene());
     }
 
     /**
@@ -133,19 +75,6 @@ class Main extends egret.DisplayObjectContainer{
      */
     private initModule():void{
         App.ControllerManager.register(ControllerConst.Loading, new LoadingController());
-        if(this.joinUI){
-            App.ControllerManager.register(ControllerConst.Login, new LoginController());
-            App.ControllerManager.register(ControllerConst.Home, new HomeController());
-            App.ControllerManager.register(ControllerConst.Friend, new FriendController());
-            App.ControllerManager.register(ControllerConst.Shop, new ShopController());
-            App.ControllerManager.register(ControllerConst.Warehouse, new WarehouseController());
-            App.ControllerManager.register(ControllerConst.Factory, new FactoryController());
-            App.ControllerManager.register(ControllerConst.Task, new TaskController());
-            App.ControllerManager.register(ControllerConst.Mail, new MailController());
-        }
-        else{
-            App.ControllerManager.register(ControllerConst.Game, new GameController());
-        }
     }
 }
 

@@ -210,6 +210,7 @@ class EgretExpandUtils extends BaseClass{
         if(child){
             container._children.splice(index, 1);
             child._parent = null;
+            child.visible = false;
         }
     }
 
