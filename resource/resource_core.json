@@ -1,7 +1,7 @@
 {
     "groups":[
         {
-            "keys":"global, simple_proto, simple_config",
+            "keys":"global, simple_proto, simple_config, resource_version",
             "name":"preload_core"
         }
     ],
@@ -20,6 +20,11 @@
             "name":"simple_config",
             "type":"json",
             "url":"proto/simple.json"
+        },
+        {
+            "name":"resource_version",
+            "type":"json",
+            "url":"resource_version.json"
         }
     ]
 }

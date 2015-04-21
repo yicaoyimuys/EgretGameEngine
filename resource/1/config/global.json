@@ -4,5 +4,6 @@
     "SocketServer":"10.0.3.111",
     "SocketPort":"10001/ws",
     "ProtoFile":"simple_proto",
-    "ProtoConfig":"simple_config"
+    "ProtoConfig":"simple_config",
+    "ResVersionFile":"resource_version"
 }
