@@ -35,7 +35,7 @@ function foreachAllFiles(root) {
             }
 
             var filePath = root + "/" + file;
-            var exportFilePath = filePath.replace(config.cwd + "resource/", "");
+            var exportFilePath = filePath.replace(config.cwd, "");
 
             if(fileFilter.filterConfig.indexOf(exportFilePath) == -1){
                 if(!fileUtils.isDirectory(filePath)) {
@@ -59,7 +59,7 @@ function getFileVersion(){
     dealFiles.forEach(function(filePath){
         svn.info(filePath, function (err, info) {
             if(err == null){
-                var path = filePath.replace(config.cwd + "resource/", "");
+                var path = filePath.replace(config.cwd, "");
                 console.log(path, info.lastchangedrev);
                 obj[path] = info.lastchangedrev;
             }else{
