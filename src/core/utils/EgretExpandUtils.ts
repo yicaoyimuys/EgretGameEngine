@@ -45,7 +45,12 @@ class EgretExpandUtils extends BaseClass{
             if(version.length == 0){
                 version = Math.random() + "";
             }
-            request.url += "?v="+version;
+
+            if(request.url.indexOf("?") == -1){
+                request.url += "?v="+version;
+            }else{
+                request.url += "&v="+version;
+            }
 
             this._request = request;
             this.data = null;
