@@ -37,9 +37,6 @@ class Main extends egret.DisplayObjectContainer{
         //注入自定义的素材解析器
         egret.Injector.mapClass("egret.gui.IAssetAdapter",AssetAdapter);
 
-        //资源按照版本号加载
-        App.EgretExpandUtils.res_loadByVersion();
-
         //初始化
         this.initScene();
         this.initModule();
@@ -47,6 +44,15 @@ class Main extends egret.DisplayObjectContainer{
         //设置加载进度界面
         App.SceneManager.runScene(SceneConsts.LOADING);
 
+        //加载资源版本号
+        if(false){
+            App.ResVersionManager.loadConfig("resource/resource_version.json", this.loadResVersionComplate, this);
+        }else{
+            this.loadResVersionComplate();
+        }
+    }
+
+    private loadResVersionComplate():void{
         //初始化Resource资源加载库
         App.ResourceUtils.addConfig("resource/resource_core.json", "resource/1/");
         App.ResourceUtils.addConfig("resource/resource_ui.json", "resource/1/");

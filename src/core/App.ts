@@ -197,6 +197,12 @@ class App{
     public static get RenderTextureManager():RenderTextureManager{
         return RenderTextureManager.getInstance();
     }
+    /**
+     * 单一资源通过版本号加载管理类
+     */
+    public static get ResVersionManager():ResVersionManager{
+        return ResVersionManager.getInstance();
+    }
 
     /**
      * 初始化函数
