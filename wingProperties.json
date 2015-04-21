@@ -3,7 +3,15 @@
 	{
 		"configs":[
 		{
-			"configPath":"resource/resource.json",
+			"configPath":"resource/resource_core.json",
+			"relativePath":"resource/1/"
+		},
+		{
+			"configPath":"resource/resource_ui.json",
+			"relativePath":"resource/1/"
+		},
+		{
+			"configPath":"resource/resource_battle.json",
 			"relativePath":"resource/1/"
 		}],
 		"id":"org.egret-labs.resource",
@@ -293,8 +301,43 @@
 			},
 			{
 				"isFolder":false,
-				"key":"enemy_texture_png",
-				"name":"enemy_texture_png"
+				"key":"guaiwu001_texture_png",
+				"name":"guaiwu001_texture_png"
+			},
+			{
+				"isFolder":false,
+				"key":"guaiwu002_effect_texture_png",
+				"name":"guaiwu002_effect_texture_png"
+			},
+			{
+				"isFolder":false,
+				"key":"guaiwu002_texture_png",
+				"name":"guaiwu002_texture_png"
+			},
+			{
+				"isFolder":false,
+				"key":"guaiwu003_effect_texture_png",
+				"name":"guaiwu003_effect_texture_png"
+			},
+			{
+				"isFolder":false,
+				"key":"guaiwu003_texture_png",
+				"name":"guaiwu003_texture_png"
+			},
+			{
+				"isFolder":false,
+				"key":"jineng1_texture_png",
+				"name":"jineng1_texture_png"
+			},
+			{
+				"isFolder":false,
+				"key":"jineng2_texture_png",
+				"name":"jineng2_texture_png"
+			},
+			{
+				"isFolder":false,
+				"key":"losehp_baoji_png",
+				"name":"losehp_baoji_png"
 			},
 			{
 				"isFolder":false,
@@ -318,38 +361,13 @@
 			},
 			{
 				"isFolder":false,
-				"key":"ui_btnSkill1_png",
-				"name":"ui_btnSkill1_png"
-			},
-			{
-				"isFolder":false,
-				"key":"ui_moveBg_png",
-				"name":"ui_moveBg_png"
-			},
-			{
-				"isFolder":false,
-				"key":"ui_move_png",
-				"name":"ui_move_png"
-			},
-			{
-				"isFolder":false,
-				"key":"jineng1_texture_png",
-				"name":"jineng1_texture_png"
-			},
-			{
-				"isFolder":false,
-				"key":"jineng2_texture_png",
-				"name":"jineng2_texture_png"
-			},
-			{
-				"isFolder":false,
-				"key":"losehp_baoji_png",
-				"name":"losehp_baoji_png"
-			},
-			{
-				"isFolder":false,
 				"key":"ui_btnSkill1_1_png",
 				"name":"ui_btnSkill1_1_png"
+			},
+			{
+				"isFolder":false,
+				"key":"ui_btnSkill1_png",
+				"name":"ui_btnSkill1_png"
 			},
 			{
 				"isFolder":false,
@@ -380,6 +398,16 @@
 				"isFolder":false,
 				"key":"ui_btnSkill4_png",
 				"name":"ui_btnSkill4_png"
+			},
+			{
+				"isFolder":false,
+				"key":"ui_moveBg_png",
+				"name":"ui_moveBg_png"
+			},
+			{
+				"isFolder":false,
+				"key":"ui_move_png",
+				"name":"ui_move_png"
 			},
 			{
 				"isFolder":false,
