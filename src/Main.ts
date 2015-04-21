@@ -37,6 +37,9 @@ class Main extends egret.DisplayObjectContainer{
         //注入自定义的素材解析器
         egret.Injector.mapClass("egret.gui.IAssetAdapter",AssetAdapter);
 
+        //资源按照版本号加载
+        App.EgretExpandUtils.res_loadByVersion();
+
         //初始化
         this.initScene();
         this.initModule();
