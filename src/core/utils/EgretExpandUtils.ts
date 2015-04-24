@@ -17,6 +17,56 @@ class EgretExpandUtils extends BaseClass{
         this.bug_half_screen();
         this.bug_qqBrowser_CanvasNum();
         this.cocosStudio2DragonBones_egretFactory();
+        this.html5_loadTexture();
+    }
+
+    /**
+     * loadTexture优化，解决IOS上帧频低得问题
+     */
+    private html5_loadTexture():void{
+        egret.HTML5NetContext.prototype['loadTexture'] = function (loader) {
+            var request = loader._request;
+            var image;
+            var winURL = window["URL"] || window["webkitURL"];
+            if (winURL) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("get", request.url, true);
+                xhr.responseType = "blob";
+                xhr.onload = function () {
+                    if (this.status == 200) {
+                        var blob = this.response;
+                        image = document.createElement("img");
+                        image.onload = function (e) {
+                            winURL.revokeObjectURL(image.src); // 清除释放
+                            onImageComplete(e);
+                        };
+                        image.onerror = onLoadError;
+                        image.src = winURL.createObjectURL(blob);
+                    }
+                };
+                xhr.send();
+            }
+            else {
+                image = new Image();
+                //            image.crossOrigin = "Anonymous";
+                image.onload = onImageComplete;
+                image.onerror = onLoadError;
+                image.src = request.url;
+            }
+            function onImageComplete(event) {
+                image.onerror = null;
+                image.onload = null;
+                var texture = new egret.Texture();
+                texture._setBitmapData(image);
+                loader.data = texture;
+                egret.__callAsync(egret.Event.dispatchEvent, egret.Event, loader, egret.Event.COMPLETE);
+            }
+            function onLoadError(event) {
+                image.onerror = null;
+                image.onload = null;
+                egret.IOErrorEvent.dispatchIOErrorEvent(loader);
+            }
+        };
     }
 
     /**
