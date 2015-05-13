@@ -79,28 +79,28 @@ module starlingswf{
                 useIndex = data[10];
                 display = this._displayObjects[data[0]][useIndex];
 
-                display._skewX = data[6];
-                display._skewY = data[7];
-                display._alpha = data[8];
+                display._DO_Props_._skewX = data[6];
+                display._DO_Props_._skewY = data[7];
+                display._DO_Props_._alpha = data[8];
                 display.name = data[9];
 
 //                if(data[1] == Swf.dataKey_Particle){
 //                    display["setPostion"](data[2],data[3]);
 //                }else{
-                    display._x = data[2];
-                    display._y = data[3];
+                    display._DO_Props_._x = data[2];
+                    display._DO_Props_._y = data[3];
 //                }
                 if(data[1] == starlingswf.Swf.dataKey_Scale9){
                     display.width = data[11];
                     display.height = data[12];
                 }else{
-                    display._scaleX = data[4];
-                    display._scaleY = data[5];
+                    display._DO_Props_._scaleX = data[4];
+                    display._DO_Props_._scaleY = data[5];
                 }
 
                 //dirty hack  this.addChild(display);
                 this._children.push(display);
-                display._parent = this;
+                display._DO_Props_._parent = this;
 
                 if(data[1] == starlingswf.Swf.dataKey_TextField){
                     textfield = <egret.TextField>display;

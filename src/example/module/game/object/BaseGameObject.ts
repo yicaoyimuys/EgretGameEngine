@@ -46,11 +46,11 @@ class BaseGameObject extends egret.DisplayObjectContainer {
     }
 
     public setPos():void{
-        if(this._x != this.originX){
+        if(this._DO_Props_._x != this.originX){
             this._setX(this.originX);
         }
 
-        if(this._y != this.trueY){
+        if(this._DO_Props_._y != this.trueY){
             this._setY(this.trueY);
         }
     }

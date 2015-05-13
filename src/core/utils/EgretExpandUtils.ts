@@ -14,73 +14,73 @@ class EgretExpandUtils extends BaseClass{
      * 初始化函数
      */
     public init():void{
-        this.bug_half_screen();
+//        this.bug_half_screen();
         this.bug_qqBrowser_CanvasNum();
         this.cocosStudio2DragonBones_egretFactory();
-        this.html5_loadTexture();
+//        this.html5_loadTexture();
     }
 
     /**
      * loadTexture优化，解决IOS上帧频低得问题
      */
-    private html5_loadTexture():void{
-        egret.HTML5NetContext.prototype['loadTexture'] = function (loader) {
-            var request = loader._request;
-            var image;
-            var winURL = window["URL"] || window["webkitURL"];
-            if (winURL) {
-                var xhr = new XMLHttpRequest();
-                xhr.open("get", request.url, true);
-                xhr.responseType = "blob";
-                xhr.onload = function () {
-                    if (this.status == 200) {
-                        var blob = this.response;
-                        image = document.createElement("img");
-                        image.onload = function (e) {
-                            winURL.revokeObjectURL(image.src); // 清除释放
-                            onImageComplete(e);
-                        };
-                        image.onerror = onLoadError;
-                        image.src = winURL.createObjectURL(blob);
-                    }
-                };
-                xhr.send();
-            }
-            else {
-                image = new Image();
-                //            image.crossOrigin = "Anonymous";
-                image.onload = onImageComplete;
-                image.onerror = onLoadError;
-                image.src = request.url;
-            }
-            function onImageComplete(event) {
-                image.onerror = null;
-                image.onload = null;
-                var texture = new egret.Texture();
-                texture._setBitmapData(image);
-                loader.data = texture;
-                egret.__callAsync(egret.Event.dispatchEvent, egret.Event, loader, egret.Event.COMPLETE);
-            }
-            function onLoadError(event) {
-                image.onerror = null;
-                image.onload = null;
-                egret.IOErrorEvent.dispatchIOErrorEvent(loader);
-            }
-        };
-    }
+//    private html5_loadTexture():void{
+//        egret.HTML5NetContext.prototype['loadTexture'] = function (loader) {
+//            var request = loader._request;
+//            var image;
+//            var winURL = window["URL"] || window["webkitURL"];
+//            if (winURL) {
+//                var xhr = new XMLHttpRequest();
+//                xhr.open("get", request.url, true);
+//                xhr.responseType = "blob";
+//                xhr.onload = function () {
+//                    if (this.status == 200) {
+//                        var blob = this.response;
+//                        image = document.createElement("img");
+//                        image.onload = function (e) {
+//                            winURL.revokeObjectURL(image.src); // 清除释放
+//                            onImageComplete(e);
+//                        };
+//                        image.onerror = onLoadError;
+//                        image.src = winURL.createObjectURL(blob);
+//                    }
+//                };
+//                xhr.send();
+//            }
+//            else {
+//                image = new Image();
+//                //            image.crossOrigin = "Anonymous";
+//                image.onload = onImageComplete;
+//                image.onerror = onLoadError;
+//                image.src = request.url;
+//            }
+//            function onImageComplete(event) {
+//                image.onerror = null;
+//                image.onload = null;
+//                var texture = new egret.Texture();
+//                texture._setBitmapData(image);
+//                loader.data = texture;
+//                egret.__callAsync(egret.Event.dispatchEvent, egret.Event, loader, egret.Event.COMPLETE);
+//            }
+//            function onLoadError(event) {
+//                image.onerror = null;
+//                image.onload = null;
+//                egret.IOErrorEvent.dispatchIOErrorEvent(loader);
+//            }
+//        };
+//    }
 
-    /**
-     * 在高分辨率屏幕会显示半屏的bug修复
-     */
-    private bug_half_screen():void{
-        if(!App.DeviceUtils.IsHtml5){
-            return;
-        }
-
-        egret.HTML5CanvasRenderer.prototype.clearRect = function (x, y, w, h) {
-            this.canvasContext.clearRect(x, y, w * window.devicePixelRatio, h * window.devicePixelRatio);
-        };
-    }
+//    /**
+//     * 在高分辨率屏幕会显示半屏的bug修复
+//     */
+//    private bug_half_screen():void{
+//        if(!App.DeviceUtils.IsHtml5){
+//            return;
+//        }
+//
+//        egret.HTML5CanvasRenderer.prototype.clearRect = function (x, y, w, h) {
+//            this.canvasContext.clearRect(x, y, w * window.devicePixelRatio, h * window.devicePixelRatio);
+//        };
+//    }
 
     /**
      * cacheAsBitmap的替代方案，解决QQ浏览器在1G内存的机器上最多能使用20个Canvas的限制
@@ -103,7 +103,7 @@ class EgretExpandUtils extends BaseClass{
                 return false;
             }
 
-            var result = this.renderTexture.drawToTexture(this);
+            var result = this.renderTexture.drawToTexture(<any>this);
             if (result) {
                 this._texture_to_render = this.renderTexture;
             }
@@ -215,11 +215,11 @@ class EgretExpandUtils extends BaseClass{
      * @param child
      */
     public addChild(container:egret.DisplayObjectContainer, child:egret.DisplayObject):void{
-        if(child._parent != container){
-            if(child._parent)
+        if(child._DO_Props_._parent != container){
+            if(child._DO_Props_._parent)
                 this.removeFromParent(child);
             container._children.push(child);
-            child._parent = container;
+            child._DO_Props_._parent = container;
         }
     }
 
@@ -230,11 +230,11 @@ class EgretExpandUtils extends BaseClass{
      * @param index
      */
     public addChildAt(container:egret.DisplayObjectContainer, child:egret.DisplayObject, index:number):void{
-        if(child._parent != container){
-            if(child._parent)
+        if(child._DO_Props_._parent != container){
+            if(child._DO_Props_._parent)
                 this.removeFromParent(child);
             container._children.splice(index, 0, child);
-            child._parent = container;
+            child._DO_Props_._parent = container;
         }
     }
 
@@ -243,10 +243,10 @@ class EgretExpandUtils extends BaseClass{
      * @param child
      */
     public removeFromParent(child:egret.DisplayObject):void{
-        if (child && child._parent) {
-            var index = child._parent._children.indexOf(child);
-            child._parent._children.splice(index, 1);
-            child._parent = null;
+        if (child && child._DO_Props_._parent) {
+            var index = child._DO_Props_._parent._children.indexOf(child);
+            child._DO_Props_._parent._children.splice(index, 1);
+            child._DO_Props_._parent = null;
         }
     }
 
@@ -259,14 +259,14 @@ class EgretExpandUtils extends BaseClass{
         var child:egret.DisplayObject = container._children[index];
         if(child){
             container._children.splice(index, 1);
-            child._parent = null;
+            child._DO_Props_._parent = null;
             child.visible = false;
         }
     }
 
     /**
      * removeAllChild 的高效实现，慎用
-     * @param container
+     * @param containerta'shi
      */
     public removeAllChild(container:egret.DisplayObjectContainer):void{
         while(container._children.length){

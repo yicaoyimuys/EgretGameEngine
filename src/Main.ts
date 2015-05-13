@@ -64,8 +64,8 @@ class Main extends egret.DisplayObjectContainer{
      * 配置文件加载完成,开始预加载preload资源组。
      */
     private onConfigComplete():void{
-        new GUITest();
-//        new ActTest();
+//        new GUITest();
+        new ActTest();
 //        new ProtoBufTest();
 //        new StarlingSwfTest();
     }
