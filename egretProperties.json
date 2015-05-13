@@ -16,14 +16,14 @@
 		{
 			"name": "socket"
 		},
-        {
-            "name": "protobuf",
-            "path": "src/core/api/protobuf"
-        }
+		{
+			"name": "protobuf",
+			"path": "src/core/api/protobuf"
+		}
 	],
 	"native": {
 		"path_ignore": [],
 		"android_path": "../android/egret-projects/EgretGameEngine"
 	},
-	"egret_version": "1.6.0"
+	"egret_version": "1.7.1"
 }
