@@ -14,7 +14,7 @@ runtime发布流程(必须要有android项目):
 //外网地址
 
 html5版本:
-http://static.egret-labs.org/h5game/kuaida/v14/index_game.html
+http://static.egret-labs.org/h5game/kuaida/v16/index_act.html
 
 runtime版本:
 http://static.egret-labs.org/h5game/kuaida/runtime_v5.html
