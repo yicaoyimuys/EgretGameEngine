@@ -213,13 +213,14 @@ module particle {
             particle.y -= dt / 6;
         }
 
-        private transform:egret.Matrix = new egret.Matrix();
+        private mytransform:egret.Matrix = new egret.Matrix();
         private colorMatrix = [
             0, 0, 0, 0, 0,
             0, 0, 0, 0, 0,
             0, 0, 0, 0, 0,
             0, 0, 0, 1, 0
         ];
+        private colorMatrixFilter:egret.ColorMatrixFilter = new egret.ColorMatrixFilter();
         public _render(renderContext:egret.RendererContext):void {
             if (this.numParticles > 0) {
                 var renderFilter = egret.RenderFilter.getInstance();
@@ -238,9 +239,9 @@ module particle {
                 var particle:Particle;
                 for (var i:number = 0; i < this.numParticles; i++) {
                     particle = this.particles[i];
-                    this.transform.identityMatrix(this._worldTransform);
-                    this.transform.appendTransform(particle.x, particle.y, particle.scale, particle.scale, particle.rotation, 0, 0, textureW / 2, textureH / 2);
-                    renderContext.setTransform(this.transform);
+                    this.mytransform.identityMatrix(this._worldTransform);
+                    this.mytransform.appendTransform(particle.x, particle.y, particle.scale, particle.scale, particle.rotation, 0, 0, textureW / 2, textureH / 2);
+                    renderContext.setTransform(this.mytransform);
                     renderContext.setAlpha(particle.alpha, egret.BlendMode.NORMAL);
 
                     if(egret.MainContext.runtimeType == egret.MainContext.RUNTIME_NATIVE){
@@ -253,10 +254,12 @@ module particle {
                     this.colorMatrix[0] = particle.colorRed/255;
                     this.colorMatrix[6] = particle.colorGreen/255;
                     this.colorMatrix[12] = particle.colorBlue/255;
-                    renderContext.setGlobalColorTransform(this.colorMatrix);
+                    this.colorMatrixFilter.matrix = this.colorMatrix;
+                    renderContext.setGlobalFilters([this.colorMatrixFilter]);
+
                     renderFilter.drawImage(renderContext, this, bitmapX, bitmapY, bitmapWidth, bitmapHeight, offsetX, offsetY, textureW, textureH);
                 }
-                renderContext.setGlobalColorTransform(null);
+                renderContext.setGlobalFilters(null);
                 if(egret.MainContext.runtimeType == egret.MainContext.RUNTIME_NATIVE){
                     window["BlendFunc"](1, 771);
                 }

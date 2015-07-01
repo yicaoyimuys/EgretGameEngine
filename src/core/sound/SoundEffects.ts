@@ -19,15 +19,7 @@ class SoundEffects extends BaseSound{
         this._volume = volume;
         var sound:egret.Sound = this.getSound(effectName);
         if(sound){
-            var needPlay:boolean = false;
-            if(App.DeviceUtils.IsHtml5){
-                needPlay = sound["audio"].currentTime == 0 || sound["audio"].currentTime == sound["audio"].duration;
-            }else{
-                needPlay = true;
-            }
-            if(needPlay){
-                this.playSound(sound);
-            }
+            this.playSound(sound);
         }
     }
 
@@ -36,7 +28,7 @@ class SoundEffects extends BaseSound{
      * @param sound
      */
     private playSound(sound:egret.Sound):void{
-        sound.setVolume(this._volume);
+        sound.volume = this._volume;
         sound.play();
     }
 

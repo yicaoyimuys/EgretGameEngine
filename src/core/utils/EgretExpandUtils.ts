@@ -17,70 +17,20 @@ class EgretExpandUtils extends BaseClass{
 //        this.bug_half_screen();
         this.bug_qqBrowser_CanvasNum();
         this.cocosStudio2DragonBones_egretFactory();
-//        this.html5_loadTexture();
     }
 
     /**
-     * loadTexture优化，解决IOS上帧频低得问题
+     * 在高分辨率屏幕会显示半屏的bug修复
      */
-//    private html5_loadTexture():void{
-//        egret.HTML5NetContext.prototype['loadTexture'] = function (loader) {
-//            var request = loader._request;
-//            var image;
-//            var winURL = window["URL"] || window["webkitURL"];
-//            if (winURL) {
-//                var xhr = new XMLHttpRequest();
-//                xhr.open("get", request.url, true);
-//                xhr.responseType = "blob";
-//                xhr.onload = function () {
-//                    if (this.status == 200) {
-//                        var blob = this.response;
-//                        image = document.createElement("img");
-//                        image.onload = function (e) {
-//                            winURL.revokeObjectURL(image.src); // 清除释放
-//                            onImageComplete(e);
-//                        };
-//                        image.onerror = onLoadError;
-//                        image.src = winURL.createObjectURL(blob);
-//                    }
-//                };
-//                xhr.send();
-//            }
-//            else {
-//                image = new Image();
-//                //            image.crossOrigin = "Anonymous";
-//                image.onload = onImageComplete;
-//                image.onerror = onLoadError;
-//                image.src = request.url;
-//            }
-//            function onImageComplete(event) {
-//                image.onerror = null;
-//                image.onload = null;
-//                var texture = new egret.Texture();
-//                texture._setBitmapData(image);
-//                loader.data = texture;
-//                egret.__callAsync(egret.Event.dispatchEvent, egret.Event, loader, egret.Event.COMPLETE);
-//            }
-//            function onLoadError(event) {
-//                image.onerror = null;
-//                image.onload = null;
-//                egret.IOErrorEvent.dispatchIOErrorEvent(loader);
-//            }
-//        };
-//    }
+    private bug_half_screen():void{
+        if(!App.DeviceUtils.IsHtml5){
+            return;
+        }
 
-//    /**
-//     * 在高分辨率屏幕会显示半屏的bug修复
-//     */
-//    private bug_half_screen():void{
-//        if(!App.DeviceUtils.IsHtml5){
-//            return;
-//        }
-//
-//        egret.HTML5CanvasRenderer.prototype.clearRect = function (x, y, w, h) {
-//            this.canvasContext.clearRect(x, y, w * window.devicePixelRatio, h * window.devicePixelRatio);
-//        };
-//    }
+        egret.HTML5CanvasRenderer.prototype.clearRect = function (x, y, w, h) {
+            this["canvasContext"].clearRect(x, y, w * window.devicePixelRatio, h * window.devicePixelRatio);
+        };
+    }
 
     /**
      * cacheAsBitmap的替代方案，解决QQ浏览器在1G内存的机器上最多能使用20个Canvas的限制
@@ -133,10 +83,10 @@ class EgretExpandUtils extends BaseClass{
              * @member {number} egret.DisplayObject#cacheAsBitmap
              */
             get: function () {
-                return this._cacheAsBitmap;
+                return this._DO_Props_._cacheAsBitmap;
             },
             set: function (bool) {
-                this._cacheAsBitmap = bool;
+                this._DO_Props_._cacheAsBitmap = bool;
                 if (bool) {
                     egret.callLater(this._makeBitmapCache, this);
                 }
@@ -201,7 +151,7 @@ class EgretExpandUtils extends BaseClass{
         };
 
         dragonBones.EgretSlot.prototype._updateDisplay = function (value) {
-            this._egretDisplay = value;
+            this["_egretDisplay"] = value;
             if(value instanceof particle.GravityParticleSystem && value.visible){
                 var particleSystem = (<particle.GravityParticleSystem>value);
                 particleSystem.start(parseFloat(particleSystem.particleConfig.duration));

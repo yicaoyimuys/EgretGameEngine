@@ -18,7 +18,7 @@ class ActTest{
 
         //音乐音效处理
         App.SoundManager.setBgOn(true);
-        App.SoundManager.setEffectOn(!App.DeviceUtils.IsHtml5 || !App.DeviceUtils.IsMobile);
+        App.SoundManager.setEffectOn(true);
 
         this.initBattleDragonBones();
         App.DebugUtils.setFpsColor(0xFFFFFF);
