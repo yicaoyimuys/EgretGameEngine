@@ -1,7 +1,7 @@
 {
     "groups":[
         {
-            "keys":"btn_wrong,table_activity,table_bg,table_box_down,table_box_down_2,table_box_middle,table_box_up,table_cloud_top,table_cloud_bottom,btn_shrink_bg,btn_shrink,menu_bg,btn_mail,btn_mission,btn_activity,table_task,table_mail,task_bg,icon_diamond,icon_experience,icon_fertilization,icon_gold,icon_friend,icon_more,icon_shop,icon_warehouse,icon_factory,icon_name,icon_head,icon_line,icon_LV,icon_badge,table_shop,table_tittle,table_warehouse,icon_factory_tittle,tabBar_selected_down,text_fertilizer01,text_fertilizer02,text_seed01,text_seed02,tabBar_down,sto_table_tittle,card_bg,icon_fertilizer02,icon_fertilizer03,icon_fertilizer04,icon_fertilizer05,icon_02,bbs,text_fruit_01,text_fruit_02,text_fruit_juice_01,text_fruit_juice_02,icon_sale",
+            "keys":"btn_wrong,bitmapFont,table_activity,table_bg,table_box_down,table_box_down_2,table_box_middle,table_box_up,table_cloud_top,table_cloud_bottom,btn_shrink_bg,btn_shrink,menu_bg,btn_mail,btn_mission,btn_activity,table_task,table_mail,task_bg,icon_diamond,icon_experience,icon_fertilization,icon_gold,icon_friend,icon_more,icon_shop,icon_warehouse,icon_factory,icon_name,icon_head,icon_line,icon_LV,icon_badge,table_shop,table_tittle,table_warehouse,icon_factory_tittle,tabBar_selected_down,text_fertilizer01,text_fertilizer02,text_seed01,text_seed02,tabBar_down,sto_table_tittle,card_bg,icon_fertilizer02,icon_fertilizer03,icon_fertilizer04,icon_fertilizer05,icon_02,bbs,text_fruit_01,text_fruit_02,text_fruit_juice_01,text_fruit_juice_02,icon_sale",
             "name":"preload_ui"
         }
     ],
@@ -281,6 +281,11 @@
             "name":"icon_sale",
             "type":"image",
             "url":"assets/example/icon_sale.png"
+        },
+        {
+            "name":"bitmapFont",
+            "type":"font",
+            "url":"font/font.fnt"
         }
     ]
 }
