@@ -26,7 +26,7 @@
 			<e:Group y="96" x="394">
 				<e:UIAsset y="0" source="icon_line" x="17"/>
 				<e:Group y="15" width="142" height="30" x="49">
-					<e:Label id="diamondDisplay" size="21" horizontalCenter="0" bold="true" verticalCenter="0" textColor="3710089" text="99"/>
+					<e:BitmapLabel id="diamondDisplay" text="99" font="bitmapFont" horizontalCenter="0" verticalCenter="0"/>
 				</e:Group>
 				<e:UIAsset y="0" x="0" source="icon_diamond"/>
 			</e:Group>
