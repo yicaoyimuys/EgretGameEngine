@@ -5,6 +5,9 @@
 			"name": "core"
 		},
 		{
+			"name": "version_old"
+		},
+		{
 			"name": "res"
 		},
 		{
@@ -25,5 +28,5 @@
 		"path_ignore": [],
 		"android_path": "../android/egret-projects/EgretGameEngine"
 	},
-	"egret_version": "1.7.1"
+	"egret_version": "2.0.0"
 }
