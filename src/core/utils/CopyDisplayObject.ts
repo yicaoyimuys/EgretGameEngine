@@ -6,10 +6,12 @@ class CopyDisplayObject extends BaseClass
     private _doPool:egret.DisplayObject[];
     private _renderDic:any;
     private _isTimerStart:boolean;
+    private _cachRenderTexture:any;
 
     public constructor()
     {
         this._renderDic = Object.create(null);
+        this._cachRenderTexture = Object.create(null);
     }
 
     /**
@@ -43,10 +45,15 @@ class CopyDisplayObject extends BaseClass
             dis = this._renderDic[keys[i]].copy;
             source = this._renderDic[keys[i]].source;
             //拷贝显示
-            source._makeBitmapCache();
-            dis._texture_to_render = source.renderTexture;
+            if(!this._cachRenderTexture[source.hashCode]){
+                source._makeBitmapCache();
+                this._cachRenderTexture[source.hashCode] = source.renderTexture;
+                dis._texture_to_render = source.renderTexture;
+            }
+            dis._texture_to_render = this._cachRenderTexture[source.hashCode];
             dis._DO_Props_._cacheAsBitmap = true;
         }
+        this._cachRenderTexture = Object.create(null);
     }
 
     /**
