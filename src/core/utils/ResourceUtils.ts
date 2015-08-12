@@ -11,6 +11,7 @@ class ResourceUtils extends BaseClass{
     private _onConfigCompleteTarget:any;
 
     private _groups:any;
+    private _groupIndex:number = 0;
 
     /**
      * 构造函数
@@ -92,7 +93,7 @@ class ResourceUtils extends BaseClass{
      * @param $onResourceLoadTarget 资源加载监听函数所属对象
      */
     public loadGroups($groupName:string, $subGroups:Array<any>, $onResourceLoadComplete:Function, $onResourceLoadProgress:Function, $onResourceLoadTarget:any):void{
-        RES.createGroup($groupName, $subGroups);
+        RES.createGroup($groupName, $subGroups, true);
         this.loadGroup($groupName, $onResourceLoadComplete, $onResourceLoadProgress, $onResourceLoadTarget)
     }
 
@@ -132,5 +133,20 @@ class ResourceUtils extends BaseClass{
             if(loadProgress != null)
                 loadProgress.call(loadProgressTarget, event.itemsLoaded, event.itemsTotal);
         }
+    }
+    /**
+     * 混合加载资源组
+     * @param $resources 资源数组
+     * @param $groups 资源组数组
+     * @param $onResourceLoadComplete 资源加载完成执行函数
+     * @param $onResourceLoadProgress 资源加载进度监听函数
+     * @param $onResourceLoadTarget 资源加载监听函数所属对象
+     */
+    public loadResource($resources = [], $groups = [], $onResourceLoadComplete:Function = null, $onResourceLoadProgress:Function = null, $onResourceLoadTarget:any = null):void{
+        var needLoadArr = $resources.concat($groups);
+        var groupName = "loadGroup" + this._groupIndex++;
+        RES.createGroup(groupName, needLoadArr, true);
+        this._groups[groupName] = [$onResourceLoadComplete, $onResourceLoadProgress, $onResourceLoadTarget];
+        RES.loadGroup(groupName);
     }
 }

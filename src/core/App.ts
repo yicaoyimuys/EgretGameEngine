@@ -70,7 +70,7 @@ class App{
      * @type {MessageCenter}
      */
     public static get MessageCenter():MessageCenter{
-        return MessageCenter.getInstance();
+        return MessageCenter.getInstance(0);
     }
     /**
      * 统一的计时器和帧刷管理类
@@ -197,6 +197,46 @@ class App{
     public static get RenderTextureManager():RenderTextureManager{
         return RenderTextureManager.getInstance();
     }
+
+    /**
+     * 消息通知中心
+     */
+    private static _notificationCenter:MessageCenter;
+    public static get NotificationCenter():MessageCenter{
+        if(App._notificationCenter == null){
+            App._notificationCenter = new MessageCenter(1);
+        }
+        return App._notificationCenter;
+    }
+
+
+    /**
+     * 分帧处理类
+     * @returns {any}
+     * @constructor
+     */
+    public static get DelayOptManager():DelayOptManager{
+        return DelayOptManager.getInstance();
+    }
+
+    /**
+     * 数组工具类
+     * @returns {any}
+     * @constructor
+     */
+    public static get ArrayUtils():ArrayUtils{
+        return ArrayUtils.getInstance();
+    }
+
+    /**
+     * 通用Loading动画
+     * @returns {any}
+     * @constructor
+     */
+    public static get EasyLoading():EasyLoading {
+        return EasyLoading.getInstance();
+    }
+
     /**
      * 单一资源通过版本号加载管理类
      */
@@ -213,16 +253,14 @@ class App{
         App.GlobalData = RES.getRes("global");
         //开启调试
         App.DebugUtils.isOpen(App.GlobalData.IsDebug);
+        App.DebugUtils.setThreshold(-1);
         //扩展功能初始化
         App.EgretExpandUtils.init();
         //实例化Http请求
         App.Http.initServer(App.GlobalData.HttpSerever);
-        //实例化Socket请求
-        App.Socket.initServer(App.GlobalData.SocketServer, App.GlobalData.SocketPort, new ByteArrayMsgByProtobuf());
-        //实例化ProtoBuf
+        //实例化ProtoBuf和Socket请求
         App.ProtoFile = dcodeIO.ProtoBuf.loadProto(RES.getRes(App.GlobalData.ProtoFile));
         App.ProtoConfig = RES.getRes(App.GlobalData.ProtoConfig);
-        //开启服务器返回的消息侦听
-        App.TimerManager.doFrame(1, 0, App.MessageCenter.run, App.MessageCenter);
+        App.Socket.initServer(App.GlobalData.SocketServer, App.GlobalData.SocketPort, new ByteArrayMsgByProtobuf());
     }
 }

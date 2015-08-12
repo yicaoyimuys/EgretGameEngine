@@ -216,7 +216,7 @@ class EgretExpandUtils extends BaseClass{
 
     /**
      * removeAllChild 的高效实现，慎用
-     * @param containerta'shi
+     * @param container
      */
     public removeAllChild(container:egret.DisplayObjectContainer):void{
         while(container._children.length){

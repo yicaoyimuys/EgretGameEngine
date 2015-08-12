@@ -44,7 +44,7 @@ class GameController extends BaseController {
      * 慢镜头
      */
     public slowMotion():void{
-        App.ShockUtils.stop();
+        App.ShockUtils.destroy();
 
         this.gameView.anchorX = 0.5;
         this.gameView.anchorY = 0.5;

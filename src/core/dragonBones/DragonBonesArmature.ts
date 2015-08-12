@@ -14,7 +14,8 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
 
     private _isPlay:boolean;
     private _playName:string;
-    private _isFirstPlay:boolean;
+
+    private _currAnimationState:dragonBones.AnimationState;
 
     /**
      * 构造函数
@@ -36,7 +37,8 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
 
         this._isPlay = false;
         this._playName = "";
-        this._isFirstPlay = true;
+        //此行代码用于处理动画第一次播放时，显示异常的bug
+        this.getAnimation()._advanceTime(0);
     }
 
     /**
@@ -62,7 +64,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
     private completeHandler(e:dragonBones.AnimationEvent):void {
         for (var i:number=0, len=this._completeCalls.length; i < len; i++) {
             var arr:Array<any> = this._completeCalls[i];
-            arr[0].apply(arr[1], [e.animationName]);
+            arr[0].apply(arr[1], [e]);
         }
         if(e.animationName == this._playName){
             this._playName = "";
@@ -76,41 +78,42 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
     private frameHandler(e:dragonBones.FrameEvent):void {
         for (var i:number=0, len=this._frameCalls.length; i < len; i++) {
             var arr:Array<any> = this._frameCalls[i];
-            arr[0].apply(arr[1], [e.bone, e.frameLabel]);
+            arr[0].apply(arr[1], [e]);
         }
     }
 
     /**
      * 播放名为name的动作
      * @param name 名称
-     * @param playNum 播放次数，0:为循环播放
-     * @param isRefurbish 是否刷新动作
+     * @param playNum 指定播放次数，默认走动画配置
      */
-    public play(name:string, playNum:number = 0, isRefurbish:boolean = false):dragonBones.AnimationState {
-        if(!isRefurbish){
-            if(this._playName == name){
-                return null;
-            }
+    public play(name:string, playNum:number = undefined):dragonBones.AnimationState {
+        if(this._playName == name){
+            return this._currAnimationState;
         }
-
         this._playName = name;
-        var state:dragonBones.AnimationState = this.getAnimation().gotoAndPlay(name, undefined, undefined, playNum);
-        //此行代码用于处理动画第一次播放时，显示异常的bug
-        {
-            if(this._isFirstPlay){
-                this._isFirstPlay = false;
-                this.getAnimation()._advanceTime(0);
-            }
+        if(playNum == undefined){
+            this._currAnimationState = this.getAnimation().gotoAndPlay(name);
         }
-        if(state){
-            state.autoTween = false;
+        else{
+            this._currAnimationState = this.getAnimation().gotoAndPlay(name, undefined, undefined, playNum);
         }
+        if(this._currAnimationState){
+            this._currAnimationState.autoTween = false;
+        }
+        this.start();
+        return this._currAnimationState;
+    }
+
+    /**
+     * 恢复播放
+     */
+    public start():void {
         if(!this._isPlay){
             this._clock.add(this._armature);
             this._isPlay = true;
             this.addListeners();
         }
-        return state;
     }
 
     /**
@@ -152,13 +155,13 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * @param target 函数所属对象
      */
     public addCompleteCallFunc(callFunc:Function, target:any):void {
-        for (var i = 0, li = this._completeCalls.length; i < li; i++) {
+        for (var i = 0; i < this._completeCalls.length; i++) {
             var arr:Array<any> = this._completeCalls[i];
             if (arr[0] == callFunc && arr[1] == target) {
                 return;
             }
         }
-        this._completeCalls.push([callFunc, target]);
+        this._completeCalls.unshift([callFunc, target]);
     }
 
     /**
@@ -167,7 +170,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * @param target 函数所属对象
      */
     public removeCompleteCallFunc(callFunc:Function, target:any):void {
-        for (var i = 0, li = this._completeCalls.length; i < li; i++) {
+        for (var i = 0; i < this._completeCalls.length; i++) {
             var arr:Array<any> = this._completeCalls[i];
             if (arr[0] == callFunc && arr[1] == target) {
                 this._completeCalls.splice(i, 1);
@@ -182,7 +185,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * @param target 函数所属对象
      */
     public addFrameCallFunc(callFunc:Function, target:any):void {
-        for (var i = 0, li = this._frameCalls.length; i < li; i++) {
+        for (var i = 0; i < this._frameCalls.length; i++) {
             var arr:Array<any> = this._frameCalls[i];
             if (arr[0] == callFunc && arr[1] == target) {
                 return;
@@ -197,7 +200,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * @param target 函数所属对象
      */
     public removeFrameCallFunc(callFunc:Function, target:any):void {
-        for (var i = 0, li = this._frameCalls.length; i < li; i++) {
+        for (var i = 0; i < this._frameCalls.length; i++) {
             var arr:Array<any> = this._frameCalls[i];
             if (arr[0] == callFunc && arr[1] == target) {
                 this._frameCalls.splice(i, 1);
@@ -224,6 +227,14 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
     }
 
     /**
+     * 获取当前dragonBones.AnimationState
+     * @returns {dragonBones.AnimationState}
+     */
+    public getCurrAnimationState():dragonBones.AnimationState{
+        return this._currAnimationState;
+    }
+
+    /**
      * 获取所属dragonBones.WorldClock
      * @returns {dragonBones.WorldClock}
      */
@@ -240,7 +251,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
     }
 
     /**
-     * 根据名字获取一个骨骼
+     * 获取一个Bone
      * @param boneName
      * @returns {Bone}
      */

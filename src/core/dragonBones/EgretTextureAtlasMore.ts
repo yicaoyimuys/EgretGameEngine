@@ -21,8 +21,9 @@ class EgretTextureAtlasMore extends dragonBones.EgretTextureAtlas
     }
 
     private analysisSheet(sheet:any, index:number):void{
-        var key:string;
-        for(key in sheet){
+        var keys = Object.keys(sheet);
+        for(var i:number=0, len=keys.length; i<len; i++){
+            var key = keys[i];
             if(key && key != "")
                 this.addTextureDic(index, key);
         }

@@ -21,7 +21,9 @@ class BaseSound{
      */
     private dealSoundTimer():void{
         var currTime:number = egret.getTimer();
-        for(var key in this._cache){
+        var keys = Object.keys(this._cache);
+        for(var i:number=0, len=keys.length; i<len; i++){
+            var key = keys[i];
             if(!this.checkCanClear(key))
                 continue;
             if(currTime - this._cache[key] >= SoundManager.CLEAR_TIME){

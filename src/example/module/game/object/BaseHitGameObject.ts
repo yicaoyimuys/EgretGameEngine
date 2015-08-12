@@ -20,7 +20,7 @@ class BaseHitGameObject extends BaseAIGameObject{
 
     public loseHp():void{
         var isBao:boolean = Math.random() >= 0.95;
-        var txt:egret.Bitmap = ObjectPool.pop(egret.Bitmap);
+        var txt:egret.Bitmap = ObjectPool.pop("egret.Bitmap");
         txt.alpha = 1;
         if(this.x < 50){
             txt.x = this.x + App.RandomUtils.limit(0, 100);

@@ -7,6 +7,7 @@ class DebugUtils extends BaseClass{
 	private _key:string;
 	private _startTime:number = 0;
     private _fpsColor:number = 0xFFFFFF;
+    private _threshold:number = 3;
 	
 	public constructor(){
         super();
@@ -52,11 +53,19 @@ class DebugUtils extends BaseClass{
 			return 0;
         }
 		var cha:number=egret.getTimer()-this._startTime;
-		if(cha > 3){
-            Log.trace(this._key + ":" + cha);
+		if(cha > this._threshold){
+            Log.trace(this._key + ": " + cha);
         }
 		return cha;
 	}
+
+    /**
+     * 设置时间间隔阈值
+     * @param value
+     */
+    public setThreshold(value:number):void{
+        this._threshold = value;
+    }
 	
 	/**
 	 * 显示Fps

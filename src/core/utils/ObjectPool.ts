@@ -43,27 +43,12 @@ class ObjectPool{
     }
 
     /**
-     * 获取出来Class的唯一key值
-     * @param classZ
-     * @returns {string}
-     */
-    private static getClassKey(classZ:any):any{
-        return classZ;
-
-        //下面正则在runtime上有问题，不知为何
-//        var str:string = classZ.toString();
-//        var arr:any = /function +(\w+) *\(/.exec(str);
-//        return arr[1];
-    }
-
-    /**
      * 取出一个对象
      * @param classZ Class
      * @return Object
      *
      */
-    public static pop(classZ:any, ...args:any[]):any{
-        var refKey:any = ObjectPool.getClassKey(classZ);
+    public static pop(refKey:string, ...args:any[]):any{
         if(!ObjectPool._content[refKey]){
             ObjectPool._content[refKey] = [];
         }
@@ -72,6 +57,7 @@ class ObjectPool{
         if(list.length){
             return list.pop();
         }else{
+            var classZ:any = egret.getDefinitionByName(refKey);
             var argsLen:number = args.length;
             var obj:any;
             if(argsLen == 0){
@@ -90,6 +76,37 @@ class ObjectPool{
             obj.ObjectPoolKey = refKey;
             return obj;
         }
+    }
+
+    /**
+     * 取出一个对象
+     * @param refKey Class
+     * @param extraKey 标识值
+     * @returns {any}
+     */
+    public static popWithExtraKey(refKey:string, extraKey:any):any{
+        if(!ObjectPool._content[refKey]){
+            ObjectPool._content[refKey] = [];
+        }
+
+        var obj:any;
+        var list:Array<any> = ObjectPool._content[refKey];
+        if(list.length){
+            for(var i = 0; i < list.length; i++){
+                if(list[i].extraKey == extraKey){
+                    obj = list[i];
+                    list.splice(i,1);
+                    break;
+                }
+            }
+        }
+        if(!obj){
+            var classZ:any = egret.getDefinitionByName(refKey);
+            obj = new classZ(extraKey);
+            obj.extraKey = extraKey;
+            obj.ObjectPoolKey = refKey;
+        }
+        return obj;
     }
 
     /**
@@ -124,8 +141,7 @@ class ObjectPool{
      * @param classZ Class
      * @param clearFuncName 清除对象需要执行的函数
      */
-    public static clearClass(classZ:any, clearFuncName:string = null):void{
-        var refKey:any = ObjectPool.getClassKey(classZ);
+    public static clearClass(refKey:string, clearFuncName:string = null):void{
         var list:Array<any> = ObjectPool._content[refKey];
         while(list && list.length){
             var obj:any = list.pop();
@@ -143,8 +159,7 @@ class ObjectPool{
      * @param classZ Class
      * @param dealFuncName 要执行的函数名称
      */
-    public static dealFunc(classZ:any, dealFuncName:string):void{
-        var refKey:any = ObjectPool.getClassKey(classZ);
+    public static dealFunc(refKey:string, dealFuncName:string):void{
         var list:Array<any> = ObjectPool._content[refKey];
         if(list == null){
             return;

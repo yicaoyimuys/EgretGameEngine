@@ -79,7 +79,7 @@ class TimerManager extends BaseClass{
 		this.remove(method, methodObj);
 
         //创建
-		var handler:TimerHandler = ObjectPool.pop(TimerHandler);
+		var handler:TimerHandler = ObjectPool.pop("TimerHandler");
 		handler.userFrame = useFrame;
 		handler.repeat = repeatCount == 0;
 		handler.repeatCount = repeatCount;
@@ -148,6 +148,21 @@ class TimerManager extends BaseClass{
                 break;
             }
         }
+	}
+	/**
+	 * 清理
+	 * @param methodObj 要移除的函数对应的对象
+	 */
+	public removeAll(methodObj:any):void {
+		for (var i:number=0; i<this._count; i++) {
+			var handler:TimerHandler = this._handlers[i];
+			if(handler.methodObj == methodObj){
+				this._handlers.splice(i, 1);
+				ObjectPool.push(handler);
+				this._count--;
+				i--;
+			}
+		}
 	}
 	
 	/**

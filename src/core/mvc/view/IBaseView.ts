@@ -2,24 +2,7 @@
  * Created by yangsong on 2014/11/24.
  * View基类接口
  */
-interface IBaseView{
-    /**
-     * 触发本模块消息
-     * @param key 唯一标识
-     * @param param 参数
-     *
-     */
-    applyFunc(key:any, ...param:any[]):void;
-
-    /**
-     * 触发其他模块消息
-     * @param controllerKey 模块标识
-     * @param key 唯一标识
-     * @param param 所需参数
-     *
-     */
-    applyControllerFunc(controllerKey:number, key:any, ...param:any[]):void;
-
+interface IBaseView {
     /**
      * 是否已经初始化
      * @returns {boolean}
@@ -66,4 +49,43 @@ interface IBaseView{
      * @param param 参数
      */
     close(...param:any[]):void;
+
+    /**
+     * 销毁
+     */
+    dispose():void;
+
+    /**
+     * 触发本模块消息
+     * @param key 唯一标识
+     * @param param 参数
+     *
+     */
+    applyFunc(key:any, ...param:any[]):any;
+
+    /**
+     * 触发其他模块消息
+     * @param controllerKey 模块标识
+     * @param key 唯一标识
+     * @param param 所需参数
+     *
+     */
+    applyControllerFunc(controllerKey:number, key:any, ...param:any[]):any;
+
+    /**
+     * 设置是否隐藏
+     * @param value
+     */
+    setVisible(value:boolean):void;
+
+    /**
+     * 设置初始加载资源
+     * @param resources
+     */
+    setResources(resources:string[]):void;
+
+    /**
+     * 分模块加载资源
+     */
+    loadResource(loadComplete:Function, initComplete:Function):void;
 }

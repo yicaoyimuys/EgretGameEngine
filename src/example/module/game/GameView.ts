@@ -39,7 +39,7 @@ class GameView extends BaseSpriteView{
         //提前初始化好怪物
         this.enemys = new Array<Enemy>();
         for(var i:number=0; i<4; i++){
-            var enemy:Enemy = ObjectPool.pop(Enemy, this.controller);
+            var enemy:Enemy = ObjectPool.pop("Enemy", this.controller);
             enemy.init();
             this.enemys.push(enemy);
         }
@@ -48,11 +48,11 @@ class GameView extends BaseSpriteView{
         }
 
         //提前初始化好Boss
-        var boss:Boss = ObjectPool.pop(Boss, this.controller);
+        var boss:Boss = ObjectPool.pop("Boss", this.controller);
         boss.destory();
 
         //创建主角
-        this.hero = ObjectPool.pop(Hero, this.controller);
+        this.hero = ObjectPool.pop("Hero", this.controller);
         this.hero.init();
         this.hero.x = App.StageUtils.getWidth() * 0.3;
         this.hero.y = App.StageUtils.getHeight() * 0.7;
@@ -90,7 +90,7 @@ class GameView extends BaseSpriteView{
      * 创建怪物
      */
     private createEnemy():void{
-        this.enemys.push(this.createEnemySingle(Enemy));
+        this.enemys.push(this.createEnemySingle("Enemy"));
         if(this.enemys.length >= 4){
             App.TimerManager.remove(this.createEnemy, this);
         }
@@ -105,13 +105,13 @@ class GameView extends BaseSpriteView{
                 return;
             }
         }
-        this.enemys.push(this.createEnemySingle(Boss));
+        this.enemys.push(this.createEnemySingle("Boss"));
     }
 
-    private createEnemySingle(cls:any):Enemy{
+    private createEnemySingle(clsName:string):Enemy{
         var initX:number = Math.random() > 0.5 ? GameData.MAX_X+200 : GameData.MIN_X-200;
         var initY:number = App.RandomUtils.limit(GameData.MIN_Y, GameData.MAX_Y);
-        var enemy:Enemy = ObjectPool.pop(cls, this.controller);
+        var enemy:Enemy = ObjectPool.pop(clsName, this.controller);
         enemy.init();
         enemy.x = initX;
         enemy.y = initY;

@@ -235,12 +235,12 @@ class BaseMoveGameObject extends BaseGameObject{
     public gotoIdle():void{
         this.speed = 0;
         this.currState = BaseMoveGameObject.STATE_IDLE;
-        this.armature.play(BaseMoveGameObject.ACTION_Idle);
+        this.armature.play(BaseMoveGameObject.ACTION_Idle, 0);
     }
 
     public gotoMove():void{
         this.currState = BaseMoveGameObject.STATE_MOVE;
-        this.armature.play(BaseMoveGameObject.ACTION_Move);
+        this.armature.play(BaseMoveGameObject.ACTION_Move, 0);
     }
 
     public gotoAttack():void{
@@ -263,7 +263,7 @@ class BaseMoveGameObject extends BaseGameObject{
 
     public gotoHurt():void{
         this.gotoHurtState();
-        this.armature.play(BaseMoveGameObject.ACTION_Hart, 1, true);
+        this.armature.play(BaseMoveGameObject.ACTION_Hart, 1);
     }
 
     public command_in(speed:number, toX:number, toY:number):void{

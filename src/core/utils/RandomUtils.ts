@@ -22,7 +22,7 @@ class RandomUtils extends BaseClass{
      * @returns {number}
      */
     public limitInteger($from:number, $end:number):number{
-        return Math.floor(this.limit($from, $end));
+        return Math.round(this.limit($from, $end));
     }
 
     /**

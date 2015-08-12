@@ -19,7 +19,8 @@ class DragonBonesFactory{
 
     private factory:dragonBones.EgretFactory;
     private isPlay:boolean;
-    private clocks:any;
+    private clocks:Array<dragonBones.WorldClock>;
+    private clocksLen:number;
     private files:Array<string>;
 
     /**
@@ -27,8 +28,8 @@ class DragonBonesFactory{
      */
     public constructor(){
         this.factory = new dragonBones.EgretFactory();
-        this.clocks = {};
-        this.clocks[1] = dragonBones.WorldClock.clock;
+        this.clocks = new Array<dragonBones.WorldClock>();
+        this.clocksLen = 0;
         this.files = [];
         //默认开启
         this.start();
@@ -41,6 +42,9 @@ class DragonBonesFactory{
      * @param textureData 动画资源描述文件
      */
     public initArmatureFile(skeletonData:any, texture:egret.Texture, textureData:any):void{
+        if(this.files.indexOf(skeletonData.name) != -1){
+            return;
+        }
         this.addSkeletonData(skeletonData);
         this.addTextureAtlas(texture, textureData);
         this.files.push(skeletonData.name);
@@ -130,25 +134,51 @@ class DragonBonesFactory{
         var armature:dragonBones.Armature = this.factory.buildArmature(name, fromDragonBonesDataName);
         if(armature == null){
             Log.trace("不存在Armature： "+name);
+            return null;
         }
-        var clock:dragonBones.WorldClock = this.clocks[playSpeed];
-        if(clock == null){
-            clock = new dragonBones.WorldClock();
-            this.clocks[playSpeed] = clock;
-        }
+        var clock:dragonBones.WorldClock = this.createWorldClock(playSpeed);
         var result:DragonBonesArmature = new DragonBonesArmature(armature, clock);
         return result;
+    }
+
+    /**
+     * 创建WorldClock
+     * @param playSpeed
+     * @returns {dragonBones.WorldClock}
+     */
+    private createWorldClock(playSpeed:number):dragonBones.WorldClock{
+        for(var i:number = 0; i<this.clocksLen; i++){
+            if(this.clocks[i].timeScale == playSpeed){
+                return this.clocks[i];
+            }
+        }
+        var newClock:dragonBones.WorldClock = new dragonBones.WorldClock();
+        newClock.timeScale = playSpeed;
+        this.clocks.push(newClock);
+        this.clocksLen = this.clocks.length;
+        return newClock;
     }
 
     /**
      * dragonBones体系的每帧刷新
      * @param advancedTime
      */
+    private advancedTimes:Array<number> = [];
+    private advancedTimeLen:number = 0;
+    private advancedTimeSum:number = 0;
     private onEnterFrame(advancedTime:number):void {
-        var time:number = advancedTime / 1000;
-        for(var key in this.clocks){
-            var clock:dragonBones.WorldClock = this.clocks[key];
-            clock.advanceTime(time * key);
+        if(this.advancedTimeLen > 10){
+            this.advancedTimeLen--;
+            this.advancedTimeSum -= this.advancedTimes.shift();
+        }
+        this.advancedTimes.push(advancedTime);
+        this.advancedTimeSum += advancedTime;
+        this.advancedTimeLen ++;
+
+        var time:number = this.advancedTimeSum / this.advancedTimeLen / 1000;
+        for(var i:number = 0; i<this.clocksLen; i++){
+            var clock:dragonBones.WorldClock = this.clocks[i];
+            clock.advanceTime(time);
         }
     }
 

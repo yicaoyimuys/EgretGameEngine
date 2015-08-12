@@ -66,9 +66,10 @@ class KeyboardUtils extends BaseClass{
      * @param target 回调函数对应的对象
      */
     public removeKeyUp(callback:Function, target:any):void{
-        for(var i:number=this.key_ups.length-1; i>=0; i--) {
+        for(var i = 0;i<this.key_ups.length; i++) {
             if(this.key_ups[i][0] == callback && this.key_ups[i][1] == target){
                 this.key_ups.splice(i ,1);
+                i--;
             }
         }
     }
@@ -79,9 +80,10 @@ class KeyboardUtils extends BaseClass{
      * @param target 回调函数对应的对象
      */
     public removeKeyDown(callback:Function, target:any):void{
-        for(var i:number=this.key_downs.length-1; i>=0; i--) {
+        for(var i = 0;i<this.key_downs.length; i++) {
             if(this.key_downs[i][0] == callback && this.key_downs[i][1] == target){
                 this.key_downs.splice(i ,1);
+                i--;
             }
         }
     }

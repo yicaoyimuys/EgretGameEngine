@@ -66,7 +66,8 @@ class Hero extends BaseFrameGameObject{
         this.removeEffect();
     }
 
-    private armaturePlayEnd(animationName:string):void{
+    private armaturePlayEnd(e:dragonBones.AnimationEvent):void{
+        var animationName:string = e.animationName;
         if(animationName == Hero.ACTION_Attack0
             || animationName == Hero.ACTION_Attack1
             || animationName == Hero.ACTION_Attack2){

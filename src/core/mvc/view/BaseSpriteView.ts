@@ -3,9 +3,10 @@
  * View基类，继承自egret.Sprite
  */
 class BaseSpriteView extends egret.Sprite implements IBaseView{
-	private _controller:BaseController;
+    private _controller:BaseController;
     private _myParent:egret.DisplayObjectContainer;
     private _isInit:boolean;
+    private _resources:string[] = null;
 
     /**
      * 构造函数
@@ -14,11 +15,27 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      */
 	public constructor($controller:BaseController, $parent:egret.DisplayObjectContainer){
 		super();
-		this._controller = $controller;
+        this._controller = $controller;
         this._myParent = $parent;
         this._isInit = false;
-        egret.MainContext.instance.stage.addEventListener(egret.Event.RESIZE, this.onResize, this);
+        App.StageUtils.getStage().addEventListener(egret.Event.RESIZE, this.onResize, this);
 	}
+
+    /**
+     * 设置初始加载资源
+     * @param resources
+     */
+    public setResources(resources:string[]):void{
+        this._resources = resources;
+    }
+
+    /**
+     * 获取我的父级
+     * @returns {egret.gui.IVisualElementContainer}
+     */
+    public get myParent():egret.DisplayObjectContainer{
+        return this._myParent;
+    }
 
     /**
      * 是否已经初始化
@@ -55,7 +72,7 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
 	 * 
 	 */
 	public isShow():boolean{
-		return this.stage && this.visible;
+		return this.stage != null && this.visible;
 	}
 
     /**
@@ -105,9 +122,44 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
     }
 
     /**
+     * 销毁
+     */
+    public dispose():void{
+        this._controller = null;
+        this._myParent = null;
+        this._resources = null;
+    }
+
+    /**
      * 屏幕尺寸变化时调用
      */
-    public onResize():void{
+    protected onResize():void{
 
+    }
+
+    /**
+     * 加载面板所需资源
+     * @param loadComplete
+     * @param initComplete
+     */
+    public loadResource(loadComplete:Function, initComplete:Function):void{
+        if(this._resources && this._resources.length > 0) {
+            App.ResourceUtils.loadResource(this._resources, [], function():void{
+                loadComplete();
+                initComplete();
+            }, null, this);
+        }
+        else {
+            loadComplete();
+            initComplete();
+        }
+    }
+
+    /**
+     * 设置是否隐藏
+     * @param value
+     */
+    public setVisible(value:boolean):void{
+        this.visible = value;
     }
 }

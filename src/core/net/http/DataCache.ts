@@ -24,16 +24,20 @@ class DynamicChange{
 	}
 	
 	public clearCache():void{
-		for (var i in this._dataCache) {
-			this._dataCache[i] = null;
-			delete this._dataCache[i];
+		var keys = Object.keys(this._dataCache);
+		for(var i:number=0, len=keys.length; i<len; i++){
+			var key = keys[i];
+			this._dataCache[key] = null;
+			delete this._dataCache[key];
 		}
 	}
 	
 	public getCacheKeyInfos():Array<any>{
 		var results:Array<any> = [];
-		for (var i in this._dataCache){
-            var k:any = this._dataCache[i];
+		var keys = Object.keys(this._dataCache);
+		for(var i:number=0, len=keys.length; i<len; i++){
+			var key = keys[i];
+            var k:any = this._dataCache[key];
 			results.push(k);
 		}
 		return results;

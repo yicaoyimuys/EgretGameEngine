@@ -6,6 +6,7 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
     private armatures:Array<DragonBonesArmature>;
     private actions:any;
     private currArmatureIndex:number;
+    private cacheBones:any;
 
     /**
      * 构造函数
@@ -14,6 +15,7 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
         super();
         this.armatures = new Array<DragonBonesArmature>();
         this.actions = {};
+        this.cacheBones = {};
     }
 
     /**
@@ -30,12 +32,39 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
     }
 
     /**
+     * 当前正在使用的armature
+     * @returns {DragonBonesArmature}
+     */
+    public get armature():DragonBonesArmature{
+        return this.armatures[this.currArmatureIndex];
+    }
+
+    /**
+     * 获取Bone
+     * @param boneName
+     * @returns {any}
+     */
+    public getCacheBone(boneName:string):dragonBones.Bone{
+        if(!this.cacheBones[boneName]){
+            this.cacheBones[boneName] = [];
+            for(var i:number=0, len=this.armatures.length; i<len; i++) {
+                var arm:DragonBonesArmature = this.armatures[i];
+                this.cacheBones[boneName].push(arm.getBone(boneName));
+            }
+        }
+        return this.cacheBones[boneName][this.currArmatureIndex];
+    }
+
+    /**
      * 播放动作
      * @param action
      * @param playNum
-     * @param isRefurbish
      */
-    public play(action:string, playNum:number = 0, isRefurbish:boolean = false):dragonBones.AnimationState{
+    public play(action:string, playNum:number = undefined):dragonBones.AnimationState{
+        if(this.actions[action] == null){
+            Log.trace("DragonBonesArmatureContainer不存在动作：", action);
+            return;
+        }
         var armatureIndex:number = this.actions[action];
         if(armatureIndex != this.currArmatureIndex){
             this.remove();
@@ -45,7 +74,7 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
         if(newArm){
             App.EgretExpandUtils.addChild(this, newArm);
             this.currArmatureIndex = armatureIndex;
-            return newArm.play(action, playNum, isRefurbish);
+            return newArm.play(action, playNum);
         }
 
         return null;
@@ -58,6 +87,16 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
         var currArm:DragonBonesArmature = this.armatures[this.currArmatureIndex];
         if(currArm){
             currArm.stop();
+        }
+    }
+
+    /**
+     * 播放
+     */
+    public start():void{
+        var currArm:DragonBonesArmature = this.armatures[this.currArmatureIndex];
+        if(currArm){
+            currArm.start();
         }
     }
 
@@ -79,8 +118,8 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
      * @param target
      */
     public addCompleteCallFunc(callFunc:Function, target:any):void {
-        for(var key in this.armatures){
-            var arm:DragonBonesArmature = this.armatures[key];
+        for(var i:number=0, len=this.armatures.length; i<len; i++){
+            var arm:DragonBonesArmature = this.armatures[i];
             arm.addCompleteCallFunc(callFunc, target);
         }
     }
@@ -91,8 +130,8 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
      * @param target
      */
     public removeCompleteCallFunc(callFunc:Function, target:any):void {
-        for(var key in this.armatures){
-            var arm:DragonBonesArmature = this.armatures[key];
+        for(var i:number=0, len=this.armatures.length; i<len; i++){
+            var arm:DragonBonesArmature = this.armatures[i];
             arm.removeCompleteCallFunc(callFunc, target);
         }
     }
@@ -103,8 +142,8 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
      * @param target
      */
     public addFrameCallFunc(callFunc:Function, target:any):void {
-        for(var key in this.armatures){
-            var arm:DragonBonesArmature = this.armatures[key];
+        for(var i:number=0, len=this.armatures.length; i<len; i++){
+            var arm:DragonBonesArmature = this.armatures[i];
             arm.addFrameCallFunc(callFunc, target);
         }
     }
@@ -116,22 +155,32 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
      * @param target
      */
     public removeFrameCallFunc(callFunc:Function, target:any):void {
-        for(var key in this.armatures){
-            var arm:DragonBonesArmature = this.armatures[key];
+        for(var i:number=0, len=this.armatures.length; i<len; i++){
+            var arm:DragonBonesArmature = this.armatures[i];
             arm.removeFrameCallFunc(callFunc, target);
         }
+    }
+
+    /**
+     * 清空
+     */
+    public clear():void{
+        while(this.armatures.length){
+            var arm:DragonBonesArmature = this.armatures.pop();
+            App.EgretExpandUtils.removeFromParent(arm);
+            arm.destroy();
+        }
+        this.cacheBones = {};
+        this.actions = {};
     }
 
     /**
      * 销毁
      */
     public destroy() {
-        for(var key in this.armatures){
-            var arm:DragonBonesArmature = this.armatures[key];
-            App.EgretExpandUtils.removeFromParent(arm);
-            arm.destroy();
-            this.armatures[key] = null;
-            delete this.armatures[key];
-        }
+        this.clear();
+        this.armatures = null;
+        this.cacheBones = null;
+        this.actions = null;
     }
 }

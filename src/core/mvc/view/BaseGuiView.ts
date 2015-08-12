@@ -6,6 +6,7 @@ class BaseGuiView extends egret.gui.SkinnableContainer implements IBaseView{
     private _controller:BaseController;
     private _myParent:egret.gui.IVisualElementContainer;
     private _isInit:boolean;
+    private _resources:string[] = null;
 
     /**
      * 构造函数
@@ -17,9 +18,24 @@ class BaseGuiView extends egret.gui.SkinnableContainer implements IBaseView{
         this._controller = $controller;
         this._myParent = $parent;
         this._isInit = false;
-
         this.percentHeight = 100;
         this.percentWidth = 100;
+    }
+
+    /**
+     * 获取我的父级
+     * @returns {egret.gui.IVisualElementContainer}
+     */
+    public get myParent():egret.gui.IVisualElementContainer{
+        return this._myParent;
+    }
+
+    /**
+     * 设置初始加载资源
+     * @param resources
+     */
+    public setResources(resources:string[]):void{
+        this._resources = resources;
     }
 
     /**
@@ -57,7 +73,7 @@ class BaseGuiView extends egret.gui.SkinnableContainer implements IBaseView{
      *
      */
     public isShow():boolean{
-        return this.stage && this.visible;
+        return this.stage != null && this.visible;
     }
 
     /**
@@ -71,8 +87,9 @@ class BaseGuiView extends egret.gui.SkinnableContainer implements IBaseView{
      * 从父级移除
      */
     public removeFromParent():void{
-        if(this._myParent.getElementIndex(this) >= 0)
+        if(this._myParent.getElementIndex(this) >= 0){
             this._myParent.removeElement(this);
+        }
     }
 
     /**
@@ -92,6 +109,15 @@ class BaseGuiView extends egret.gui.SkinnableContainer implements IBaseView{
     }
 
     /**
+     * 销毁
+     */
+    public dispose():void{
+        this._controller = null;
+        this._myParent = null;
+        this._resources = null;
+    }
+
+    /**
      * 面板开启执行函数，用于子类继承
      * @param param 参数
      */
@@ -105,5 +131,28 @@ class BaseGuiView extends egret.gui.SkinnableContainer implements IBaseView{
      */
     public close(...param:any[]):void{
 
+    }
+
+    /**
+    /**
+     * 加载面板所需资源
+     */
+    public loadResource(loadComplete:Function, initComplete:Function):void{
+        if(this._resources && this._resources.length > 0) {
+            App.ResourceUtils.loadResource(this._resources, [], loadComplete, null, this);
+            this.addEventListener(egret.gui.UIEvent.CREATION_COMPLETE, initComplete, this);
+        }
+        else {
+            loadComplete();
+            initComplete();
+        }
+    }
+
+    /**
+     * 设置是否隐藏
+     * @param value
+     */
+    public setVisible(value:boolean):void{
+        this.visible = value;
     }
 }

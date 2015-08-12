@@ -4,7 +4,7 @@
  */
 class StageUtils extends BaseClass{
     //UIStage单例
-    private static _uiStage:any;
+    private static _uiStage:egret.gui.Group;
 
     /**
      * 构造函数
@@ -14,6 +14,8 @@ class StageUtils extends BaseClass{
 
         if(StageUtils._uiStage == null){
             StageUtils._uiStage = new egret.gui.UIStage();
+            StageUtils._uiStage.percentHeight = 100;
+            StageUtils._uiStage.percentWidth = 100;
             this.getStage().addChild(StageUtils._uiStage);
         }
     }

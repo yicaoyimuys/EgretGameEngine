@@ -24,6 +24,7 @@ class BaseScene{
      * 退出Scene调用
      */
     public onExit():void{
+        App.ViewManager.closeAll();
         this.removeAllLayer();
     }
 

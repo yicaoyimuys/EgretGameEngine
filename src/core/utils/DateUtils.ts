@@ -100,6 +100,7 @@ class DateUtils extends BaseClass{
         var minute:number = date.getMinutes();
         var second:number = date.getSeconds();
         return year + "-" + month + "-" + day + " " + hours + ":" + minute + ":" + second;
+
     }
 
     //4:xx天前，xx小时前，xx分钟前

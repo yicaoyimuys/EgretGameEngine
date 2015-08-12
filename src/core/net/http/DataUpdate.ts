@@ -151,7 +151,9 @@ class ProxyUpdate{
 		
 		if(data.hasOwnProperty("c")){
 			var cdata:any = data["c"];
-			for (var k1 in cdata){
+			var keys = Object.keys(cdata);
+			for(var i:number=0, len=keys.length; i<len; i++){
+				var k1 = keys[i];
 				if (this._cache[k1]){
 					this._update(this._cache[k1], cdata[k1]);
 					this._dealProxys(k1);
@@ -162,7 +164,9 @@ class ProxyUpdate{
 	
 	private _update(cacheData:any, changeData:any):void{
 		if (cacheData && changeData && this.isObject(changeData.toString())){
-			for (var k in changeData){
+			var keys = Object.keys(changeData);
+			for(var i:number=0, len=keys.length; i<len; i++){
+				var k = keys[i];
 				var v:any = changeData[k];
 				if (this.isNormal(k) && this.isObject(v.toString())){
 					if (cacheData.hasOwnProperty(k)){

@@ -1,12 +1,13 @@
 class ViewManager extends BaseClass{
-	/**
-	 * 已注册的UI 
-	 */		
-	private _views:any;
-	/**
-	 * 开启中的UI 
-	 */		
-	private _opens:Array<number>;
+    /**
+     * 已注册的UI
+     */
+    private _views:any;
+
+    /**
+     * 开启中UI
+     */
+    private _opens:Array<number>;
 
     /**
      * 构造函数
@@ -14,19 +15,32 @@ class ViewManager extends BaseClass{
     public constructor(){
         super();
         this._views = {};
-        this._opens = new Array<number>();
+        this._opens = [];
     }
-	
-	/**
-	 * 面板注册 
-	 * @param key 面板唯一标识
-	 * @param openFunc 开启函数
-	 * @param closeFunc 关闭函数
-	 * 
-	 */		
-	public register(key:number, view:IBaseView):void{
-		this._views[key] = view;
-	}
+
+    /**
+     * 面板注册
+     * @param key 面板唯一标识
+     * @param view 面板
+     */
+    public register(key:number, view:IBaseView):void{
+        if(this._views[key]){
+            return;
+        }
+        this._views[key] = view;
+    }
+
+    /**
+     * 面板解除注册
+     * @param key
+     */
+    public unregister(key:number):void{
+        if(!this._views[key]){
+            return;
+        }
+        this._views[key] = null;
+        delete this._views[key];
+    }
 	
 	/**
 	 * 开启面板 
@@ -34,25 +48,38 @@ class ViewManager extends BaseClass{
 	 * @param param 参数
 	 * 
 	 */		
-	public open(key:number, ...param:any[]):void{
-		var view:IBaseView = this._views[key];
+	public open(key:number, ...param:any[]):IBaseView{
+		var view:IBaseView = this.getView(key);
 		if(view == null){
             Log.trace("UI_"+key+"不存在");
             return;
         }
-		
-		if(this.isOpen(key)){
-			return;
+
+        if(view.isShow()){
+            view.open.apply(view, param);
+            return;
         }
 
-        view.addToParent();
-        if(!view.isInit()){
-            view.initUI();
-            view.initData();
+        if(view.isInit()) {
+            view.addToParent();
+            view.open.apply(view, param);
         }
-        view.open.apply(view, param);
+        else {
+            App.EasyLoading.showLoading();
+            view.loadResource(function() {
+                view.addToParent();
+                view.setVisible(false);
+            }.bind(this), function(){
+                view.initUI();
+                view.initData();
+                view.open.apply(view, param);
+                view.setVisible(true);
+                App.EasyLoading.hideLoading();
+            }.bind(this));
+        }
 
-		this._opens.push(key);
+        this._opens.push(key);
+        return view;
 	}
 	
 	/**
@@ -62,20 +89,19 @@ class ViewManager extends BaseClass{
 	 * 
 	 */		
 	public close(key:number, ...param:any[]):void{
-        var view:IBaseView = this._views[key];
+        var view:IBaseView = this.getView(key);
         if(view == null){
-            Log.trace("UI_"+key+"不存在");
             return;
         }
 		
-		if(!this.isOpen(key)){
+		if(!view.isShow()){
 			return;
         }
 
+        this._opens.splice(this._opens.indexOf(key), 1);
+
         view.removeFromParent();
         view.close.apply(view, param);
-
-		this._opens.splice(this._opens.indexOf(key), 1);
 	}
 
     /**
@@ -84,50 +110,44 @@ class ViewManager extends BaseClass{
      * @param param
      */
     public closeView(view:IBaseView, ...param:any[]):void{
-        var key:number = this.getViewKey(view);
-        var params = [];
-        params[0] = key;
-        for (var i = 1; i < arguments.length; i++) {
-            params[i] = arguments[i];
-        }
-        this.close.apply(this, params);
-    }
-	
-	/**
-	 * 开启或关闭面板 
-	 * @param key 面板唯一标识
-	 * @param param 参数
-	 * 
-	 */		
-	public openOrClose(key:number, ...param:any[]):void{
-		if(this.isOpen(key)){
-			this.close(key, param);
-        }else{
-			this.open(key, param);
-        }
-	}
-	
-	/**
-	 * 面板是否开启中 
-	 * @param key 面板唯一标识
-	 * @return Boolean
-	 * 
-	 */		
-	public isOpen(key:number):boolean{
-		return this._opens.indexOf(key) >= 0;
-	}
-
-    /**
-     * 获取一个View对应的Key值
-     * @param view
-     * @returns {*}
-     */
-    public getViewKey(view:IBaseView):number{
-        for(var k in this._views){
-            if(this._views[k] == view){
-                return parseInt(k);
+        var keys = Object.keys(this._views);
+        for(var i:number=0, len=keys.length; i<len; i++){
+            var key:number = parseInt(keys[i]);
+            if(this._views[key] == view){
+                this.close(key, param);
+                return;
             }
         }
-        return 0;
+    }
+
+    /**
+     * 根据唯一标识获取一个UI对象
+     * @param key
+     * @returns {any}
+     */
+    public getView(key:number):IBaseView{
+        return this._views[key];
+    }
+
+    /**
+     * 关闭所有开启中的UI
+     */
+    public closeAll():void{
+        while(this._opens.length){
+            this.close(this._opens[0]);
+        }
+    }
+
+    /**
+     * 检测一个UI是否开启中
+     * @param key
+     * @returns {boolean}
+     */
+    public isShow(key:number):boolean{
+        var view:IBaseView = this.getView(key);
+        if(view == null){
+            return false;
+        }
+        return view.isShow();
     }
 }
