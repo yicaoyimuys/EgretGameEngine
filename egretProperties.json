@@ -14,9 +14,6 @@
 			"name": "gui"
 		},
 		{
-			"name": "dragonBones"
-		},
-		{
 			"name": "socket"
 		},
 		{
@@ -28,5 +25,5 @@
 		"path_ignore": [],
 		"android_path": "../android/egret-projects/EgretGameEngine"
 	},
-	"egret_version": "2.0.0"
+	"egret_version": "2.0.3"
 }
