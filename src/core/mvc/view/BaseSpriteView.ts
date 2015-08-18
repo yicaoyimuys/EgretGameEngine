@@ -44,16 +44,16 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
     public isInit():boolean{
         return this._isInit;
     }
-	
-	/**
-	 * 触发本模块消息 
-	 * @param key 唯一标识
-	 * @param param 参数
-	 * 
-	 */		
-	public applyFunc(key:any, ...param:any[]):any{
-		return this._controller.applyFunc(key, param);
-	}
+
+    /**
+     * 触发本模块消息
+     * @param key 唯一标识
+     * @param param 参数
+     *
+     */
+    public applyFunc(key:any, ...param:any[]):any{
+        return this._controller.applyFunc.apply(this._controller, arguments);
+    }
 
     /**
      * 触发其他模块消息
@@ -63,7 +63,7 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      *
      */
     public applyControllerFunc(controllerKey:number, key:any, ...param:any[]):any{
-        return this._controller.applyControllerFunc(controllerKey, key, param);
+        return this._controller.applyControllerFunc.apply(this._controller, arguments);
     }
 	
 	/**

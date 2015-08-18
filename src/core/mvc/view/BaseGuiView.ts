@@ -53,7 +53,7 @@ class BaseGuiView extends egret.gui.SkinnableContainer implements IBaseView{
      *
      */
     public applyFunc(key:any, ...param:any[]):any{
-        return this._controller.applyFunc(key, param);
+        return this._controller.applyFunc.apply(this._controller, arguments);
     }
 
     /**
@@ -64,7 +64,7 @@ class BaseGuiView extends egret.gui.SkinnableContainer implements IBaseView{
      *
      */
     public applyControllerFunc(controllerKey:number, key:any, ...param:any[]):any{
-        return this._controller.applyControllerFunc(controllerKey, key, param);
+        return this._controller.applyControllerFunc.apply(this._controller, arguments);
     }
 
     /**

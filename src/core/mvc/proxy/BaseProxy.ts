@@ -20,8 +20,7 @@ class BaseProxy{
      *
      */
     public applyFunc(key:any, ...param:any[]):any {
-        param.unshift(key);
-        return this._controller.applyFunc.apply(this._controller, param);
+        return this._controller.applyFunc.apply(this._controller, arguments);
     }
 
     /**
@@ -32,7 +31,7 @@ class BaseProxy{
      *
      */
     public applyControllerFunc(controllerKey:number, key:any, ...param:any[]):any{
-        return this._controller.applyControllerFunc(controllerKey, key, param);
+        return this._controller.applyControllerFunc.apply(this._controller, arguments);
     }
 
     /**

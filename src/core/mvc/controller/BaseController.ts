@@ -49,6 +49,6 @@ class BaseController{
      *
      */
     public applyControllerFunc(controllerKey:number, key:any, ...param:any[]):any{
-        return App.ControllerManager.applyFunc(controllerKey, key, param);
+        return App.ControllerManager.applyFunc.apply(App.ControllerManager, arguments);
     }
 }
