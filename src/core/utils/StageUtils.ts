@@ -61,6 +61,14 @@ class StageUtils extends BaseClass{
     }
 
     /**
+     * 设置帧频
+     * @param value
+     */
+    public setFrameRate(value:number):void{
+        egret.MainContext.instance.stage.frameRate = value;
+    }
+
+    /**
      * 获取游戏Stage对象
      * @returns {egret.MainContext}
      */

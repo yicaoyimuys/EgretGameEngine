@@ -6,7 +6,8 @@ class EasyLoading extends BaseClass {
     private contentGroup:egret.gui.Group = null;
     private shape:egret.Shape = null;
     private uiAsset:egret.gui.UIAsset = null;
-    private speed:number = 10;
+    private speed:number = 10/(1000/60);
+    private averageUtils:AverageUtils;
 
     constructor() {
         super();
@@ -14,6 +15,8 @@ class EasyLoading extends BaseClass {
     }
 
     private init():void {
+        this.averageUtils = new AverageUtils();
+
         this.contentGroup = new egret.gui.Group();
 
         this.shape = new egret.Shape();
@@ -46,7 +49,8 @@ class EasyLoading extends BaseClass {
         App.TimerManager.remove(this.enterFrame, this);
     }
 
-    private enterFrame() {
-        this.uiAsset.rotation += this.speed;
+    private enterFrame(time:number) {
+        this.averageUtils.push(this.speed * time);
+        this.uiAsset.rotation += this.averageUtils.getValue();
     }
 }

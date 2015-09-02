@@ -21,9 +21,9 @@ class KeyboardUtils extends BaseClass{
                     var func:Function = self.key_ups[i][0];
                     var target:any = self.key_ups[i][1];
                     if(target){
-                        func.call(target, e.keyCode);
+                        func.call(target, e["keyCode"]);
                     }else{
-                        func(e.keyCode);
+                        func(e["keyCode"]);
                     }
                 }
             });
@@ -33,9 +33,9 @@ class KeyboardUtils extends BaseClass{
                     var func:Function = self.key_downs[i][0];
                     var target:any = self.key_downs[i][1];
                     if(target){
-                        func.call(target, e.keyCode);
+                        func.call(target, e["keyCode"]);
                     }else{
-                        func(e.keyCode);
+                        func(e["keyCode"]);
                     }
                 }
             });

@@ -14,9 +14,31 @@ class EgretExpandUtils extends BaseClass{
      * 初始化函数
      */
     public init():void{
-//        this.bug_half_screen();
-        this.bug_qqBrowser_CanvasNum();
-        this.cocosStudio2DragonBones_egretFactory();
+	    //this.bug_half_screen();
+        //this.bug_qqBrowser_CanvasNum();
+        //this.cocosStudio2DragonBones_egretFactory();
+        this.setFrameRate();
+    }
+
+    private setFrameRate():void{
+        if(!App.DeviceUtils.IsHtml5){
+            return;
+        }
+
+        egret.HTML5DeviceContext.prototype.setFrameRate = function (frameRate) {
+            if ((60 % frameRate) == 0) {
+                egret.HTML5DeviceContext["countTime"] = 60 / frameRate - 1;
+            }
+            else{
+                egret.HTML5DeviceContext["countTime"] = 0;
+                egret.HTML5DeviceContext.requestAnimationFrame = function (callback) {
+                    return window.setTimeout(callback, 1000 / frameRate);
+                };
+                egret.HTML5DeviceContext.cancelAnimationFrame = function (id) {
+                    return window.clearTimeout(id);
+                };
+            }
+        };
     }
 
     /**

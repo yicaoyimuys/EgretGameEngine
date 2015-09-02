@@ -250,7 +250,7 @@ class App{
      * @constructor
      */
     public static get DragonBonesFactory():DragonBonesFactory{
-        return App.DragonBonesFactory;
+        return DragonBonesFactory.getInstance();
     }
 
     /**
@@ -259,7 +259,7 @@ class App{
      * @constructor
      */
     public static get StarlingSwfFactory():StarlingSwfFactory{
-        return App.StarlingSwfFactory;
+        return StarlingSwfFactory.getInstance();
     }
 
     /**

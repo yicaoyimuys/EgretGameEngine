@@ -23,6 +23,17 @@ class DisplayUtils extends BaseClass{
     }
 
     /**
+     * 创建一张Gui的图片
+     * @param resName
+     * @returns {egret.Bitmap}
+     */
+    public createGuiUIAsset(resName:string):egret.gui.UIAsset{
+        var result:egret.gui.UIAsset = new egret.gui.UIAsset() ;
+        var texture:egret.Texture = RES.getRes(resName);
+        result.source = texture;
+        return result;
+    }
+    /**
      * 从父级移除child
      * @param child
      */

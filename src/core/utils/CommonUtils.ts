@@ -2,8 +2,8 @@
  * Created by yangsong on 15-1-12.
  * 通用工具类
  */
-class CommonUtils extends BaseClass{
-    public constructor(){
+class CommonUtils extends BaseClass {
+    public constructor() {
         super();
     }
 
@@ -13,7 +13,7 @@ class CommonUtils extends BaseClass{
      * @param color      表示文本的描边颜色
      * @param width      描边宽度。
      */
-    public static  addLableStrokeColor(lable:egret.gui.Label, color:any, width:any):void {
+    public static addLableStrokeColor(lable:egret.gui.Label, color:any, width:any):void {
         var tempLable:egret.gui.Label = lable;
         tempLable.strokeColor = color;
         tempLable.stroke = width;
@@ -46,19 +46,15 @@ class CommonUtils extends BaseClass{
      * 锁屏
      */
     public static lock():void {
-        var stage:egret.Stage = egret.MainContext.instance.stage;
-        stage.touchEnabled = stage.touchChildren = false;
+        App.StageUtils.getStage().touchEnabled = App.StageUtils.getStage().touchChildren = false;
     }
 
     /**
      * 解屏
      */
     public static unlock():void {
-        //todo key
-        var stage:egret.Stage = egret.MainContext.instance.stage;
-        stage.touchEnabled = stage.touchChildren = true;
+        App.StageUtils.getStage().touchEnabled = App.StageUtils.getStage().touchChildren = true;
     }
-
 
     /**
      * 万字的显示
@@ -79,4 +75,12 @@ class CommonUtils extends BaseClass{
         label.text = str;
     };
 
+    /**
+     * int64转number
+     * @param obj
+     * @returns {number}
+     */
+    public static int64ToNumber(obj){
+        return parseInt(obj.toString());
+    }
 }

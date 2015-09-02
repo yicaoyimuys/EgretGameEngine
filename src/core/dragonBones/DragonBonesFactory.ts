@@ -3,7 +3,7 @@
  * DragonBones工厂类
  */
 class DragonBonesFactory extends BaseClass{
-
+    private averageUtils:AverageUtils;
     private factory:dragonBones.EgretFactory;
     private isPlay:boolean;
     private clocks:Array<dragonBones.WorldClock>;
@@ -15,6 +15,7 @@ class DragonBonesFactory extends BaseClass{
      */
     public constructor(){
         super();
+        this.averageUtils = new AverageUtils();
         this.factory = new dragonBones.EgretFactory();
         this.clocks = new Array<dragonBones.WorldClock>();
         this.clocksLen = 0;
@@ -151,19 +152,9 @@ class DragonBonesFactory extends BaseClass{
      * dragonBones体系的每帧刷新
      * @param advancedTime
      */
-    private advancedTimes:Array<number> = [];
-    private advancedTimeLen:number = 0;
-    private advancedTimeSum:number = 0;
     private onEnterFrame(advancedTime:number):void {
-        if(this.advancedTimeLen > 10){
-            this.advancedTimeLen--;
-            this.advancedTimeSum -= this.advancedTimes.shift();
-        }
-        this.advancedTimes.push(advancedTime);
-        this.advancedTimeSum += advancedTime;
-        this.advancedTimeLen ++;
-
-        var time:number = this.advancedTimeSum / this.advancedTimeLen / 1000;
+        this.averageUtils.push(advancedTime);
+        var time:number = this.averageUtils.getValue() * 0.001;
         for(var i:number = 0; i<this.clocksLen; i++){
             var clock:dragonBones.WorldClock = this.clocks[i];
             clock.advanceTime(time);
