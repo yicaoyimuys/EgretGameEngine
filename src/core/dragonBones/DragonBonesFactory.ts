@@ -2,20 +2,7 @@
  * Created by egret on 15-1-14.
  * DragonBones工厂类
  */
-class DragonBonesFactory{
-    private static _instance:DragonBonesFactory;
-
-    /**
-     * 单例
-     * @returns {DragonBonesFactory}
-     */
-    public static getInstance():DragonBonesFactory{
-        if(DragonBonesFactory._instance == null){
-            DragonBonesFactory._instance = new DragonBonesFactory();
-        }
-        return DragonBonesFactory._instance;
-    }
-
+class DragonBonesFactory extends BaseClass{
 
     private factory:dragonBones.EgretFactory;
     private isPlay:boolean;
@@ -27,6 +14,7 @@ class DragonBonesFactory{
      * 构造函数
      */
     public constructor(){
+        super();
         this.factory = new dragonBones.EgretFactory();
         this.clocks = new Array<dragonBones.WorldClock>();
         this.clocksLen = 0;

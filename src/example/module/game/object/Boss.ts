@@ -18,7 +18,7 @@ class Boss extends Enemy{
     }
 
     public createArmature():void{
-        this.armature.register(DragonBonesFactory.getInstance().makeArmature("guaiwu002", "guaiwu002", 1.2), [
+        this.armature.register(App.DragonBonesFactory.makeArmature("guaiwu002", "guaiwu002", 1.2), [
             BaseGameObject.ACTION_Idle,
             BaseGameObject.ACTION_Move,
             BaseGameObject.ACTION_Hart,
@@ -28,7 +28,7 @@ class Boss extends Enemy{
             Enemy.ACTION_Attack,
             Enemy.ACTION_Skill1
         ]);
-        this.armature.register(DragonBonesFactory.getInstance().makeArmature("guaiwu003", "guaiwu003", 1.2), [
+        this.armature.register(App.DragonBonesFactory.makeArmature("guaiwu003", "guaiwu003", 1.2), [
             Enemy.ACTION_Skill2
         ]);
 
@@ -36,11 +36,11 @@ class Boss extends Enemy{
         this.initFrameData("guaiwu002");
 
         this.effectArmature = new DragonBonesArmatureContainer();
-        this.effectArmature.register(DragonBonesFactory.getInstance().makeArmature("guaiwu002_effect", "guaiwu002_effect", 1.2), [
+        this.effectArmature.register(App.DragonBonesFactory.makeArmature("guaiwu002_effect", "guaiwu002_effect", 1.2), [
             Enemy.ACTION_Attack,
             Enemy.ACTION_Skill1
         ]);
-        this.effectArmature.register(DragonBonesFactory.getInstance().makeArmature("guaiwu003_effect", "guaiwu003_effect", 1.2), [
+        this.effectArmature.register(App.DragonBonesFactory.makeArmature("guaiwu003_effect", "guaiwu003_effect", 1.2), [
             Enemy.ACTION_Skill2
         ]);
     }

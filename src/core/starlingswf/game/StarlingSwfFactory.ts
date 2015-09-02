@@ -2,19 +2,7 @@
  * Created by yangsong on 2014/6/16.
  * StarlingSwf工厂类
  */
-class StarlingSwfFactory{
-    private static _instance:StarlingSwfFactory;
-
-    /**
-     * 单例
-     * @returns {StarlingSwfFactory}
-     */
-    public static getInstance():StarlingSwfFactory{
-        if(StarlingSwfFactory._instance == null){
-            StarlingSwfFactory._instance = new StarlingSwfFactory();
-        }
-        return StarlingSwfFactory._instance;
-    }
+class StarlingSwfFactory extends BaseClass{
 
     private swfAssetsManager:starlingswf.SwfAssetManager;
     private swfAssetsNames:Array<string>;
@@ -25,6 +13,7 @@ class StarlingSwfFactory{
      * 构造函数
      */
     public constructor(){
+        super();
         this.swfAssetsManager = new starlingswf.SwfAssetManager();
         this.swfAssetsNames = new Array<string>();
         this.swfAssets = new Array<starlingswf.Swf>();

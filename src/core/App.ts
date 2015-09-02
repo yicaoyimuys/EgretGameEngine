@@ -245,6 +245,24 @@ class App{
     }
 
     /**
+     * DragonBones工厂类
+     * @returns {any}
+     * @constructor
+     */
+    public static get DragonBonesFactory():DragonBonesFactory{
+        return App.DragonBonesFactory;
+    }
+
+    /**
+     * StarlingSwf工厂类
+     * @returns {StarlingSwfFactory}
+     * @constructor
+     */
+    public static get StarlingSwfFactory():StarlingSwfFactory{
+        return App.StarlingSwfFactory;
+    }
+
+    /**
      * 初始化函数
      * @constructor
      */
@@ -258,7 +276,7 @@ class App{
         App.EgretExpandUtils.init();
         //实例化Http请求
         App.Http.initServer(App.GlobalData.HttpSerever);
-        //实例化ProtoBuf和Socket请求
+        //实例化ProtoBuf和Socket请求
         App.ProtoFile = dcodeIO.ProtoBuf.loadProto(RES.getRes(App.GlobalData.ProtoFile));
         App.ProtoConfig = RES.getRes(App.GlobalData.ProtoConfig);
         App.Socket.initServer(App.GlobalData.SocketServer, App.GlobalData.SocketPort, new ByteArrayMsgByProtobuf());

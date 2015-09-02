@@ -43,7 +43,7 @@ class ActTest{
             var skeletonData:any = RES.getRes(dbName+"_skeleton_json");
             var texturePng:egret.Texture = RES.getRes(dbName+"_texture_png");
             var textureData:any = RES.getRes(dbName+"_texture_json");
-            DragonBonesFactory.getInstance().initArmatureFile(skeletonData, texturePng, textureData);
+            App.DragonBonesFactory.initArmatureFile(skeletonData, texturePng, textureData);
         }
     }
 

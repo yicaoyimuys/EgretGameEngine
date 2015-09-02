@@ -1,22 +1,22 @@
 /**
  * Created by yangsong on 2014/11/28.
  */
-class SceneConsts{
+enum SceneConsts{
     /**
      * Game场景
      * @type {number}
      */
-    public static Game:number = 1;
+    Game = 1,
 
     /**
      * 游戏场景
      * @type {number}
      */
-    public static UI:number = 2;
+    UI,
 
     /**
      * Loading场景
      * @type {number}
      */
-    public static LOADING:number = 3;
+    LOADING,
 }

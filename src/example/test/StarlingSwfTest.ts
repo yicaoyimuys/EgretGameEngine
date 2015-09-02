@@ -5,7 +5,7 @@
 class StarlingSwfTest{
     public constructor(){
         //StarlingSwf使用
-        StarlingSwfFactory.getInstance().addSwf("bossMC", RES.getRes("bossMC_swf_json"), RES.getRes("bossMC_json"));
-        var mc:StarlingSwfMovieClip = StarlingSwfFactory.getInstance().makeMc("boss_whiteBear");
+        App.StarlingSwfFactory.addSwf("bossMC", RES.getRes("bossMC_swf_json"), RES.getRes("bossMC_json"));
+        var mc:StarlingSwfMovieClip = App.StarlingSwfFactory.makeMc("boss_whiteBear");
     }
 }

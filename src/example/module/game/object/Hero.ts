@@ -18,7 +18,7 @@ class Hero extends BaseFrameGameObject{
     public constructor($controller:BaseController){
         super($controller);
 
-        this.armature.register(DragonBonesFactory.getInstance().makeArmature("zhujue1", "zhujue1", 1.4), [
+        this.armature.register(App.DragonBonesFactory.makeArmature("zhujue1", "zhujue1", 1.4), [
             BaseGameObject.ACTION_Idle,
             BaseGameObject.ACTION_Move,
             BaseGameObject.ACTION_Hart,
@@ -31,7 +31,7 @@ class Hero extends BaseFrameGameObject{
             Hero.ACTION_Attack3,
             Hero.ACTION_Skill1
         ]);
-        this.armature.register(DragonBonesFactory.getInstance().makeArmature("zhujue2", "zhujue2", 1.4), [
+        this.armature.register(App.DragonBonesFactory.makeArmature("zhujue2", "zhujue2", 1.4), [
             Hero.ACTION_Skill2,
             Hero.ACTION_Skill3,
             Hero.ACTION_Skill4
@@ -40,14 +40,14 @@ class Hero extends BaseFrameGameObject{
         this.initFrameData("zhujue1");
 
         this.effectArmature = new DragonBonesArmatureContainer();
-        this.effectArmature.register(DragonBonesFactory.getInstance().makeArmature("jineng1", "jineng1", 1.4), [
+        this.effectArmature.register(App.DragonBonesFactory.makeArmature("jineng1", "jineng1", 1.4), [
             Hero.ACTION_Attack0,
             Hero.ACTION_Attack1,
             Hero.ACTION_Attack2,
             Hero.ACTION_Attack3,
             Hero.ACTION_Skill1
         ]);
-        this.effectArmature.register(DragonBonesFactory.getInstance().makeArmature("jineng2", "jineng2", 1.4), [
+        this.effectArmature.register(App.DragonBonesFactory.makeArmature("jineng2", "jineng2", 1.4), [
             Hero.ACTION_Skill2,
             Hero.ACTION_Skill3,
             Hero.ACTION_Skill4

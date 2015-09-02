@@ -13,7 +13,7 @@ class Enemy extends BaseFrameGameObject{
     }
 
     public createArmature():void{
-        this.armature.register(DragonBonesFactory.getInstance().makeArmature("guaiwu001", "guaiwu001", 1.2), [
+        this.armature.register(App.DragonBonesFactory.makeArmature("guaiwu001", "guaiwu001", 1.2), [
             BaseGameObject.ACTION_Idle,
             BaseGameObject.ACTION_Move,
             BaseGameObject.ACTION_Hart,
