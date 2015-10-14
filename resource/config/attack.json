@@ -1,0 +1,92 @@
+{
+    "zhujue1": {
+        "attack1": {
+            "dis": [200, 0, 100, 100, 0, 0],
+            "action": "frameEnemyHart_3_30_1"
+        },
+        "attack1_fly": {
+            "dis": [200, 0, 100, 100, 50, 0],
+            "action": "frameEnemyFly_-30_1_1"
+        },
+        "skill1": {
+            "dis": [200, 100, 100, 100, 300, 0],
+            "action": "frameEnemyHartMoveToZ_-10"
+        },
+        "skill1_fly": {
+            "dis": [300, 100, 100, 100, 300, 0],
+            "action": "frameEnemyFly_-20_2"
+        },
+        "skill2": {
+            "dis": [200, 200, 70, 70, 200, 0],
+            "action": "frameEnemyHartMoveToZ_-10_1"
+        },
+        "skill2_fly": {
+            "dis": [100, 100, 70, 70, 200, 0],
+            "action": "frameEnemyHartMoveToZ_-35"
+        },
+        "skill3": {
+            "dis": [100, -20, 100, 100, 0, 0],
+            "action": "frameEnemyHart_20_80"
+        },
+        "skill3_fly": {
+            "dis": [300, 0, 100, 100, 0, 0],
+            "action": "frameEnemyFly_-30_0"
+        },
+        "skill4": {
+            "dis": [100, 0, 100, 100, 200, 0],
+            "action": "frameEnemyHartMoveToZ_-10"
+        },
+        "advance1": {
+            "action": "frameThisMoveTo_3_30"
+        },
+        "advance2": {
+            "dis": [100, -20, 100, 100, 0, 0],
+            "action": "frameThisMoveTo_10_400,frameEnemyHart_20_80"
+        },
+        "jump1": {
+            "action": "frameThisMoveToZ_-15"
+        },
+        "jump2": {
+            "action": "frameThisMoveToZ_-15"
+        },
+        "jumpLand": {
+            "action": "frameThisStandLand"
+        }
+    },
+    "guaiwu001": {
+        "attack1": {
+            "dis": [100, 0, 30, 30, 0, 0],
+            "action": "frameEnemyHart_0_0"
+        }
+    },
+    "guaiwu002": {
+        "attack1": {
+            "dis": [100, 0, 30, 30, 0, 0],
+            "action": "frameEnemyHart_0_0"
+        },
+        "skill1": {
+            "dis": [200, 200, 100, 100, 200, 0],
+            "action": "frameEnemyHartMoveToZ_-10_1"
+        },
+        "skill1_fly": {
+            "dis": [200, 200, 100, 100, 200, 0],
+            "action": "frameEnemyFly_-20_6"
+        },
+        "skill2_1": {
+            "dis": [0, 0, 80, 0, 0, 0],
+            "action": "frameEnemyHart_0_0"
+        },
+        "skill2_2": {
+            "dis": [100, 0, 80, 0, 0, 0],
+            "action": "frameEnemyHart_0_0"
+        },
+        "skill2_3": {
+            "dis": [100, 0, 80, 80, 0, 0],
+            "action": "frameEnemyHart_0_0"
+        },
+        "skill2_fly": {
+            "dis": [200, 0, 80, 80, 0, 0],
+            "action": "frameEnemyFly_-20_6"
+        }
+    }
+}

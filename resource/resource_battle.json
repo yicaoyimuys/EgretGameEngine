@@ -1,0 +1,122 @@
+{
+    "groups":[
+        {
+            "keys":"attack_json,sound_bg,guaiwu002_effect_skeleton_json,guaiwu003_skeleton_json,guaiwu003_texture_png,guaiwu003_texture_json,guaiwu003_effect_skeleton_json,guaiwu003_effect_texture_png,guaiwu003_effect_texture_json,guaiwu002_effect_texture_png,guaiwu002_effect_texture_json,guaiwu002_skeleton_json,guaiwu002_texture_png,guaiwu002_texture_json,jineng1_skeleton_json,jineng1_texture_png,jineng1_texture_json,jineng2_skeleton_json,jineng2_texture_png,jineng2_texture_json,zhujue1_skeleton_json,zhujue1_texture_png,zhujue1_texture_json,zhujue2_skeleton_json,zhujue2_texture_png,zhujue2_texture_json,ui_btnSkill1_png,ui_btnSkill1_1_png,ui_btnSkill3_png,ui_btnSkill3_1_png,ui_btnSkill4_png,ui_btnSkill4_1_png,map_jpg,losehp_baoji_png,losehp_png,ui_btnAttack_png,ui_btnAttack1_png,ui_btnSkill2_png,ui_btnSkill2_1_png,ui_move_png,ui_moveBg_png,guaiwu001_skeleton_json,guaiwu001_texture_png,guaiwu001_texture_json",
+            "name":"preload_battle"
+        }
+    ],
+    "resources":[
+        {"name":"attack_json", "type":"json", "url":"config/attack.json"},
+
+        {"name":"zhujue1_skeleton_json","type":"json","url":"assets/animation/zhujue1/zhujue1_skeleton.json"},
+        {"name":"zhujue1_texture_png","type":"image","url":"assets/animation/zhujue1/zhujue1_texture.png"},
+        {"name":"zhujue1_texture_json","type":"json","url":"assets/animation/zhujue1/zhujue1_texture.json"},
+        {"name":"zhujue2_skeleton_json","type":"json","url":"assets/animation/zhujue2/zhujue2_skeleton.json"},
+        {"name":"zhujue2_texture_png","type":"image","url":"assets/animation/zhujue2/zhujue2_texture.png"},
+        {"name":"zhujue2_texture_json","type":"json","url":"assets/animation/zhujue2/zhujue2_texture.json"},
+
+        {"name":"jineng1_skeleton_json","type":"json","url":"assets/animation/jineng1/jineng1_skeleton.json"},
+        {"name":"jineng1_texture_png","type":"image","url":"assets/animation/jineng1/jineng1_texture.png"},
+        {"name":"jineng1_texture_json","type":"json","url":"assets/animation/jineng1/jineng1_texture.json"},
+        {"name":"jineng2_skeleton_json","type":"json","url":"assets/animation/jineng2/jineng2_skeleton.json"},
+        {"name":"jineng2_texture_png","type":"image","url":"assets/animation/jineng2/jineng2_texture.png"},
+        {"name":"jineng2_texture_json","type":"json","url":"assets/animation/jineng2/jineng2_texture.json"},
+
+        {"name":"guaiwu001_skeleton_json","type":"json","url":"assets/animation/guaiwu001/guaiwu001_skeleton.json"},
+        {"name":"guaiwu001_texture_png","type":"image","url":"assets/animation/guaiwu001/guaiwu001_texture.png"},
+        {"name":"guaiwu001_texture_json","type":"json","url":"assets/animation/guaiwu001/guaiwu001_texture.json"},
+
+        {"name":"guaiwu002_skeleton_json","type":"json","url":"assets/animation/guaiwu002/guaiwu002_skeleton.json"},
+        {"name":"guaiwu002_texture_png","type":"image","url":"assets/animation/guaiwu002/guaiwu002_texture.png"},
+        {"name":"guaiwu002_texture_json","type":"json","url":"assets/animation/guaiwu002/guaiwu002_texture.json"},
+
+        {"name":"guaiwu002_effect_skeleton_json","type":"json","url":"assets/animation/guaiwu002_effect/guaiwu002_effect_skeleton.json"},
+        {"name":"guaiwu002_effect_texture_png","type":"image","url":"assets/animation/guaiwu002_effect/guaiwu002_effect_texture.png"},
+        {"name":"guaiwu002_effect_texture_json","type":"json","url":"assets/animation/guaiwu002_effect/guaiwu002_effect_texture.json"},
+
+        {"name":"guaiwu003_skeleton_json","type":"json","url":"assets/animation/guaiwu003/guaiwu003_skeleton.json"},
+        {"name":"guaiwu003_texture_png","type":"image","url":"assets/animation/guaiwu003/guaiwu003_texture.png"},
+        {"name":"guaiwu003_texture_json","type":"json","url":"assets/animation/guaiwu003/guaiwu003_texture.json"},
+
+        {"name":"guaiwu003_effect_skeleton_json","type":"json","url":"assets/animation/guaiwu003_effect/guaiwu003_effect_skeleton.json"},
+        {"name":"guaiwu003_effect_texture_png","type":"image","url":"assets/animation/guaiwu003_effect/guaiwu003_effect_texture.png"},
+        {"name":"guaiwu003_effect_texture_json","type":"json","url":"assets/animation/guaiwu003_effect/guaiwu003_effect_texture.json"},
+
+        {"name":"map_jpg","type":"image","url":"assets/bg/map.jpg"},
+        {"name":"ui_btnAttack_png","type":"image","url":"assets/ui/btnAttack.png"},
+        {"name":"ui_btnAttack1_png","type":"image","url":"assets/ui/btnAttack1.png"},
+        {"name":"ui_btnSkill1_png","type":"image","url":"assets/ui/btnSkill1.png"},
+        {"name":"ui_btnSkill1_1_png","type":"image","url":"assets/ui/btnSkill1_1.png"},
+        {"name":"ui_btnSkill2_png","type":"image","url":"assets/ui/btnSkill2.png"},
+        {"name":"ui_btnSkill2_1_png","type":"image","url":"assets/ui/btnSkill2_1.png"},
+        {"name":"ui_btnSkill3_png","type":"image","url":"assets/ui/btnSkill3.png"},
+        {"name":"ui_btnSkill3_1_png","type":"image","url":"assets/ui/btnSkill3_1.png"},
+        {"name":"ui_btnSkill4_png","type":"image","url":"assets/ui/btnSkill4.png"},
+        {"name":"ui_btnSkill4_1_png","type":"image","url":"assets/ui/btnSkill4_1.png"},
+        {"name":"ui_move_png","type":"image","url":"assets/ui/move.png"},
+        {"name":"ui_moveBg_png","type":"image","url":"assets/ui/moveBg.png"},
+        {"name":"losehp_png","type":"image","url":"assets/ui/-10.png"},
+        {"name":"losehp_baoji_png","type":"image","url":"assets/ui/baoji.png"},
+
+        {
+            "name":"sound_bg",
+            "type":"sound",
+            "soundType":"music",
+            "url":"sound/bg.mp3"
+        },
+        {
+            "name":"sound_enemyAttack",
+            "type":"sound",
+            "soundType":"effect",
+            "url":"sound/enemyAttack.mp3"
+        },
+        {
+            "name":"sound_enenyLand",
+            "type":"sound",
+            "soundType":"effect",
+            "url":"sound/enenyLand.wav"
+        },
+        {
+            "name":"sound_heroAttack",
+            "type":"sound",
+            "soundType":"effect",
+            "url":"sound/heroAttack.wav"
+        },
+        {
+            "name":"sound_heroSkill",
+            "type":"sound",
+            "soundType":"effect",
+            "url":"sound/heroSkill.mp3"
+        },
+        {
+            "name":"sound_dianji",
+            "type":"sound",
+            "soundType":"effect",
+            "url":"sound/dianji.mp3"
+        },
+        {
+            "name":"sound_beiji",
+            "type":"sound",
+            "soundType":"effect",
+            "url":"sound/beiji.wav"
+        },
+        {
+            "name":"sound_bossSkill",
+            "type":"sound",
+            "soundType":"effect",
+            "url":"sound/bossSkill.mp3"
+        },
+        {
+            "name":"sound_bossAttack",
+            "type":"sound",
+            "soundType":"effect",
+            "url":"sound/bossAttack.mp3"
+        },
+        {
+            "name":"sound_heroBeiji",
+            "type":"sound",
+            "soundType":"effect",
+            "url":"sound/heroBeiji.wav"
+        }
+    ]
+}
