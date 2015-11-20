@@ -1,9 +1,10 @@
 /**
-* Created by yangsong on 15-1-14.
-* 音效类
-*/
-class SoundEffects extends BaseSound{
+ * Created by yangsong on 15-1-14.
+ * 音效类
+ */
+class SoundEffects extends BaseSound {
     private _volume:number;
+
     /**
      * 构造函数
      */
@@ -15,10 +16,9 @@ class SoundEffects extends BaseSound{
      * 播放一个音效
      * @param effectName
      */
-    public play(effectName:string, volume:number = 0.5):void{
-        this._volume = volume;
+    public play(effectName:string):void {
         var sound:egret.Sound = this.getSound(effectName);
-        if(sound){
+        if (sound) {
             this.playSound(sound);
         }
     }
@@ -27,9 +27,17 @@ class SoundEffects extends BaseSound{
      * 播放
      * @param sound
      */
-    private playSound(sound:egret.Sound):void{
+    private playSound(sound:egret.Sound):void {
         sound.volume = this._volume;
         sound.play();
+    }
+
+    /**
+     * 设置背景音乐音量
+     * @param volume
+     */
+    public setVolume(volume:number):void {
+        this._volume = volume;
     }
 
 
@@ -37,7 +45,7 @@ class SoundEffects extends BaseSound{
      * 资源加载完成后处理播放
      * @param key
      */
-    public loadedPlay(key:string):void{
+    public loadedPlay(key:string):void {
         this.playSound(RES.getRes(key));
     }
 }

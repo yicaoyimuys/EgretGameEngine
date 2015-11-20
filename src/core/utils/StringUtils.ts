@@ -2,11 +2,11 @@
  * Created by yangsong on 14/12/18.
  * 字符串操作工具类
  */
-class StringUtils extends BaseClass{
+class StringUtils extends BaseClass {
     /**
      * 构造函数
      */
-    public constructor(){
+    public constructor() {
         super();
     }
 
@@ -15,23 +15,23 @@ class StringUtils extends BaseClass{
      * @param str
      * @returns {string}
      */
-    public trimSpace(str:string):string{
-        return str.replace(/^\s*(.*?)[\s\n]*$/g,'$1');
+    public trimSpace(str:string):string {
+        return str.replace(/^\s*(.*?)[\s\n]*$/g, '$1');
     }
 
     /**
      * 获取字符串长度，中文为2
      * @param str
      */
-    public getStringLength(str:string):number{
+    public getStringLength(str:string):number {
         var strArr = str.split("");
         var length = 0;
         for (var i = 0; i < strArr.length; i++) {
             var s = strArr[i];
-            if(this.isChinese(s)){
-                length+=2;
-            }else{
-                length+=1;
+            if (this.isChinese(s)) {
+                length += 2;
+            } else {
+                length += 1;
             }
         }
         return length;
@@ -42,9 +42,9 @@ class StringUtils extends BaseClass{
      * @param str
      * @returns {boolean}
      */
-    public isChinese(str:string):boolean{
+    public isChinese(str:string):boolean {
         var reg = /^[u4E00-u9FA5]+$/;
-        if(!reg.test(str)){
+        if (!reg.test(str)) {
             return true;
         }
         return false;

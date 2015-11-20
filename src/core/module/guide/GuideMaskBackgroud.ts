@@ -2,7 +2,7 @@
  * Created by yangsong on 14-12-2.
  * 引导背景层，实现的是一个类似不规则遮罩的功能
  */
-class GuideMaskBackgroud extends egret.Sprite{
+class GuideMaskBackgroud extends egret.Sprite {
     private _bgs:Array<egret.Shape>;
     private _stageWidth:number = 0;
     private _stageHeight:number = 0;
@@ -11,7 +11,7 @@ class GuideMaskBackgroud extends egret.Sprite{
     /**
      * 构造函数
      */
-    public constructor(){
+    public constructor() {
         super();
         this._bgs = new Array<egret.Shape>();
 
@@ -23,7 +23,7 @@ class GuideMaskBackgroud extends egret.Sprite{
      * @param stageWidth 宽
      * @param stageHeight 高
      */
-    public init(stageWidth:number, stageHeight:number):void{
+    public init(stageWidth:number, stageHeight:number):void {
         this._stageWidth = stageWidth;
         this._stageHeight = stageHeight;
     }
@@ -32,7 +32,7 @@ class GuideMaskBackgroud extends egret.Sprite{
      * Draw
      * @param deductRec 抠出矩形区域
      */
-    public draw(deductRec:egret.Rectangle):void{
+    public draw(deductRec:egret.Rectangle):void {
         this.cacheAsBitmap = false;
         this._deductRec = deductRec;
 
@@ -44,8 +44,8 @@ class GuideMaskBackgroud extends egret.Sprite{
         var maxY:number = Math.min(deductRec.y + deductRec.height, this._stageHeight);
         this.addBg(0, 0, this._stageWidth, minY);
         this.addBg(0, minY, minX, deductRec.height);
-        this.addBg(maxX, minY, this._stageWidth-maxX, deductRec.height);
-        this.addBg(0, maxY, this._stageWidth, this._stageHeight-maxY);
+        this.addBg(maxX, minY, this._stageWidth - maxX, deductRec.height);
+        this.addBg(0, maxY, this._stageWidth, this._stageHeight - maxY);
 
         this.width = this._stageWidth;
         this.height = this._stageHeight;
@@ -55,7 +55,7 @@ class GuideMaskBackgroud extends egret.Sprite{
     /**
      * 销毁
      */
-    public destroy():void{
+    public destroy():void {
         this.removeChildren();
         this._bgs = [];
     }
@@ -63,8 +63,8 @@ class GuideMaskBackgroud extends egret.Sprite{
     /**
      * 移除所有对象
      */
-    private removeAllChild():void{
-        while(this.numChildren){
+    private removeAllChild():void {
+        while (this.numChildren) {
             var bg:egret.Shape = <egret.Shape>this.removeChildAt(0);
             this._bgs.push(bg);
         }
@@ -77,12 +77,12 @@ class GuideMaskBackgroud extends egret.Sprite{
      * @param $w 宽
      * @param $h 高
      */
-    private addBg($x:number, $y:number, $w:number, $h:number):void{
+    private addBg($x:number, $y:number, $w:number, $h:number):void {
         var bg:egret.Shape;
-        if(this._bgs.length){
+        if (this._bgs.length) {
             bg = this._bgs.pop();
             bg.graphics.clear();
-        }else{
+        } else {
             bg = new egret.Shape();
         }
 
@@ -101,10 +101,10 @@ class GuideMaskBackgroud extends egret.Sprite{
      * @param ignoreTouchEnabled {boolean} 是否忽略TouchEnabled
      * @returns {*}
      */
-    public hitTest(x: number, y: number, ignoreTouchEnabled?: boolean){
-        if(this._deductRec && this._deductRec.contains(x, y)){
+    public hitTest(x:number, y:number, ignoreTouchEnabled?:boolean) {
+        if (this._deductRec && this._deductRec.contains(x, y)) {
             return null;
-        }else{
+        } else {
             return this;
         }
     }

@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/25.
  * 服务端消息解析
  */
-interface BaseMsg{
+interface BaseMsg {
     /**
      * 接收消息处理
      * @param msg

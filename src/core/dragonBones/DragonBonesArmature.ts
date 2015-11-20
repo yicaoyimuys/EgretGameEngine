@@ -2,15 +2,12 @@
  * Created by yangsong on 15-1-14.
  * Armature封装类
  */
-class DragonBonesArmature extends egret.DisplayObjectContainer{
+class DragonBonesArmature extends egret.DisplayObjectContainer {
     private _armature:dragonBones.Armature;
     private _clock:dragonBones.WorldClock;
 
     private _completeCalls:Array<any>;
     private _frameCalls:Array<any>;
-
-    private _completeFunc:Function;
-    private _frameFunc:Function;
 
     private _isPlay:boolean;
     private _playName:string;
@@ -22,7 +19,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * @param armature dragonBones.Armature
      * @param clock dragonBones.WorldClock
      */
-    public constructor(armature:dragonBones.Armature, clock:dragonBones.WorldClock){
+    public constructor(armature:dragonBones.Armature, clock:dragonBones.WorldClock) {
         super();
 
         this._armature = armature;
@@ -32,11 +29,9 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
         this._completeCalls = [];
         this._frameCalls = [];
 
-        this._completeFunc = this.completeHandler.bind(this);
-        this._frameFunc = this.frameHandler.bind(this);
-
         this._isPlay = false;
         this._playName = "";
+
         //此行代码用于处理动画第一次播放时，显示异常的bug
         this.getAnimation()._advanceTime(0);
     }
@@ -45,16 +40,16 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * 添加事件监听
      */
     private addListeners():void {
-        this._armature.addEventListener(dragonBones.AnimationEvent.COMPLETE, this._completeFunc);
-        this._armature.addEventListener(dragonBones.FrameEvent.BONE_FRAME_EVENT, this._frameFunc);
+        this._armature.addEventListener(dragonBones.AnimationEvent.COMPLETE, this.completeHandler, this);
+        this._armature.addEventListener(dragonBones.FrameEvent.BONE_FRAME_EVENT, this.frameHandler, this);
     }
 
     /**
      * 移除事件监听
      */
     private removeListeners():void {
-        this._armature.removeEventListener(dragonBones.AnimationEvent.COMPLETE, this._completeFunc);
-        this._armature.removeEventListener(dragonBones.FrameEvent.BONE_FRAME_EVENT, this._frameFunc);
+        this._armature.removeEventListener(dragonBones.AnimationEvent.COMPLETE, this.completeHandler, this);
+        this._armature.removeEventListener(dragonBones.FrameEvent.BONE_FRAME_EVENT, this.frameHandler, this);
     }
 
     /**
@@ -62,11 +57,11 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * @param e
      */
     private completeHandler(e:dragonBones.AnimationEvent):void {
-        for (var i:number=0, len=this._completeCalls.length; i < len; i++) {
+        for (var i:number = 0, len = this._completeCalls.length; i < len; i++) {
             var arr:Array<any> = this._completeCalls[i];
             arr[0].apply(arr[1], [e]);
         }
-        if(e.animationName == this._playName){
+        if (e.animationName == this._playName) {
             this._playName = "";
         }
     }
@@ -76,7 +71,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * @param e
      */
     private frameHandler(e:dragonBones.FrameEvent):void {
-        for (var i:number=0, len=this._frameCalls.length; i < len; i++) {
+        for (var i:number = 0, len = this._frameCalls.length; i < len; i++) {
             var arr:Array<any> = this._frameCalls[i];
             arr[0].apply(arr[1], [e]);
         }
@@ -92,13 +87,13 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
             return this._currAnimationState;
         }
         this._playName = name;
-        if(playNum == undefined){
+        if (playNum == undefined) {
             this._currAnimationState = this.getAnimation().gotoAndPlay(name);
         }
-        else{
+        else {
             this._currAnimationState = this.getAnimation().gotoAndPlay(name, undefined, undefined, playNum);
         }
-        if(this._currAnimationState){
+        if (this._currAnimationState) {
             this._currAnimationState.autoTween = false;
         }
         this.start();
@@ -109,7 +104,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * 恢复播放
      */
     public start():void {
-        if(!this._isPlay){
+        if (!this._isPlay) {
             this._clock.add(this._armature);
             this._isPlay = true;
             this.addListeners();
@@ -120,7 +115,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * 停止播放
      */
     public stop():void {
-        if(this._isPlay){
+        if (this._isPlay) {
             this._clock.remove(this._armature);
             this._isPlay = false;
             this._playName = "";
@@ -144,9 +139,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
         this._clock = null;
 
         this._completeCalls = null;
-        this._frameCalls = null
-        this._completeFunc = null;
-        this._frameFunc = null;
+        this._frameCalls = null;
     }
 
     /**
@@ -213,7 +206,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * 移除舞台处理
      * @private
      */
-    public _onRemoveFromStage(){
+    public _onRemoveFromStage() {
         super._onRemoveFromStage();
         this.stop();
     }
@@ -222,7 +215,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * 获取dragonBones.Armature
      * @returns {dragonBones.Armature}
      */
-    public getArmature():dragonBones.Armature{
+    public getArmature():dragonBones.Armature {
         return this._armature;
     }
 
@@ -230,7 +223,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * 获取当前dragonBones.AnimationState
      * @returns {dragonBones.AnimationState}
      */
-    public getCurrAnimationState():dragonBones.AnimationState{
+    public getCurrAnimationState():dragonBones.AnimationState {
         return this._currAnimationState;
     }
 
@@ -238,7 +231,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * 获取所属dragonBones.WorldClock
      * @returns {dragonBones.WorldClock}
      */
-    public getClock():dragonBones.WorldClock{
+    public getClock():dragonBones.WorldClock {
         return this._clock;
     }
 
@@ -246,7 +239,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * 获取dragonBones.Animation
      * @returns {Animation}
      */
-    public getAnimation():dragonBones.Animation{
+    public getAnimation():dragonBones.Animation {
         return this._armature.animation;
     }
 
@@ -263,7 +256,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
      * 当前正在播放的动作名字
      * @returns {string}
      */
-    public getPlayName():string{
+    public getPlayName():string {
         return this._playName;
     }
 
@@ -276,4 +269,15 @@ class DragonBonesArmature extends egret.DisplayObjectContainer{
         return bone.slot.getDisplay();
     }
 
+    /**
+     * 替换骨骼插件
+     * @param boneName
+     * @param displayObject
+     */
+    public changeBone(boneName:string, displayObject:egret.DisplayObject):void {
+        var bone:dragonBones.Bone = this.getBone(boneName);
+        if (bone) {
+            bone.slot.setDisplay(displayObject);
+        }
+    }
 }

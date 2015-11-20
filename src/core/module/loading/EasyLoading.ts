@@ -6,7 +6,7 @@ class EasyLoading extends BaseClass {
     private contentGroup:egret.gui.Group = null;
     private shape:egret.Shape = null;
     private uiAsset:egret.gui.UIAsset = null;
-    private speed:number = 10/(1000/60);
+    private speed:number = 10 / (1000 / 60);
     private averageUtils:AverageUtils;
 
     constructor() {
@@ -20,7 +20,7 @@ class EasyLoading extends BaseClass {
         this.contentGroup = new egret.gui.Group();
 
         this.shape = new egret.Shape();
-        this.shape.graphics.beginFill(0x000000,0.2);
+        this.shape.graphics.beginFill(0x000000, 0.2);
         this.shape.graphics.drawRect(0, 0, App.StageUtils.getWidth(), App.StageUtils.getHeight());
         this.shape.graphics.endFill();
         this.shape.touchEnabled = true;
@@ -29,10 +29,9 @@ class EasyLoading extends BaseClass {
 
         this.uiAsset = new egret.gui.UIAsset();
         this.uiAsset.source = "resource/assets/load_Reel.png";
-        this.uiAsset.anchorX = 0.5;
-        this.uiAsset.anchorY = 0.5;
-        this.uiAsset.x = App.StageUtils.getWidth()*0.5;
-        this.uiAsset.y = App.StageUtils.getHeight()*0.5;
+        AnchorUtil.setAnchor(this.uiAsset, 0.5);
+        this.uiAsset.x = App.StageUtils.getWidth() * 0.5;
+        this.uiAsset.y = App.StageUtils.getHeight() * 0.5;
         this.contentGroup.addElement(this.uiAsset);
     }
 
@@ -42,7 +41,7 @@ class EasyLoading extends BaseClass {
     }
 
     public hideLoading():void {
-        if(this.contentGroup && this.contentGroup.parent) {
+        if (this.contentGroup && this.contentGroup.parent) {
             App.StageUtils.getUIStage().removeElement(this.contentGroup);
             this.uiAsset.rotation = 0;
         }

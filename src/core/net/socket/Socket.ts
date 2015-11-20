@@ -2,8 +2,8 @@
  * Created by yangsong on 2014/11/25.
  * Socket类
  */
-class Socket extends BaseClass{
-    private _needReconnect:boolean = true;
+class Socket extends BaseClass {
+    private _needReconnect:boolean = false;
     private _maxReconnectCount = 10;
 
     private _reconnectCount:number = 0;
@@ -12,6 +12,7 @@ class Socket extends BaseClass{
     private _port:any;
     private _socket:egret.WebSocket;
     private _msg:BaseMsg;
+    private _isConnecting:boolean;
 
     /**
      * 构造函数
@@ -23,7 +24,7 @@ class Socket extends BaseClass{
     /**
      * 添加事件监听
      */
-    private addEvents(){
+    private addEvents() {
         this._socket.addEventListener(egret.ProgressEvent.SOCKET_DATA, this.onReceiveMessage, this);
         this._socket.addEventListener(egret.Event.CONNECT, this.onSocketOpen, this);
         this._socket.addEventListener(egret.Event.CLOSE, this.onSocketClose, this);
@@ -33,7 +34,7 @@ class Socket extends BaseClass{
     /**
      * 移除事件监听
      */
-    private removeEvents():void{
+    private removeEvents():void {
         this._socket.removeEventListener(egret.ProgressEvent.SOCKET_DATA, this.onReceiveMessage, this);
         this._socket.removeEventListener(egret.Event.CONNECT, this.onSocketOpen, this);
         this._socket.removeEventListener(egret.Event.CLOSE, this.onSocketClose, this);
@@ -53,29 +54,32 @@ class Socket extends BaseClass{
         }
 
         this._connectFlag = true;
+        this._isConnecting = true;
     }
 
     /**
      * 服务器断开连接
      */
     private onSocketClose():void {
-        if(this._needReconnect) {
+        if (this._needReconnect) {
             this.reconnect();
             App.MessageCenter.dispatch(SocketConst.SOCKET_START_RECONNECT);
-        }else{
+        } else {
             App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
         }
+        this._isConnecting = false;
     }
 
     /**
      * 服务器连接错误
      */
     private onSocketError():void {
-        if(this._needReconnect) {
+        if (this._needReconnect) {
             this.reconnect();
-        }else{
+        } else {
             App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT);
         }
+        this._isConnecting = false;
     }
 
     /**
@@ -92,7 +96,7 @@ class Socket extends BaseClass{
      * @param port 端口
      * @param msg 消息发送接受处理类
      */
-    public initServer(host:string, port:any, msg:BaseMsg):void{
+    public initServer(host:string, port:any, msg:BaseMsg):void {
         this._host = host;
         this._port = port;
         this._msg = msg;
@@ -101,15 +105,18 @@ class Socket extends BaseClass{
     /**
      * 开始Socket连接
      */
-    public connect():void{
-        if (!window["WebSocket"]) {
-            Log.trace("不支持WebSocket");
-            return;
+    public connect():void {
+        if (App.DeviceUtils.IsHtml5) {
+            if (!window["WebSocket"]) {
+                Log.trace("不支持WebSocket");
+                return;
+            }
         }
         this._socket = new egret.WebSocket();
-        if(this._msg instanceof ByteArrayMsg){
+        if (this._msg instanceof ByteArrayMsg) {
             this._socket.type = egret.WebSocket.TYPE_BINARY;
         }
+        Log.trace("WebSocket: " + this._host + ":" + this._port);
         this._socket.connect(this._host, this._port);
         this.addEvents();
     }
@@ -124,9 +131,9 @@ class Socket extends BaseClass{
             this.connect();
         } else {
             this._reconnectCount = 0;
-            if(this._connectFlag){
+            if (this._connectFlag) {
                 App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
-            }else{
+            } else {
                 App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT);
             }
         }
@@ -147,13 +154,23 @@ class Socket extends BaseClass{
         this.removeEvents();
         this._socket.close();
         this._socket = null;
+        this._isConnecting = false;
+        this._connectFlag = false;
+    }
+
+    /**
+     * Socket是否在连接中
+     * @returns {boolean}
+     */
+    public isConnecting():boolean {
+        return this._isConnecting;
     }
 
     /**
      * Debug信息
      * @param str
      */
-    private debugInfo(str:String):void{
+    private debugInfo(str:String):void {
         App.MessageCenter.dispatch(SocketConst.SOCKET_DEBUG_INFO, str);
     }
 

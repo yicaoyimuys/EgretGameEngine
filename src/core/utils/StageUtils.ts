@@ -2,17 +2,17 @@
  * Created by yangsong on 2014/12/3.
  * Stage相关工具类
  */
-class StageUtils extends BaseClass{
+class StageUtils extends BaseClass {
     //UIStage单例
     private static _uiStage:egret.gui.Group;
 
     /**
      * 构造函数
      */
-    public constructor(){
+    public constructor() {
         super();
 
-        if(StageUtils._uiStage == null){
+        if (StageUtils._uiStage == null) {
             StageUtils._uiStage = new egret.gui.UIStage();
             StageUtils._uiStage.percentHeight = 100;
             StageUtils._uiStage.percentWidth = 100;
@@ -56,7 +56,7 @@ class StageUtils extends BaseClass{
      * 设置同时可触发几个点击事件，默认为2
      * @param value
      */
-    public setMaxTouches(value:number):void{
+    public setMaxTouches(value:number):void {
         egret.MainContext.instance.touchContext.maxTouches = value;
     }
 
@@ -64,7 +64,7 @@ class StageUtils extends BaseClass{
      * 设置帧频
      * @param value
      */
-    public setFrameRate(value:number):void{
+    public setFrameRate(value:number):void {
         egret.MainContext.instance.stage.frameRate = value;
     }
 
@@ -72,7 +72,7 @@ class StageUtils extends BaseClass{
      * 获取游戏Stage对象
      * @returns {egret.MainContext}
      */
-    public getStage():egret.Stage{
+    public getStage():egret.Stage {
         return egret.MainContext.instance.stage;
     }
 
@@ -80,7 +80,7 @@ class StageUtils extends BaseClass{
      * 获取唯一UIStage
      * @returns {egret.gui.UIStage}
      */
-    public getUIStage():any{
+    public getUIStage():any {
         return StageUtils._uiStage;
     }
 
@@ -88,7 +88,7 @@ class StageUtils extends BaseClass{
      * 设置游戏帧频
      * @param timeScale
      */
-    public setTimeScale(timeScale:number):void{
+    public setTimeScale(timeScale:number):void {
         egret.Ticker.getInstance().setTimeScale(timeScale);
     }
 }

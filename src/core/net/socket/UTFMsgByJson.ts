@@ -1,11 +1,11 @@
 /**
  * Created by yangsong on 15-3-20.
  */
-class UTFMsgByJson extends UTFMsg{
+class UTFMsgByJson extends UTFMsg {
     /**
      * 构造函数
      */
-    public constructor(){
+    public constructor() {
         super();
     }
 
@@ -13,7 +13,7 @@ class UTFMsgByJson extends UTFMsg{
      * 消息解析
      * @param msg
      */
-    public decode(msg:any):any{
+    public decode(msg:any):any {
         return JSON.parse(msg);
     }
 
@@ -21,7 +21,7 @@ class UTFMsgByJson extends UTFMsg{
      * 消息封装
      * @param msg
      */
-    public encode(msg:any):any{
+    public encode(msg:any):any {
         return JSON.stringify(msg);
     }
 }

@@ -1,7 +1,7 @@
 /**
  * Created by yangsong on 15-1-26.
  */
-class Keyboard{
+class Keyboard {
     public static LEFT:number = 37;
     public static RIGHT:number = 39;
     public static UP:number = 38;
@@ -17,8 +17,9 @@ class Keyboard{
     public static I:number = 73;
     public static O:number = 79;
     public static P:number = 80;
+    public static SPACE:number = 32;
 
-    public constructor(){
+    public constructor() {
 
     }
 }

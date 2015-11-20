@@ -54,9 +54,9 @@ class Main extends egret.DisplayObjectContainer{
 
     private loadResVersionComplate():void{
         //初始化Resource资源加载库
-        App.ResourceUtils.addConfig("resource/resource_core.json", "resource/1/");
-        App.ResourceUtils.addConfig("resource/resource_ui.json", "resource/1/");
-        App.ResourceUtils.addConfig("resource/resource_battle.json", "resource/1/");
+        App.ResourceUtils.addConfig("resource/resource_core.json", "resource/");
+        App.ResourceUtils.addConfig("resource/resource_ui.json", "resource/");
+        App.ResourceUtils.addConfig("resource/resource_battle.json", "resource/");
         App.ResourceUtils.loadConfig(this.onConfigComplete, this);
     }
 
@@ -65,7 +65,7 @@ class Main extends egret.DisplayObjectContainer{
      */
     private onConfigComplete():void{
         new GUITest();
-//        new ActTest();
+        //new ActTest();
 //        new ProtoBufTest();
 //        new StarlingSwfTest();
     }

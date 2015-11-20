@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/22.
  * Proxy基类
  */
-class BaseProxy{
+class BaseProxy {
     private _controller:BaseController;
 
     /**
@@ -30,7 +30,7 @@ class BaseProxy{
      * @param param 所需参数
      *
      */
-    public applyControllerFunc(controllerKey:number, key:any, ...param:any[]):any{
+    public applyControllerFunc(controllerKey:number, key:any, ...param:any[]):any {
         return this._controller.applyControllerFunc.apply(this._controller, arguments);
     }
 
@@ -40,14 +40,14 @@ class BaseProxy{
      * @param callbackFunc 处理函数
      * @param callbackObj 处理函数所属对象
      */
-    public receiveServerMsg(key:any, callbackFunc:Function, callbackObj:any):void{
+    public receiveServerMsg(key:any, callbackFunc:Function, callbackObj:any):void {
         App.MessageCenter.addListener(key, callbackFunc, callbackObj);
     }
 
     /**
      * 发送消息到Socket服务器
      */
-    public sendSocketMsg(msg:any):void{
+    public sendSocketMsg(msg:any):void {
         App.Socket.send(msg);
     }
 
@@ -56,7 +56,7 @@ class BaseProxy{
      * @param type 消息标识 例如: User.login
      * @param paramObj 消息参数 例如: var paramObj:any = {"uName":uName, "uPass":uPass};
      */
-    public sendHttpMsg(type:string, paramObj:any = null):void{
+    public sendHttpMsg(type:string, paramObj:any = null):void {
         App.Http.send(type, this.getURLVariables(type, paramObj));
     }
 
@@ -66,17 +66,17 @@ class BaseProxy{
      * @param t_paramObj
      * @returns {egret.URLVariables}
      */
-    private getURLVariables(t_type:string, t_paramObj:any):egret.URLVariables{
+    private getURLVariables(t_type:string, t_paramObj:any):egret.URLVariables {
         var typeArr:Array<any> = t_type.split(".");
         var paramObj:any = {};
         paramObj["mod"] = typeArr[0];
         paramObj["do"] = typeArr[1];
-        if(t_paramObj != null){
+        if (t_paramObj != null) {
             paramObj["p"] = t_paramObj;
         }
 
         var param:string = JSON.stringify(paramObj);
-        var variables:egret.URLVariables = new egret.URLVariables("data=" + param + "&h=" +App.ProxyUserFlag);
+        var variables:egret.URLVariables = new egret.URLVariables("data=" + param + "&h=" + App.ProxyUserFlag);
         return variables;
     }
 }

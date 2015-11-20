@@ -35,7 +35,7 @@ class CommonUtils extends BaseClass {
             return obj;
         }
         var keys = Object.keys(obj);
-        for(var i:number=0, len=keys.length; i<len; i++){
+        for (var i:number = 0, len = keys.length; i < len; i++) {
             var key = keys[i];
             newObj[key] = this.copyDataHandler(obj[key]);
         }
@@ -80,7 +80,7 @@ class CommonUtils extends BaseClass {
      * @param obj
      * @returns {number}
      */
-    public static int64ToNumber(obj){
+    public static int64ToNumber(obj) {
         return parseInt(obj.toString());
     }
 }

@@ -2,7 +2,7 @@
  * Created by yangsong on 15-1-27.
  * 摇杆控制类
  */
-class RockerUtils extends BaseClass{
+class RockerUtils extends BaseClass {
     private keys:Array<number>;
     private moveFlagRec:egret.Rectangle;
     private moveFlagCheckRec:egret.Rectangle;
@@ -21,7 +21,7 @@ class RockerUtils extends BaseClass{
     private delaKeyFunc:Function;
     private delaKeyTarget:any;
 
-    public constructor(){
+    public constructor() {
         super();
     }
 
@@ -33,7 +33,7 @@ class RockerUtils extends BaseClass{
      * @param delaKeyTarget 摇杆移动时处理函数所属对象
      * @param useNb 是否使用nb效率
      */
-    public init(moveBg:egret.Bitmap, moveFlag:egret.Bitmap, delaKeyFunc:Function, delaKeyTarget:any, useNb:boolean = true):void{
+    public init(moveBg:egret.Bitmap, moveFlag:egret.Bitmap, delaKeyFunc:Function, delaKeyTarget:any, useNb:boolean = true):void {
         this.keys = [0, 0];
 
         this.mouseX = -1;
@@ -42,9 +42,9 @@ class RockerUtils extends BaseClass{
         this.moveFlag = moveFlag;
         this.moveFlagX = moveFlag.x;
         this.moveFlagY = moveFlag.y;
-        this.moveFlagWidthHelf = moveBg.width*0.5;
-        this.moveFlagRec = new egret.Rectangle(this.moveFlagX - moveBg.width*0.5, this.moveFlagY - moveBg.height*0.5, moveBg.width, moveBg.height);
-        this.moveFlagCheckRec = new egret.Rectangle(0, 0, App.StageUtils.getWidth()*0.5, App.StageUtils.getHeight());
+        this.moveFlagWidthHelf = moveBg.width * 0.5;
+        this.moveFlagRec = new egret.Rectangle(this.moveFlagX - moveBg.width * 0.5, this.moveFlagY - moveBg.height * 0.5, moveBg.width, moveBg.height);
+        this.moveFlagCheckRec = new egret.Rectangle(0, 0, App.StageUtils.getWidth() * 0.5, App.StageUtils.getHeight());
 
         this.delaKeyFunc = delaKeyFunc;
         this.delaKeyTarget = delaKeyTarget;
@@ -54,9 +54,9 @@ class RockerUtils extends BaseClass{
         this.moveFlag.addEventListener(egret.TouchEvent.TOUCH_END, this.stopMove, this);
         this.moveFlag.addEventListener(egret.TouchEvent.TOUCH_TAP, this.stopEvent, this);
         App.StageUtils.getStage().addEventListener(egret.TouchEvent.TOUCH_END, this.leaveStateEvent, this);
-        if(useNb){
+        if (useNb) {
             App.TouchEventHook.hookTouchEvent(egret.TouchEvent.TOUCH_MOVE, this.runMove.bind(this));
-        }else{
+        } else {
             App.StageUtils.getStage().addEventListener(egret.TouchEvent.TOUCH_MOVE, this.heroMoveEvent, this);
         }
 
@@ -69,8 +69,8 @@ class RockerUtils extends BaseClass{
      * 键盘按下处理
      * @param keyCode
      */
-    private onKeyDown(keyCode:number):void{
-        switch (keyCode){
+    private onKeyDown(keyCode:number):void {
+        switch (keyCode) {
             case Keyboard.A:
                 this.keys[0] = -1;
                 this.startCheckKey();
@@ -96,25 +96,25 @@ class RockerUtils extends BaseClass{
      * 键盘弹起处理
      * @param keyCode
      */
-    private onKeyUp(keyCode:number):void{
-        switch (keyCode){
+    private onKeyUp(keyCode:number):void {
+        switch (keyCode) {
             case Keyboard.A:
-                if(this.keys[0] == -1){
+                if (this.keys[0] == -1) {
                     this.keys[0] = 0;
                 }
                 break;
             case Keyboard.D:
-                if(this.keys[0] == 1){
+                if (this.keys[0] == 1) {
                     this.keys[0] = 0;
                 }
                 break;
             case Keyboard.W:
-                if(this.keys[1] == -1){
+                if (this.keys[1] == -1) {
                     this.keys[1] = 0;
                 }
                 break;
             case Keyboard.S:
-                if(this.keys[1] == 1){
+                if (this.keys[1] == 1) {
                     this.keys[1] = 0;
                 }
                 break;
@@ -135,8 +135,8 @@ class RockerUtils extends BaseClass{
      * 手指离开Stage事件处理
      * @param e
      */
-    private leaveStateEvent(e:egret.TouchEvent):void{
-        if(e.localX == this.mouseX && e.localY == this.mouseY){
+    private leaveStateEvent(e:egret.TouchEvent):void {
+        if (e.localX == this.mouseX && e.localY == this.mouseY) {
             this.stopMove();
         }
     }
@@ -144,7 +144,7 @@ class RockerUtils extends BaseClass{
     /**
      * 开始移动
      */
-    private startMove(e:egret.TouchEvent):void{
+    private startMove(e:egret.TouchEvent):void {
         this.isMoveing = true;
         this.moveFlagGoX = this.moveFlagX;
         this.moveFlagGoY = this.moveFlagY;
@@ -155,7 +155,7 @@ class RockerUtils extends BaseClass{
     /**
      * 停止移动
      */
-    private stopMove():void{
+    private stopMove():void {
         this.isMoveing = false;
         this.keys[0] = 0;
         this.keys[1] = 0;
@@ -168,7 +168,7 @@ class RockerUtils extends BaseClass{
     /**
      * 复位摇杆位置
      */
-    private resetRockerPos():void{
+    private resetRockerPos():void {
         this.moveFlag.x = this.moveFlagX;
         this.moveFlag.y = this.moveFlagY;
     }
@@ -177,7 +177,7 @@ class RockerUtils extends BaseClass{
      * 摇杆移动事件
      * @param e
      */
-    private heroMoveEvent(e:egret.TouchEvent):void{
+    private heroMoveEvent(e:egret.TouchEvent):void {
         this.runMove(e.localX, e.localY)
     }
 
@@ -185,13 +185,13 @@ class RockerUtils extends BaseClass{
      * 摇杆移动
      * @param e
      */
-    private runMove(localX:number, localY:number):void{
-        if(!this.isMoveing){
+    private runMove(localX:number, localY:number):void {
+        if (!this.isMoveing) {
             return;
         }
 
-        if(!this.moveFlagCheckRec.contains(localX, localY)){
-            if(Math.abs(this.mouseX - localX) > 50 || Math.abs(this.mouseY - localY) > 50){
+        if (!this.moveFlagCheckRec.contains(localX, localY)) {
+            if (Math.abs(this.mouseX - localX) > 50 || Math.abs(this.mouseY - localY) > 50) {
                 return;
             }
         }
@@ -199,28 +199,28 @@ class RockerUtils extends BaseClass{
         this.mouseX = localX;
         this.mouseY = localY;
 
-        if(this.moveFlagRec.contains(this.mouseX, this.mouseY)){
+        if (this.moveFlagRec.contains(this.mouseX, this.mouseY)) {
             this.moveFlagGoX = this.mouseX;
             this.moveFlagGoY = this.mouseY;
-        }else{
+        } else {
             var radian:number = App.MathUtils.getRadian2(this.moveFlagX, this.moveFlagY, this.mouseX, this.mouseY);
             this.moveFlagGoX = this.moveFlagX + Math.cos(radian) * this.moveFlagWidthHelf;
             this.moveFlagGoY = this.moveFlagY + Math.sin(radian) * this.moveFlagWidthHelf;
         }
 
-        if(this.moveFlagGoX > this.moveFlagX && Math.abs(this.moveFlagGoX - this.moveFlagX) > 10){
+        if (this.moveFlagGoX > this.moveFlagX && Math.abs(this.moveFlagGoX - this.moveFlagX) > 10) {
             this.keys[0] = 1;
-        }else if(this.moveFlagGoX < this.moveFlagX && Math.abs(this.moveFlagGoX - this.moveFlagX) > 10){
+        } else if (this.moveFlagGoX < this.moveFlagX && Math.abs(this.moveFlagGoX - this.moveFlagX) > 10) {
             this.keys[0] = -1;
-        }else{
+        } else {
             this.keys[0] = 0;
         }
 
-        if(this.moveFlagGoY > this.moveFlagY && Math.abs(this.moveFlagGoY - this.moveFlagY) > 10){
+        if (this.moveFlagGoY > this.moveFlagY && Math.abs(this.moveFlagGoY - this.moveFlagY) > 10) {
             this.keys[1] = 1;
-        }else if(this.moveFlagGoY < this.moveFlagY && Math.abs(this.moveFlagGoY - this.moveFlagY) > 10){
+        } else if (this.moveFlagGoY < this.moveFlagY && Math.abs(this.moveFlagGoY - this.moveFlagY) > 10) {
             this.keys[1] = -1;
-        }else{
+        } else {
             this.keys[1] = 0;
         }
 
@@ -230,8 +230,8 @@ class RockerUtils extends BaseClass{
     /**
      * 开启检测
      */
-    private startCheckKey():void{
-        if(!this.checkKeying){
+    private startCheckKey():void {
+        if (!this.checkKeying) {
             this.checkKeying = true;
             App.TimerManager.doFrame(1, 0, this.delKeys, this);
         }
@@ -240,10 +240,10 @@ class RockerUtils extends BaseClass{
     /**
      * 停止检测
      */
-    private stopCheckKey():void{
+    private stopCheckKey():void {
         this.keys[0] = 0;
         this.keys[1] = 0;
-        if(this.checkKeying){
+        if (this.checkKeying) {
             App.TimerManager.remove(this.delKeys, this);
             this.checkKeying = false;
         }
@@ -252,24 +252,24 @@ class RockerUtils extends BaseClass{
     /**
      * 检测
      */
-    private delKeys():void{
-        if(this.mouseX != -1 && !this.moveFlagCheckRec.contains(this.mouseX, this.mouseY)){
+    private delKeys():void {
+        if (this.mouseX != -1 && !this.moveFlagCheckRec.contains(this.mouseX, this.mouseY)) {
             this.stopMove();
         }
 
-        if(this.moveFlag.x != this.moveFlagGoX){
+        if (this.moveFlag.x != this.moveFlagGoX) {
             this.moveFlag.x = this.moveFlagGoX;
         }
 
-        if(this.moveFlag.y != this.moveFlagGoY){
+        if (this.moveFlag.y != this.moveFlagGoY) {
             this.moveFlag.y = this.moveFlagGoY;
         }
 
-        if(!this.keys[0] && !this.keys[1]){
+        if (!this.keys[0] && !this.keys[1]) {
             this.stopCheckKey();
         }
 
-        if(!this.delaKeyFunc.call(this.delaKeyTarget, this.keys[0], this.keys[1])){
+        if (!this.delaKeyFunc.call(this.delaKeyTarget, this.keys[0], this.keys[1])) {
             this.resetRockerPos();
         }
     }
@@ -277,7 +277,7 @@ class RockerUtils extends BaseClass{
     /**
      * 停止处理
      */
-    public stop():void{
+    public stop():void {
         this.stopCheckKey();
         this.stopMove();
     }

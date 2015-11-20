@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/6/16.
  * 自定义SwfMovieClip类，带有帧处理函数
  */
-class StarlingSwfMovieClip extends starlingswf.SwfMovieClip{
+class StarlingSwfMovieClip extends starlingswf.SwfMovieClip {
 
     private frameActions:any;
     private preFrame:number;
@@ -17,7 +17,7 @@ class StarlingSwfMovieClip extends starlingswf.SwfMovieClip{
      * @param displayObjects
      * @param ownerSwf
      */
-    public constructor(frames:any[], labels:any[], displayObjects:Object, ownerSwf:starlingswf.Swf){
+    public constructor(frames:any[], labels:any[], displayObjects:Object, ownerSwf:starlingswf.Swf) {
         super(frames, labels, displayObjects, ownerSwf);
         this.frameActions = {};
         this.preFrame = -1;
@@ -38,7 +38,7 @@ class StarlingSwfMovieClip extends starlingswf.SwfMovieClip{
      * @param $actionObj 执行函数所属对象
      * @param $param 执行函数所需参数
      */
-    public setFrameAction($frame:number, $action:Function, $actionObj:any, $param:any=null):void{
+    public setFrameAction($frame:number, $action:Function, $actionObj:any, $param:any = null):void {
         this.frameActions[$frame] = [$action, $actionObj, $param];
     }
 
@@ -47,7 +47,7 @@ class StarlingSwfMovieClip extends starlingswf.SwfMovieClip{
      * @param $action 执行函数
      * @param $actionObj 执行函数所属对象
      */
-    public setCompleteAction($action:Function, $actionObj:any):void{
+    public setCompleteAction($action:Function, $actionObj:any):void {
         this.complateFunc = $action;
         this.complateObj = $actionObj;
         this.addEventListener(egret.Event.COMPLETE, this.onPlayend, this);
@@ -56,8 +56,8 @@ class StarlingSwfMovieClip extends starlingswf.SwfMovieClip{
     /**
      * 播放结束执行函数
      */
-    private onPlayend():void{
-        if(this.complateFunc){
+    private onPlayend():void {
+        if (this.complateFunc) {
             this.complateFunc.call(this.complateObj);
         }
     }
@@ -66,7 +66,7 @@ class StarlingSwfMovieClip extends starlingswf.SwfMovieClip{
      * 播放
      * @param frame
      */
-    public goToPlay(frame:Object):void{
+    public goToPlay(frame:Object):void {
         this.preFrame = -1;
         this.currFrameName = frame;
         this.gotoAndPlay(frame);
@@ -75,15 +75,15 @@ class StarlingSwfMovieClip extends starlingswf.SwfMovieClip{
     /**
      * 重写setCurrentFrame函数，处理帧事件
      */
-    public setCurrentFrame(frame:number):void{
+    public setCurrentFrame(frame:number):void {
         super.setCurrentFrame(frame);
 
         var currFrame:number = this.getCurrentFrame();
-        if(this.preFrame != currFrame){
+        if (this.preFrame != currFrame) {
             this.preFrame = currFrame;
-            if(this.frameActions && this.frameActions[currFrame]){
+            if (this.frameActions && this.frameActions[currFrame]) {
                 var arr:Array<any> = this.frameActions[currFrame];
-                if(arr[2])
+                if (arr[2])
                     arr[0].call(arr[1], arr[2]);
                 else
                     arr[0].call(arr[1]);
@@ -94,7 +94,7 @@ class StarlingSwfMovieClip extends starlingswf.SwfMovieClip{
     /**
      * 销毁
      */
-    public dispose():void{
+    public dispose():void {
         this.stop();
         this.removeEventListener(egret.Event.COMPLETE, this.onPlayend, this);
         this.removeEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);

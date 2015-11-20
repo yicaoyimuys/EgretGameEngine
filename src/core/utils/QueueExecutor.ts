@@ -2,7 +2,7 @@
  * Created by yangsong on 15-8-19.
  * 队列处理
  */
-class QueueExecutor{
+class QueueExecutor {
     private _callBack:Function;
     private _callBackTarget:any;
     private _functions:Array<Array<any>>;
@@ -10,7 +10,7 @@ class QueueExecutor{
     /**
      * 构造函数
      */
-    public constructor(){
+    public constructor() {
         this._functions = new Array();
     }
 
@@ -19,7 +19,7 @@ class QueueExecutor{
      * @param callBack 此队列处理完成执行函数
      * @param callBackTarget 此队列处理完成执行函数所属对象
      */
-    public setCallBack(callBack:Function, callBackTarget:any):void{
+    public setCallBack(callBack:Function, callBackTarget:any):void {
         this._callBack = callBack;
         this._callBackTarget = callBackTarget;
     }
@@ -29,27 +29,34 @@ class QueueExecutor{
      * @param $func 函数
      * @param $thisObj 函数所属对象
      */
-    public regist($func:Function, $thisObj:any):void{
+    public regist($func:Function, $thisObj:any):void {
         this._functions.push([$func, $thisObj]);
     }
 
     /**
      * 开始执行
      */
-    public start():void{
+    public start():void {
         this.next();
     }
 
     /**
      * 执行下一个
      */
-    public next():void{
-        if(this._functions.length == 0){
-            if(this._callBack){
+    public next():void {
+        if (!this._functions) {
+            return;
+        }
+
+        if (this._functions.length == 0) {
+            if (this._callBack) {
                 this._callBack.call(this._callBackTarget);
             }
+            this._callBack = null;
+            this._callBackTarget = null;
+            this._functions = null;
         }
-        else{
+        else {
             var arr:Array<any> = this._functions.shift();
             arr[0].call(arr[1]);
         }

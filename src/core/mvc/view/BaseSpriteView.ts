@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/22.
  * View基类，继承自egret.Sprite
  */
-class BaseSpriteView extends egret.Sprite implements IBaseView{
+class BaseSpriteView extends egret.Sprite implements IBaseView {
     private _controller:BaseController;
     private _myParent:egret.DisplayObjectContainer;
     private _isInit:boolean;
@@ -13,19 +13,19 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      * @param $controller 所属模块
      * @param $parent 父级
      */
-	public constructor($controller:BaseController, $parent:egret.DisplayObjectContainer){
-		super();
+    public constructor($controller:BaseController, $parent:egret.DisplayObjectContainer) {
+        super();
         this._controller = $controller;
         this._myParent = $parent;
         this._isInit = false;
         App.StageUtils.getStage().addEventListener(egret.Event.RESIZE, this.onResize, this);
-	}
+    }
 
     /**
      * 设置初始加载资源
      * @param resources
      */
-    public setResources(resources:string[]):void{
+    public setResources(resources:string[]):void {
         this._resources = resources;
     }
 
@@ -33,7 +33,7 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      * 获取我的父级
      * @returns {egret.gui.IVisualElementContainer}
      */
-    public get myParent():egret.DisplayObjectContainer{
+    public get myParent():egret.DisplayObjectContainer {
         return this._myParent;
     }
 
@@ -41,7 +41,7 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      * 是否已经初始化
      * @returns {boolean}
      */
-    public isInit():boolean{
+    public isInit():boolean {
         return this._isInit;
     }
 
@@ -51,7 +51,7 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      * @param param 参数
      *
      */
-    public applyFunc(key:any, ...param:any[]):any{
+    public applyFunc(key:any, ...param:any[]):any {
         return this._controller.applyFunc.apply(this._controller, arguments);
     }
 
@@ -62,30 +62,30 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      * @param param 所需参数
      *
      */
-    public applyControllerFunc(controllerKey:number, key:any, ...param:any[]):any{
+    public applyControllerFunc(controllerKey:number, key:any, ...param:any[]):any {
         return this._controller.applyControllerFunc.apply(this._controller, arguments);
     }
-	
-	/**
-	 * 面板是否显示 
-	 * @return 
-	 * 
-	 */
-	public isShow():boolean{
-		return this.stage != null && this.visible;
-	}
+
+    /**
+     * 面板是否显示
+     * @return
+     *
+     */
+    public isShow():boolean {
+        return this.stage != null && this.visible;
+    }
 
     /**
      * 添加到父级
      */
-    public addToParent():void{
+    public addToParent():void {
         this._myParent.addChild(this);
     }
 
     /**
      * 从父级移除
      */
-    public removeFromParent():void{
+    public removeFromParent():void {
         this._myParent.removeChild(this);
     }
 
@@ -93,7 +93,7 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      *对面板进行显示初始化，用于子类继承
      *
      */
-    public initUI():void{
+    public initUI():void {
         this._isInit = true;
     }
 
@@ -101,7 +101,7 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      *对面板数据的初始化，用于子类继承
      *
      */
-    public initData():void{
+    public initData():void {
 
     }
 
@@ -109,7 +109,7 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      * 面板开启执行函数，用于子类继承
      * @param param 参数
      */
-    public open(...param:any[]):void{
+    public open(...param:any[]):void {
 
     }
 
@@ -117,14 +117,14 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      * 面板关闭执行函数，用于子类继承
      * @param param 参数
      */
-    public close(...param:any[]):void{
+    public close(...param:any[]):void {
 
     }
 
     /**
      * 销毁
      */
-    public dispose():void{
+    public dispose():void {
         this._controller = null;
         this._myParent = null;
         this._resources = null;
@@ -133,7 +133,7 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
     /**
      * 屏幕尺寸变化时调用
      */
-    protected onResize():void{
+    protected onResize():void {
 
     }
 
@@ -142,9 +142,9 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      * @param loadComplete
      * @param initComplete
      */
-    public loadResource(loadComplete:Function, initComplete:Function):void{
-        if(this._resources && this._resources.length > 0) {
-            App.ResourceUtils.loadResource(this._resources, [], function():void{
+    public loadResource(loadComplete:Function, initComplete:Function):void {
+        if (this._resources && this._resources.length > 0) {
+            App.ResourceUtils.loadResource(this._resources, [], function ():void {
                 loadComplete();
                 initComplete();
             }, null, this);
@@ -159,7 +159,7 @@ class BaseSpriteView extends egret.Sprite implements IBaseView{
      * 设置是否隐藏
      * @param value
      */
-    public setVisible(value:boolean):void{
+    public setVisible(value:boolean):void {
         this.visible = value;
     }
 }

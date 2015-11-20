@@ -2,14 +2,14 @@
  * Created by yangsong on 15-1-14.
  * Sound基类
  */
-class BaseSound{
+class BaseSound {
     public _cache:any;
     public _loadingCache:Array<string>;
 
     /**
      * 构造函数
      */
-    public constructor(){
+    public constructor() {
         this._cache = {};
         this._loadingCache = new Array<string>();
 
@@ -19,14 +19,14 @@ class BaseSound{
     /**
      * 处理音乐文件的清理
      */
-    private dealSoundTimer():void{
+    private dealSoundTimer():void {
         var currTime:number = egret.getTimer();
         var keys = Object.keys(this._cache);
-        for(var i:number=0, len=keys.length; i<len; i++){
+        for (var i:number = 0, len = keys.length; i < len; i++) {
             var key = keys[i];
-            if(!this.checkCanClear(key))
+            if (!this.checkCanClear(key))
                 continue;
-            if(currTime - this._cache[key] >= SoundManager.CLEAR_TIME){
+            if (currTime - this._cache[key] >= SoundManager.CLEAR_TIME) {
                 //console.log(key + "已clear")
                 delete this._cache[key];
                 RES.destroyRes(key);
@@ -39,14 +39,14 @@ class BaseSound{
      * @param key
      * @returns {egret.Sound}
      */
-    public getSound(key:string):egret.Sound{
+    public getSound(key:string):egret.Sound {
         var sound:egret.Sound = RES.getRes(key);
-        if(sound){
-            if(this._cache[key]){
+        if (sound) {
+            if (this._cache[key]) {
                 this._cache[key] = egret.getTimer();
             }
-        }else{
-            if(this._loadingCache.indexOf(key) != -1){
+        } else {
+            if (this._loadingCache.indexOf(key) != -1) {
                 return null;
             }
 
@@ -62,7 +62,7 @@ class BaseSound{
      */
     private onResourceLoadComplete(data:any, key:string):void {
         var index:number = this._loadingCache.indexOf(key);
-        if(index != -1){
+        if (index != -1) {
             this._loadingCache.splice(index, 1);
             this._cache[key] = egret.getTimer();
             this.loadedPlay(key);
@@ -73,7 +73,7 @@ class BaseSound{
      * 资源加载完成后处理播放，子类重写
      * @param key
      */
-    public loadedPlay(key:string):void{
+    public loadedPlay(key:string):void {
 
     }
 
@@ -82,7 +82,7 @@ class BaseSound{
      * @param key
      * @returns {boolean}
      */
-    public checkCanClear(key:string):boolean{
+    public checkCanClear(key:string):boolean {
         return true;
     }
 }

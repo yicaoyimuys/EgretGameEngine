@@ -1,27 +1,34 @@
-/**
- * Copyright (c) Egret-Labs.org. Permission is hereby granted, free of charge,
- * to any person obtaining a copy of this software and associated documentation
- * files (the "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom
- * the Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
- * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
- * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
+//////////////////////////////////////////////////////////////////////////////////////
+//
+//  Copyright (c) 2014-2015, Egret Technology Inc.
+//  All rights reserved.
+//  Redistribution and use in source and binary forms, with or without
+//  modification, are permitted provided that the following conditions are met:
+//
+//     * Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above copyright
+//       notice, this list of conditions and the following disclaimer in the
+//       documentation and/or other materials provided with the distribution.
+//     * Neither the name of the Egret nor the
+//       names of its contributors may be used to endorse or promote products
+//       derived from this software without specific prior written permission.
+//
+//  THIS SOFTWARE IS PROVIDED BY EGRET AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
+//  OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+//  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+//  IN NO EVENT SHALL EGRET AND CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+//  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+//  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;LOSS OF USE, DATA,
+//  OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+//  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+//  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//////////////////////////////////////////////////////////////////////////////////////
 
 module particle {
     export class GravityParticleSystem extends ParticleSystem {
-        /**
-         * 当前配置文件
-         */
-        public particleConfig:any;
         /**
          * 表示粒子初始坐标 x 差值，取值范围[-Number.MAX_VALUE,Number.MAX_VALUE]
          * @member {number} particle.GravityParticleSystem#emitterXVariance
@@ -165,71 +172,6 @@ module particle {
          */
         private endAlphaVariance:number;
 
-        /**
-         * 表示粒子出现时的 Blue 值，取值范围[0,255]
-         * @member {number} particle.GravityParticleSystem#startBlue
-         */
-        private startBlue:number;
-        /**
-         * 表示粒子出现时的 Green 值，取值范围[0,255]
-         * @member {number} particle.GravityParticleSystem#startGreen
-         */
-        private startGreen:number;
-        /**
-         * 表示粒子出现时的 Red 值，取值范围[0,255]
-         * @member {number} particle.GravityParticleSystem#startRed
-         */
-        private startRed:number;
-        /**
-         * 表示粒子出现时的 Blue 值差，取值范围[0,255]
-         * @member {number} particle.GravityParticleSystem#startBlueVariance
-         */
-        private startBlueVariance:number;
-        /**
-         * 表示粒子出现时的 Green 值差，取值范围[0,255]
-         * @member {number} particle.GravityParticleSystem#startGreenVariance
-         */
-        private startGreenVariance:number;
-        /**
-         * 表示粒子出现时的 Red 值差，取值范围[0,255]
-         * @member {number} particle.GravityParticleSystem#startRedVariance
-         */
-        private startRedVariance:number;
-
-        /**
-         * 表示粒子消失时的 Blue 值，取值范围[0,255]
-         * @member {number} particle.GravityParticleSystem#endBlue
-         */
-        private endBlue:number;
-        /**
-         * 表示粒子消失时的 Green 值，取值范围[0,255]
-         * @member {number} particle.GravityParticleSystem#endGreen
-         */
-        private endGreen:number;
-        /**
-         * 表示粒子消失时的 Red 值，取值范围[0,255]
-         * @member {number} particle.GravityParticleSystem#endRed
-         */
-        private endRed:number;
-        /**
-         * 表示粒子消失时的 Blue 值差，取值范围[0,255]
-         * @member {number} particle.GravityParticleSystem#endBlueVariance
-         */
-        private endBlueVariance:number;
-        /**
-         * 表示粒子消失时的 Green 值差，取值范围[0,255]
-         * @member {number} particle.GravityParticleSystem#endGreenVariance
-         */
-        private endGreenVariance:number;
-        /**
-         * 表示粒子消失时的 Red 值差，取值范围[0,255]
-         * @member {number} particle.GravityParticleSystem#endRedVariance
-         */
-        private endRedVariance:number;
-
-        private blendFactorDestination:number;
-        private blendFactorSource:number;
-
         constructor(texture:egret.Texture, config:any) {
             super(texture, 200);
             this.parseConfig(config);
@@ -238,8 +180,6 @@ module particle {
         }
 
         private parseConfig(config:any):void {
-            this.particleConfig = config;
-
             this.emitterX = getValue(config.emitter.x);
             this.emitterY = getValue(config.emitter.y);
             this.emitterXVariance = getValue(config.emitterVariance.x);
@@ -279,23 +219,6 @@ module particle {
             this.endAlpha = getValue(config.endAlpha);
             this.endAlphaVariance = getValue(config.endAlphaVariance);
 
-            this.startBlue = getValue(config.startBlue);
-            this.startGreen = getValue(config.startGreen);
-            this.startRed = getValue(config.startRed);
-            this.startBlueVariance = getValue(config.startBlueVariance);
-            this.startGreenVariance = getValue(config.startGreenVariance);
-            this.startRedVariance = getValue(config.startRedVariance);
-
-            this.endBlue = getValue(config.endBlue);
-            this.endGreen = getValue(config.endGreen);
-            this.endRed = getValue(config.endRed);
-            this.endBlueVariance = getValue(config.endBlueVariance);
-            this.endGreenVariance = getValue(config.endGreenVariance);
-            this.endRedVariance = getValue(config.endRedVariance);
-
-            this.blendFactorDestination = getValue(config.blendFactorDestination) || 771;
-            this.blendFactorSource = getValue(config.blendFactorSource) || 1;
-
             function getValue(value:any):number {
                 if (typeof value == "undefined") {
                     return 0;
@@ -322,10 +245,9 @@ module particle {
             locParticle.startY = this.emitterY;
 
             var angle:number = GravityParticleSystem.getValue(this.emitAngle, this.emitAngleVariance);
-            angle = angle * Math.PI / 180;
             var speed:number = GravityParticleSystem.getValue(this.speed, this.speedVariance);
-            locParticle.velocityX = speed * Math.cos(angle);
-            locParticle.velocityY = speed * Math.sin(angle);
+            locParticle.velocityX = speed * egret.NumberUtils.cos(angle);
+            locParticle.velocityY = speed * egret.NumberUtils.sin(angle);
 
             locParticle.radialAcceleration = GravityParticleSystem.getValue(this.radialAcceleration, this.radialAccelerationVariance);
             locParticle.tangentialAcceleration = GravityParticleSystem.getValue(this.tangentialAcceleration, this.tangentialAccelerationVariance);
@@ -349,25 +271,9 @@ module particle {
 
             var startAlpha:number = GravityParticleSystem.getValue(this.startAlpha, this.startAlphaVariance);
             var endAlpha:number = GravityParticleSystem.getValue(this.endAlpha, this.endAlphaVariance);
+
             locParticle.alpha = startAlpha;
             locParticle.alphaDelta = (endAlpha - startAlpha) / lifespan;
-
-            var startBlue:number = GravityParticleSystem.getValue(this.startBlue, this.startBlueVariance);
-            var startGreen:number = GravityParticleSystem.getValue(this.startGreen, this.startGreenVariance);
-            var startRed:number = GravityParticleSystem.getValue(this.startRed, this.startRedVariance);
-            var endBlue:number = GravityParticleSystem.getValue(this.endBlue, this.endBlueVariance);
-            var endGreen:number = GravityParticleSystem.getValue(this.endGreen, this.endGreenVariance);
-            var endRed:number = GravityParticleSystem.getValue(this.endRed, this.endRedVariance);
-
-            locParticle.colorBlue = startBlue;
-            locParticle.colorGreen = startGreen;
-            locParticle.colorRed = startRed;
-            locParticle.colorBlueDelta = (endBlue - startBlue) / lifespan;
-            locParticle.colorGreenDelta = (endGreen - startGreen) / lifespan;
-            locParticle.colorRedDelta = (endRed - startRed) / lifespan;
-
-            locParticle.blendFactorDestination = this.blendFactorDestination;
-            locParticle.blendFactorSource = this.blendFactorSource;
         }
 
         private static getValue(base:number, variance:number):number {
@@ -409,10 +315,6 @@ module particle {
             locParticle.scale += locParticle.scaleDelta * dt * 1000;
             locParticle.rotation += locParticle.rotationDelta * dt * 1000;
             locParticle.alpha += locParticle.alphaDelta * dt * 1000;
-
-            locParticle.colorBlue += locParticle.colorBlueDelta * dt * 1000;
-            locParticle.colorGreen += locParticle.colorGreenDelta * dt * 1000;
-            locParticle.colorRed += locParticle.colorRedDelta * dt * 1000;
         }
     }
 }

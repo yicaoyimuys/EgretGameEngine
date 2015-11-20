@@ -2,7 +2,7 @@
  * Created by yangsong on 15-1-16.
  * DragonBonesArmature容器类，用于一个动画使用多个DragonBonesArmature的情况
  */
-class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
+class DragonBonesArmatureContainer extends egret.DisplayObjectContainer {
     private armatures:Array<DragonBonesArmature>;
     private actions:any;
     private currArmatureIndex:number;
@@ -11,7 +11,7 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
     /**
      * 构造函数
      */
-    public constructor(){
+    public constructor() {
         super();
         this.armatures = new Array<DragonBonesArmature>();
         this.actions = {};
@@ -23,10 +23,10 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
      * @param $armature DragonBonesArmature
      * @param $actions 当前DragonBonesArmature所有的动作
      */
-    public register($armature:DragonBonesArmature, $actions:Array<string>):void{
+    public register($armature:DragonBonesArmature, $actions:Array<string>):void {
         this.armatures.push($armature);
 
-        for(var i:number=0, len:number=$actions.length; i<len; i++){
+        for (var i:number = 0, len:number = $actions.length; i < len; i++) {
             this.actions[$actions[i]] = this.armatures.length - 1;
         }
     }
@@ -35,7 +35,7 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
      * 当前正在使用的armature
      * @returns {DragonBonesArmature}
      */
-    public get armature():DragonBonesArmature{
+    public get armature():DragonBonesArmature {
         return this.armatures[this.currArmatureIndex];
     }
 
@@ -44,10 +44,10 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
      * @param boneName
      * @returns {any}
      */
-    public getCacheBone(boneName:string):dragonBones.Bone{
-        if(!this.cacheBones[boneName]){
+    public getCacheBone(boneName:string):dragonBones.Bone {
+        if (!this.cacheBones[boneName]) {
             this.cacheBones[boneName] = [];
-            for(var i:number=0, len=this.armatures.length; i<len; i++) {
+            for (var i:number = 0, len = this.armatures.length; i < len; i++) {
                 var arm:DragonBonesArmature = this.armatures[i];
                 this.cacheBones[boneName].push(arm.getBone(boneName));
             }
@@ -60,18 +60,18 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
      * @param action
      * @param playNum
      */
-    public play(action:string, playNum:number = undefined):dragonBones.AnimationState{
-        if(this.actions[action] == null){
+    public play(action:string, playNum:number = undefined):dragonBones.AnimationState {
+        if (this.actions[action] == null) {
             Log.trace("DragonBonesArmatureContainer不存在动作：", action);
             return;
         }
         var armatureIndex:number = this.actions[action];
-        if(armatureIndex != this.currArmatureIndex){
+        if (armatureIndex != this.currArmatureIndex) {
             this.remove();
         }
 
         var newArm:DragonBonesArmature = this.armatures[armatureIndex];
-        if(newArm){
+        if (newArm) {
             App.EgretExpandUtils.addChild(this, newArm);
             this.currArmatureIndex = armatureIndex;
             return newArm.play(action, playNum);
@@ -83,9 +83,9 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
     /**
      * 停止当前DragonBonesArmature
      */
-    public stop():void{
+    public stop():void {
         var currArm:DragonBonesArmature = this.armatures[this.currArmatureIndex];
-        if(currArm){
+        if (currArm) {
             currArm.stop();
         }
     }
@@ -93,9 +93,9 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
     /**
      * 播放
      */
-    public start():void{
+    public start():void {
         var currArm:DragonBonesArmature = this.armatures[this.currArmatureIndex];
-        if(currArm){
+        if (currArm) {
             currArm.start();
         }
     }
@@ -103,9 +103,9 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
     /**
      * 移除上一个DragonBonesArmature
      */
-    public remove():void{
+    public remove():void {
         var oldArm:DragonBonesArmature = this.armatures[this.currArmatureIndex];
-        if(oldArm){
+        if (oldArm) {
             oldArm.stop();
             App.EgretExpandUtils.removeFromParent(oldArm);
             this.currArmatureIndex = null;
@@ -118,7 +118,7 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
      * @param target
      */
     public addCompleteCallFunc(callFunc:Function, target:any):void {
-        for(var i:number=0, len=this.armatures.length; i<len; i++){
+        for (var i:number = 0, len = this.armatures.length; i < len; i++) {
             var arm:DragonBonesArmature = this.armatures[i];
             arm.addCompleteCallFunc(callFunc, target);
         }
@@ -130,7 +130,7 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
      * @param target
      */
     public removeCompleteCallFunc(callFunc:Function, target:any):void {
-        for(var i:number=0, len=this.armatures.length; i<len; i++){
+        for (var i:number = 0, len = this.armatures.length; i < len; i++) {
             var arm:DragonBonesArmature = this.armatures[i];
             arm.removeCompleteCallFunc(callFunc, target);
         }
@@ -142,7 +142,7 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
      * @param target
      */
     public addFrameCallFunc(callFunc:Function, target:any):void {
-        for(var i:number=0, len=this.armatures.length; i<len; i++){
+        for (var i:number = 0, len = this.armatures.length; i < len; i++) {
             var arm:DragonBonesArmature = this.armatures[i];
             arm.addFrameCallFunc(callFunc, target);
         }
@@ -155,7 +155,7 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
      * @param target
      */
     public removeFrameCallFunc(callFunc:Function, target:any):void {
-        for(var i:number=0, len=this.armatures.length; i<len; i++){
+        for (var i:number = 0, len = this.armatures.length; i < len; i++) {
             var arm:DragonBonesArmature = this.armatures[i];
             arm.removeFrameCallFunc(callFunc, target);
         }
@@ -164,8 +164,8 @@ class DragonBonesArmatureContainer extends egret.DisplayObjectContainer{
     /**
      * 清空
      */
-    public clear():void{
-        while(this.armatures.length){
+    public clear():void {
+        while (this.armatures.length) {
             var arm:DragonBonesArmature = this.armatures.pop();
             App.EgretExpandUtils.removeFromParent(arm);
             arm.destroy();

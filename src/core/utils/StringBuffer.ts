@@ -2,12 +2,13 @@
  * Created by yangsong on 2014/12/8.
  * StringBuffer类
  */
-class StringBuffer{
+class StringBuffer {
     private _strings:Array<string>;
+
     /**
      * 构造函数
      */
-    public constructor(){
+    public constructor() {
         this._strings = new Array<string>();
     }
 
@@ -15,7 +16,7 @@ class StringBuffer{
      * 追加一个字符串
      * @param str
      */
-    public append(str:string):void{
+    public append(str:string):void {
         this._strings.push(str);
     }
 
@@ -23,14 +24,14 @@ class StringBuffer{
      * 转换为字符串
      * @returns {string}
      */
-    public toString():string{
+    public toString():string {
         return this._strings.join("");
     }
 
     /**
      * 清空
      */
-    public clear():void{
+    public clear():void {
         this._strings.length = 0;
     }
 }

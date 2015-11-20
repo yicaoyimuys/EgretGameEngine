@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/6/16.
  * StarlingSwf工厂类
  */
-class StarlingSwfFactory extends BaseClass{
+class StarlingSwfFactory extends BaseClass {
 
     private swfAssetsManager:starlingswf.SwfAssetManager;
     private swfAssetsNames:Array<string>;
@@ -12,7 +12,7 @@ class StarlingSwfFactory extends BaseClass{
     /**
      * 构造函数
      */
-    public constructor(){
+    public constructor() {
         super();
         this.swfAssetsManager = new starlingswf.SwfAssetManager();
         this.swfAssetsNames = new Array<string>();
@@ -26,11 +26,11 @@ class StarlingSwfFactory extends BaseClass{
      * @param swfData swf配置数据
      * @param spriteSheep 资源配置数据
      */
-    public addSwf(name:string, swfData:Object, spriteSheep:egret.SpriteSheet):void{
-        if(this.swfAssetsNames.indexOf(name) != -1)
+    public addSwf(name:string, swfData:Object, spriteSheep:egret.SpriteSheet):void {
+        if (this.swfAssetsNames.indexOf(name) != -1)
             return;
-        if(swfData == null || spriteSheep == null){
-            console.log("SWF加载失败:"+name);
+        if (swfData == null || spriteSheep == null) {
+            console.log("SWF加载失败:" + name);
             return;
         }
         this.swfAssetsManager.addSpriteSheet(name, spriteSheep);
@@ -45,10 +45,10 @@ class StarlingSwfFactory extends BaseClass{
      * 停止列表中的swf
      * @param arr
      */
-    public stopSwfs(arr:Array<string>):void{
-        for(var i:number=0, len:number=arr.length; i<len; i++){
+    public stopSwfs(arr:Array<string>):void {
+        for (var i:number = 0, len:number = arr.length; i < len; i++) {
             var swf:starlingswf.Swf = StarlingSwfUtils.getSwf(arr[i]);
-            if(swf){
+            if (swf) {
                 swf.swfUpdateManager.stop();
             }
         }
@@ -58,10 +58,10 @@ class StarlingSwfFactory extends BaseClass{
      * 播放列表中的swf
      * @param arr
      */
-    public playSwfs(arr:Array<string>):void{
-        for(var i:number=0, len:number=arr.length; i<len; i++){
+    public playSwfs(arr:Array<string>):void {
+        for (var i:number = 0, len:number = arr.length; i < len; i++) {
             var swf:starlingswf.Swf = StarlingSwfUtils.getSwf(arr[i]);
-            if(swf){
+            if (swf) {
                 swf.swfUpdateManager.play();
             }
         }
@@ -70,11 +70,11 @@ class StarlingSwfFactory extends BaseClass{
     /**
      * 清空所有swf
      */
-    private clearSwfs():void{
-        while(this.swfAssets.length){
+    private clearSwfs():void {
+        while (this.swfAssets.length) {
             StarlingSwfUtils.removeSwf(this.swfAssets.pop());
         }
-        while(this.swfAssetsNames.length){
+        while (this.swfAssetsNames.length) {
             this.swfAssetsNames.pop();
         }
         this.swfAssetsManager = new starlingswf.SwfAssetManager();
@@ -83,7 +83,7 @@ class StarlingSwfFactory extends BaseClass{
     /**
      * 清空
      */
-    public clear():void{
+    public clear():void {
         this.clearSwfs();
     }
 
@@ -92,10 +92,10 @@ class StarlingSwfFactory extends BaseClass{
      * @param name mc的名字
      * @returns {StarlingSwfMovieClip}
      */
-    public makeMc(name:string):StarlingSwfMovieClip{
+    public makeMc(name:string):StarlingSwfMovieClip {
         var mc:StarlingSwfMovieClip = <StarlingSwfMovieClip>StarlingSwfUtils.createMovie("mc_" + name, null, StarlingSwfMovieClip);
-        if(mc == null){
-            console.log("SWF创建失败: "+ name);
+        if (mc == null) {
+            console.log("SWF创建失败: " + name);
         }
         return mc;
     }
@@ -105,8 +105,8 @@ class StarlingSwfFactory extends BaseClass{
      * @param name 图片的名称
      * @returns {egret.Bitmap}
      */
-    public makeImage(name:string):egret.Bitmap{
-        return StarlingSwfUtils.createImage("img_"+name);
+    public makeImage(name:string):egret.Bitmap {
+        return StarlingSwfUtils.createImage("img_" + name);
     }
 
     /**
@@ -114,7 +114,7 @@ class StarlingSwfFactory extends BaseClass{
      * @param name 材质名称
      * @returns {egret.Texture}
      */
-    public getTexture(name):egret.Texture{
-        return StarlingSwfUtils.getTexture("img_"+name);
+    public getTexture(name):egret.Texture {
+        return StarlingSwfUtils.getTexture("img_" + name);
     }
 }

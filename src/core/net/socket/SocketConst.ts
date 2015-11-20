@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/25.
  * Socket使用常量
  */
-class SocketConst{
+class SocketConst {
     /**
      * Socket已经连接上
      * @type {string}
@@ -24,8 +24,8 @@ class SocketConst{
      */
     public static SOCKET_CLOSE:string = "SOCKET_CLOSE";
     /*
-    * socket收到消息
-    * */
+     * socket收到消息
+     * */
     public static SOCKET_DATA:string = "SOCKET_DATA";
     /**
      * Socket不能连接上

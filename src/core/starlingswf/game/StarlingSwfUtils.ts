@@ -18,9 +18,9 @@ class StarlingSwfUtils {
      * 在缓存中移除一个swf
      * @param swf
      */
-    public static removeSwf(swf:starlingswf.Swf):void{
+    public static removeSwf(swf:starlingswf.Swf):void {
         var index:number = StarlingSwfUtils.swfList.indexOf(swf);
-        if(index != -1)
+        if (index != -1)
             StarlingSwfUtils.swfList.splice(index, 1);
     }
 
@@ -64,7 +64,7 @@ class StarlingSwfUtils {
      * @param name 材质名称
      * @returns {*}
      */
-    public static getTexture(name):egret.Texture{
+    public static getTexture(name):egret.Texture {
         var l:number = StarlingSwfUtils.swfList.length;
         for (var i:number = 0; i < l; i++) {
             var swf:starlingswf.Swf = StarlingSwfUtils.swfList[i];

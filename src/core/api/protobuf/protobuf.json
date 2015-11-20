@@ -1,10 +1,10 @@
 {
-    "name": "protobuf",
-    "source":"src",
-    "file_list" : [
-        "Long.min.js",
-        "ByteBufferAB.min.js",
-        "ProtoBuf.min.js",
-        "ProtoBuf.d.ts"
-    ]
+  "name": "protobuf",
+  "source": "src",
+  "file_list": [
+    "Long.min.js",
+    "ByteBufferAB.min.js",
+    "ProtoBuf.min.js",
+    "ProtoBuf.d.ts"
+  ]
 }

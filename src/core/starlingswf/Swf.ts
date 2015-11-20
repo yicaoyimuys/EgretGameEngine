@@ -64,7 +64,7 @@ module starlingswf {
                 display.name = objData[9];
                 display.x = objData[2];
                 display.y = objData[3];
-                if(objData[0] == Swf.dataKey_TextField) {
+                if (objData[0] == Swf.dataKey_TextField) {
 //                    display.y += objData[14] / 10;
                 }
                 if (objData[1] != Swf.dataKey_Scale9 && objData[1] != Swf.dataKey_ShapeImg) {
@@ -104,12 +104,10 @@ module starlingswf {
             }
 
             var mc:SwfMovieClip;
-            if(cls == null)
-            {
+            if (cls == null) {
                 mc = new SwfMovieClip(movieClipData["frames"], movieClipData["labels"], displayObjects, this);
             }
-            else
-            {
+            else {
                 mc = new cls(movieClipData["frames"], movieClipData["labels"], displayObjects, this);
             }
 
@@ -128,7 +126,7 @@ module starlingswf {
             return bitmap;
         }
 
-        public getTexture(name):egret.Texture{
+        public getTexture(name):egret.Texture {
             return this._assetManager.getTexture(name);
         }
 

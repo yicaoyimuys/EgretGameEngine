@@ -2,7 +2,7 @@
  * Created by egret on 15-1-14.
  * DragonBones工厂类
  */
-class DragonBonesFactory extends BaseClass{
+class DragonBonesFactory extends BaseClass {
     private averageUtils:AverageUtils;
     private factory:dragonBones.EgretFactory;
     private isPlay:boolean;
@@ -13,7 +13,7 @@ class DragonBonesFactory extends BaseClass{
     /**
      * 构造函数
      */
-    public constructor(){
+    public constructor() {
         super();
         this.averageUtils = new AverageUtils();
         this.factory = new dragonBones.EgretFactory();
@@ -30,8 +30,8 @@ class DragonBonesFactory extends BaseClass{
      * @param texture 动画资源
      * @param textureData 动画资源描述文件
      */
-    public initArmatureFile(skeletonData:any, texture:egret.Texture, textureData:any):void{
-        if(this.files.indexOf(skeletonData.name) != -1){
+    public initArmatureFile(skeletonData:any, texture:egret.Texture, textureData:any):void {
+        if (this.files.indexOf(skeletonData.name) != -1) {
             return;
         }
         this.addSkeletonData(skeletonData);
@@ -45,13 +45,13 @@ class DragonBonesFactory extends BaseClass{
      * @param texture 动画资源
      * @param textureData 动画资源描述文件
      */
-    public initArmatureMoreFile(skeletonData:any):void{
+    public initArmatureMoreFile(skeletonData:any):void {
         this.factory.addSkeletonData(dragonBones.DataParser.parseDragonBonesData(skeletonData));
         var textureList = skeletonData.textureList;
         var sheetList = skeletonData.sheetList;
         var atlas:EgretTextureAtlasMore = new EgretTextureAtlasMore(RES.getRes(textureList[0]), RES.getRes(sheetList[0]), skeletonData.name);
         var len:number = textureList.length;
-        for(var i = 1; i < len; i ++){
+        for (var i = 1; i < len; i++) {
             atlas.register(RES.getRes(textureList[i]), RES.getRes(sheetList[i]));
         }
         this.factory.addTextureAtlas(atlas);
@@ -61,9 +61,9 @@ class DragonBonesFactory extends BaseClass{
      * 移除动画文件
      * @param name
      */
-    public removeArmatureFile(name:string):void{
+    public removeArmatureFile(name:string):void {
         var index:number = this.files.indexOf(name);
-        if(index != -1){
+        if (index != -1) {
             this.removeSkeletonData(name);
             this.removeTextureAtlas(name);
             this.files.splice(index, 1);
@@ -73,8 +73,8 @@ class DragonBonesFactory extends BaseClass{
     /**
      * 清空所有动画
      */
-    public clear():void{
-        while(this.files.length){
+    public clear():void {
+        while (this.files.length) {
             this.removeArmatureFile(this.files[0]);
         }
     }
@@ -83,7 +83,7 @@ class DragonBonesFactory extends BaseClass{
      * 添加动画描述文件
      * @param skeletonData
      */
-    public addSkeletonData(skeletonData:any):void{
+    public addSkeletonData(skeletonData:any):void {
         this.factory.addSkeletonData(dragonBones.DataParser.parseDragonBonesData(skeletonData));
     }
 
@@ -92,7 +92,7 @@ class DragonBonesFactory extends BaseClass{
      * @param texture 动画资源
      * @param textureData 动画资源描述文件
      */
-    public addTextureAtlas(texture:egret.Texture, textureData:any):void{
+    public addTextureAtlas(texture:egret.Texture, textureData:any):void {
         this.factory.addTextureAtlas(new dragonBones.EgretTextureAtlas(texture, textureData));
     }
 
@@ -100,7 +100,7 @@ class DragonBonesFactory extends BaseClass{
      * 移除动画描述文件
      * @param skeletonData
      */
-    public removeSkeletonData(name:string):void{
+    public removeSkeletonData(name:string):void {
         this.factory.removeSkeletonData(name);
     }
 
@@ -109,7 +109,7 @@ class DragonBonesFactory extends BaseClass{
      * @param texture 动画资源
      * @param textureData 动画资源描述文件
      */
-    public removeTextureAtlas(name:string):void{
+    public removeTextureAtlas(name:string):void {
         this.factory.removeTextureAtlas(name);
     }
 
@@ -119,10 +119,10 @@ class DragonBonesFactory extends BaseClass{
      * @param fromDragonBonesDataName 动画文件名称
      * @returns {Armature}
      */
-    public makeArmature(name:string, fromDragonBonesDataName?:string, playSpeed:number = 1):DragonBonesArmature{
+    public makeArmature(name:string, fromDragonBonesDataName?:string, playSpeed:number = 1):DragonBonesArmature {
         var armature:dragonBones.Armature = this.factory.buildArmature(name, fromDragonBonesDataName);
-        if(armature == null){
-            Log.trace("不存在Armature： "+name);
+        if (armature == null) {
+            Log.trace("不存在Armature： " + name);
             return null;
         }
         var clock:dragonBones.WorldClock = this.createWorldClock(playSpeed);
@@ -135,9 +135,9 @@ class DragonBonesFactory extends BaseClass{
      * @param playSpeed
      * @returns {dragonBones.WorldClock}
      */
-    private createWorldClock(playSpeed:number):dragonBones.WorldClock{
-        for(var i:number = 0; i<this.clocksLen; i++){
-            if(this.clocks[i].timeScale == playSpeed){
+    private createWorldClock(playSpeed:number):dragonBones.WorldClock {
+        for (var i:number = 0; i < this.clocksLen; i++) {
+            if (this.clocks[i].timeScale == playSpeed) {
                 return this.clocks[i];
             }
         }
@@ -155,7 +155,7 @@ class DragonBonesFactory extends BaseClass{
     private onEnterFrame(advancedTime:number):void {
         this.averageUtils.push(advancedTime);
         var time:number = this.averageUtils.getValue() * 0.001;
-        for(var i:number = 0; i<this.clocksLen; i++){
+        for (var i:number = 0; i < this.clocksLen; i++) {
             var clock:dragonBones.WorldClock = this.clocks[i];
             clock.advanceTime(time);
         }
@@ -164,8 +164,8 @@ class DragonBonesFactory extends BaseClass{
     /**
      * 停止
      */
-    public stop():void{
-        if(this.isPlay){
+    public stop():void {
+        if (this.isPlay) {
             App.TimerManager.remove(this.onEnterFrame, this);
             this.isPlay = false;
         }
@@ -174,7 +174,7 @@ class DragonBonesFactory extends BaseClass{
     /**
      * 开启
      */
-    public start():void{
+    public start():void {
         if (!this.isPlay) {
             this.isPlay = true;
             App.TimerManager.doFrame(1, 0, this.onEnterFrame, this);
