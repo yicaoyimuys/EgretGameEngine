@@ -15,6 +15,7 @@ class EgretExpandUtils extends BaseClass {
      */
     public init():void {
         this.setFrameRate();
+        AnchorUtil.init();
     }
 
     private setFrameRate():void {
