@@ -68,4 +68,17 @@ class ControllerManager extends BaseClass {
             return null;
         }
     }
+
+    /**
+     * 获取指定Controller的Model对象
+     * @param controllerD Controller唯一标识
+     * @returns {BaseModel}
+     */
+    public getControllerModel(controllerD:number):BaseModel {
+        var manager:BaseController = this._modules[controllerD];
+        if (manager) {
+            return manager.getModel();
+        }
+        return null;
+    }
 }

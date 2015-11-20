@@ -3,21 +3,24 @@
  */
 class LoginController extends BaseController{
     //本模块的数据存储
-    private userInfo:any;
+    private loginModel:LoginModel;
     //本模块的所有UI
     private loginView:LoginView;
     //本模块的Proxy
-    private proxy:LoginProxy;
+    private loginProxy:LoginProxy;
 
     public constructor(){
         super();
+
+        //初始化Model
+        this.loginModel = new LoginModel(this);
 
         //初始化UI
         this.loginView = new LoginView(this, LayerManager.UI_Main);
         App.ViewManager.register(ViewConst.Login, this.loginView);
 
         //初始化Proxy
-        this.proxy = new LoginProxy(this);
+        this.loginProxy = new LoginProxy(this);
 
         //注册模块间、模块内部事件监听
 
@@ -34,7 +37,7 @@ class LoginController extends BaseController{
      * @param pwd
      */
     private onLogin(userName:string, pwd:string):void{
-        this.proxy.login(userName, pwd);
+        this.loginProxy.login(userName, pwd);
     }
 
     /**
@@ -42,10 +45,12 @@ class LoginController extends BaseController{
      */
     private loginSuccess(userInfo:any):void{
         //保存数据
-        this.userInfo = userInfo;
+        this.loginModel.userInfo = userInfo;
         //本模块UI处理
         this.loginView.loginSuccess();
         //UI跳转
         App.ViewManager.close(ViewConst.Login);
+
+        var model:BaseModel = this.getControllerModel(ControllerConst.Login);
     }
 }

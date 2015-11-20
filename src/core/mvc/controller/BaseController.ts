@@ -9,6 +9,11 @@ class BaseController {
     private _messages:any;
 
     /**
+     * 该模块使用的实体类
+     */
+    private _model:BaseModel;
+
+    /**
      * 构造函数
      */
     public constructor() {
@@ -50,5 +55,30 @@ class BaseController {
      */
     public applyControllerFunc(controllerKey:number, key:any, ...param:any[]):any {
         return App.ControllerManager.applyFunc.apply(App.ControllerManager, arguments);
+    }
+
+    /**
+     * 设置该模块使用的Model对象
+     * @param model
+     */
+    public setModel(model:BaseModel):void {
+        this._model = model;
+    }
+
+    /**
+     * 获取该模块的Model对象
+     * @returns {BaseModel}
+     */
+    public getModel():BaseModel {
+        return this._model;
+    }
+
+    /**
+     * 获取指定Controller的Model对象
+     * @param controllerD Controller唯一标识
+     * @returns {BaseModel}
+     */
+    public getControllerModel(controllerD:number):BaseModel {
+        return App.ControllerManager.getControllerModel(controllerD);
     }
 }
