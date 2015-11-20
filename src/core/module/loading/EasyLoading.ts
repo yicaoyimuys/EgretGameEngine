@@ -29,8 +29,7 @@ class EasyLoading extends BaseClass {
 
         this.uiAsset = new egret.gui.UIAsset();
         this.uiAsset.source = "resource/assets/load_Reel.png";
-        this.uiAsset.anchorOffsetX = 113 * 0.5;
-        this.uiAsset.anchorOffsetY = 119 * 0.5;
+        AnchorUtil.setAnchor(this.uiAsset, 0.5);
         this.uiAsset.x = App.StageUtils.getWidth() * 0.5;
         this.uiAsset.y = App.StageUtils.getHeight() * 0.5;
         this.contentGroup.addElement(this.uiAsset);

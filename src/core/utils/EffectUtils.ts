@@ -34,4 +34,21 @@ class EffectUtils extends BaseClass {
         str += ";";
         return str;
     }
+
+    /**
+     * 开始闪烁
+     * @param obj
+     */
+    public startFlicker(obj:egret.DisplayObject, alphaTime:number):void {
+        obj.alpha = 1;
+        egret.Tween.get(obj).to({"alpha": 0}, alphaTime).to({"alpha": 1}, alphaTime).call(this.startFlicker, this, [obj]);
+    }
+
+    /**
+     * 停止闪烁
+     * @param obj
+     */
+    public stopFlicker(obj:egret.DisplayObject):void {
+        egret.Tween.removeTweens(obj);
+    }
 }

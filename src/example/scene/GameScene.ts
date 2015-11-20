@@ -22,7 +22,7 @@ class GameScene extends BaseScene{
         App.ViewManager.open(ViewConst.GameUI);
 
         //播放背景音乐
-        App.SoundManager.playBg("sound_bg", 0.3);
+        App.SoundManager.playBg("sound_bg");
     }
 
     /**

@@ -57,7 +57,7 @@ class ViewManager extends BaseClass {
 
         if (view.isShow()) {
             view.open.apply(view, param);
-            return;
+            return view;
         }
 
         if (view.isInit()) {
@@ -89,16 +89,19 @@ class ViewManager extends BaseClass {
      *
      */
     public close(key:number, ...param:any[]):void {
+        if (!this.isShow(key)) {
+            return;
+        }
+
         var view:IBaseView = this.getView(key);
         if (view == null) {
             return;
         }
 
-        if (!view.isShow()) {
-            return;
+        var viewIndex = this._opens.indexOf(key);
+        if (key >= 0) {
+            this._opens.splice(viewIndex, 1);
         }
-
-        this._opens.splice(this._opens.indexOf(key), 1);
 
         view.removeFromParent();
         view.close.apply(view, param);
@@ -139,15 +142,19 @@ class ViewManager extends BaseClass {
     }
 
     /**
+     * 当前ui打开数量
+     * @returns {number}
+     */
+    public currOpenNum():number {
+        return this._opens.length;
+    }
+
+    /**
      * 检测一个UI是否开启中
      * @param key
      * @returns {boolean}
      */
     public isShow(key:number):boolean {
-        var view:IBaseView = this.getView(key);
-        if (view == null) {
-            return false;
-        }
-        return view.isShow();
+        return this._opens.indexOf(key) != -1;
     }
 }

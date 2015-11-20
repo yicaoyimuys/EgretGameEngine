@@ -29,18 +29,18 @@ class GuideView extends egret.Sprite {
         this.addChild(this._maskPic);
 
         this._textBgPic = StarlingSwfUtils.createS9Image("s9_guide_txt");
-        this._textBgPic.anchorOffsetY = this._textBgPic.height;
+        AnchorUtil.setAnchorY(this._textBgPic, 1);
         this.addChild(this._textBgPic);
 
         this._handPic = StarlingSwfUtils.createImage("img_hand");
-        this._handPic.anchorOffsetX = this._handPic.width * 0.5;
+        AnchorUtil.setAnchorX(this._handPic, 0.5);
         this.addChild(this._handPic);
 
         this._txt = new egret.TextField();
         this._txt.size = 26;
         this._txt.textColor = 0x575757;
         this._txt.lineSpacing = 4;
-        this._txt.anchorOffsetY = this._txt.height * 0.5;
+        AnchorUtil.setAnchorY(this._txt, 0.5);
         this.addChild(this._txt);
 
         egret.MainContext.instance.stage.addEventListener(egret.Event.RESIZE, this.onResize, this);

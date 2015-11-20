@@ -5,7 +5,6 @@
 class SceneManager extends BaseClass {
     private _scenes:any;
     private _currScene:number;
-    private _scenesStack:Array<number>;
 
     /**
      * 构造函数
@@ -13,7 +12,6 @@ class SceneManager extends BaseClass {
     public constructor() {
         super();
         this._scenes = {};
-        this._scenesStack = new Array<number>();
     }
 
     /**
@@ -36,11 +34,6 @@ class SceneManager extends BaseClass {
             return;
         }
 
-        while (this._scenesStack.length) {
-            var stackScene:BaseScene = this._scenes[this._scenesStack.pop()];
-            stackScene.onExit();
-        }
-
         var oldScene:BaseScene = this._scenes[this._currScene];
         if (oldScene) {
             oldScene.onExit();
@@ -51,30 +44,10 @@ class SceneManager extends BaseClass {
     }
 
     /**
-     * 压入一个Scene
-     * @param key
+     * 获取当前Scene
+     * @returns {number}
      */
-    public pushScene(key:number):void {
-        var nowScene:BaseScene = this._scenes[key];
-        if (nowScene == null) {
-            Log.trace("场景" + key + "不存在");
-            return;
-        }
-
-        nowScene.onEnter();
-        this._scenesStack.push(key);
-    }
-
-    /**
-     * 回到上一个scene
-     */
-    public popScene():void {
-        if (this._scenesStack.length == 0) {
-            return;
-        }
-
-        var key:number = this._scenesStack.pop();
-        var nowScene:BaseScene = this._scenes[key];
-        nowScene.onExit();
+    public getCurrScene():number {
+        return this._currScene;
     }
 }

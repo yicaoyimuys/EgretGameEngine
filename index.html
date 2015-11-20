@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Egret</title>
+    <title>EgretGameEngineDemo</title>
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="full-screen" content="true"/>
@@ -42,18 +42,18 @@
 
     <!--这个标签会被替换为项目中所有的 javascript 文件-->
     <!--game_files_start-->
-	<script egret="game" src="bin-debug/AssetAdapter.js"></script>
 	<script egret="game" src="bin-debug/LoadingUI.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
 	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
 	<script egret="game" src="bin-debug/core/App.js"></script>
+	<script egret="game" src="bin-debug/core/adapter/AssetAdapter.js"></script>
+	<script egret="game" src="bin-debug/core/adapter/MergeJsonAnalyzer.js"></script>
 	<script egret="game" src="bin-debug/core/base/BaseClass.js"></script>
 	<script egret="game" src="bin-debug/core/consts/Keyboard.js"></script>
 	<script egret="game" src="bin-debug/core/display/BitmapNumber.js"></script>
 	<script egret="game" src="bin-debug/core/display/HotspotBitmap.js"></script>
 	<script egret="game" src="bin-debug/core/dragonBones/DragonBonesArmature.js"></script>
 	<script egret="game" src="bin-debug/core/dragonBones/DragonBonesArmatureContainer.js"></script>
-	<script egret="game" src="bin-debug/core/utils/ObjectPool.js"></script>
 	<script egret="game" src="bin-debug/core/dragonBones/DragonBonesFactory.js"></script>
 	<script egret="game" src="bin-debug/core/dragonBones/EgretTextureAtlasMore.js"></script>
 	<script egret="game" src="bin-debug/core/module/guide/GuideMaskBackgroud.js"></script>
@@ -90,11 +90,12 @@
 	<script egret="game" src="bin-debug/core/starlingswf/SwfUpdateManager.js"></script>
 	<script egret="game" src="bin-debug/core/starlingswf/display/ISwfAnimation.js"></script>
 	<script egret="game" src="bin-debug/core/starlingswf/display/SwfSprite.js"></script>
-	<script egret="game" src="bin-debug/core/utils/TimerManager.js"></script>
 	<script egret="game" src="bin-debug/core/starlingswf/display/SwfMovieClip.js"></script>
 	<script egret="game" src="bin-debug/core/starlingswf/game/StarlingSwfFactory.js"></script>
 	<script egret="game" src="bin-debug/core/starlingswf/game/StarlingSwfMovieClip.js"></script>
 	<script egret="game" src="bin-debug/core/starlingswf/game/StarlingSwfUtils.js"></script>
+	<script egret="game" src="bin-debug/core/utils/AllAsyncExecutor.js"></script>
+	<script egret="game" src="bin-debug/core/utils/AnchorUtil.js"></script>
 	<script egret="game" src="bin-debug/core/utils/ArrayUtils.js"></script>
 	<script egret="game" src="bin-debug/core/utils/AverageUtils.js"></script>
 	<script egret="game" src="bin-debug/core/utils/CommonUtils.js"></script>
@@ -112,6 +113,7 @@
 	<script egret="game" src="bin-debug/core/utils/Log.js"></script>
 	<script egret="game" src="bin-debug/core/utils/MathUtils.js"></script>
 	<script egret="game" src="bin-debug/core/utils/MessageCenter.js"></script>
+	<script egret="game" src="bin-debug/core/utils/ObjectPool.js"></script>
 	<script egret="game" src="bin-debug/core/utils/Percent.js"></script>
 	<script egret="game" src="bin-debug/core/utils/QueueExecutor.js"></script>
 	<script egret="game" src="bin-debug/core/utils/RandomUtils.js"></script>
@@ -123,6 +125,8 @@
 	<script egret="game" src="bin-debug/core/utils/StageUtils.js"></script>
 	<script egret="game" src="bin-debug/core/utils/StringBuffer.js"></script>
 	<script egret="game" src="bin-debug/core/utils/StringUtils.js"></script>
+	<script egret="game" src="bin-debug/core/utils/TextFlowMaker.js"></script>
+	<script egret="game" src="bin-debug/core/utils/TimerManager.js"></script>
 	<script egret="game" src="bin-debug/core/utils/md5.js"></script>
 	<script egret="game" src="bin-debug/example/components/Menu.js"></script>
 	<script egret="game" src="bin-debug/example/components/SaleItemRenderer.js"></script>
@@ -230,33 +234,33 @@
 	<!--game_files_end-->
 </head>
 <body>
-	<div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
-		data-entry-class="Main"
-		data-orientation="portrait"
-		data-scale-mode="fixedWidth"
-		data-resolution-mode="retina"
-		data-frame-rate="30"
-		data-content-width="650"
-		data-content-height="1000"
-		data-show-paint-rect="false"
-		data-multi-fingered="2"
-		data-show-fps="true" data-show-log="false"
-		data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
-	</div>
+	<!--<div style="margin: auto;width: 100%;height: 100%;" class="egret-player"-->
+		<!--data-entry-class="Main"-->
+		<!--data-orientation="portrait"-->
+		<!--data-scale-mode="fixedWidth"-->
+		<!--data-resolution-mode="retina"-->
+		<!--data-frame-rate="30"-->
+		<!--data-content-width="650"-->
+		<!--data-content-height="1000"-->
+		<!--data-show-paint-rect="false"-->
+		<!--data-multi-fingered="2"-->
+		<!--data-show-fps="true" data-show-log="false"-->
+		<!--data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">-->
+	<!--</div>-->
 
-    <!--<div style="margin: auto;width: 100%;height: 100%;" class="egret-player"-->
-         <!--data-entry-class="Main"-->
-         <!--data-orientation="landscape"-->
-         <!--data-scale-mode="fixedWidth"-->
-         <!--data-resolution-mode="retina"-->
-         <!--data-frame-rate="30"-->
-         <!--data-content-width="960"-->
-         <!--data-content-height="640"-->
-         <!--data-show-paint-rect="false"-->
-         <!--data-multi-fingered="2"-->
-         <!--data-show-fps="true" data-show-log="false"-->
-         <!--data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">-->
-    <!--</div>-->
+    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+         data-entry-class="Main"
+         data-orientation="landscape"
+         data-scale-mode="fixedWidth"
+         data-resolution-mode="retina"
+         data-frame-rate="30"
+         data-content-width="960"
+         data-content-height="640"
+         data-show-paint-rect="false"
+         data-multi-fingered="2"
+         data-show-fps="true" data-show-log="false"
+         data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
+    </div>
     <script>
         egret.runEgret();
     </script>

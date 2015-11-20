@@ -29,6 +29,9 @@ class DateUtils extends BaseClass {
             case 4:
                 str = this.getFormatBySecond4(second);
                 break;
+            case 5:
+                str = this.getFormatBySecond5(second);
+                break;
         }
         return str;
     }
@@ -117,6 +120,96 @@ class DateUtils extends BaseClass {
         else {
             return Math.floor(time / 60) + "分钟前";
         }
+    }
+
+    private getFormatBySecond5(time:number):string {
+        //每个时间单位所对应的秒数
+        var oneDay:number = 3600 * 24;
+        var oneHourst:number = 3600;
+        var oneMinst:number = 60;
+
+        var days = Math.floor(time / oneDay);
+        var hourst:number = Math.floor(time % oneDay / oneHourst)
+        var minst:number = Math.floor((time - hourst * oneHourst) / oneMinst)  //Math.floor(time % oneDay % oneHourst / oneMinst);
+        var secondt:number = Math.floor((time - hourst * oneHourst) % oneMinst) //time;
+
+        var dayss:string = "";
+        var hourss:string = ""
+        var minss:string = "";
+        var secss:string = ""
+        if (time > 0) {
+            //天
+            if (days == 0) {
+                dayss = "";
+                //小时
+                if (hourst == 0) {
+                    hourss = "";
+                    //分
+                    if (minst == 0) {
+                        minss = "";
+                        if (secondt == 0) {
+                            secss = "";
+                        } else if (secondt < 10) {
+                            secss = "0" + secondt + "秒";
+                        } else {
+                            secss = "" + secondt + "秒";
+                        }
+
+                        return secss;
+                    }
+                    else {
+                        minss = "" + minst + "分";
+                        if (secondt == 0) {
+                            secss = "";
+                        } else if (secondt < 10) {
+                            secss = "0" + secondt + "秒";
+                        } else {
+                            secss = "" + secondt + "秒";
+                        }
+
+                    }
+
+                    return minss + secss;
+                }
+                else {
+                    hourss = hourst + "小时";
+                    if (minst == 0) {
+                        minss = "";
+                        if (secondt == 0) {
+                            secss = "";
+                        } else if (secondt < 10) {
+                            secss = "0" + secondt + "秒";
+                        } else {
+                            secss = "" + secondt + "秒";
+                        }
+
+                        return secss
+
+                    } else if (minst < 10) {
+                        minss = "0" + minst + "分";
+                    } else {
+                        minss = "" + minst + "分";
+                    }
+
+                    return hourss + minss;
+
+                }
+            }
+            else {
+                dayss = days + "天";
+                if (hourst == 0) {
+                    hourss = "";
+                } else {
+                    if (hourst < 10)
+                        hourss = "0" + hourst + "小时";
+                    else
+                        hourss = "" + hourst + "小时";
+                    ;
+                }
+                return dayss + hourss;
+            }
+        }
+        return "";
     }
 
 }

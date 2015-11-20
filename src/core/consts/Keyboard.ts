@@ -17,6 +17,7 @@ class Keyboard {
     public static I:number = 73;
     public static O:number = 79;
     public static P:number = 80;
+    public static SPACE:number = 32;
 
     public constructor() {
 

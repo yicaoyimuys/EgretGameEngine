@@ -46,10 +46,9 @@ class GameController extends BaseController {
     public slowMotion():void {
         App.ShockUtils.destroy();
 
-        this.gameView.anchorOffsetX = this.gameView.width * 0.5;
-        this.gameView.anchorOffsetY = this.gameView.height * 0.5;
-        this.gameView.x = App.StageUtils.getWidth() * 0.5;
-        this.gameView.y = App.StageUtils.getHeight() * 0.5;
+        AnchorUtil.setAnchor(this.gameView, 0.5);
+        this.gameView.x = App.StageUtils.getWidth()*0.5;
+        this.gameView.y = App.StageUtils.getHeight()*0.5;
         this.gameView.width = App.StageUtils.getWidth();
         this.gameView.height = App.StageUtils.getHeight();
 
@@ -60,9 +59,8 @@ class GameController extends BaseController {
         }, 300).call(this.slowMotionEnd, this);
     }
 
-    private slowMotionEnd():void {
-        this.gameView.anchorOffsetX = 0;
-        this.gameView.anchorOffsetY = 0;
+    private slowMotionEnd():void{
+        AnchorUtil.setAnchor(this.gameView, 0);
         this.gameView.x = 0;
         this.gameView.y = 0;
         App.TimerManager.setTimeScale(1);

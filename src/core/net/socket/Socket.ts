@@ -3,7 +3,7 @@
  * Socket类
  */
 class Socket extends BaseClass {
-    private _needReconnect:boolean = true;
+    private _needReconnect:boolean = false;
     private _maxReconnectCount = 10;
 
     private _reconnectCount:number = 0;
@@ -12,6 +12,7 @@ class Socket extends BaseClass {
     private _port:any;
     private _socket:egret.WebSocket;
     private _msg:BaseMsg;
+    private _isConnecting:boolean;
 
     /**
      * 构造函数
@@ -53,6 +54,7 @@ class Socket extends BaseClass {
         }
 
         this._connectFlag = true;
+        this._isConnecting = true;
     }
 
     /**
@@ -65,6 +67,7 @@ class Socket extends BaseClass {
         } else {
             App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
         }
+        this._isConnecting = false;
     }
 
     /**
@@ -76,6 +79,7 @@ class Socket extends BaseClass {
         } else {
             App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT);
         }
+        this._isConnecting = false;
     }
 
     /**
@@ -102,14 +106,17 @@ class Socket extends BaseClass {
      * 开始Socket连接
      */
     public connect():void {
-        if (!window["WebSocket"]) {
-            Log.trace("不支持WebSocket");
-            return;
+        if (App.DeviceUtils.IsHtml5) {
+            if (!window["WebSocket"]) {
+                Log.trace("不支持WebSocket");
+                return;
+            }
         }
         this._socket = new egret.WebSocket();
         if (this._msg instanceof ByteArrayMsg) {
             this._socket.type = egret.WebSocket.TYPE_BINARY;
         }
+        Log.trace("WebSocket: " + this._host + ":" + this._port);
         this._socket.connect(this._host, this._port);
         this.addEvents();
     }
@@ -147,6 +154,16 @@ class Socket extends BaseClass {
         this.removeEvents();
         this._socket.close();
         this._socket = null;
+        this._isConnecting = false;
+        this._connectFlag = false;
+    }
+
+    /**
+     * Socket是否在连接中
+     * @returns {boolean}
+     */
+    public isConnecting():boolean {
+        return this._isConnecting;
     }
 
     /**

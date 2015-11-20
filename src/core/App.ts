@@ -218,6 +218,13 @@ class App {
     }
 
     /**
+     * TextFlow
+     */
+    public static get TextFlowMaker():TextFlowMaker {
+        return TextFlowMaker.getInstance();
+    }
+
+    /**
      * 消息通知中心
      */
     private static _notificationCenter:MessageCenter;

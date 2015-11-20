@@ -27,8 +27,8 @@ class GameView extends BaseSpriteView {
         GameData.MAX_Y = App.StageUtils.getHeight() - 10;
 
         this.bg = App.DisplayUtils.createBitmap("map_jpg");
-        this.bg.anchorOffsetX = this.bg.width * 0.5;
-        this.bg.anchorOffsetY = this.bg.height;
+        AnchorUtil.setAnchorX(this.bg, 0.5);
+        AnchorUtil.setAnchorY(this.bg, 1);
         this.bg.x = App.StageUtils.getWidth() * 0.5;
         this.bg.y = App.StageUtils.getHeight();
         this.addChild(this.bg);

@@ -44,10 +44,17 @@ class QueueExecutor {
      * 执行下一个
      */
     public next():void {
+        if (!this._functions) {
+            return;
+        }
+
         if (this._functions.length == 0) {
             if (this._callBack) {
                 this._callBack.call(this._callBackTarget);
             }
+            this._callBack = null;
+            this._callBackTarget = null;
+            this._functions = null;
         }
         else {
             var arr:Array<any> = this._functions.shift();

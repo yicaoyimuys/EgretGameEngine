@@ -14,6 +14,6 @@ class EgretExpandUtils extends BaseClass {
      * 初始化函数
      */
     public init():void {
-
+        AnchorUtil.init();
     }
 }

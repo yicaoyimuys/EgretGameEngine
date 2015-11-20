@@ -7,6 +7,7 @@ class LocationProperty {
      * 不传递paraUrl参数默认获取当前url
      * */
     public static getPara(paraName:string, paraUrl?:string):string {
+        if (egret.MainContext.runtimeType == egret.MainContext.RUNTIME_NATIVE) return null;
         var url = paraUrl || location.href;
         if (url.indexOf("?") != -1) {
             var urlPara = "&" + url.split("?")[1];

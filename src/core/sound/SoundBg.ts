@@ -32,8 +32,7 @@ class SoundBg extends BaseSound {
      * 播放某个音乐
      * @param effectName
      */
-    public play(effectName:string, volume:number):void {
-        this._volume = volume;
+    public play(effectName:string):void {
         if (this._currBg == effectName)
             return;
         this.stop();
@@ -52,6 +51,17 @@ class SoundBg extends BaseSound {
         this._currSound = sound;
         this._currSoundChannel = this._currSound.play(0, 1);
         this._currSoundChannel.volume = this._volume;
+    }
+
+    /**
+     * 设置音量
+     * @param volume
+     */
+    public setVolume(volume:number):void {
+        this._volume = volume;
+        if (this._currSoundChannel) {
+            this._currSoundChannel.volume = this._volume;
+        }
     }
 
     /**

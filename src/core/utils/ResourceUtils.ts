@@ -23,7 +23,8 @@ class ResourceUtils extends BaseClass {
         this._groups = {};
 
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
+        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceLoadProgress, this);
+        RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
     }
 
     /**
@@ -100,10 +101,16 @@ class ResourceUtils extends BaseClass {
     /**
      * 静默加载
      * @param $groupName 资源组名称
+     * @param $groupName 所包含的组名称或者key名称数组
      */
-    public pilfererLoadGroup($groupName:string):void {
+    public pilfererLoadGroup($groupName:string, $subGroups:Array<any> = null):void {
         //添加前缀，防止与正常加载组名重复
-        RES.loadGroup("pilferer_" + $groupName, -1);
+        var useGroupName = "pilferer_" + $groupName;
+        if (!$subGroups) {
+            $subGroups = [$groupName];
+        }
+        RES.createGroup(useGroupName, $subGroups, true);
+        RES.loadGroup(useGroupName, -1);
     }
 
     /**
@@ -114,8 +121,9 @@ class ResourceUtils extends BaseClass {
         if (this._groups[groupName]) {
             var loadComplete:Function = this._groups[groupName][0];
             var loadCompleteTarget:any = this._groups[groupName][2];
-            if (loadComplete != null)
+            if (loadComplete != null) {
                 loadComplete.call(loadCompleteTarget);
+            }
 
             this._groups[groupName] = null;
             delete this._groups[groupName];
@@ -125,14 +133,24 @@ class ResourceUtils extends BaseClass {
     /**
      * 资源组加载进度
      */
-    private onResourceProgress(event:RES.ResourceEvent):void {
+    private onResourceLoadProgress(event:RES.ResourceEvent):void {
         var groupName:string = event.groupName;
         if (this._groups[groupName]) {
             var loadProgress:Function = this._groups[groupName][1];
             var loadProgressTarget:any = this._groups[groupName][2];
-            if (loadProgress != null)
+            if (loadProgress != null) {
                 loadProgress.call(loadProgressTarget, event.itemsLoaded, event.itemsTotal);
+            }
         }
+    }
+
+    /**
+     * 资源组加载失败
+     * @param event
+     */
+    private onResourceLoadError(event:RES.ResourceEvent):void {
+        Log.trace(event.groupName + "资源组有资源加载失败");
+        this.onResourceLoadComplete(event);
     }
 
     /**

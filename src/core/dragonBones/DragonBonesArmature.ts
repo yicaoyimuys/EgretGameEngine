@@ -31,8 +31,9 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
 
         this._isPlay = false;
         this._playName = "";
-        ////此行代码用于处理动画第一次播放时，显示异常的bug
-        //this.getAnimation()._advanceTime(0);
+
+        //此行代码用于处理动画第一次播放时，显示异常的bug
+        this.getAnimation()._advanceTime(0);
     }
 
     /**
@@ -82,7 +83,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * @param playNum 指定播放次数，默认走动画配置
      */
     public play(name:string, playNum:number = undefined):dragonBones.AnimationState {
-        if (this._playName == name) {
+        if(this._playName == name){
             return this._currAnimationState;
         }
         this._playName = name;
@@ -92,10 +93,9 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
         else {
             this._currAnimationState = this.getAnimation().gotoAndPlay(name, undefined, undefined, playNum);
         }
-        //if(this._currAnimationState){
-        //    //新引擎版本中暂不支持，只能在导出时设置
-        //    this._currAnimationState.autoTween = false;
-        //}
+        if (this._currAnimationState) {
+            this._currAnimationState.autoTween = false;
+        }
         this.start();
         return this._currAnimationState;
     }
@@ -269,4 +269,15 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
         return bone.slot.getDisplay();
     }
 
+    /**
+     * 替换骨骼插件
+     * @param boneName
+     * @param displayObject
+     */
+    public changeBone(boneName:string, displayObject:egret.DisplayObject):void {
+        var bone:dragonBones.Bone = this.getBone(boneName);
+        if (bone) {
+            bone.slot.setDisplay(displayObject);
+        }
+    }
 }
