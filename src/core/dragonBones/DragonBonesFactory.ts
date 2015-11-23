@@ -131,6 +131,24 @@ class DragonBonesFactory extends BaseClass {
     }
 
     /**
+     * 创建一个动画（急速模式）
+     * @param name 动作名称
+     * @param fromDragonBonesDataName 动画文件名称
+     * @returns {Armature}
+     */
+    public makeFastArmature(name:string, fromDragonBonesDataName?:string, playSpeed:number = 1):DragonBonesArmature {
+        var armature:dragonBones.FastArmature = this.factory.buildFastArmature(name, fromDragonBonesDataName);
+        if (armature == null) {
+            Log.trace("不存在Armature： " + name);
+            return null;
+        }
+        armature.enableAnimationCache(30);
+        var clock:dragonBones.WorldClock = this.createWorldClock(playSpeed);
+        var result:DragonBonesArmature = new DragonBonesArmature(armature, clock);
+        return result;
+    }
+
+    /**
      * 创建WorldClock
      * @param playSpeed
      * @returns {dragonBones.WorldClock}

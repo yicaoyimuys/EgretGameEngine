@@ -3,7 +3,7 @@
  * Armature封装类
  */
 class DragonBonesArmature extends egret.DisplayObjectContainer {
-    private _armature:dragonBones.Armature;
+    private _armature:any;
     private _clock:dragonBones.WorldClock;
 
     private _completeCalls:Array<any>;
@@ -16,15 +16,15 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
 
     /**
      * 构造函数
-     * @param armature dragonBones.Armature
+     * @param armature dragonBones.Armature | dragonBones.FastArmature
      * @param clock dragonBones.WorldClock
      */
-    public constructor(armature:dragonBones.Armature, clock:dragonBones.WorldClock) {
+    public constructor(armature:any, clock:dragonBones.WorldClock) {
         super();
 
         this._armature = armature;
         this._clock = clock;
-        this.addChild(this._armature.getDisplay());
+        this.addChild(this._armature.display);
 
         this._completeCalls = [];
         this._frameCalls = [];
@@ -33,7 +33,9 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
         this._playName = "";
 
         //此行代码用于处理动画第一次播放时，显示异常的bug
-        this.getAnimation()._advanceTime(0);
+        if(armature instanceof dragonBones.Armature){
+            this.getAnimation()._advanceTime(0);
+        }
     }
 
     /**
