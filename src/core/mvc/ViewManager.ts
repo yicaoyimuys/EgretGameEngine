@@ -24,6 +24,9 @@ class ViewManager extends BaseClass {
      * @param view 面板
      */
     public register(key:number, view:IBaseView):void {
+        if (view == null) {
+            return;
+        }
         if (this._views[key]) {
             return;
         }
@@ -40,6 +43,16 @@ class ViewManager extends BaseClass {
         }
         this._views[key] = null;
         delete this._views[key];
+    }
+
+    /**
+     * 销毁一个面板
+     * @param key 唯一标识
+     * @param newView 新面板
+     */
+    public destroy(key:number, newView:IBaseView = null):void {
+        this.unregister(key);
+        this.register(key, newView);
     }
 
     /**
