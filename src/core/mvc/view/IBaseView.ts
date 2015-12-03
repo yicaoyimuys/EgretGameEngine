@@ -53,7 +53,7 @@ interface IBaseView {
     /**
      * 销毁
      */
-    dispose():void;
+    destroy():void;
 
     /**
      * 触发本模块消息

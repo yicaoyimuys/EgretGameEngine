@@ -111,7 +111,7 @@ class BaseGuiView extends egret.gui.SkinnableContainer implements IBaseView {
     /**
      * 销毁
      */
-    public dispose():void {
+    public destroy():void {
         this._controller = null;
         this._myParent = null;
         this._resources = null;

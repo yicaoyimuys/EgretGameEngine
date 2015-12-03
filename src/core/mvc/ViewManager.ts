@@ -51,7 +51,12 @@ class ViewManager extends BaseClass {
      * @param newView 新面板
      */
     public destroy(key:number, newView:IBaseView = null):void {
-        this.unregister(key);
+        var oldView:IBaseView = this.getView(key);
+        if (oldView) {
+            this.unregister(key);
+            oldView.destroy();
+            oldView = null;
+        }
         this.register(key, newView);
     }
 
