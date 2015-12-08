@@ -1,21 +1,7 @@
 
-*.js
+.idea/
 
-*.html
+libs/
 
-.idea/.name
+bin-debug/
 
-*.iml
-
-*.xml
-
-*.json
-
-libs/core/core.d.ts
-libs/core/egret/context/html5.d.ts
-libs/core/extension/dragonbones/dragonbones.d.ts
-libs/core/extension/gui/gui.d.ts
-libs/exml.d.ts
-egretProperties.json
-launcher/native_require.js
-egretProperties.json

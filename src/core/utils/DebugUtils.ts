@@ -4,13 +4,12 @@
  */
 class DebugUtils extends BaseClass {
     private _isOpen:boolean;
-    private _key:string;
-    private _startTime:number = 0;
-    private _fpsColor:number = 0xFFFFFF;
+    private _startTimes:any;
     private _threshold:number = 3;
 
     public constructor() {
         super();
+        this._startTimes = {};
     }
 
     /**
@@ -40,21 +39,26 @@ class DebugUtils extends BaseClass {
         if (!this._isOpen) {
             return;
         }
-        this._key = key;
-        this._startTime = egret.getTimer();
+
+        this._startTimes[key] = egret.getTimer();
     }
 
     /**
      * 停止
      *
      */
-    public stop():number {
+    public stop(key):number {
         if (!this._isOpen) {
             return 0;
         }
-        var cha:number = egret.getTimer() - this._startTime;
+
+        if (!this._startTimes[key]) {
+            return 0;
+        }
+
+        var cha:number = egret.getTimer() - this._startTimes[key];
         if (cha > this._threshold) {
-            Log.trace(this._key + ": " + cha);
+            Log.trace(key + ": " + cha);
         }
         return cha;
     }
