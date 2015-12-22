@@ -14,6 +14,13 @@ class ControllerManager extends BaseClass {
     }
 
     /**
+     * 清空处理
+     */
+    public clear():void {
+        this._modules = {};
+    }
+
+    /**
      * 动态添加的Controller
      * @param key 唯一标识
      * @param manager Manager

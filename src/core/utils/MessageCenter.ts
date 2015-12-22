@@ -24,6 +24,14 @@ class MessageCenter extends BaseClass {
     }
 
     /**
+     * 清空处理
+     */
+    public clear() {
+        this.dict = {};
+        this.eVec.splice(0);
+    }
+
+    /**
      * 添加消息监听
      * @param type 消息唯一标识
      * @param listener 侦听函数

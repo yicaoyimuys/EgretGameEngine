@@ -15,6 +15,13 @@ class SceneManager extends BaseClass {
     }
 
     /**
+     * 清空处理
+     */
+    public clear():void {
+        this._scenes = {};
+    }
+
+    /**
      * 注册Scene
      * @param key Scene唯一标识
      * @param scene Scene对象

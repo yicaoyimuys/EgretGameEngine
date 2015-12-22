@@ -19,6 +19,14 @@ class ViewManager extends BaseClass {
     }
 
     /**
+     * 清空处理
+     */
+    public clear():void {
+        this._views = {};
+        this._opens.splice(0);
+    }
+
+    /**
      * 面板注册
      * @param key 面板唯一标识
      * @param view 面板
