@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/22.
  * View基类，继承自egret.Sprite
  */
-class BaseSpriteView extends egret.Sprite implements IBaseView {
+class BaseSpriteView extends egret.DisplayObjectContainer implements IBaseView {
     private _controller:BaseController;
     private _myParent:egret.DisplayObjectContainer;
     private _isInit:boolean;
