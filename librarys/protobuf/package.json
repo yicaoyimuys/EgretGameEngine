@@ -1,0 +1,17 @@
+{
+	"name": "egret",
+	"version": "2.5.8",
+	"modules": [
+		{
+			"name": "protobuf",
+			"description": "protobuf",
+			"files": [
+		        "Long.min.js",
+		        "ByteBufferAB.min.js",
+		        "ProtoBuf.min.js",
+		        "ProtoBuf.d.ts"
+			],
+			"root": "src"
+		}
+	]
+}

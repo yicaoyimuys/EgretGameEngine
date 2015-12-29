@@ -298,7 +298,7 @@ class App {
         App.GlobalData = RES.getRes("global");
         //开启调试
         App.DebugUtils.isOpen(App.GlobalData.IsDebug);
-        App.DebugUtils.setThreshold(-1);
+        App.DebugUtils.setThreshold(5);
         //扩展功能初始化
         App.EgretExpandUtils.init();
         //实例化Http请求

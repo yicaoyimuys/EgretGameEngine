@@ -7,7 +7,7 @@
 		"native": 1,
 		"path": "bin-release"
 	},
-	"egret_version": "2.5.5",
+	"egret_version": "3.0.0",
 	"modules": [
 		{
 			"name": "egret"
@@ -29,6 +29,10 @@
 		},
 		{
 			"name": "tween"
+		},
+		{
+			"name": "protobuf",
+			"path": "librarys/protobuf"
 		}
 	]
 }

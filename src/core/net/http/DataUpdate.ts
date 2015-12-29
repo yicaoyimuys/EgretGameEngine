@@ -4,11 +4,9 @@
  */
 class ProxyUpdate {
     private _cache:any;
-    private _proxys:any;
 
     public constructor(cache:any) {
         this._cache = cache;
-        this._proxys = [];
     }
 
     public isArray(key:any):boolean {
@@ -127,26 +125,6 @@ class ProxyUpdate {
         }
     }
 
-    public addProxys(key:string, func:Function):void {
-        if (!this._proxys[key])
-            this._proxys[key] = [];
-
-        if (this._proxys[key].indexOf(func) == -1)
-            this._proxys[key].push(func);
-    }
-
-    private _dealProxys(key:string):void {
-        var arr:Array<any> = this._proxys[key];
-        if (arr == null)
-            return;
-
-        var i:number = 0;
-        var len:number = arr.length;
-        for (i; i < len; i++) {
-            arr[i]();
-        }
-    }
-
     public update(key:string, data:any):void {
         this._cache[key] = data;
 
@@ -157,7 +135,7 @@ class ProxyUpdate {
                 var k1 = keys[i];
                 if (this._cache[k1]) {
                     this._update(this._cache[k1], cdata[k1]);
-                    this._dealProxys(k1);
+                    App.MessageCenter.dispatch(k1 + "_HttpUpdate");
                 }
             }
         }
