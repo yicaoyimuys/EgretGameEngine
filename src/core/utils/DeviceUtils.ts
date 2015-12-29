@@ -15,7 +15,7 @@ class DeviceUtils extends BaseClass {
      * @constructor
      */
     public get IsHtml5():boolean {
-        return egret.MainContext.runtimeType == egret.MainContext.RUNTIME_HTML5;
+        return egret.Capabilities.runtimeType == egret.RuntimeType.WEB;
     }
 
     /**
@@ -24,7 +24,7 @@ class DeviceUtils extends BaseClass {
      * @constructor
      */
     public get IsNative():boolean {
-        return egret.MainContext.runtimeType == egret.MainContext.RUNTIME_NATIVE;
+        return egret.Capabilities.runtimeType == egret.RuntimeType.NATIVE;
     }
 
     /**
@@ -33,7 +33,7 @@ class DeviceUtils extends BaseClass {
      * @constructor
      */
     public get IsMobile():boolean {
-        return egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE;
+        return egret.Capabilities.isMobile;
     }
 
     /**
@@ -42,7 +42,7 @@ class DeviceUtils extends BaseClass {
      * @constructor
      */
     public get IsPC():boolean {
-        return egret.MainContext.deviceType == egret.MainContext.DEVICE_PC;
+        return !egret.Capabilities.isMobile;
     }
 
     /**

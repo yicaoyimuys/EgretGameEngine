@@ -69,6 +69,14 @@ class StageUtils extends BaseClass {
     }
 
     /**
+     * 设置适配方式
+     * @param value
+     */
+    public setScaleMode(value:string):void {
+        this.getStage().scaleMode = value;
+    }
+
+    /**
      * 获取游戏Stage对象
      * @returns {egret.MainContext}
      */

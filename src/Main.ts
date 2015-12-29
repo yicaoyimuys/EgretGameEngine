@@ -39,7 +39,7 @@ class Main extends egret.DisplayObjectContainer{
 
         //适配方式
         if(App.DeviceUtils.IsPC){
-            this.stage.scaleMode = egret.StageScaleMode.NO_SCALE;
+            App.StageUtils.setScaleMode(egret.StageScaleMode.SHOW_ALL);
         }
 
         //初始化

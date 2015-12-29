@@ -18,6 +18,11 @@ class SceneManager extends BaseClass {
      * 清空处理
      */
     public clear():void {
+        var nowScene:BaseScene = this._scenes[this._currScene];
+        if(nowScene){
+            nowScene.onExit();
+            this._currScene = undefined;
+        }
         this._scenes = {};
     }
 

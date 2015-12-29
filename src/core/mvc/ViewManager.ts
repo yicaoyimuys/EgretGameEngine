@@ -22,8 +22,8 @@ class ViewManager extends BaseClass {
      * 清空处理
      */
     public clear():void {
+        this.closeAll();
         this._views = {};
-        this._opens.splice(0);
     }
 
     /**
