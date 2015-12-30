@@ -2,7 +2,7 @@
  * Created by egret on 15-1-7.
  */
 class DailyView extends BaseTaskView {
-    public constructor(controller:BaseController, parent:egret.gui.Group) {
+    public constructor(controller:BaseController, parent:eui.Group) {
         super(controller, parent);
 
         this.icon = "table_activity";

@@ -31,7 +31,7 @@ class BaseSpriteView extends egret.DisplayObjectContainer implements IBaseView {
 
     /**
      * 获取我的父级
-     * @returns {egret.gui.IVisualElementContainer}
+     * @returns {egret.DisplayObjectContainer}
      */
     public get myParent():egret.DisplayObjectContainer {
         return this._myParent;

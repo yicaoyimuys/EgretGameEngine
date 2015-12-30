@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="LoadingUISkin" width="400" height="300" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Label id="txtMsg" text="资源加载中..." width="249" horizontalCenter="0" verticalCenter="0" size="25" verticalAlign="middle" textAlign="center"/>
+</e:Skin>

@@ -13,10 +13,9 @@ class CommonUtils extends BaseClass {
      * @param color      表示文本的描边颜色
      * @param width      描边宽度。
      */
-    public static addLableStrokeColor(lable:egret.gui.Label, color:any, width:any):void {
-        var tempLable:egret.gui.Label = lable;
-        tempLable.strokeColor = color;
-        tempLable.stroke = width;
+    public static addLableStrokeColor(lable:eui.Label, color:any, width:any):void {
+        lable.strokeColor = color;
+        lable.stroke = width;
     }
 
     /**

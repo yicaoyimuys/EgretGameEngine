@@ -27,8 +27,8 @@ class DisplayUtils extends BaseClass {
      * @param resName
      * @returns {egret.Bitmap}
      */
-    public createGuiUIAsset(resName:string):egret.gui.UIAsset {
-        var result:egret.gui.UIAsset = new egret.gui.UIAsset();
+    public createEuiImage(resName:string):eui.Image {
+        var result:eui.Image = new eui.Image();
         var texture:egret.Texture = RES.getRes(resName);
         result.source = texture;
         return result;

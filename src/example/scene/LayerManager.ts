@@ -16,22 +16,22 @@ class LayerManager{
 
     /**
      * UI主界面
-     * @type {BaseGuiLayer}
+     * @type {BaseEuiLayer}
      */
-    public static UI_Main:BaseGuiLayer = new BaseGuiLayer();
+    public static UI_Main:BaseEuiLayer = new BaseEuiLayer();
     /**
      * UI弹出框层
-     * @type {BaseGuiLayer}
+     * @type {BaseEuiLayer}
      */
-    public static UI_Popup:BaseGuiLayer = new BaseGuiLayer();
+    public static UI_Popup:BaseEuiLayer = new BaseEuiLayer();
     /**
      * UI警告消息层
-     * @type {BaseGuiLayer}
+     * @type {BaseEuiLayer}
      */
-    public static UI_Message:BaseGuiLayer = new BaseGuiLayer();
+    public static UI_Message:BaseEuiLayer = new BaseEuiLayer();
     /**
      * UITips层
-     * @type {BaseGuiLayer}
+     * @type {BaseEuiLayer}
      */
-    public static UI_Tips:BaseGuiLayer = new BaseGuiLayer();
+    public static UI_Tips:BaseEuiLayer = new BaseEuiLayer();
 }

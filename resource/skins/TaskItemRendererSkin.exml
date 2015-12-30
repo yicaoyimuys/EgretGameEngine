@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="TaskItemRendererSkin" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="task_bg"/>
+	<e:Group height="39" width="204" x="80" y="4">
+		<e:Label id="labelDisplay" text="标签" textColor="5918538" size="21" horizontalCenter="1.5" verticalCenter="1" bold="true"/>
+	</e:Group>
+	<e:Image id="iconDisplay" source="icon_experience" verticalCenter="0.5" x="13"/>
+	<e:Image source="icon_experience" verticalCenter="20.5" x="205" width="26" height="26"/>
+	<e:Image source="icon_gold" x="81" y="50" width="25" height="25"/>
+	<e:Label id="goldDisplay" textColor="5918538" text="+100" size="20" fontFamily="SimSun" y="50" x="109" bold="true"/>
+	<e:Label id="seedDisplay" text="+100" textColor="5918538" x="233" size="20" fontFamily="SimSun" y="50" bold="true"/>
+	<e:Label id="progressDisplay" textColor="5918538" text="0/5" size="20" fontFamily="SimSun" verticalCenter="0" horizontalCenter="139" bold="true"/>
+</e:Skin>

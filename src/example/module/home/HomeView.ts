@@ -1,21 +1,21 @@
 /**
  * Created by egret on 15-1-6.
  */
-class HomeView extends BaseGuiView{
-    public constructor($controller:BaseController, $parent:egret.gui.Group) {
+class HomeView extends BaseEuiView{
+    public constructor($controller:BaseController, $parent:eui.Group) {
         super($controller, $parent);
 
-        this.skinName = "skins.GuiScreenSkin";
+        this.skinName = "resource/skins/GuiScreenSkin.exml";
     }
 
-    public menuBtn:egret.gui.ToggleButton;
+    public menuBtn:eui.ToggleButton;
     public menu:Menu;
 
-    public friendBtn:egret.gui.UIAsset;
-    public shopBtn:egret.gui.UIAsset;
-    public warehouseBtn:egret.gui.UIAsset;
-    public factoryBtn:egret.gui.UIAsset;
-    public moreBtn:egret.gui.UIAsset;
+    public friendBtn:eui.Image;
+    public shopBtn:eui.Image;
+    public warehouseBtn:eui.Image;
+    public factoryBtn:eui.Image;
+    public moreBtn:eui.Image;
 
     /**
      *对面板进行显示初始化，用于子类继承
@@ -23,15 +23,14 @@ class HomeView extends BaseGuiView{
      */
     public initUI():void{
         super.initUI();
-        this.menu.touchChildren = true;
-        this.menu.touchEnabled = true;
-        this.menu.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.menuClickHandler,this);
+
+        this.menu.addEventListener(egret.TouchEvent.TOUCH_TAP,this.menuClickHandler,this);
         this.menuBtn.addEventListener(egret.Event.CHANGE,this.menuBtnChangeHandler,this);
-        this.friendBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.friendClickHandler,this);
-        this.shopBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.shopClickHandler,this);
-        this.warehouseBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.warehouseClickHandler,this);
-        this.factoryBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.factoryClickHandler,this);
-        this.moreBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.moreClickHandler,this);
+        this.friendBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.friendClickHandler,this);
+        this.shopBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.shopClickHandler,this);
+        this.warehouseBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.warehouseClickHandler,this);
+        this.factoryBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.factoryClickHandler,this);
+        this.moreBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.moreClickHandler,this);
     }
 
     private playSound():void{
@@ -71,6 +70,7 @@ class HomeView extends BaseGuiView{
     }
 
     private menuClickHandler(e:egret.TouchEvent):void{
+        console.log(e.target)
         if(e.target == this.menu.taskBtn){
             this.playSound();
             App.ViewManager.open(ViewConst.Task);

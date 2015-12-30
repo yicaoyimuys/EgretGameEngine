@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="MenuSkin" xmlns:e="http://ns.egret.com/eui">
+	<e:Group>		<e:Image source="menu_bg" scale9Grid="23,29,29,24" width="100%" height="100%"/>		<e:Group>			<e:Image id="dailyBtn" source="btn_activity" />			<e:Image id="taskBtn" source="btn_mission"/>			<e:Image id="mailBtn" source="btn_mail" />			<e:Image id="bbsBtn" source="bbs" scaleX="1.6" scaleY="1.6"/>			<e:layout >				<e:HorizontalLayout  verticalAlign="middle" paddingLeft="20" paddingRight="20" paddingBottom="10" paddingTop="10"/>			</e:layout>		</e:Group>	</e:Group>
+</e:Skin>

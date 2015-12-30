@@ -33,9 +33,10 @@ class Main extends egret.DisplayObjectContainer{
 
     private onAddToStage(event:egret.Event){
         this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
-
+        
         //注入自定义的素材解析器
-        egret.gui.mapClass("egret.gui.IAssetAdapter", AssetAdapter);
+        this.stage.registerImplementation("eui.IAssetAdapter",new AssetAdapter());
+        this.stage.registerImplementation("eui.IThemeAdapter",new ThemeAdapter());
 
         //适配方式
         if(App.DeviceUtils.IsPC){
@@ -59,6 +60,7 @@ class Main extends egret.DisplayObjectContainer{
 
     private loadResVersionComplate():void{
         //初始化Resource资源加载库
+        App.ResourceUtils.addConfig("resource/default.res.json", "resource/");
         App.ResourceUtils.addConfig("resource/resource_core.json", "resource/");
         App.ResourceUtils.addConfig("resource/resource_ui.json", "resource/");
         App.ResourceUtils.addConfig("resource/resource_battle.json", "resource/");
@@ -69,8 +71,17 @@ class Main extends egret.DisplayObjectContainer{
      * 配置文件加载完成,开始预加载preload资源组。
      */
     private onConfigComplete():void{
-        //new GUITest();
-        new ActTest();
+        //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
+        var theme = new eui.Theme("resource/default.thm.json",this.stage);
+        theme.addEventListener(eui.UIEvent.COMPLETE,this.onThemeLoadComplete,this);
+    }
+    
+    /**
+     * 主题文件加载完成
+     */
+    private onThemeLoadComplete(): void {
+        new EUITest();
+        //new ActTest();
 //        new ProtoBufTest();
 //        new StarlingSwfTest();
     }

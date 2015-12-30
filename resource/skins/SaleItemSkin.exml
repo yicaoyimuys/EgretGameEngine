@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="SaleItemSkin" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="card_bg"/>
+	<e:Group height="34" width="137" x="22" y="12">
+		<e:Label id="titleDisplay" text="普通化肥" textColor="16777215" size="21" bold="true" horizontalCenter="0" verticalCenter="0"/>
+	</e:Group>
+	<e:Image id="iconDisplay" source="icon_fertilizer02" horizontalCenter="0" verticalCenter="5"/>
+	<e:Image source="icon_diamond" scaleX="0.5" scaleY="0.5" width="60" y="56" x="123"/>
+	<e:Label id="priceDisplay" text="3" x="151" y="57" size="20" bold="true" textColor="3710089"/>
+	<e:Image source="icon_02" x="8" y="134"/>
+	<e:Label id="timeDisplay" text="-10分钟" x="47" y="144" size="20" bold="true" textColor="3710089"/>
+</e:Skin>

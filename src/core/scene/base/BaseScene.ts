@@ -37,8 +37,8 @@ class BaseScene {
             App.StageUtils.getStage().addChild(layer);
             this._layers.push(layer);
         }
-        else if (layer instanceof BaseGuiLayer) {
-            App.StageUtils.getUIStage().addElement(layer);
+        else if (layer instanceof BaseEuiLayer) {
+            App.StageUtils.getUIStage().addChild(layer);
             this._layers.push(layer);
         }
     }
@@ -52,8 +52,8 @@ class BaseScene {
             App.StageUtils.getStage().addChildAt(layer, index);
             this._layers.push(layer);
         }
-        else if (layer instanceof BaseGuiLayer) {
-            App.StageUtils.getUIStage().addElementAt(layer, index);
+        else if (layer instanceof BaseEuiLayer) {
+            App.StageUtils.getUIStage().addChildAt(layer, index);
             this._layers.push(layer);
         }
     }
@@ -67,8 +67,8 @@ class BaseScene {
             App.StageUtils.getStage().removeChild(layer);
             this._layers.splice(this._layers.indexOf(layer), 1);
         }
-        else if (layer instanceof BaseGuiLayer) {
-            App.StageUtils.getUIStage().removeElement(layer);
+        else if (layer instanceof BaseEuiLayer) {
+            App.StageUtils.getUIStage().removeChild(layer);
             this._layers.splice(this._layers.indexOf(layer), 1);
         }
     }
@@ -81,8 +81,8 @@ class BaseScene {
         if (layer instanceof BaseSpriteLayer) {
             layer.removeChildren();
         }
-        else if (layer instanceof BaseGuiLayer) {
-            (<BaseGuiLayer>layer).removeAllElements();
+        else if (layer instanceof BaseEuiLayer) {
+            (<BaseEuiLayer>layer).removeChildren();
         }
     }
 

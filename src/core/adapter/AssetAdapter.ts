@@ -28,47 +28,29 @@
 //////////////////////////////////////////////////////////////////////////////////////
 
 
-class AssetAdapter implements egret.gui.IAssetAdapter {
-
+class AssetAdapter implements eui.IAssetAdapter {
     /**
+     * @language zh_CN
      * 解析素材
-     * @method egret.gui.DefaultAssetAdapter#getAsset
-     * @param source {any} 待解析的新素材标识符
-     * @param compFunc {Function} 解析完成回调函数，示例：compFunc(content:any,source:any):void;
-     * 回调参数content接受两种类型：DisplayObject或Texture。
-     * @param thisObject {any} compFunc的this引用
-     * @param oldContent any 旧的内容对象,传入值有可能为null。
-     * 对于某些类型素材，例如MovieClip，可以重用传入的显示对象,只修改其数据再返回。
+     * @param source 待解析的新素材标识符
+     * @param compFunc 解析完成回调函数，示例：callBack(content:any,source:string):void;
+     * @param thisObject callBack的 this 引用
      */
-    public getAsset(source:any, compFunc:Function, thisObject:any, oldContent:any):void {
-
-        function onGetRes(data:any):void {
+    public getAsset(source: string, compFunc:Function, thisObject: any): void {
+        function onGetRes(data: any): void {
             compFunc.call(thisObject, data, source);
         }
-
-        var content:any = source;
-        if (source.prototype) {
-            content = new source();
-        }
-        if (content instanceof egret.DisplayObject || content instanceof egret.Texture) {
-            compFunc.call(thisObject, content, source);
-        }
-        else if (typeof(source) == "string") {
-            if (RES.hasRes(source)) {
-                var data = RES.getRes(source);
-                if(data){
-                    onGetRes(data);
-                }
-                else{
-                    RES.getResAsync(source,onGetRes,this);
-                }
+        if (RES.hasRes(source)) {
+            var data = RES.getRes(source);
+            if (data) {
+                onGetRes(data);
             }
             else {
-                RES.getResByUrl(source, onGetRes, this);
+                RES.getResAsync(source, onGetRes, this);
             }
         }
         else {
-            compFunc.call(thisObject, content, source);
+            RES.getResByUrl(source, onGetRes, this, RES.ResourceItem.TYPE_IMAGE);
         }
     }
 }

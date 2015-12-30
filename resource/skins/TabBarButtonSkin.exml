@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="TabBarButtonSkin"
+        states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image includeIn="up,down,disabled" x="0" y="0" source="tabBar_down"/>
+	<e:Image id="iconDisplaySelected" includeIn="up,down,disabled" x="18" y="7" source="text_fertilizer01"/>
+	<e:Image includeIn="upAndSelected,downAndSelected,disabledAndSelected" x="0" y="0" source="tabBar_selected_down"/>
+	<e:Image id="iconDisplay" includeIn="upAndSelected,downAndSelected,disabledAndSelected" x="18" y="10" source="text_fertilizer02"/>
+</e:Skin>

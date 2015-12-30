@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2014/11/23.
  */
-class LoginView extends BaseGuiView {
-    public constructor($controller:BaseController, $parent:egret.gui.Group){
+class LoginView extends BaseEuiView {
+    public constructor($controller:BaseController, $parent:eui.Group){
         super($controller, $parent);
     }
 

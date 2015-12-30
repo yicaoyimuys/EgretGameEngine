@@ -1,15 +1,20 @@
 /**
  * Created by egret on 15-1-7.
  */
-class BasePanelView extends BaseGuiView {
-
-    public constructor(controller:BaseController, parent:egret.gui.Group) {
-        super(controller, parent);
-
-        this.skinName = "skins.PanelSkin";
-    }
+class BasePanelView extends BaseEuiView {
+    public closeBtn:eui.Button;
+    public iconDisplay:eui.Image;
+    public button:eui.Image;
+    public contentGroup:eui.Group;
 
     private _icon:string;
+    private _btn:string;
+
+    public constructor(controller:BaseController, parent:eui.Group) {
+        super(controller, parent);
+        this.skinName = "resource/skins/PanelSkin.exml";
+    }
+
     public set icon(value:string){
         this._icon = value;
         if(this.iconDisplay){
@@ -21,7 +26,6 @@ class BasePanelView extends BaseGuiView {
         return this._icon;
     }
 
-    private _btn:string;
     public set btn(value:string){
         this._btn = value;
         if(this.button){
@@ -32,11 +36,6 @@ class BasePanelView extends BaseGuiView {
     public get btn():string{
         return this._btn;
     }
-
-
-    public closeBtn:egret.gui.Button;
-    public iconDisplay:egret.gui.UIAsset;
-    public button:egret.gui.UIAsset;
 
     /**
      *对面板进行显示初始化，用于子类继承
