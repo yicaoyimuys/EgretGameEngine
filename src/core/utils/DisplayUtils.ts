@@ -42,10 +42,6 @@ class DisplayUtils extends BaseClass {
         if (child.parent == null)
             return;
 
-        if (child.parent["removeElement"]) {
-            child.parent["removeElement"](child);
-        } else {
-            child.parent.removeChild(child);
-        }
+        child.parent.removeChild(child);
     }
 }

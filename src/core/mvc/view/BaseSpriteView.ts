@@ -86,7 +86,7 @@ class BaseSpriteView extends egret.DisplayObjectContainer implements IBaseView {
      * 从父级移除
      */
     public removeFromParent():void {
-        this._myParent.removeChild(this);
+        App.DisplayUtils.removeFromParent(this);
     }
 
     /**

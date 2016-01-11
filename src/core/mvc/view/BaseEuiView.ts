@@ -88,9 +88,7 @@ class BaseEuiView extends eui.Component implements IBaseView {
      * 从父级移除
      */
     public removeFromParent():void {
-        if (this._myParent.getChildIndex(this) >= 0) {
-            this._myParent.removeChild(this);
-        }
+        App.DisplayUtils.removeFromParent(this);
     }
 
     /**
