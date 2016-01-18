@@ -45,14 +45,6 @@ class StageUtils extends BaseClass {
     }
 
     /**
-     * 指定此对象是否接收鼠标/触摸事件
-     * @param value
-     */
-    public setTouchEnabled(value:boolean):void {
-        this.getStage().touchEnabled = value;
-    }
-
-    /**
      * 设置同时可触发几个点击事件，默认为2
      * @param value
      */
