@@ -43,7 +43,7 @@ class StringUtils extends BaseClass {
      * @returns {boolean}
      */
     public isChinese(str:string):boolean {
-        var reg = /^[u4E00-u9FA5]+$/;
+        var reg = /^[\u4E00-\u9FA5]+$/;
         if (!reg.test(str)) {
             return true;
         }
