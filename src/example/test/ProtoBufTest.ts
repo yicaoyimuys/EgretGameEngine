@@ -51,7 +51,7 @@ class ProtoBufTest{
         //发送一条消息到服务器
         function send():void{
             var msg:any = {};
-            msg.key = 10000;
+            msg.key = "user_login_c2s";
             msg.body = {
                 "accid" : 888,
                 "tstamp" : 999,
