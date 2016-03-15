@@ -89,6 +89,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
             return this._currAnimationState;
         }
         this._playName = name;
+        this.start();
         if (playNum == undefined) {
             this._currAnimationState = this.getAnimation().gotoAndPlay(name);
         }
@@ -98,7 +99,6 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
         if (this._currAnimationState) {
             this._currAnimationState.autoTween = false;
         }
-        this.start();
         return this._currAnimationState;
     }
 
