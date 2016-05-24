@@ -43,7 +43,11 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      */
     private addListeners():void {
         this._armature.addEventListener(dragonBones.AnimationEvent.COMPLETE, this.completeHandler, this);
-        this._armature.addEventListener(dragonBones.FrameEvent.BONE_FRAME_EVENT, this.frameHandler, this);
+        if(this._armature.enableCache){
+            this._armature.addEventListener(dragonBones.FrameEvent.ANIMATION_FRAME_EVENT, this.frameHandler, this);
+        } else {
+            this._armature.addEventListener(dragonBones.FrameEvent.BONE_FRAME_EVENT, this.frameHandler, this);
+        }
     }
 
     /**
@@ -51,7 +55,11 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      */
     private removeListeners():void {
         this._armature.removeEventListener(dragonBones.AnimationEvent.COMPLETE, this.completeHandler, this);
-        this._armature.removeEventListener(dragonBones.FrameEvent.BONE_FRAME_EVENT, this.frameHandler, this);
+        if(this._armature.enableCache){
+            this._armature.removeEventListener(dragonBones.FrameEvent.ANIMATION_FRAME_EVENT, this.frameHandler, this);
+        } else {
+            this._armature.removeEventListener(dragonBones.FrameEvent.BONE_FRAME_EVENT, this.frameHandler, this);
+        }
     }
 
     /**
