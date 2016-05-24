@@ -16,6 +16,7 @@ class StageUtils extends BaseClass {
             StageUtils._uiStage = new eui.UILayer();
             StageUtils._uiStage.percentHeight = 100;
             StageUtils._uiStage.percentWidth = 100;
+            StageUtils._uiStage.touchEnabled = false;
             this.getStage().addChild(StageUtils._uiStage);
         }
     }

@@ -12,7 +12,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
     private _isPlay:boolean;
     private _playName:string;
 
-    private _currAnimationState:dragonBones.AnimationState;
+    private _currAnimationState:any;
 
     /**
      * 构造函数
@@ -31,11 +31,6 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
 
         this._isPlay = false;
         this._playName = "";
-
-        //此行代码用于处理动画第一次播放时，显示异常的bug
-        if(armature instanceof dragonBones.Armature){
-            this.getAnimation()._advanceTime(0);
-        }
     }
 
     /**
@@ -67,11 +62,15 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * @param e
      */
     private completeHandler(e:dragonBones.AnimationEvent):void {
+        var animationName:string = e.animationName;
+        if(e.armature instanceof dragonBones.FastArmature){
+            animationName = e.animationState.animationData.name;
+        }
         for (var i:number = 0, len = this._completeCalls.length; i < len; i++) {
             var arr:Array<any> = this._completeCalls[i];
-            arr[0].apply(arr[1], [e]);
+            arr[0].apply(arr[1], [e, animationName]);
         }
-        if (e.animationName == this._playName) {
+        if (animationName == this._playName) {
             this._playName = "";
         }
     }
@@ -92,7 +91,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * @param name 名称
      * @param playNum 指定播放次数，默认走动画配置
      */
-    public play(name:string, playNum:number = undefined):dragonBones.AnimationState {
+    public play(name:string, playNum:number = undefined):any {
         if(this._playName == name){
             return this._currAnimationState;
         }
@@ -222,18 +221,18 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
     }
 
     /**
-     * 获取dragonBones.Armature
-     * @returns {dragonBones.Armature}
+     * 获取dragonBones.Armature | dragonBones.FastArmature
+     * @returns {dragonBones.Armature | dragonBones.FastArmature}
      */
-    public getArmature():dragonBones.Armature {
+    public getArmature():any {
         return this._armature;
     }
 
     /**
-     * 获取当前dragonBones.AnimationState
-     * @returns {dragonBones.AnimationState}
+     * 获取当前dragonBones.AnimationState | dragonBones.FastAnimationState
+     * @returns {dragonBones.AnimationState | dragonBones.FastAnimationState}
      */
-    public getCurrAnimationState():dragonBones.AnimationState {
+    public getCurrAnimationState():any {
         return this._currAnimationState;
     }
 
@@ -249,16 +248,16 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * 获取dragonBones.Animation
      * @returns {Animation}
      */
-    public getAnimation():dragonBones.Animation {
+    public getAnimation():any {
         return this._armature.animation;
     }
 
     /**
-     * 获取一个Bone
+     * 获取一个dragonBones.Bone | dragonBones.FastBone
      * @param boneName
-     * @returns {Bone}
+     * @returns {dragonBones.Bone | dragonBones.FastBone}
      */
-    public getBone(boneName:string):dragonBones.Bone {
+    public getBone(boneName:string):any {
         return this._armature.getBone(boneName);
     }
 
@@ -275,7 +274,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * @param bone
      * @returns {function(): any}
      */
-    public getBoneDisplay(bone:dragonBones.Bone):egret.DisplayObject {
+    public getBoneDisplay(bone:any):egret.DisplayObject {
         return bone.slot.getDisplay();
     }
 
@@ -285,9 +284,13 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * @param displayObject
      */
     public changeBone(boneName:string, displayObject:egret.DisplayObject):void {
-        var bone:dragonBones.Bone = this.getBone(boneName);
+        var bone:any = this.getBone(boneName);
         if (bone) {
-            bone.slot.setDisplay(displayObject);
+            if(bone instanceof dragonBones.FastBone){
+                bone.slot.display = displayObject;
+            } else {
+                bone.slot.setDisplay(displayObject);
+            }
         }
     }
 }
