@@ -1,5 +1,5 @@
 {
-	"close":false,
+	"close":true,
 	"resourcePlugin":{
 		"configs":[
 			{
