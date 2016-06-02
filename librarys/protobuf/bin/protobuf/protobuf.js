@@ -770,7 +770,6 @@
             "number" === typeof a ? a = k.fromNumber(a, !1) : !1 !== a.unsigned && (a = a.toSigned());
             return a.shiftRightUnsigned(1).xor(a.and(k.ONE).toSigned().negate()).toSigned()
         }, e.writeVarint64 = function (a, b) {
-            var numA = a.toNumber();
             var c = "undefined" === typeof b;
             c && (b = this.offset);
             if (!this.noAssert) {
