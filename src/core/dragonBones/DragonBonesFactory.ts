@@ -137,14 +137,8 @@ class DragonBonesFactory extends BaseClass {
      * @returns {Armature}
      */
     public makeFastArmature(name:string, fromDragonBonesDataName?:string, playSpeed:number = 1):DragonBonesArmature {
-        var armature:dragonBones.FastArmature = this.factory.buildFastArmature(name, fromDragonBonesDataName);
-        if (armature == null) {
-            Log.trace("不存在Armature： " + name);
-            return null;
-        }
-        armature.enableAnimationCache(30);
-        var clock:dragonBones.WorldClock = this.createWorldClock(playSpeed);
-        var result:DragonBonesArmature = new DragonBonesArmature(armature, clock);
+        var result:DragonBonesArmature = this.makeArmature(name, fromDragonBonesDataName, playSpeed);
+        result.getArmature().enableAnimationCache(24);
         return result;
     }
 

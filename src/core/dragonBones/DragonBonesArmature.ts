@@ -3,7 +3,7 @@
  * Armature封装类
  */
 class DragonBonesArmature extends egret.DisplayObjectContainer {
-    private _armature:any;
+    private _armature:dragonBones.Armature;
     private _clock:dragonBones.WorldClock;
 
     private _completeCalls:Array<any>;
@@ -12,19 +12,19 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
     private _isPlay:boolean;
     private _playName:string;
 
-    private _currAnimationState:any;
+    private _currAnimationState:dragonBones.AnimationState;
 
     /**
      * 构造函数
-     * @param armature dragonBones.Armature | dragonBones.FastArmature
+     * @param armature dragonBones.Armature
      * @param clock dragonBones.WorldClock
      */
-    public constructor(armature:any, clock:dragonBones.WorldClock) {
+    public constructor(armature:dragonBones.Armature, clock:dragonBones.WorldClock) {
         super();
 
         this._armature = armature;
         this._clock = clock;
-        this.addChild(this._armature.display);
+        this.addChild(<egret.DisplayObject>this._armature.display);
 
         this._completeCalls = [];
         this._frameCalls = [];
@@ -63,9 +63,6 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      */
     private completeHandler(e:dragonBones.AnimationEvent):void {
         var animationName:string = e.animationName;
-        if(e.armature instanceof dragonBones.FastArmature){
-            animationName = e.animationState.animationData.name;
-        }
         for (var i:number = 0, len = this._completeCalls.length; i < len; i++) {
             var arr:Array<any> = this._completeCalls[i];
             arr[0].apply(arr[1], [e, animationName]);
@@ -91,7 +88,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * @param name 名称
      * @param playNum 指定播放次数，默认走动画配置
      */
-    public play(name:string, playNum:number = undefined):any {
+    public play(name:string, playNum:number = undefined):dragonBones.AnimationState {
         if(this._playName == name){
             return this._currAnimationState;
         }
@@ -221,18 +218,18 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
     }
 
     /**
-     * 获取dragonBones.Armature | dragonBones.FastArmature
-     * @returns {dragonBones.Armature | dragonBones.FastArmature}
+     * 获取dragonBones.Armature
+     * @returns {dragonBones.Armature}
      */
-    public getArmature():any {
+    public getArmature():dragonBones.Armature {
         return this._armature;
     }
 
     /**
-     * 获取当前dragonBones.AnimationState | dragonBones.FastAnimationState
-     * @returns {dragonBones.AnimationState | dragonBones.FastAnimationState}
+     * 获取当前dragonBones.AnimationState
+     * @returns {dragonBones.AnimationState}
      */
-    public getCurrAnimationState():any {
+    public getCurrAnimationState():dragonBones.AnimationState {
         return this._currAnimationState;
     }
 
@@ -248,16 +245,16 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * 获取dragonBones.Animation
      * @returns {Animation}
      */
-    public getAnimation():any {
+    public getAnimation():dragonBones.Animation {
         return this._armature.animation;
     }
 
     /**
-     * 获取一个dragonBones.Bone | dragonBones.FastBone
+     * 获取一个dragonBones.Bone
      * @param boneName
-     * @returns {dragonBones.Bone | dragonBones.FastBone}
+     * @returns {dragonBones.Bone}
      */
-    public getBone(boneName:string):any {
+    public getBone(boneName:string):dragonBones.Bone {
         return this._armature.getBone(boneName);
     }
 
@@ -274,7 +271,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * @param bone
      * @returns {function(): any}
      */
-    public getBoneDisplay(bone:any):egret.DisplayObject {
+    public getBoneDisplay(bone:dragonBones.Bone):egret.DisplayObject {
         return bone.slot.getDisplay();
     }
 
@@ -284,13 +281,9 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * @param displayObject
      */
     public changeBone(boneName:string, displayObject:egret.DisplayObject):void {
-        var bone:any = this.getBone(boneName);
+        var bone:dragonBones.Bone = this.getBone(boneName);
         if (bone) {
-            if(bone instanceof dragonBones.FastBone){
-                bone.slot.display = displayObject;
-            } else {
-                bone.slot.setDisplay(displayObject);
-            }
+            bone.slot.setDisplay(displayObject);
         }
     }
 }
