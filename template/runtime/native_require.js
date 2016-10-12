@@ -25,7 +25,6 @@ var game_file_list = [
 	"bin-debug/core/dragonBones/DragonBonesArmature.js",
 	"bin-debug/core/dragonBones/DragonBonesArmatureContainer.js",
 	"bin-debug/core/dragonBones/DragonBonesFactory.js",
-	"bin-debug/core/dragonBones/EgretTextureAtlasMore.js",
 	"bin-debug/core/module/guide/GuideMaskBackgroud.js",
 	"bin-debug/core/module/guide/GuideUtils.js",
 	"bin-debug/core/module/guide/GuideView.js",

@@ -40,24 +40,6 @@ class DragonBonesFactory extends BaseClass {
     }
 
     /**
-     * 初始化一个动画文件
-     * @param skeletonData 动画描述文件
-     * @param texture 动画资源
-     * @param textureData 动画资源描述文件
-     */
-    public initArmatureMoreFile(skeletonData:any):void {
-        this.factory.addSkeletonData(dragonBones.DataParser.parseDragonBonesData(skeletonData));
-        var textureList = skeletonData.textureList;
-        var sheetList = skeletonData.sheetList;
-        var atlas:EgretTextureAtlasMore = new EgretTextureAtlasMore(RES.getRes(textureList[0]), RES.getRes(sheetList[0]), skeletonData.name);
-        var len:number = textureList.length;
-        for (var i = 1; i < len; i++) {
-            atlas.register(RES.getRes(textureList[i]), RES.getRes(sheetList[i]));
-        }
-        this.factory.addTextureAtlas(atlas);
-    }
-
-    /**
      * 移除动画文件
      * @param name
      */

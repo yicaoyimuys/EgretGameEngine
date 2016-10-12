@@ -5,3 +5,6 @@ libs/
 
 bin-debug/
 
+.wing/
+
+tsconfig.json
