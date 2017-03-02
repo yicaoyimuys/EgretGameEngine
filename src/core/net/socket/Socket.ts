@@ -46,28 +46,29 @@ class Socket extends BaseClass {
      */
     private onSocketOpen():void {
         this._reconnectCount = 0;
+        this._isConnecting = true;
 
-        if (this._connectFlag) {
+        if (this._connectFlag && this._needReconnect) {
             App.MessageCenter.dispatch(SocketConst.SOCKET_RECONNECT);
         } else {
             App.MessageCenter.dispatch(SocketConst.SOCKET_CONNECT);
         }
 
         this._connectFlag = true;
-        this._isConnecting = true;
     }
 
     /**
      * 服务器断开连接
      */
     private onSocketClose():void {
+        this._isConnecting = false;
+
         if (this._needReconnect) {
-            this.reconnect();
             App.MessageCenter.dispatch(SocketConst.SOCKET_START_RECONNECT);
+            this.reconnect();
         } else {
             App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
         }
-        this._isConnecting = false;
     }
 
     /**
@@ -117,15 +118,15 @@ class Socket extends BaseClass {
             this._socket.type = egret.WebSocket.TYPE_BINARY;
         }
         Log.trace("WebSocket: " + this._host + ":" + this._port);
-        this._socket.connect(this._host, this._port);
         this.addEvents();
+        this._socket.connect(this._host, this._port);
     }
 
     /**
      * 重新连接
      */
     private reconnect():void {
-        this.close();
+        this.closeCurrentSocket();
         this._reconnectCount++;
         if (this._reconnectCount < this._maxReconnectCount) {
             this.connect();
@@ -151,11 +152,18 @@ class Socket extends BaseClass {
      * 关闭Socket连接
      */
     public close():void {
+        this._connectFlag = false;
+        this.closeCurrentSocket();
+    }
+
+    /**
+     * 清理当前的Socket连接
+     */
+    private closeCurrentSocket(){
         this.removeEvents();
         this._socket.close();
         this._socket = null;
         this._isConnecting = false;
-        this._connectFlag = false;
     }
 
     /**
