@@ -46,6 +46,7 @@ class Socket extends BaseClass {
      */
     private onSocketOpen():void {
         this._reconnectCount = 0;
+        this._isConnecting = true;
 
         if (this._connectFlag) {
             App.MessageCenter.dispatch(SocketConst.SOCKET_RECONNECT);
@@ -54,7 +55,6 @@ class Socket extends BaseClass {
         }
 
         this._connectFlag = true;
-        this._isConnecting = true;
     }
 
     /**
