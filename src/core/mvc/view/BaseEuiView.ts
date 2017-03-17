@@ -139,7 +139,7 @@ class BaseEuiView extends eui.Component implements IBaseView {
     public loadResource(loadComplete:Function, initComplete:Function):void {
         if (this._resources && this._resources.length > 0) {
             App.ResourceUtils.loadResource(this._resources, [], loadComplete, null, this);
-            this.addEventListener(eui.UIEvent.CREATION_COMPLETE, initComplete, this);
+            this.once(eui.UIEvent.CREATION_COMPLETE, initComplete, this);
         }
         else {
             loadComplete();

@@ -93,8 +93,8 @@ class ViewManager extends BaseClass {
         else {
             App.EasyLoading.showLoading();
             view.loadResource(function () {
-                view.addToParent();
                 view.setVisible(false);
+                view.addToParent();
             }.bind(this), function () {
                 view.initUI();
                 view.initData();
