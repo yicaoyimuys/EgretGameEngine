@@ -17,7 +17,7 @@ class MathUtils extends BaseClass {
      * @param angle
      */
     public getRadian(angle:number):number {
-        return Math.PI = angle / 180 * Math.PI;
+        return angle / 180 * Math.PI;
     }
 
     /**

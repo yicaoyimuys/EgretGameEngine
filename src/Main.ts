@@ -35,8 +35,8 @@ class Main extends egret.DisplayObjectContainer{
         this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
         
         //注入自定义的素材解析器
-        this.stage.registerImplementation("eui.IAssetAdapter",new AssetAdapter());
-        this.stage.registerImplementation("eui.IThemeAdapter",new ThemeAdapter());
+        egret.registerImplementation("eui.IAssetAdapter",new AssetAdapter());
+        egret.registerImplementation("eui.IThemeAdapter",new ThemeAdapter());
 
         //适配方式
         if(App.DeviceUtils.IsPC){
@@ -80,8 +80,8 @@ class Main extends egret.DisplayObjectContainer{
      * 主题文件加载完成
      */
     private onThemeLoadComplete(): void {
-        //new EUITest();
-        new ActTest();
+        new EUITest();
+        //new ActTest();
 //        new ProtoBufTest();
 //        new StarlingSwfTest();
     }

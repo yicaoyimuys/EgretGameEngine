@@ -19,7 +19,6 @@ module starlingswf {
         public loop:boolean = true;
 
         private _completeFunction:Function = null;//播放完毕的回调
-        private _hasCompleteListener:Boolean = false;//是否监听过播放完毕的事件
 
         constructor(frames:any[], labels:any[], displayObjects:Object, ownerSwf:starlingswf.Swf) {
             super();
@@ -41,7 +40,9 @@ module starlingswf {
             if (!this._isPlay) return;
 
             if (this._currentFrame > this._endFrame) {
-                if (this._hasCompleteListener) this.dispatchEventWith(egret.Event.COMPLETE);
+                if (this.hasCompleteListener()){
+                    this.dispatchEventWith(egret.Event.COMPLETE);
+                }
 
                 this._currentFrame = this._startFrame;
 
@@ -237,22 +238,16 @@ module starlingswf {
             return returnLabels;
         }
 
+        private hasCompleteListener(){
+            return this.hasEventListener(egret.Event.COMPLETE);
+        }
+
         /**
          * 是否包含某个标签
          * */
         public hasLabel(label:String):Boolean {
             var ls:any[] = this.labels();
             return !(ls.indexOf(label) == -1);
-        }
-
-        public addEventListener(type:string, listener:Function, thisObject:any, useCapture:boolean = false, priority:number = 0):void {
-            super.addEventListener(type, listener, thisObject, useCapture, priority);
-            this._hasCompleteListener = this.hasEventListener(egret.Event.COMPLETE);
-        }
-
-        public removeEventListener(type:string, listener:Function, thisObject:any, useCapture:boolean = false):void {
-            super.removeEventListener(type, listener, thisObject, useCapture);
-            this._hasCompleteListener = this.hasEventListener(egret.Event.COMPLETE);
         }
 
 
