@@ -1,0 +1,4 @@
+{
+  "name": "libtest",
+  "typings": "src/ProtoBuf.d.ts"
+}

@@ -36,6 +36,13 @@ Egret游戏开发使用框架，便于快速开发，以及各项目组间统一
 10:示例Demo：Act游戏Demo，MVC+Eui使用Demo
 
 
+其他：
+===============
+
+* [第三方库创建方式](http://developer.egret.com/cn/github/egret-docs/extension/threes/instructions/index.html)
+* [项目配置文件说明(egretProperties.json)](http://developer.egret.com/cn/2d/projectConfig/configFile)
+
+
 联系我们
 ===============
 QQ群: 656337595
