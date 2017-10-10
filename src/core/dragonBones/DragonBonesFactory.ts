@@ -66,7 +66,7 @@ class DragonBonesFactory extends BaseClass {
      * @param skeletonData
      */
     public addSkeletonData(skeletonData:any):void {
-        this.factory.addSkeletonData(dragonBones.DataParser.parseDragonBonesData(skeletonData));
+        this.factory.parseDragonBonesData(skeletonData);
     }
 
     /**
@@ -75,7 +75,7 @@ class DragonBonesFactory extends BaseClass {
      * @param textureData 动画资源描述文件
      */
     public addTextureAtlas(texture:egret.Texture, textureData:any):void {
-        this.factory.addTextureAtlas(new dragonBones.EgretTextureAtlas(texture, textureData));
+        this.factory.parseTextureAtlasData(textureData, texture);
     }
 
     /**
@@ -83,7 +83,7 @@ class DragonBonesFactory extends BaseClass {
      * @param skeletonData
      */
     public removeSkeletonData(name:string):void {
-        this.factory.removeSkeletonData(name);
+        this.factory.removeDragonBonesData(name);
     }
 
     /**
@@ -92,7 +92,7 @@ class DragonBonesFactory extends BaseClass {
      * @param textureData 动画资源描述文件
      */
     public removeTextureAtlas(name:string):void {
-        this.factory.removeTextureAtlas(name);
+        this.factory.removeTextureAtlasData(name);
     }
 
     /**
@@ -120,7 +120,7 @@ class DragonBonesFactory extends BaseClass {
      */
     public makeFastArmature(name:string, fromDragonBonesDataName?:string, playSpeed:number = 1):DragonBonesArmature {
         var result:DragonBonesArmature = this.makeArmature(name, fromDragonBonesDataName, playSpeed);
-        result.getArmature().enableAnimationCache(24);
+        result.getArmature().cacheFrameRate = 24;
         return result;
     }
 

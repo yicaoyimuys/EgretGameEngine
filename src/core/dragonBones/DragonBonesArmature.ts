@@ -37,32 +37,24 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * 添加事件监听
      */
     private addListeners():void {
-        this._armature.addEventListener(dragonBones.AnimationEvent.COMPLETE, this.completeHandler, this);
-        if(this._armature.enableCache){
-            this._armature.addEventListener(dragonBones.FrameEvent.ANIMATION_FRAME_EVENT, this.frameHandler, this);
-        } else {
-            this._armature.addEventListener(dragonBones.FrameEvent.BONE_FRAME_EVENT, this.frameHandler, this);
-        }
+        this._armature.eventDispatcher.addEvent(dragonBones.EventObject.COMPLETE, this.completeHandler, this);
+        this._armature.eventDispatcher.addEvent(dragonBones.EventObject.FRAME_EVENT, this.frameHandler, this);
     }
 
     /**
      * 移除事件监听
      */
     private removeListeners():void {
-        this._armature.removeEventListener(dragonBones.AnimationEvent.COMPLETE, this.completeHandler, this);
-        if(this._armature.enableCache){
-            this._armature.removeEventListener(dragonBones.FrameEvent.ANIMATION_FRAME_EVENT, this.frameHandler, this);
-        } else {
-            this._armature.removeEventListener(dragonBones.FrameEvent.BONE_FRAME_EVENT, this.frameHandler, this);
-        }
+        this._armature.eventDispatcher.removeEvent(dragonBones.EventObject.COMPLETE, this.completeHandler, this);
+        this._armature.eventDispatcher.removeEvent(dragonBones.EventObject.FRAME_EVENT, this.frameHandler, this);
     }
 
     /**
      * 事件完成执行函数
      * @param e
      */
-    private completeHandler(e:dragonBones.AnimationEvent):void {
-        var animationName:string = e.animationName;
+    private completeHandler(e:dragonBones.EgretEvent):void {
+        var animationName:string = e.eventObject.animationState.name;
         for (var i:number = 0, len = this._completeCalls.length; i < len; i++) {
             var arr:Array<any> = this._completeCalls[i];
             arr[0].apply(arr[1], [e, animationName]);
@@ -76,7 +68,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * 帧事件处理函数
      * @param e
      */
-    private frameHandler(e:dragonBones.FrameEvent):void {
+    private frameHandler(e:dragonBones.EgretEvent):void {
         for (var i:number = 0, len = this._frameCalls.length; i < len; i++) {
             var arr:Array<any> = this._frameCalls[i];
             arr[0].apply(arr[1], [e]);
@@ -95,13 +87,10 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
         this._playName = name;
         this.start();
         if (playNum == undefined) {
-            this._currAnimationState = this.getAnimation().gotoAndPlay(name);
+            this._currAnimationState = this.getAnimation().play(name);
         }
         else {
-            this._currAnimationState = this.getAnimation().gotoAndPlay(name, undefined, undefined, playNum);
-        }
-        if (this._currAnimationState) {
-            this._currAnimationState.autoTween = false;
+            this._currAnimationState = this.getAnimation().play(name, playNum);
         }
         return this._currAnimationState;
     }
@@ -272,7 +261,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * @returns {function(): any}
      */
     public getBoneDisplay(bone:dragonBones.Bone):egret.DisplayObject {
-        return bone.slot.getDisplay();
+        return bone.slot.display;
     }
 
     /**

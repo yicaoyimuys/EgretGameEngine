@@ -15,13 +15,14 @@ class BaseFrameGameObject extends BaseHitGameObject{
         }
     }
 
-    public armatureEventHandle(e:dragonBones.FrameEvent):void{
-        var actionStr:string = this.attackConfig[e.frameLabel].action || "";
+    public armatureEventHandle(e:dragonBones.EgretEvent):void{
+        var frameLabel = e.eventObject.name;
+        var actionStr:string = this.attackConfig[frameLabel].action || "";
         var actions:Array<string> = actionStr.split(",");
         for(var i:number=0, len=actions.length; i<len; i++){
             var arr:Array<any> = actions[i].split("_");
             var funcName:string = arr[0];
-            arr[0] = e.frameLabel;
+            arr[0] = frameLabel;
             this[funcName].apply(this, arr);
         }
     }

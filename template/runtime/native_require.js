@@ -19,11 +19,12 @@ var game_file_list = [
 	"bin-debug/core/starlingswf/display/SwfSprite.js",
 	"bin-debug/example/module/base/BasePanelView.js",
 	"bin-debug/example/module/game/object/BaseFrameGameObject.js",
+	"bin-debug/core/scene/base/BaseSpriteLayer.js",
 	"bin-debug/core/scene/base/BaseEuiLayer.js",
 	"bin-debug/core/scene/base/BaseScene.js",
 	"bin-debug/core/base/BaseClass.js",
 	"bin-debug/core/sound/BaseSound.js",
-	"bin-debug/core/scene/base/BaseSpriteLayer.js",
+	"bin-debug/core/starlingswf/display/SwfMovieClip.js",
 	"bin-debug/core/mvc/controller/BaseController.js",
 	"bin-debug/core/mvc/model/BaseModel.js",
 	"bin-debug/core/mvc/proxy/BaseProxy.js",
@@ -32,7 +33,6 @@ var game_file_list = [
 	"bin-debug/core/net/socket/ByteArrayMsg.js",
 	"bin-debug/core/net/socket/UTFMsg.js",
 	"bin-debug/example/module/game/object/Enemy.js",
-	"bin-debug/core/starlingswf/display/SwfMovieClip.js",
 	"bin-debug/core/utils/QueueExecutor.js",
 	"bin-debug/core/net/http/DataCache.js",
 	"bin-debug/core/net/http/DataUpdate.js",
@@ -83,7 +83,7 @@ var game_file_list = [
 	"bin-debug/core/utils/MessageCenter.js",
 	"bin-debug/core/utils/ObjectPool.js",
 	"bin-debug/core/utils/Percent.js",
-	"bin-debug/Main.js",
+	"bin-debug/core/adapter/MergeJsonAnalyzer.js",
 	"bin-debug/core/utils/RandomUtils.js",
 	"bin-debug/core/utils/RenderTextureManager.js",
 	"bin-debug/core/utils/ResourceUtils.js",
@@ -154,7 +154,7 @@ var game_file_list = [
 	"bin-debug/example/test/ProtoBufTest.js",
 	"bin-debug/example/test/StarlingSwfTest.js",
 	"bin-debug/LoadingUI.js",
-	"bin-debug/core/adapter/MergeJsonAnalyzer.js",
+	"bin-debug/Main.js",
 	//----auto game_file_list end----
 ];
 
@@ -183,10 +183,10 @@ egret_native.egretStart = function () {
         //以下为自动修改，请勿修改
         //----auto option start----
 		entryClassName: "Main",
-		frameRate: 30,
+		frameRate: 60,
 		scaleMode: "fixedWidth",
-		contentWidth: 650,
-		contentHeight: 1000,
+		contentWidth: 960,
+		contentHeight: 640,
 		showPaintRect: false,
 		showFPS: false,
 		fpsStyles: "x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9",

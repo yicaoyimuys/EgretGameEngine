@@ -40,7 +40,7 @@ class Enemy extends BaseFrameGameObject{
         this.controller.applyFunc(GameConst.Remove_Enemy, this);
     }
 
-    public armaturePlayEnd(e:dragonBones.AnimationEvent, animationName:string):void{
+    public armaturePlayEnd(e:dragonBones.EgretEvent, animationName:string):void{
         if(animationName == Enemy.ACTION_Attack){
             this.gotoIdle();
         }

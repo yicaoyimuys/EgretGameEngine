@@ -80,8 +80,8 @@ class Main extends egret.DisplayObjectContainer{
      * 主题文件加载完成
      */
     private onThemeLoadComplete(): void {
-        new EUITest();
-        //new ActTest();
+        // new EUITest();
+        new ActTest();
 //        new ProtoBufTest();
 //        new StarlingSwfTest();
     }

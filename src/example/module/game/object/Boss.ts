@@ -62,7 +62,7 @@ class Boss extends Enemy{
         super.update(time);
     }
 
-    public armaturePlayEnd(e:dragonBones.AnimationEvent, animationName:string):void{
+    public armaturePlayEnd(e:dragonBones.EgretEvent, animationName:string):void{
         super.armaturePlayEnd(e, animationName);
         if(animationName == Enemy.ACTION_Attack){
             this.setAttackType(2);
