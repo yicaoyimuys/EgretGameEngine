@@ -122,7 +122,7 @@ class ResourceUtils extends BaseClass {
             var loadComplete:Function = this._groups[groupName][0];
             var loadCompleteTarget:any = this._groups[groupName][2];
             if (loadComplete != null) {
-                loadComplete.call(loadCompleteTarget);
+                loadComplete.apply(loadCompleteTarget, [groupName]);
             }
 
             this._groups[groupName] = null;
@@ -167,5 +167,31 @@ class ResourceUtils extends BaseClass {
         RES.createGroup(groupName, needLoadArr, true);
         this._groups[groupName] = [$onResourceLoadComplete, $onResourceLoadProgress, $onResourceLoadTarget];
         RES.loadGroup(groupName);
+    }
+
+    /**
+     * 动态创建加载组
+     * @param {string} $groupName
+     * @param {string[]} resKeys
+     */
+    public createGroup($groupName:string, resKeys:string[]):void {
+        RES.createGroup($groupName, resKeys, true);
+    }
+
+    /**
+     * 动态创建Resource
+     * @param {string} resKey
+     * @param {string} resType
+     * @param {string} resUrl
+     */
+    public createResource(resKey:string, resType:string, resUrl:string){
+        var res:any = {
+            name : resKey,
+            type : resType,
+            url : resUrl
+        }
+        RES.parseConfig({
+            resources:[res]
+        })
     }
 }

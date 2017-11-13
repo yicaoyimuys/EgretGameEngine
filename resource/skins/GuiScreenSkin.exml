@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="GuiScreenSkin" width="650" height="1000" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
-	<e:Image source="table_cloud_top" fillMode="repeat" left="0" right="0" y="150"/>	<e:Rect height="150" fillColor="0xebfff8" left="0" right="0" top="0"/>	<e:Rect fillColor="15466488" height="100" left="0" right="0" bottom="0"/>	<e:Image source="table_cloud_bottom" fillMode="repeat" left="0" right="0" bottom="100"/>
+	<e:Image source="table_cloud_top" fillMode="repeat" left="0" right="0" y="150"/>
+	<e:Rect height="150" fillColor="0xebfff8" left="0" right="0" top="0"/>
+	<e:Rect fillColor="15466488" height="100" left="0" right="0" bottom="0"/>
+	<e:Image source="table_cloud_bottom" fillMode="repeat" left="0" right="0" bottom="100"/>
 	<e:Group height="170" left="0" right="0" top="0">
 		<e:Group horizontalCenter="0" verticalCenter="0">
 			<e:Image source="icon_name" x="140" y="9" width="218" height="78"/>

@@ -12,4 +12,5 @@ enum ControllerConst{
     Task,
     Mail,
     Game,
+    RpgGame,
 }

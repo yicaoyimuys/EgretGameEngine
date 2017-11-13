@@ -39,7 +39,7 @@ class SceneManager extends BaseClass {
      * 切换场景
      * @param key 场景唯一标识
      */
-    public runScene(key:number):void {
+    public runScene(key:number, ...param:any[]):void {
         var nowScene:BaseScene = this._scenes[key];
         if (nowScene == null) {
             Log.trace("场景" + key + "不存在");
@@ -51,7 +51,7 @@ class SceneManager extends BaseClass {
             oldScene.onExit();
         }
 
-        nowScene.onEnter();
+        nowScene.onEnter.apply(nowScene, param);
         this._currScene = key;
     }
 

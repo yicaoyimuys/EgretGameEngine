@@ -1,0 +1,15 @@
+{
+    "groups":[
+        {
+            "keys":"avatarDefault_png",
+            "name":"preload_rpg"
+        }
+    ],
+    "resources":[
+        {
+            "name":"avatarDefault_png",
+            "type":"image",
+            "url":"assets/rpgGame/avatarDefault.png"
+        }
+    ]
+}

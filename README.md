@@ -33,7 +33,7 @@ Egret游戏开发使用框架，便于快速开发，以及各项目组间统一
 
 9:资源加载按照单一文件版本号的形式加载
 
-10:示例Demo：Act游戏Demo，MVC+Eui使用Demo
+10:示例Demo：Act游戏Demo，MVC+Eui使用Demo，Rpg游戏Demo
 
 
 其他：

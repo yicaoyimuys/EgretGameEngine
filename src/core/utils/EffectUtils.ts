@@ -41,7 +41,7 @@ class EffectUtils extends BaseClass {
      */
     public startFlicker(obj:egret.DisplayObject, alphaTime:number):void {
         obj.alpha = 1;
-        egret.Tween.get(obj).to({"alpha": 0}, alphaTime).to({"alpha": 1}, alphaTime).call(this.startFlicker, this, [obj]);
+        egret.Tween.get(obj).to({"alpha": 0}, alphaTime).to({"alpha": 1}, alphaTime).call(this.startFlicker, this, [obj, alphaTime]);
     }
 
     /**

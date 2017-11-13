@@ -84,4 +84,43 @@ class StageUtils extends BaseClass {
     public getUIStage():eui.UILayer {
         return StageUtils._uiStage;
     }
+
+    /**
+     * 开启全屏适配方案
+     */
+    private designWidth: number;
+    private designHeight: number;
+    private resizeCallback: Function;
+
+    public startFullscreenAdaptation(designWidth: number, designHeight: number, resizeCallback: Function): void {
+        this.designWidth = designWidth;
+        this.designHeight = designHeight;
+        this.resizeCallback = resizeCallback;
+        this.stageOnResize();
+    }
+
+    private stageOnResize(): void {
+        this.getStage().removeEventListener(egret.Event.RESIZE, this.stageOnResize, this);
+
+        var designWidth: number = this.designWidth;
+        var designHeight: number = this.designHeight;
+        var clientWidth: number = window.innerWidth;
+        var clientHeight: number = window.innerHeight;
+        var a: number = clientWidth / clientHeight;
+        var b: number = designWidth / designHeight;
+        var c: number = a / b;
+        if (a > b) {
+            var c1 = c;
+            var c2 = c;
+            designWidth = Math.floor(designWidth * c1);
+            designHeight = Math.floor(designHeight * c2);
+        }
+        this.getStage().setContentSize(designWidth, designHeight);
+        // console.log(a, b, c);
+        // console.log(designWidth, designHeight);
+
+        this.resizeCallback && this.resizeCallback();
+
+        this.getStage().addEventListener(egret.Event.RESIZE, this.stageOnResize, this);
+    }
 }

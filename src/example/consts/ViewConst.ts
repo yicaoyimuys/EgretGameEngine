@@ -15,4 +15,5 @@ enum ViewConst{
 
     Game = 20000,
     GameUI,
+    RpgGame,
 }

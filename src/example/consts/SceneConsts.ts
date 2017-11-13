@@ -19,4 +19,10 @@ enum SceneConsts{
      * @type {number}
      */
     LOADING,
+
+    /**
+     * RpgGame场景
+     * @type {number}
+     */
+    RpgGame,
 }

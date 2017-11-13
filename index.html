@@ -45,11 +45,11 @@
 	<script egret="game" src="bin-debug/core/starlingswf/display/SwfSprite.js"></script>
 	<script egret="game" src="bin-debug/example/module/base/BasePanelView.js"></script>
 	<script egret="game" src="bin-debug/example/module/game/object/BaseFrameGameObject.js"></script>
-	<script egret="game" src="bin-debug/core/scene/base/BaseSpriteLayer.js"></script>
+	<script egret="game" src="bin-debug/core/sound/BaseSound.js"></script>
 	<script egret="game" src="bin-debug/core/scene/base/BaseEuiLayer.js"></script>
 	<script egret="game" src="bin-debug/core/scene/base/BaseScene.js"></script>
+	<script egret="game" src="bin-debug/core/scene/base/BaseSpriteLayer.js"></script>
 	<script egret="game" src="bin-debug/core/base/BaseClass.js"></script>
-	<script egret="game" src="bin-debug/core/sound/BaseSound.js"></script>
 	<script egret="game" src="bin-debug/core/starlingswf/display/SwfMovieClip.js"></script>
 	<script egret="game" src="bin-debug/core/mvc/controller/BaseController.js"></script>
 	<script egret="game" src="bin-debug/core/mvc/model/BaseModel.js"></script>
@@ -59,9 +59,9 @@
 	<script egret="game" src="bin-debug/core/net/socket/ByteArrayMsg.js"></script>
 	<script egret="game" src="bin-debug/core/net/socket/UTFMsg.js"></script>
 	<script egret="game" src="bin-debug/example/module/game/object/Enemy.js"></script>
-	<script egret="game" src="bin-debug/core/utils/QueueExecutor.js"></script>
-	<script egret="game" src="bin-debug/core/net/http/DataCache.js"></script>
-	<script egret="game" src="bin-debug/core/net/http/DataUpdate.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/Component.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/object/RpgGameObject.js"></script>
+	<script egret="game" src="bin-debug/example/consts/ViewConst.js"></script>
 	<script egret="game" src="bin-debug/core/net/http/Http.js"></script>
 	<script egret="game" src="bin-debug/core/net/socket/BaseMsg.js"></script>
 	<script egret="game" src="bin-debug/core/display/HotspotBitmap.js"></script>
@@ -109,7 +109,7 @@
 	<script egret="game" src="bin-debug/core/utils/MessageCenter.js"></script>
 	<script egret="game" src="bin-debug/core/utils/ObjectPool.js"></script>
 	<script egret="game" src="bin-debug/core/utils/Percent.js"></script>
-	<script egret="game" src="bin-debug/core/adapter/MergeJsonAnalyzer.js"></script>
+	<script egret="game" src="bin-debug/core/utils/QueueExecutor.js"></script>
 	<script egret="game" src="bin-debug/core/utils/RandomUtils.js"></script>
 	<script egret="game" src="bin-debug/core/utils/RenderTextureManager.js"></script>
 	<script egret="game" src="bin-debug/core/utils/ResourceUtils.js"></script>
@@ -124,7 +124,7 @@
 	<script egret="game" src="bin-debug/example/consts/ControllerConst.js"></script>
 	<script egret="game" src="bin-debug/example/consts/HttpConst.js"></script>
 	<script egret="game" src="bin-debug/example/consts/SceneConsts.js"></script>
-	<script egret="game" src="bin-debug/example/consts/ViewConst.js"></script>
+	<script egret="game" src="bin-debug/core/adapter/MergeJsonAnalyzer.js"></script>
 	<script egret="game" src="bin-debug/core/adapter/ThemeAdapter.js"></script>
 	<script egret="game" src="bin-debug/example/module/components/Menu.js"></script>
 	<script egret="game" src="bin-debug/example/module/components/SaleItemRenderer.js"></script>
@@ -163,9 +163,38 @@
 	<script egret="game" src="bin-debug/example/module/login/LoginView.js"></script>
 	<script egret="game" src="bin-debug/example/module/mail/MailController.js"></script>
 	<script egret="game" src="bin-debug/example/module/mail/MailView.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/AiComponent.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/AoiComponent.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/AutoBattleComponent.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/AvatarComponent.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/AvatarSkillComponent.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/BattleComponent.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/CameraComponent.js"></script>
+	<script egret="game" src="bin-debug/core/mvc/ViewManager.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/ComponentSystem.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/ComponentType.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/ControlComponent.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/HeadComponent.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/MoveComponent.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/components/SortComponent.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/movieClip/RpgMovieClip.js"></script>
+	<script egret="game" src="bin-debug/core/net/http/DataCache.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/object/RpgMonster.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/object/RpgPlayer.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/RpgGameConst.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/RpgGameController.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/RpgGameData.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/RpgGameModel.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/RpgGameRes.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/RpgGameUtils.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/SilzAstar.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/view/RpgBackground.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/view/RpgGameView.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/view/RpgTile.js"></script>
+	<script egret="game" src="bin-debug/example/module/rpgGame/view/RpgTiles.js"></script>
 	<script egret="game" src="bin-debug/example/module/shop/ShopController.js"></script>
 	<script egret="game" src="bin-debug/example/module/shop/ShopView.js"></script>
-	<script egret="game" src="bin-debug/core/mvc/ViewManager.js"></script>
+	<script egret="game" src="bin-debug/core/net/http/DataUpdate.js"></script>
 	<script egret="game" src="bin-debug/example/module/task/DailyView.js"></script>
 	<script egret="game" src="bin-debug/example/module/task/TaskController.js"></script>
 	<script egret="game" src="bin-debug/example/module/task/TaskView.js"></script>
@@ -174,43 +203,45 @@
 	<script egret="game" src="bin-debug/example/scene/GameScene.js"></script>
 	<script egret="game" src="bin-debug/example/scene/LayerManager.js"></script>
 	<script egret="game" src="bin-debug/example/scene/LoadingScene.js"></script>
+	<script egret="game" src="bin-debug/example/scene/RpgGameScene.js"></script>
 	<script egret="game" src="bin-debug/example/scene/UIScene.js"></script>
 	<script egret="game" src="bin-debug/example/test/ActTest.js"></script>
 	<script egret="game" src="bin-debug/example/test/EUITest.js"></script>
 	<script egret="game" src="bin-debug/example/test/ProtoBufTest.js"></script>
+	<script egret="game" src="bin-debug/example/test/RpgTest.js"></script>
 	<script egret="game" src="bin-debug/example/test/StarlingSwfTest.js"></script>
 	<script egret="game" src="bin-debug/LoadingUI.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
 	<!--game_files_end-->
 </head>
 <body>
-	<!--<div style="margin: auto;width: 100%;height: 100%;" class="egret-player"-->
-		<!--data-entry-class="Main"-->
-		<!--data-orientation="portrait"-->
-		<!--data-scale-mode="fixedWidth"-->
-		<!--data-resolution-mode="retina"-->
-		<!--data-frame-rate="30"-->
-		<!--data-content-width="650"-->
-		<!--data-content-height="1000"-->
-		<!--data-show-paint-rect="false"-->
-		<!--data-multi-fingered="2"-->
-		<!--data-show-fps="false" data-show-log="false"-->
-		<!--data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">-->
-	<!--</div>-->
+	<div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+		data-entry-class="Main"
+		data-orientation="auto"
+		data-scale-mode="fixedWidth"
+		data-resolution-mode="retina"
+		data-frame-rate="60"
+		data-content-width="650"
+		data-content-height="1000"
+		data-show-paint-rect="false"
+		data-multi-fingered="2"
+		data-show-fps="false" data-show-log="false"
+		data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
+	</div>
 
-    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
-         data-entry-class="Main"
-         data-orientation="landscape"
-         data-scale-mode="fixedWidth"
-         data-resolution-mode="retina"
-         data-frame-rate="60"
-         data-content-width="960"
-         data-content-height="640"
-         data-show-paint-rect="false"
-         data-multi-fingered="2"
-         data-show-fps="false" data-show-log="false"
-         data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
-    </div>
+    <!--<div style="margin: auto;width: 100%;height: 100%;" class="egret-player"-->
+         <!--data-entry-class="Main"-->
+         <!--data-orientation="landscape"-->
+         <!--data-scale-mode="fixedWidth"-->
+         <!--data-resolution-mode="retina"-->
+         <!--data-frame-rate="60"-->
+         <!--data-content-width="960"-->
+         <!--data-content-height="640"-->
+         <!--data-show-paint-rect="false"-->
+         <!--data-multi-fingered="2"-->
+         <!--data-show-fps="false" data-show-log="false"-->
+         <!--data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">-->
+    <!--</div>-->
     <script>
 //        egret.runEgret();
 		egret.runEgret({renderMode:"webgl"});

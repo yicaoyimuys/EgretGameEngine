@@ -25,22 +25,34 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-class Main extends egret.DisplayObjectContainer{
+class Main extends egret.DisplayObjectContainer {
+    /**
+     * 1: EUI
+     * 2: Act (修改使用index.html中的横屏配置)
+     * 3: Rpg
+     * @type {number}
+     */
+    private testType: number = 3;
+
     public constructor() {
         super();
-        this.addEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
+        this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
 
-    private onAddToStage(event:egret.Event){
-        this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
-        
+    private onAddToStage(event: egret.Event) {
+        this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+
         //注入自定义的素材解析器
-        egret.registerImplementation("eui.IAssetAdapter",new AssetAdapter());
-        egret.registerImplementation("eui.IThemeAdapter",new ThemeAdapter());
+        egret.registerImplementation("eui.IAssetAdapter", new AssetAdapter());
+        egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
 
         //适配方式
-        if(App.DeviceUtils.IsPC){
-            App.StageUtils.setScaleMode(egret.StageScaleMode.SHOW_ALL);
+        if(this.testType == 2){
+            //PC中使用SHOW_ALL
+            App.DeviceUtils.IsPC && App.StageUtils.setScaleMode(egret.StageScaleMode.SHOW_ALL);
+        } else {
+            //全屏适配
+            App.StageUtils.startFullscreenAdaptation(650, 1000, this.onResize);
         }
 
         //初始化
@@ -51,54 +63,65 @@ class Main extends egret.DisplayObjectContainer{
         App.SceneManager.runScene(SceneConsts.LOADING);
 
         //加载资源版本号
-        if(false){
+        if (false) {
             App.ResVersionManager.loadConfig("resource/resource_version.json", this.loadResVersionComplate, this);
-        }else{
+        } else {
             this.loadResVersionComplate();
         }
     }
 
-    private loadResVersionComplate():void{
+    private onResize(): void {
+        App.ControllerManager.applyFunc(ControllerConst.RpgGame, RpgGameConst.GameResize);
+    }
+
+    private loadResVersionComplate(): void {
         //初始化Resource资源加载库
         App.ResourceUtils.addConfig("resource/default.res.json", "resource/");
         App.ResourceUtils.addConfig("resource/resource_core.json", "resource/");
         App.ResourceUtils.addConfig("resource/resource_ui.json", "resource/");
         App.ResourceUtils.addConfig("resource/resource_battle.json", "resource/");
+        App.ResourceUtils.addConfig("resource/resource_rpg.json", "resource/");
         App.ResourceUtils.loadConfig(this.onConfigComplete, this);
     }
 
     /**
      * 配置文件加载完成,开始预加载preload资源组。
      */
-    private onConfigComplete():void{
+    private onConfigComplete(): void {
         //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-        var theme = new eui.Theme("resource/default.thm.json",this.stage);
-        theme.addEventListener(eui.UIEvent.COMPLETE,this.onThemeLoadComplete,this);
+        var theme = new eui.Theme("resource/default.thm.json", this.stage);
+        theme.addEventListener(eui.UIEvent.COMPLETE, this.onThemeLoadComplete, this);
     }
-    
+
     /**
      * 主题文件加载完成
      */
     private onThemeLoadComplete(): void {
-        // new EUITest();
-        new ActTest();
-//        new ProtoBufTest();
-//        new StarlingSwfTest();
+        if (this.testType == 1) {
+            new EUITest();
+        }
+        else if (this.testType == 2) {
+            new ActTest();
+        }
+        else if (this.testType == 3) {
+            new RpgTest();
+        }
     }
 
     /**
      * 初始化所有场景
      */
-    private initScene():void{
+    private initScene(): void {
         App.SceneManager.register(SceneConsts.LOADING, new LoadingScene());
         App.SceneManager.register(SceneConsts.UI, new UIScene());
         App.SceneManager.register(SceneConsts.Game, new GameScene());
+        App.SceneManager.register(SceneConsts.RpgGame, new RpgGameScene());
     }
 
     /**
      * 初始化所有模块
      */
-    private initModule():void{
+    private initModule(): void {
         App.ControllerManager.register(ControllerConst.Loading, new LoadingController());
     }
 }

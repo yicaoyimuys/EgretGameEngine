@@ -22,7 +22,9 @@ class FrameDelay {
     public delayCall(delayFrame:number, func:Function, thisObj:any):void {
         this.func = func;
         this.thisObj = thisObj;
-        App.TimerManager.doFrame(delayFrame, 1, this.listener_enterFrame, this);
+        egret.callLater(function () {
+            App.TimerManager.doFrame(delayFrame, 1, this.listener_enterFrame, this);
+        }, this);
     }
 
     private listener_enterFrame():void {
