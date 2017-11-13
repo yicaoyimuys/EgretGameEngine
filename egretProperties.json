@@ -29,6 +29,10 @@
 		},
 		{
 			"name": "tween"
+		},
+		{
+			"name": "protobuf",
+			"path": "librarys/protobuf"
 		}
 	]
 }

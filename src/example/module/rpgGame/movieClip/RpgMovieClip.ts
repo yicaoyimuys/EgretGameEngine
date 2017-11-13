@@ -131,10 +131,16 @@ class RpgMovieClip extends egret.Bitmap {
                 currLabel = this.mcData.labels[i];
             }
         }
+
+        if (this.currAction == gotoAction && !cover) {
+            this.currFrame = currLabel.frame + (this.currFrame - this.startFrame);
+        }
+        else {
+            this.currFrame = currLabel.frame;
+            this.currFrameTime = 0;
+        }
         this.startFrame = currLabel.frame;
         this.endFrame = currLabel.end;
-        this.currFrame = this.startFrame;
-        this.currFrameTime = 0;
 
         this.currAction = gotoAction;
         this.currDir = gotoDir;

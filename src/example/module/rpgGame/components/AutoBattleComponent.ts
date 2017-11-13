@@ -41,7 +41,14 @@ class AutoBattleComponent extends Component {
                 return 1;
             }
         })
-        this.entity.battleObj = list[0];
+
+        for (var i = 0; i < list.length; i++) {
+            var obj = list[i];
+            if (obj.propertyData.hp) {
+                this.entity.battleObj = obj;
+                break;
+            }
+        }
     }
 
     private moveToBattleObj(): void {
