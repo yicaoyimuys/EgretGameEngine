@@ -7,7 +7,9 @@
 		"libs/modules/eui/eui.js",
 		"libs/modules/dragonBones/dragonBones.js",
 		"libs/modules/socket/socket.js",
-		"libs/modules/tween/tween.js"
+		"libs/modules/tween/tween.js",
+		"librarys/protobuf/bin/protobuf.js",
+		"promise/promise.js"
 	],
 	"game": [
 		"bin-debug/example/module/game/object/BaseGameObject.js",
@@ -18,12 +20,13 @@
 		"bin-debug/core/starlingswf/display/SwfSprite.js",
 		"bin-debug/example/module/base/BasePanelView.js",
 		"bin-debug/example/module/game/object/BaseFrameGameObject.js",
+		"bin-debug/core/sound/BaseSound.js",
 		"bin-debug/core/scene/base/BaseEuiLayer.js",
 		"bin-debug/core/scene/base/BaseScene.js",
 		"bin-debug/core/scene/base/BaseSpriteLayer.js",
 		"bin-debug/core/base/BaseClass.js",
 		"bin-debug/core/starlingswf/display/SwfMovieClip.js",
-		"bin-debug/core/sound/BaseSound.js",
+		"bin-debug/core/mvc/controller/BaseController.js",
 		"bin-debug/core/mvc/model/BaseModel.js",
 		"bin-debug/core/mvc/proxy/BaseProxy.js",
 		"bin-debug/example/module/task/BaseTaskView.js",
@@ -33,8 +36,7 @@
 		"bin-debug/example/module/game/object/Enemy.js",
 		"bin-debug/example/module/rpgGame/components/Component.js",
 		"bin-debug/example/module/rpgGame/object/RpgGameObject.js",
-		"bin-debug/core/mvc/controller/BaseController.js",
-		"bin-debug/example/consts/ControllerConst.js",
+		"bin-debug/example/consts/HttpConst.js",
 		"bin-debug/core/net/http/DataCache.js",
 		"bin-debug/core/net/http/DataUpdate.js",
 		"bin-debug/core/net/http/Http.js",
@@ -96,8 +98,8 @@
 		"bin-debug/core/utils/StringUtils.js",
 		"bin-debug/core/utils/TextFlowMaker.js",
 		"bin-debug/core/utils/TimerManager.js",
-		"bin-debug/example/test/StarlingSwfTest.js",
-		"bin-debug/example/consts/HttpConst.js",
+		"bin-debug/example/consts/ControllerConst.js",
+		"bin-debug/Main.js",
 		"bin-debug/example/consts/SceneConsts.js",
 		"bin-debug/example/consts/ViewConst.js",
 		"bin-debug/core/module/guide/GuideView.js",
@@ -149,6 +151,7 @@
 		"bin-debug/example/module/rpgGame/components/AoiComponent.js",
 		"bin-debug/example/module/rpgGame/components/AutoBattleComponent.js",
 		"bin-debug/example/module/rpgGame/components/AvatarComponent.js",
+		"bin-debug/example/module/rpgGame/components/AvatarSkillComponent.js",
 		"bin-debug/example/module/rpgGame/components/BattleComponent.js",
 		"bin-debug/example/module/rpgGame/components/CameraComponent.js",
 		"bin-debug/core/adapter/ThemeAdapter.js",
@@ -158,6 +161,7 @@
 		"bin-debug/example/module/rpgGame/components/HeadComponent.js",
 		"bin-debug/example/module/rpgGame/components/MoveComponent.js",
 		"bin-debug/example/module/rpgGame/components/SortComponent.js",
+		"bin-debug/example/module/rpgGame/movieClip/RpgMovieClip.js",
 		"bin-debug/LoadingUI.js",
 		"bin-debug/example/module/rpgGame/object/RpgMonster.js",
 		"bin-debug/example/module/rpgGame/object/RpgPlayer.js",
@@ -182,6 +186,6 @@
 		"bin-debug/example/test/EUITest.js",
 		"bin-debug/example/test/ProtoBufTest.js",
 		"bin-debug/example/test/RpgTest.js",
-		"bin-debug/Main.js"
+		"bin-debug/example/test/StarlingSwfTest.js"
 	]
 }

@@ -26,14 +26,6 @@
  */
 
 class Main extends egret.DisplayObjectContainer {
-    /**
-     * 1: EUI
-     * 2: Act (修改使用index.html中的横屏配置)
-     * 3: Rpg
-     * @type {number}
-     */
-    private testType: number = 3;
-
     public constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
@@ -46,14 +38,8 @@ class Main extends egret.DisplayObjectContainer {
         egret.registerImplementation("eui.IAssetAdapter", new AssetAdapter());
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
 
-        //适配方式
-        if(this.testType == 2){
-            //PC中使用SHOW_ALL
-            App.DeviceUtils.IsPC && App.StageUtils.setScaleMode(egret.StageScaleMode.SHOW_ALL);
-        } else {
-            //全屏适配
-            App.StageUtils.startFullscreenAdaptation(650, 1000, this.onResize);
-        }
+        //适配方式(全屏适配)
+        App.StageUtils.startFullscreenAdaptation(650, 1000, this.onResize);
 
         //初始化
         this.initScene();
@@ -97,15 +83,7 @@ class Main extends egret.DisplayObjectContainer {
      * 主题文件加载完成
      */
     private onThemeLoadComplete(): void {
-        if (this.testType == 1) {
-            new EUITest();
-        }
-        else if (this.testType == 2) {
-            new ActTest();
-        }
-        else if (this.testType == 3) {
-            new RpgTest();
-        }
+        new RpgTest();
     }
 
     /**
