@@ -91,6 +91,7 @@ class ByteArrayMsgByProtobuf extends ByteArrayMsg {
 
         var sendMsg:egret.ByteArray = new egret.ByteArray();
         sendMsg.writeShort(msgID);
+        sendMsg.writeShort(bodyBytes.length);
         sendMsg.writeBytes(bodyBytes);
         return sendMsg;
     }
