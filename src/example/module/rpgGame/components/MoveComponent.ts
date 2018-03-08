@@ -45,6 +45,9 @@ class MoveComponent extends Component {
             }
 
             this.nextNode();
+            if (this.node) {
+                this.move(advancedTime);
+            }
         }
         else {
             this.move(advancedTime);
