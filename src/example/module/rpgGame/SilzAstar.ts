@@ -210,6 +210,9 @@ class AStar {
             var len: number = node.links.length;
             for (var i: number = 0; i < len; i++) {
                 var test: PathNode = node.links[i].node;
+                if(!test.walkable){
+                    continue;
+                }
                 var cost: number = node.links[i].cost;
                 var g: number = node.g + cost;
                 var h: number = this._heuristic(test);
@@ -387,7 +390,7 @@ class Grid {
 
     /**
      *
-     * @param   type    0四方向 1八方向 2跳棋
+     * @param   type    0八方向 1四方向 2跳棋
      */
     public calculateLinks(type: number = 0): void {
         this.type = type;
