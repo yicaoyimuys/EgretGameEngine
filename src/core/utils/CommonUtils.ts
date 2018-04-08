@@ -13,7 +13,7 @@ class CommonUtils extends BaseClass {
      * @param color      表示文本的描边颜色
      * @param width      描边宽度。
      */
-    public static addLableStrokeColor(lable:eui.Label, color:any, width:any):void {
+    public addLableStrokeColor(lable: eui.Label, color: any, width: any): void {
         lable.strokeColor = color;
         lable.stroke = width;
     }
@@ -22,7 +22,7 @@ class CommonUtils extends BaseClass {
      * 深度复制
      * @param _data
      */
-    public static copyDataHandler(obj:any):any {
+    public copyDataHandler(obj: any): any {
         var newObj;
         if (obj instanceof Array) {
             newObj = [];
@@ -34,7 +34,7 @@ class CommonUtils extends BaseClass {
             return obj;
         }
         var keys = Object.keys(obj);
-        for (var i:number = 0, len = keys.length; i < len; i++) {
+        for (var i: number = 0, len = keys.length; i < len; i++) {
             var key = keys[i];
             newObj[key] = this.copyDataHandler(obj[key]);
         }
@@ -44,15 +44,25 @@ class CommonUtils extends BaseClass {
     /**
      * 锁屏
      */
-    public static lock():void {
-        App.StageUtils.getStage().touchEnabled = App.StageUtils.getStage().touchChildren = false;
+    public lock(): void {
+        var stage: egret.Stage = App.StageUtils.getStage();
+        stage.$children.forEach(child => {
+            if (child instanceof egret.DisplayObjectContainer) {
+                child.touchEnabled = child.touchChildren = false;
+            }
+        })
     }
 
     /**
      * 解屏
      */
-    public static unlock():void {
-        App.StageUtils.getStage().touchEnabled = App.StageUtils.getStage().touchChildren = true;
+    public unlock(): void {
+        var stage: egret.Stage = App.StageUtils.getStage();
+        stage.$children.forEach(child => {
+            if (child instanceof egret.DisplayObjectContainer) {
+                child.touchEnabled = child.touchChildren = true;
+            }
+        })
     }
 
     /**
@@ -60,7 +70,7 @@ class CommonUtils extends BaseClass {
      * @param label
      * @param num
      */
-    public static labelIsOverLenght = function (label, num) {
+    public labelIsOverLenght = function (label, num) {
         var str = null;
         if (num < 100000) {
             str = num;
@@ -79,7 +89,7 @@ class CommonUtils extends BaseClass {
      * @param obj
      * @returns {number}
      */
-    public static int64ToNumber(obj) {
+    public int64ToNumber(obj) {
         return parseInt(obj.toString());
     }
 }
