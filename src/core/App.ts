@@ -287,7 +287,7 @@ class App {
      * @constructor
      */
     public static Init(): void {
-        Log.trace("当前引擎版本: " + egret.Capabilities.engineVersion);
+        console.log("当前引擎版本: ", egret.Capabilities.engineVersion);
         //全局配置数据
         App.GlobalData = RES.getRes("global");
         //开启调试
