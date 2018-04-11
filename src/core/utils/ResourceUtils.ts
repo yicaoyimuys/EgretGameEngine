@@ -190,8 +190,6 @@ class ResourceUtils extends BaseClass {
             type : resType,
             url : resUrl
         }
-        RES.parseConfig({
-            resources:[res]
-        })
+        RES.$addResourceData(res);
     }
 }

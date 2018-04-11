@@ -1,7 +1,7 @@
 {
     "groups":[
         {
-            "keys":"global, simple_proto, simple_config",
+            "keys":"global,simple_proto,simple_config",
             "name":"preload_core"
         }
     ],

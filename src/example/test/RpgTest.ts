@@ -13,7 +13,7 @@ class RpgTest {
         this.initMapResource();
 
         //加载资源
-        var groupName: string = "preload";
+        var groupName: string = "preload_RpgTest";
         var subGroups: Array<string> = ["preload_core", "preload_ui", "preload_rpg", this.mapGroupKey];
         App.ResourceUtils.loadGroups(groupName, subGroups, this.onResourceLoadComplete, this.onResourceLoadProgress, this);
     }

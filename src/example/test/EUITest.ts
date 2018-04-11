@@ -4,7 +4,7 @@
  */
 class EUITest{
     public constructor(){
-        var groupName:string = "preload";
+        var groupName:string = "preload_EUITest";
         var subGroups:Array<string> = ["preload_core", "preload_ui"];
         App.ResourceUtils.loadGroups(groupName, subGroups, this.onResourceLoadComplete, this.onResourceLoadProgress, this);
     }
