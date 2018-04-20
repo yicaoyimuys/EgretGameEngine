@@ -1,9 +1,27 @@
 {
 	"resourcePlugin":{
-		"configs":[{
-			"configPath":"resource/default.res.json",
-			"relativePath":"resource/"
-		}]
+		"configs":[
+			{
+				"configPath":"resource/default.res.json",
+				"relativePath":"resource/"
+			},
+			{
+				"configPath":"resource/resource_battle.json",
+				"relativePath":"resource/"
+			},
+			{
+				"configPath":"resource/resource_core.json",
+				"relativePath":"resource/"
+			},
+			{
+				"configPath":"resource/resource_rpg.json",
+				"relativePath":"resource/"
+			},
+			{
+				"configPath":"resource/resource_ui.json",
+				"relativePath":"resource/"
+			}
+		]
 	},
 	"theme":"resource/default.thm.json"
 }
