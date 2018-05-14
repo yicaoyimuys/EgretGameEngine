@@ -36,6 +36,30 @@ export class WxgamePlugin implements plugins.Command {
                 if (filename == 'main.js') {
                     content += ";window.Main = Main;"
                 }
+                if (filename == 'main.js') {
+                    content = content.replace("p.__class__ = c, t ? t.push(c) :",
+                        "var arr = c.split('.');" +
+                        "if(arr.length == 1) {" +
+                        "   window[c] = p.constructor;" +
+                        "}" +
+                        "else {" +
+                        "   var d = window;" +
+                        "   for(var i = 0; i < arr.length - 1; i++) {" +
+                        "      var ns = arr[i];" +
+                        "      if(arr.length != 1 && !d[ns]) {" +
+                        "          var tmp = {};" +
+                        "          d[ns] = tmp;" +
+                        "          d = tmp;" +
+                        "      }" +
+                        "      else {" +
+                        "          d = d[ns];" +
+                        "      }" +
+                        "   }" +
+                        "   d[arr[i]] = p.constructor;" +
+                        "}" +
+                        "p.__class__ = c, t ? t.push(c) :");
+                    content += ";window.Main = Main;"
+                }
                 file.contents = new Buffer(content);
             }
         }

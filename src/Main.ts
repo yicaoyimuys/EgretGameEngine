@@ -98,6 +98,7 @@ class Main extends egret.DisplayObjectContainer {
 
         //开启游戏
         new RpgTest();
+        new ProtoBufTest();
         // new EUITest();
     }
 

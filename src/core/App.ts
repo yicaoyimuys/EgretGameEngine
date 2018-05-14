@@ -13,11 +13,6 @@ class App {
      */
     public static GlobalData: any = null;
     /**
-     * ProtoFile
-     * @type {null}
-     */
-    public static ProtoFile: any = null;
-    /**
      * ProtoConfig
      * @type {null}
      */
@@ -298,7 +293,6 @@ class App {
         //实例化Http请求
         App.Http.initServer(App.GlobalData.HttpSerever);
         //实例化ProtoBuf和Socket请求
-        App.ProtoFile = dcodeIO.ProtoBuf.loadProto(RES.getRes(App.GlobalData.ProtoFile));
         App.ProtoConfig = RES.getRes(App.GlobalData.ProtoConfig);
         App.Socket.initServer(App.GlobalData.SocketServer, App.GlobalData.SocketPort, new ByteArrayMsgByProtobuf());
     }

@@ -1,3 +1,5 @@
+package simple;
+
 //1
 message Person {
 	required string name = 1;

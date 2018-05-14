@@ -30,7 +30,7 @@ class ByteArrayMsgByProtobuf extends ByteArrayMsg {
     private getMsgClass(key:string):any {
         var cls:any = this.msgClass[key];
         if (cls == null) {
-            cls = App.ProtoFile.build(key);
+            cls = egret.getDefinitionByName(key);
             this.msgClass[key] = cls;
         }
         return cls;
@@ -82,10 +82,12 @@ class ByteArrayMsgByProtobuf extends ByteArrayMsg {
      */
     public encode(msg:any):any {
         var msgID = this.getMsgID(msg.key);
-        var msgBody = new (this.getMsgClass(msg.key))(msg.body);
+        var msgClass = this.getMsgClass(msg.key);
+        var msgBody = msgClass.fromObject(msg.body);
+        var msgBuffer = msgClass.encode(msgBody).finish();
 
         App.DebugUtils.start("Protobuf Encode");
-        var bodyBytes:egret.ByteArray = new egret.ByteArray(msgBody.toArrayBuffer());
+        var bodyBytes:egret.ByteArray = new egret.ByteArray(msgBuffer);
         App.DebugUtils.stop("Protobuf Encode");
         Log.trace("发送数据：", "[" + msgID + " " + msg.key + "]", msg.body);
 
