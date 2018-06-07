@@ -43,6 +43,7 @@ Egret游戏开发使用框架，便于快速开发，以及各项目组间统一
 
 * [第三方库创建方式](http://developer.egret.com/cn/github/egret-docs/extension/threes/instructions/index.html)
 * [项目配置文件说明(egretProperties.json)](http://developer.egret.com/cn/2d/projectConfig/configFile)
+* [protobuf使用说明](https://github.com/WanderWang/protobuf-egret)
 
 
 联系我们
