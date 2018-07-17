@@ -4,6 +4,11 @@
 		<e:TabBar id="tabBar" left="10" top="5">
 			<e:layout>
 				<e:HorizontalLayout gap="5"/>
-			</e:layout>		</e:TabBar>		<e:Image source="sto_table_tittle" x="0" y="50"/>		<e:Scroller left="25" right="25" top="85" height="385">			<e:ViewStack id="viewStack"/>		</e:Scroller>
+			</e:layout>
+		</e:TabBar>
+		<e:Image source="sto_table_tittle" x="0" y="50"/>
+		<e:Scroller left="25" right="25" top="85" height="385">
+			<e:ViewStack id="viewStack"/>
+		</e:Scroller>
 	</e:Group>
 </e:Skin>
