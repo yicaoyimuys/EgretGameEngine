@@ -32,7 +32,7 @@ class Main extends egret.DisplayObjectContainer {
      * 3: Rpg
      * @type {number}
      */
-    private testType: number = 3;
+    private testType: number = 2;
 
     public constructor() {
         super();
