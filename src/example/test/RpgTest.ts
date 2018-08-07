@@ -49,8 +49,8 @@ class RpgTest {
         App.Init();
 
         //音乐音效处理
-        App.SoundManager.setBgOn(false);
-        App.SoundManager.setEffectOn(false);
+        App.SoundManager.setBgOn(true);
+        App.SoundManager.setEffectOn(true);
 
         //进入游戏
         App.SceneManager.runScene(SceneConsts.RpgGame, this.mapId);

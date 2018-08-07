@@ -49,7 +49,7 @@ class SoundBg extends BaseSound {
      */
     private playSound(sound:egret.Sound):void {
         this._currSound = sound;
-        this._currSoundChannel = this._currSound.play(0, 1);
+        this._currSoundChannel = this._currSound.play();
         this._currSoundChannel.volume = this._volume;
     }
 
