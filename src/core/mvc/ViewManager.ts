@@ -125,7 +125,7 @@ class ViewManager extends BaseClass {
         }
 
         var viewIndex = this._opens.indexOf(key);
-        if (key >= 0) {
+        if (viewIndex >= 0) {
             this._opens.splice(viewIndex, 1);
         }
 
