@@ -31,6 +31,10 @@ class MoveComponent extends Component {
 
         if (this.entity.pathChange) {
             this.entity.pathChange = false;
+            if (this.node) {
+                this.entity.col = this.node.x;
+                this.entity.row = this.node.y;
+            }
             this.node = null;
         }
 
