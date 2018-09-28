@@ -22,8 +22,7 @@ class RpgGameScene extends BaseScene{
         ComponentSystem.start();
 
         //添加该Scene使用的Layer
-        // LayerManager.Game_Main.scaleX = LayerManager.Game_Main.scaleY = 1.5;
-        this.addLayerAt(LayerManager.Game_Main, 0);
+        this.addLayer(LayerManager.Game_Main);
         this.addLayer(LayerManager.UI_Main);
         this.addLayer(LayerManager.UI_Popup);
         this.addLayer(LayerManager.UI_Message);

@@ -1,7 +1,7 @@
 /**
  * Created by yangsong on 15-1-7.
  */
-class BaseEuiLayer extends eui.Group {
+class BaseEuiLayer extends eui.UILayer {
     public constructor() {
         super();
 

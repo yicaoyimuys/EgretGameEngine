@@ -3,29 +3,18 @@
  * Stage相关工具类
  */
 class StageUtils extends BaseClass {
-    //UIStage单例
-    private static _uiStage:eui.UILayer;
-
     /**
      * 构造函数
      */
     public constructor() {
         super();
-
-        if (StageUtils._uiStage == null) {
-            StageUtils._uiStage = new eui.UILayer();
-            StageUtils._uiStage.percentHeight = 100;
-            StageUtils._uiStage.percentWidth = 100;
-            StageUtils._uiStage.touchEnabled = false;
-            this.getStage().addChild(StageUtils._uiStage);
-        }
     }
 
     /**
      * 获取游戏的高度
      * @returns {number}
      */
-    public getHeight():number {
+    public getHeight(): number {
         return this.getStage().stageHeight;
     }
 
@@ -33,7 +22,7 @@ class StageUtils extends BaseClass {
      * 获取游戏宽度
      * @returns {number}
      */
-    public getWidth():number {
+    public getWidth(): number {
         return this.getStage().stageWidth;
     }
 
@@ -41,7 +30,7 @@ class StageUtils extends BaseClass {
      * 指定此对象的子项以及子孙项是否接收鼠标/触摸事件
      * @param value
      */
-    public setTouchChildren(value:boolean):void {
+    public setTouchChildren(value: boolean): void {
         this.getStage().touchChildren = value;
     }
 
@@ -49,7 +38,7 @@ class StageUtils extends BaseClass {
      * 设置同时可触发几个点击事件，默认为2
      * @param value
      */
-    public setMaxTouches(value:number):void {
+    public setMaxTouches(value: number): void {
         this.getStage().maxTouches = value;
     }
 
@@ -57,7 +46,7 @@ class StageUtils extends BaseClass {
      * 设置帧频
      * @param value
      */
-    public setFrameRate(value:number):void {
+    public setFrameRate(value: number): void {
         this.getStage().frameRate = value;
     }
 
@@ -65,7 +54,7 @@ class StageUtils extends BaseClass {
      * 设置适配方式
      * @param value
      */
-    public setScaleMode(value:string):void {
+    public setScaleMode(value: string): void {
         this.getStage().scaleMode = value;
     }
 
@@ -73,16 +62,8 @@ class StageUtils extends BaseClass {
      * 获取游戏Stage对象
      * @returns {egret.MainContext}
      */
-    public getStage():egret.Stage {
+    public getStage(): egret.Stage {
         return egret.MainContext.instance.stage;
-    }
-
-    /**
-     * 获取唯一UIStage
-     * @returns {eui.UILayer}
-     */
-    public getUIStage():eui.UILayer {
-        return StageUtils._uiStage;
     }
 
     /**
