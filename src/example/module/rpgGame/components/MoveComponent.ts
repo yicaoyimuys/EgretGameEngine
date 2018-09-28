@@ -60,20 +60,33 @@ class MoveComponent extends Component {
 
     private move(advancedTime: number): void {
         var useSpeed: number = this.entity.speed / (1000 / 60) * advancedTime;
-        if (this.distance > useSpeed) {
-            var speedX: number = Math.cos(this.radian) * useSpeed;
-            var speedY: number = Math.sin(this.radian) * useSpeed;
-            this.entity.x += speedX;
-            this.entity.y += speedY;
-            this.distance -= useSpeed;
-        }
-        else {
-            this.entity.x = this.endX;
-            this.entity.y = this.endY;
+        // if (this.distance > useSpeed) {
+        //     var speedX: number = Math.cos(this.radian) * useSpeed;
+        //     var speedY: number = Math.sin(this.radian) * useSpeed;
+        //     this.entity.x += speedX;
+        //     this.entity.y += speedY;
+        //     this.distance -= useSpeed;
+        // }
+        // else {
+        //     this.entity.x = this.endX;
+        //     this.entity.y = this.endY;
+        //     this.entity.col = this.node.x;
+        //     this.entity.row = this.node.y;
+        //     this.node = null;
+        // }
+        var speedX: number = Math.cos(this.radian) * useSpeed;
+        var speedY: number = Math.sin(this.radian) * useSpeed;
+        this.entity.x += speedX;
+        this.entity.y += speedY;
+        this.distance -= useSpeed;
+        if (this.distance <= 0) {
             this.entity.col = this.node.x;
             this.entity.row = this.node.y;
+            if (!this.entity.path || !this.entity.path.length) {
+                this.entity.x = this.endX;
+                this.entity.y = this.endY;
+            }
             this.node = null;
-            // console.log(this._gameEntity.col, this._gameEntity.row);
         }
     }
 
@@ -84,8 +97,6 @@ class MoveComponent extends Component {
         this.endY = p.y;
         this.radian = App.MathUtils.getRadian2(this.entity.x, this.entity.y, this.endX, this.endY);
         this.distance = App.MathUtils.getDistance(this.entity.x, this.entity.y, this.endX, this.endY);
-        this.entity.dir = RpgGameUtils.computeGameObjDir(this.entity.x, this.entity.y, this.endX, this.endY);
-
-        // console.log(angle, this._gameEntity.dir);
+        this.entity.dir = RpgGameUtils.computeGameObjDir(this.entity.col, this.entity.row, this.node.x, this.node.y);
     }
 }
