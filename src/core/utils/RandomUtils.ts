@@ -31,6 +31,9 @@ class RandomUtils extends BaseClass {
      * @returns {any} 随机出来的结果
      */
     public randomArray(arr: Array<any>): any {
+        if (!arr) {
+            return null;
+        }
         var index: number = Math.floor(Math.random() * arr.length);
         return arr[index];
     }

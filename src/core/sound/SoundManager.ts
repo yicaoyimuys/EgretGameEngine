@@ -7,15 +7,15 @@ class SoundManager extends BaseClass {
      * 音乐文件清理时间
      * @type {number}
      */
-    public static CLEAR_TIME:number = 3 * 60 * 1000;
+    public static CLEAR_TIME: number = 3 * 60 * 1000;
 
-    private effect:SoundEffects;
-    private bg:SoundBg;
-    private effectOn:boolean;
-    private bgOn:boolean;
-    private currBg:string;
-    private bgVolume:number;
-    private effectVolume:number;
+    private effect: SoundEffects;
+    private bg: SoundBg;
+    private effectOn: boolean;
+    private bgOn: boolean;
+    private currBg: string;
+    private bgVolume: number;
+    private effectVolume: number;
 
     /**
      * 构造函数
@@ -40,18 +40,26 @@ class SoundManager extends BaseClass {
      * 播放音效
      * @param effectName
      */
-    public playEffect(effectName:string):void {
+    public playEffect(effectName: string, loops: number = 1): void {
         if (!this.effectOn)
             return;
 
-        this.effect.play(effectName);
+        this.effect.play(effectName, loops);
+    }
+
+    /**
+     * 停止音效播放
+     * @param effectName
+     */
+    public stopEffect(effectName: string): void {
+        this.effect.stop(effectName);
     }
 
     /**
      * 播放背景音乐
      * @param key
      */
-    public playBg(bgName:string):void {
+    public playBg(bgName: string): void {
         this.currBg = bgName;
         if (!this.bgOn)
             return;
@@ -62,7 +70,7 @@ class SoundManager extends BaseClass {
     /**
      * 停止背景音乐
      */
-    public stopBg():void {
+    public stopBg(): void {
         this.bg.stop();
     }
 
@@ -70,7 +78,7 @@ class SoundManager extends BaseClass {
      * 设置音效是否开启
      * @param $isOn
      */
-    public setEffectOn($isOn:boolean):void {
+    public setEffectOn($isOn: boolean): void {
         this.effectOn = $isOn;
     }
 
@@ -78,7 +86,7 @@ class SoundManager extends BaseClass {
      * 设置背景音乐是否开启
      * @param $isOn
      */
-    public setBgOn($isOn:boolean):void {
+    public setBgOn($isOn: boolean): void {
         this.bgOn = $isOn;
         if (!this.bgOn) {
             this.stopBg();
@@ -93,7 +101,7 @@ class SoundManager extends BaseClass {
      * 设置背景音乐音量
      * @param volume
      */
-    public setBgVolume(volume:number):void {
+    public setBgVolume(volume: number): void {
         volume = Math.min(volume, 1);
         volume = Math.max(volume, 0);
         this.bgVolume = volume;
@@ -104,7 +112,7 @@ class SoundManager extends BaseClass {
      * 获取背景音乐音量
      * @returns {number}
      */
-    public getBgVolume():number {
+    public getBgVolume(): number {
         return this.bgVolume;
     }
 
@@ -112,7 +120,7 @@ class SoundManager extends BaseClass {
      * 设置音效音量
      * @param volume
      */
-    public setEffectVolume(volume:number):void {
+    public setEffectVolume(volume: number): void {
         volume = Math.min(volume, 1);
         volume = Math.max(volume, 0);
         this.effectVolume = volume;
@@ -123,7 +131,7 @@ class SoundManager extends BaseClass {
      * 获取音效音量
      * @returns {number}
      */
-    public getEffectVolume():number {
+    public getEffectVolume(): number {
         return this.effectVolume;
     }
 

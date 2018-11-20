@@ -14,8 +14,8 @@ class DateUtils extends BaseClass {
      * @return
      *
      */
-    public getFormatBySecond(second:number, type:number = 1):string {
-        var str:string = "";
+    public getFormatBySecond(second: number, type: number = 1): string {
+        var str: string = "";
         switch (type) {
             case 1:
                 str = this.getFormatBySecond1(second);
@@ -37,9 +37,9 @@ class DateUtils extends BaseClass {
     }
 
     //1: 00:00:00
-    private getFormatBySecond1(t:number = 0):string {
-        var hourst:number = Math.floor(t / 3600);
-        var hours:string;
+    private getFormatBySecond1(t: number = 0): string {
+        var hourst: number = Math.floor(t / 3600);
+        var hours: string;
         if (hourst == 0) {
             hours = "00";
         } else {
@@ -48,10 +48,10 @@ class DateUtils extends BaseClass {
             else
                 hours = "" + hourst;
         }
-        var minst:number = Math.floor((t - hourst * 3600) / 60);
-        var secondt:number = Math.floor((t - hourst * 3600) % 60);
-        var mins:string;
-        var sens:string;
+        var minst: number = Math.floor((t - hourst * 3600) / 60);
+        var secondt: number = Math.floor((t - hourst * 3600) % 60);
+        var mins: string;
+        var sens: string;
         if (minst == 0) {
             mins = "00";
         } else if (minst < 10) {
@@ -70,12 +70,12 @@ class DateUtils extends BaseClass {
     }
 
     //3: 00:00
-    private getFormatBySecond3(t:number = 0):string {
-        var hourst:number = Math.floor(t / 3600);
-        var minst:number = Math.floor((t - hourst * 3600) / 60);
-        var secondt:number = Math.floor((t - hourst * 3600) % 60);
-        var mins:string;
-        var sens:string;
+    private getFormatBySecond3(t: number = 0): string {
+        var hourst: number = Math.floor(t / 3600);
+        var minst: number = Math.floor((t - hourst * 3600) / 60);
+        var secondt: number = Math.floor((t - hourst * 3600) % 60);
+        var mins: string;
+        var sens: string;
         if (minst == 0) {
             mins = "00";
         } else if (minst < 10) {
@@ -94,20 +94,20 @@ class DateUtils extends BaseClass {
     }
 
     //2:yyyy-mm-dd h:m:s
-    private getFormatBySecond2(time:number):string {
-        var date:Date = new Date(time);
-        var year:number = date.getFullYear();
-        var month:number = date.getMonth() + 1; 	//返回的月份从0-11；
-        var day:number = date.getDate();
-        var hours:number = date.getHours();
-        var minute:number = date.getMinutes();
-        var second:number = date.getSeconds();
+    private getFormatBySecond2(time: number): string {
+        var date: Date = new Date(time);
+        var year: number = date.getFullYear();
+        var month: number = date.getMonth() + 1; 	//返回的月份从0-11；
+        var day: number = date.getDate();
+        var hours: number = date.getHours();
+        var minute: number = date.getMinutes();
+        var second: number = date.getSeconds();
         return year + "-" + month + "-" + day + " " + hours + ":" + minute + ":" + second;
 
     }
 
     //4:xx天前，xx小时前，xx分钟前
-    private getFormatBySecond4(time:number):string {
+    private getFormatBySecond4(time: number): string {
         var t = Math.floor(time / 3600);
         if (t > 0) {
             if (t > 24) {
@@ -122,21 +122,21 @@ class DateUtils extends BaseClass {
         }
     }
 
-    private getFormatBySecond5(time:number):string {
+    private getFormatBySecond5(time: number): string {
         //每个时间单位所对应的秒数
-        var oneDay:number = 3600 * 24;
-        var oneHourst:number = 3600;
-        var oneMinst:number = 60;
+        var oneDay: number = 3600 * 24;
+        var oneHourst: number = 3600;
+        var oneMinst: number = 60;
 
         var days = Math.floor(time / oneDay);
-        var hourst:number = Math.floor(time % oneDay / oneHourst)
-        var minst:number = Math.floor((time - hourst * oneHourst) / oneMinst)  //Math.floor(time % oneDay % oneHourst / oneMinst);
-        var secondt:number = Math.floor((time - hourst * oneHourst) % oneMinst) //time;
+        var hourst: number = Math.floor(time % oneDay / oneHourst)
+        var minst: number = Math.floor((time - hourst * oneHourst) / oneMinst)  //Math.floor(time % oneDay % oneHourst / oneMinst);
+        var secondt: number = Math.floor((time - hourst * oneHourst) % oneMinst) //time;
 
-        var dayss:string = "";
-        var hourss:string = ""
-        var minss:string = "";
-        var secss:string = ""
+        var dayss: string = "";
+        var hourss: string = ""
+        var minss: string = "";
+        var secss: string = ""
         if (time > 0) {
             //天
             if (days == 0) {
@@ -212,4 +212,23 @@ class DateUtils extends BaseClass {
         return "";
     }
 
+    /**
+     * 获取当前是周几
+     * ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
+     */
+    public getDay(timestamp: number): number {
+        let date = new Date(timestamp);
+        return date.getDay();
+    }
+
+    /**
+     * 判定两个时间是否是同一天
+     */
+    public isSameDate(timestamp1: number, timestamp2: number): boolean {
+        let date1 = new Date(timestamp1);
+        let date2 = new Date(timestamp2);
+        return date1.getFullYear() == date2.getFullYear()
+            && date1.getMonth() == date2.getMonth()
+            && date1.getDate() == date2.getDate();
+    }
 }

@@ -96,6 +96,24 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
     }
 
     /**
+     * 从指定时间播放指定动画
+     */
+    public gotoAndPlayByTime(name: string, time: number, playNum: number = undefined): dragonBones.AnimationState {
+        this._currAnimationState = this.getAnimation().gotoAndPlayByTime(name, time, playNum);
+        return this._currAnimationState;
+    }
+
+    /**
+     * 获取当前动作的播放时间
+     */
+    public get currentTime(): number {
+        if (!this._currAnimationState) {
+            return 0;
+        }
+        return this._currAnimationState.currentTime;
+    }
+
+    /**
      * 恢复播放
      */
     public start(): void {
@@ -283,5 +301,25 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
         if (bone) {
             bone.slot.setDisplay(displayObject);
         }
+    }
+
+    /**
+     * 替换插槽
+     */
+    public changeSlot(slotName: string, displayObject: egret.DisplayObject): void {
+        if (!displayObject) {
+            return;
+        }
+        let slot = this._armature.getSlot(slotName);
+        if (!slot) {
+            egret.warn("Slot不存在", slotName);
+            return;
+        }
+        let oldDisplayObject = slot.getDisplay();
+        displayObject.x = oldDisplayObject.x;
+        displayObject.y = oldDisplayObject.y;
+        displayObject.anchorOffsetX = oldDisplayObject.anchorOffsetX;
+        displayObject.anchorOffsetY = oldDisplayObject.anchorOffsetY;
+        slot.setDisplay(displayObject);
     }
 }
