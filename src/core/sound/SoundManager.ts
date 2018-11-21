@@ -9,6 +9,10 @@ class SoundManager extends BaseClass {
      */
     public static CLEAR_TIME: number = 3 * 60 * 1000;
 
+    //LocalStorage使用的key值
+    private LocalStorageKey_Bg: string = "bgMusicFlag";
+    private LocalStorageKey_Effect: string = "effectMusicFlag";
+
     private effect: ISoundEffect;
     private bg: SoundBg;
     private effectOn: boolean;
@@ -23,9 +27,6 @@ class SoundManager extends BaseClass {
     public constructor() {
         super();
 
-        this.bgOn = true;
-        this.effectOn = true;
-
         this.bgVolume = 0.5;
         this.effectVolume = 0.5;
 
@@ -38,6 +39,27 @@ class SoundManager extends BaseClass {
             this.effect = new SoundEffect();
         }
         this.effect.setVolume(this.effectVolume);
+
+        this.setDefaultSwitchState();
+    }
+
+    /**
+     * 设置背景音乐和音效的默认开关状态
+     */
+    private setDefaultSwitchState(): void {
+        let bgMusicFlag = egret.localStorage.getItem(this.LocalStorageKey_Bg);
+        if (!bgMusicFlag) {
+            this.bgOn = true;
+        } else {
+            this.bgOn = bgMusicFlag == "1";
+        }
+
+        let effectMusicFlag = egret.localStorage.getItem(this.LocalStorageKey_Effect);
+        if (!effectMusicFlag) {
+            this.effectOn = true;
+        } else {
+            this.effectOn = effectMusicFlag == "1";
+        }
     }
 
     /**
@@ -84,6 +106,7 @@ class SoundManager extends BaseClass {
      */
     public setEffectOn($isOn: boolean): void {
         this.effectOn = $isOn;
+        egret.localStorage.setItem(this.LocalStorageKey_Effect, $isOn ? "1" : "0");
     }
 
     /**
@@ -92,6 +115,8 @@ class SoundManager extends BaseClass {
      */
     public setBgOn($isOn: boolean): void {
         this.bgOn = $isOn;
+        egret.localStorage.setItem(this.LocalStorageKey_Bg, $isOn ? "1" : "0");
+
         if (!this.bgOn) {
             this.stopBg();
         } else {
@@ -139,4 +164,19 @@ class SoundManager extends BaseClass {
         return this.effectVolume;
     }
 
+    /**
+     * 背景音乐是否已开启
+     * @returns {boolean}
+     */
+    public get bgIsOn(): boolean {
+        return this.bgOn;
+    }
+
+    /**
+     * 音效是否已开启
+     * @returns {boolean}
+     */
+    public get effectIsOn(): boolean {
+        return this.effectOn;
+    }
 }
