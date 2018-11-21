@@ -2,7 +2,7 @@
  * Created by yangsong on 15-1-14.
  * 音效类
  */
-class SoundEffects extends BaseSound {
+class SoundEffect extends BaseSound implements ISoundEffect {
     private _volume: number;
     private _soundLoops: any = {};
     private _soundChannels: any = {};

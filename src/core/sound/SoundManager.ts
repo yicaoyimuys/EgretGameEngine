@@ -9,7 +9,7 @@ class SoundManager extends BaseClass {
      */
     public static CLEAR_TIME: number = 3 * 60 * 1000;
 
-    private effect: SoundEffects;
+    private effect: ISoundEffect;
     private bg: SoundBg;
     private effectOn: boolean;
     private bgOn: boolean;
@@ -32,7 +32,11 @@ class SoundManager extends BaseClass {
         this.bg = new SoundBg();
         this.bg.setVolume(this.bgVolume);
 
-        this.effect = new SoundEffects();
+        if (App.DeviceUtils.IsWxGame) {
+            this.effect = new SoundEffectWx();
+        } else {
+            this.effect = new SoundEffect();
+        }
         this.effect.setVolume(this.effectVolume);
     }
 
