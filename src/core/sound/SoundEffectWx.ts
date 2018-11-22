@@ -54,7 +54,7 @@ class SoundEffectWx implements ISoundEffect {
         let audio = this._cache[effectName];
         if (!audio) {
             audio = this._wx.createInnerAudioContext();
-            audio.src = this.getFilePath(effectName);
+            audio.src = App.ResourceUtils.getFileRealPath(effectName);
             this._cache[effectName] = audio;
         }
         audio.useTime = egret.getTimer();
@@ -71,14 +71,6 @@ class SoundEffectWx implements ISoundEffect {
         audio.volume = this._volume;
         audio.startTime = 0;
         audio.play();
-    }
-
-    /**
-     * 获取文件的真实路径
-     */
-    private getFilePath(key): string {
-        let fileInfo = RES.getResourceInfo(key);
-        return fileInfo.root + fileInfo.url;
     }
 
     /**
