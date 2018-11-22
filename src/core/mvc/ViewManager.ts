@@ -2,12 +2,12 @@ class ViewManager extends BaseClass {
     /**
      * 已注册的UI
      */
-    private _views:any;
+    private _views: any;
 
     /**
      * 开启中UI
      */
-    private _opens:Array<number>;
+    private _opens: Array<number>;
 
     /**
      * 构造函数
@@ -21,7 +21,7 @@ class ViewManager extends BaseClass {
     /**
      * 清空处理
      */
-    public clear():void {
+    public clear(): void {
         this.closeAll();
         this._views = {};
     }
@@ -31,7 +31,7 @@ class ViewManager extends BaseClass {
      * @param key 面板唯一标识
      * @param view 面板
      */
-    public register(key:number, view:IBaseView):void {
+    public register(key: number, view: IBaseView): void {
         if (view == null) {
             return;
         }
@@ -45,7 +45,7 @@ class ViewManager extends BaseClass {
      * 面板解除注册
      * @param key
      */
-    public unregister(key:number):void {
+    public unregister(key: number): void {
         if (!this._views[key]) {
             return;
         }
@@ -58,8 +58,8 @@ class ViewManager extends BaseClass {
      * @param key 唯一标识
      * @param newView 新面板
      */
-    public destroy(key:number, newView:IBaseView = null):void {
-        var oldView:IBaseView = this.getView(key);
+    public destroy(key: number, newView: IBaseView = null): void {
+        var oldView: IBaseView = this.getView(key);
         if (oldView) {
             this.unregister(key);
             oldView.destroy();
@@ -74,8 +74,8 @@ class ViewManager extends BaseClass {
      * @param param 参数
      *
      */
-    public open(key:number, ...param:any[]):IBaseView {
-        var view:IBaseView = this.getView(key);
+    public open(key: number, ...param: any[]): IBaseView {
+        var view: IBaseView = this.getView(key);
         if (view == null) {
             Log.trace("UI_" + key + "不存在");
             return;
@@ -95,12 +95,12 @@ class ViewManager extends BaseClass {
             view.loadResource(function () {
                 view.setVisible(false);
                 view.addToParent();
+                App.EasyLoading.hideLoading();
             }.bind(this), function () {
                 view.initUI();
                 view.initData();
                 view.open.apply(view, param);
                 view.setVisible(true);
-                App.EasyLoading.hideLoading();
             }.bind(this));
         }
 
@@ -114,12 +114,12 @@ class ViewManager extends BaseClass {
      * @param param 参数
      *
      */
-    public close(key:number, ...param:any[]):void {
+    public close(key: number, ...param: any[]): void {
         if (!this.isShow(key)) {
             return;
         }
 
-        var view:IBaseView = this.getView(key);
+        var view: IBaseView = this.getView(key);
         if (view == null) {
             return;
         }
@@ -138,10 +138,10 @@ class ViewManager extends BaseClass {
      * @param view
      * @param param
      */
-    public closeView(view:IBaseView, ...param:any[]):void {
+    public closeView(view: IBaseView, ...param: any[]): void {
         var keys = Object.keys(this._views);
-        for (var i:number = 0, len = keys.length; i < len; i++) {
-            var key:number = parseInt(keys[i]);
+        for (var i: number = 0, len = keys.length; i < len; i++) {
+            var key: number = parseInt(keys[i]);
             if (this._views[key] == view) {
                 this.close(key, param);
                 return;
@@ -154,14 +154,14 @@ class ViewManager extends BaseClass {
      * @param key
      * @returns {any}
      */
-    public getView(key:number):IBaseView {
+    public getView(key: number): IBaseView {
         return this._views[key];
     }
 
     /**
      * 关闭所有开启中的UI
      */
-    public closeAll():void {
+    public closeAll(): void {
         while (this._opens.length) {
             this.close(this._opens[0]);
         }
@@ -171,7 +171,7 @@ class ViewManager extends BaseClass {
      * 当前ui打开数量
      * @returns {number}
      */
-    public currOpenNum():number {
+    public currOpenNum(): number {
         return this._opens.length;
     }
 
@@ -180,7 +180,7 @@ class ViewManager extends BaseClass {
      * @param key
      * @returns {boolean}
      */
-    public isShow(key:number):boolean {
+    public isShow(key: number): boolean {
         return this._opens.indexOf(key) != -1;
     }
 }
