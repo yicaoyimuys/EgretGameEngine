@@ -278,6 +278,27 @@ class App {
     }
 
     /**
+     * AnchorUtils工具类
+     */
+    public static get AnchorUtils(): AnchorUtils {
+        return AnchorUtils.getInstance();
+    }
+
+    /**
+     * hack引擎的Touch事件
+     */
+    public static get TouchEventHook(): TouchEventHook {
+        return TouchEventHook.getInstance();
+    }
+
+    /**
+     * H5地址栏参数操作工作类
+     */
+    public static get LocationPropertyUtils(): LocationPropertyUtils {
+        return LocationPropertyUtils.getInstance();
+    }
+
+    /**
      * 初始化函数
      * @constructor
      */

@@ -127,7 +127,7 @@ class RpgGameView extends BaseSpriteView {
         hpTxt.x = gameObj.x;
         hpTxt.y = gameObj.y - 150;
         hpTxt.alpha = 1;
-        AnchorUtil.setAnchorX(hpTxt, 0.5);
+        App.AnchorUtils.setAnchorX(hpTxt, 0.5);
         this.gameEffectLayer.addChild(hpTxt);
 
         egret.Tween.get(hpTxt).to({"y": gameObj.y - 250, "alpha": 0}, 1000).call(function () {

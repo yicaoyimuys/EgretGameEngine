@@ -212,6 +212,7 @@ class DateUtils extends BaseClass {
         return "";
     }
 
+
     /**
      * 获取当前是周几
      * ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]

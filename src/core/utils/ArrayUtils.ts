@@ -7,8 +7,8 @@ class ArrayUtils extends BaseClass {
      * @param arr
      * @param func
      */
-    public forEach(arr:Array<any>, func:Function, funcObj:any):void {
-        for (var i:number = 0, len:number = arr.length; i < len; i++) {
+    public forEach(arr: Array<any>, func: Function, funcObj: any): void {
+        for (var i: number = 0, len: number = arr.length; i < len; i++) {
             func.apply(funcObj, [arr[i]]);
         }
     }

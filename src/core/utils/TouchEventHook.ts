@@ -2,18 +2,12 @@
  * Created by Saco on 2015/1/14.
  * hack引擎的点击事件
  */
-class TouchEventHook {
+class TouchEventHook extends BaseClass {
     private _eventCallDic: any;
-    private static _instance: TouchEventHook;
 
     public constructor() {
+        super();
         this._eventCallDic = {};
-    }
-
-    public static i(): TouchEventHook {
-        if (!this._instance)
-            this._instance = new TouchEventHook();
-        return this._instance;
     }
 
     private get systemTouch(): any {

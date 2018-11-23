@@ -3,9 +3,9 @@
  * 队列处理
  */
 class QueueExecutor {
-    private _callBack:Function;
-    private _callBackTarget:any;
-    private _functions:Array<Array<any>>;
+    private _callBack: Function;
+    private _callBackTarget: any;
+    private _functions: Array<Array<any>>;
 
     /**
      * 构造函数
@@ -19,7 +19,7 @@ class QueueExecutor {
      * @param callBack 此队列处理完成执行函数
      * @param callBackTarget 此队列处理完成执行函数所属对象
      */
-    public setCallBack(callBack:Function, callBackTarget:any):void {
+    public setCallBack(callBack: Function, callBackTarget: any): void {
         this._callBack = callBack;
         this._callBackTarget = callBackTarget;
     }
@@ -29,21 +29,21 @@ class QueueExecutor {
      * @param $func 函数
      * @param $thisObj 函数所属对象
      */
-    public regist($func:Function, $thisObj:any):void {
+    public regist($func: Function, $thisObj: any): void {
         this._functions.push([$func, $thisObj]);
     }
 
     /**
      * 开始执行
      */
-    public start():void {
+    public start(): void {
         this.next();
     }
 
     /**
      * 执行下一个
      */
-    public next():void {
+    public next(): void {
         if (!this._functions) {
             return;
         }
@@ -57,7 +57,7 @@ class QueueExecutor {
             this._functions = null;
         }
         else {
-            var arr:Array<any> = this._functions.shift();
+            var arr: Array<any> = this._functions.shift();
             arr[0].call(arr[1]);
         }
     }

@@ -2,9 +2,9 @@
  * Created by Saco on 2015/10/26.
  */
 class TextFlowMaker extends BaseClass {
-    private STYLE_COLOR:string = "C";
-    private STYLE_SIZE:string = "S";
-    private PROP_TEXT:string = "T";
+    private STYLE_COLOR: string = "C";
+    private STYLE_SIZE: string = "S";
+    private PROP_TEXT: string = "T";
 
     public constructor() {
         super();
@@ -15,7 +15,7 @@ class TextFlowMaker extends BaseClass {
      * @param sourceText
      * @returns {Array}
      */
-    public generateTextFlow(sourceText:string):egret.ITextElement[] {
+    public generateTextFlow(sourceText: string): egret.ITextElement[] {
         var textArr = sourceText.split("|");
         var result = [];
         for (var i = 0, len = textArr.length; i < len; i++) {
@@ -24,10 +24,10 @@ class TextFlowMaker extends BaseClass {
         return result;
     }
 
-    private getSingleTextFlow(text:string):egret.ITextElement {
+    private getSingleTextFlow(text: string): egret.ITextElement {
         var textArr = text.split("&");
         var tempArr;
-        var textFlow:any = {"style": {}};
+        var textFlow: any = { "style": {} };
         for (var i = 0, len = textArr.length; i < len; i++) {
             tempArr = textArr[i].split(":");
             if (tempArr[0] == this.PROP_TEXT) {

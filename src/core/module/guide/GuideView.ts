@@ -3,15 +3,15 @@
  * GuideView
  */
 class GuideView extends egret.Sprite {
-    private _bg:GuideMaskBackgroud;
-    private _obj:egret.DisplayObject;
-    private _data:any;
-    private _objGlobalPoint:egret.Point;
-    private _objRec:egret.Rectangle;
-    private _maskPic:egret.Bitmap;
-    private _textBgPic:egret.Bitmap;
-    private _handPic:egret.Bitmap;
-    private _txt:egret.TextField;
+    private _bg: GuideMaskBackgroud;
+    private _obj: egret.DisplayObject;
+    private _data: any;
+    private _objGlobalPoint: egret.Point;
+    private _objRec: egret.Rectangle;
+    private _maskPic: egret.Bitmap;
+    private _textBgPic: egret.Bitmap;
+    private _handPic: egret.Bitmap;
+    private _txt: egret.TextField;
 
     /**
      * 构造函数
@@ -29,18 +29,18 @@ class GuideView extends egret.Sprite {
         this.addChild(this._maskPic);
 
         this._textBgPic = StarlingSwfUtils.createS9Image("s9_guide_txt");
-        AnchorUtil.setAnchorY(this._textBgPic, 1);
+        App.AnchorUtils.setAnchorY(this._textBgPic, 1);
         this.addChild(this._textBgPic);
 
         this._handPic = StarlingSwfUtils.createImage("img_hand");
-        AnchorUtil.setAnchorX(this._handPic, 0.5);
+        App.AnchorUtils.setAnchorX(this._handPic, 0.5);
         this.addChild(this._handPic);
 
         this._txt = new egret.TextField();
         this._txt.size = 26;
         this._txt.textColor = 0x575757;
         this._txt.lineSpacing = 4;
-        AnchorUtil.setAnchorY(this._txt, 0.5);
+        App.AnchorUtils.setAnchorY(this._txt, 0.5);
         this.addChild(this._txt);
 
         egret.MainContext.instance.stage.addEventListener(egret.Event.RESIZE, this.onResize, this);
@@ -49,7 +49,7 @@ class GuideView extends egret.Sprite {
     /**
      * 屏幕大小改变时重置
      */
-    private onResize():void {
+    private onResize(): void {
         if (this.stage) {
             egret.setTimeout(this.refurbish, this, 500);
         }
@@ -58,7 +58,7 @@ class GuideView extends egret.Sprite {
     /**
      * 刷新
      */
-    private refurbish():void {
+    private refurbish(): void {
         this.setData(this._obj, this._data);
     }
 
@@ -67,7 +67,7 @@ class GuideView extends egret.Sprite {
      * @param obj
      * @param data
      */
-    public setData(obj:egret.DisplayObject, data:any):void {
+    public setData(obj: egret.DisplayObject, data: any): void {
         if (obj == null) {
             return;
         }
@@ -80,8 +80,8 @@ class GuideView extends egret.Sprite {
         this._objGlobalPoint.x = Math.ceil(this._objGlobalPoint.x);
         this._objGlobalPoint.y = Math.ceil(this._objGlobalPoint.y);
 
-        var tmpX:number = 15;
-        var tmpy:number = 15;
+        var tmpX: number = 15;
+        var tmpy: number = 15;
         this._objRec.x = this._objGlobalPoint.x - tmpX;
         this._objRec.y = this._objGlobalPoint.y - tmpy;
         this._objRec.width += tmpX * 2;
@@ -120,7 +120,7 @@ class GuideView extends egret.Sprite {
             this._txt.text = this._data.txt;
         }
 
-        var temp:number = 15;
+        var temp: number = 15;
         this._textBgPic.cacheAsBitmap = false;
         this._textBgPic.width = this._txt.width + temp * 2 + 35;
         this._textBgPic.height = 114;
@@ -154,9 +154,9 @@ class GuideView extends egret.Sprite {
     /**
      * 检测文本提示框是否出了边界
      */
-    private checkTextBgX():void {
+    private checkTextBgX(): void {
         if (this._textBgPic.scaleX == 1) {
-            var stageW:number = egret.MainContext.instance.stage.stageWidth;
+            var stageW: number = egret.MainContext.instance.stage.stageWidth;
             if (this._textBgPic.x + this._textBgPic.width > stageW) {
                 this._textBgPic.x = stageW - this._textBgPic.width;
             }

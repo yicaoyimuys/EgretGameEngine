@@ -3,7 +3,7 @@
  * Controller管理类
  */
 class ControllerManager extends BaseClass {
-    private _modules:any;
+    private _modules: any;
 
     /**
      * 构造函数
@@ -16,7 +16,7 @@ class ControllerManager extends BaseClass {
     /**
      * 清空处理
      */
-    public clear():void {
+    public clear(): void {
         this._modules = {};
     }
 
@@ -26,7 +26,7 @@ class ControllerManager extends BaseClass {
      * @param manager Manager
      *
      */
-    public register(key:number, control:BaseController):void {
+    public register(key: number, control: BaseController): void {
         if (this.isExists(key))
             return;
 
@@ -38,7 +38,7 @@ class ControllerManager extends BaseClass {
      * @param key 唯一标识
      *
      */
-    public unregister(key:number):void {
+    public unregister(key: number): void {
         if (!this.isExists(key))
             return;
 
@@ -52,7 +52,7 @@ class ControllerManager extends BaseClass {
      * @return Boolean
      *
      */
-    public isExists(key:number):boolean {
+    public isExists(key: number): boolean {
         return this._modules[key] != null;
     }
 
@@ -62,8 +62,8 @@ class ControllerManager extends BaseClass {
      * @param key 消息唯一标识
      *
      */
-    public applyFunc(controllerD:number, key:number, ...param:any[]):any {
-        var manager:BaseController = this._modules[controllerD];
+    public applyFunc(controllerD: number, key: number, ...param: any[]): any {
+        var manager: BaseController = this._modules[controllerD];
         if (manager) {
             var params = [];
             for (var i = 1; i < arguments.length; i++) {
@@ -71,7 +71,7 @@ class ControllerManager extends BaseClass {
             }
             return manager.applyFunc.apply(manager, params);
         } else {
-            Log.trace("模块" + controllerD + "不存在");
+            Log.warn("模块" + controllerD + "不存在");
             return null;
         }
     }
@@ -81,8 +81,8 @@ class ControllerManager extends BaseClass {
      * @param controllerD Controller唯一标识
      * @returns {BaseModel}
      */
-    public getControllerModel(controllerD:number):BaseModel {
-        var manager:BaseController = this._modules[controllerD];
+    public getControllerModel(controllerD: number): BaseModel {
+        var manager: BaseController = this._modules[controllerD];
         if (manager) {
             return manager.getModel();
         }

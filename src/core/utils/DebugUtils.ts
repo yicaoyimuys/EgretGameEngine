@@ -3,9 +3,9 @@
  * Debug调试工具
  */
 class DebugUtils extends BaseClass {
-    private _isOpen:boolean;
-    private _startTimes:any;
-    private _threshold:number = 3;
+    private _isOpen: boolean;
+    private _startTimes: any;
+    private _threshold: number = 3;
 
     public constructor() {
         super();
@@ -17,7 +17,7 @@ class DebugUtils extends BaseClass {
      * @param flag
      *
      */
-    public isOpen(flag:boolean):void {
+    public isOpen(flag: boolean): void {
         this._isOpen = flag;
     }
 
@@ -25,7 +25,7 @@ class DebugUtils extends BaseClass {
      * 是否是调试模式
      * @returns {boolean}
      */
-    public get isDebug():boolean {
+    public get isDebug(): boolean {
         return this._isOpen;
     }
 
@@ -35,7 +35,7 @@ class DebugUtils extends BaseClass {
      * @param minTime 最小时间
      *
      */
-    public start(key:string):void {
+    public start(key: string): void {
         if (!this._isOpen) {
             return;
         }
@@ -47,7 +47,7 @@ class DebugUtils extends BaseClass {
      * 停止
      *
      */
-    public stop(key):number {
+    public stop(key): number {
         if (!this._isOpen) {
             return 0;
         }
@@ -56,9 +56,9 @@ class DebugUtils extends BaseClass {
             return 0;
         }
 
-        var cha:number = egret.getTimer() - this._startTimes[key];
+        var cha: number = egret.getTimer() - this._startTimes[key];
         if (cha > this._threshold) {
-            Log.trace(key + ": " + cha);
+            Log.debug(key + ": " + cha);
         }
         return cha;
     }
@@ -67,7 +67,7 @@ class DebugUtils extends BaseClass {
      * 设置时间间隔阈值
      * @param value
      */
-    public setThreshold(value:number):void {
+    public setThreshold(value: number): void {
         this._threshold = value;
     }
 }

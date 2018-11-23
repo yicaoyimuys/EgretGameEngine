@@ -3,8 +3,8 @@
  * 对象池类
  */
 class ObjectPool {
-    private static _content:any = {};
-    private _objs:Array<any>;
+    private static _content: any = {};
+    private _objs: Array<any>;
 
     /**
      * 构造函数
@@ -17,7 +17,7 @@ class ObjectPool {
      * 放回一个对象
      * @param obj
      */
-    public pushObj(obj:any):void {
+    public pushObj(obj: any): void {
         this._objs.push(obj);
     }
 
@@ -25,7 +25,7 @@ class ObjectPool {
      * 取出一个对象
      * @returns {*}
      */
-    public popObj():any {
+    public popObj(): any {
         if (this._objs.length > 0) {
             return this._objs.pop();
         } else {
@@ -36,7 +36,7 @@ class ObjectPool {
     /**
      * 清除所有缓存对象
      */
-    public clear():void {
+    public clear(): void {
         while (this._objs.length > 0) {
             this._objs.pop();
         }
@@ -48,18 +48,18 @@ class ObjectPool {
      * @return Object
      *
      */
-    public static pop(refKey:string, ...args:any[]):any {
+    public static pop(refKey: string, ...args: any[]): any {
         if (!ObjectPool._content[refKey]) {
             ObjectPool._content[refKey] = [];
         }
 
-        var list:Array<any> = ObjectPool._content[refKey];
+        var list: Array<any> = ObjectPool._content[refKey];
         if (list.length) {
             return list.pop();
         } else {
-            var classZ:any = egret.getDefinitionByName(refKey);
-            var argsLen:number = args.length;
-            var obj:any;
+            var classZ: any = egret.getDefinitionByName(refKey);
+            var argsLen: number = args.length;
+            var obj: any;
             if (argsLen == 0) {
                 obj = new classZ();
             } else if (argsLen == 1) {
@@ -84,13 +84,13 @@ class ObjectPool {
      * @param extraKey 标识值
      * @returns {any}
      */
-    public static popWithExtraKey(refKey:string, extraKey:any):any {
+    public static popWithExtraKey(refKey: string, extraKey: any): any {
         if (!ObjectPool._content[refKey]) {
             ObjectPool._content[refKey] = [];
         }
 
-        var obj:any;
-        var list:Array<any> = ObjectPool._content[refKey];
+        var obj: any;
+        var list: Array<any> = ObjectPool._content[refKey];
         if (list.length) {
             for (var i = 0; i < list.length; i++) {
                 if (list[i].extraKey == extraKey) {
@@ -101,7 +101,7 @@ class ObjectPool {
             }
         }
         if (!obj) {
-            var classZ:any = egret.getDefinitionByName(refKey);
+            var classZ: any = egret.getDefinitionByName(refKey);
             obj = new classZ(extraKey);
             obj.extraKey = extraKey;
             obj.ObjectPoolKey = refKey;
@@ -114,12 +114,12 @@ class ObjectPool {
      * @param obj
      *
      */
-    public static push(obj:any):boolean {
+    public static push(obj: any): boolean {
         if (obj == null) {
             return false;
         }
 
-        var refKey:any = obj.ObjectPoolKey;
+        var refKey: any = obj.ObjectPoolKey;
         //保证只有pop出来的对象可以放进来，或者是已经清除的无法放入
         if (!ObjectPool._content[refKey]) {
             return false;
@@ -132,7 +132,7 @@ class ObjectPool {
     /**
      * 清除所有对象
      */
-    public static clear():void {
+    public static clear(): void {
         ObjectPool._content = {};
     }
 
@@ -141,10 +141,10 @@ class ObjectPool {
      * @param classZ Class
      * @param clearFuncName 清除对象需要执行的函数
      */
-    public static clearClass(refKey:string, clearFuncName:string = null):void {
-        var list:Array<any> = ObjectPool._content[refKey];
+    public static clearClass(refKey: string, clearFuncName: string = null): void {
+        var list: Array<any> = ObjectPool._content[refKey];
         while (list && list.length) {
-            var obj:any = list.pop();
+            var obj: any = list.pop();
             if (clearFuncName) {
                 obj[clearFuncName]();
             }
@@ -159,14 +159,14 @@ class ObjectPool {
      * @param classZ Class
      * @param dealFuncName 要执行的函数名称
      */
-    public static dealFunc(refKey:string, dealFuncName:string):void {
-        var list:Array<any> = ObjectPool._content[refKey];
+    public static dealFunc(refKey: string, dealFuncName: string): void {
+        var list: Array<any> = ObjectPool._content[refKey];
         if (list == null) {
             return;
         }
 
-        var i:number = 0;
-        var len:number = list.length;
+        var i: number = 0;
+        var len: number = list.length;
         for (i; i < len; i++) {
             list[i][dealFuncName]();
         }

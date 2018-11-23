@@ -2,9 +2,9 @@
  * cacheAsBitmap的替代方案，解决QQ浏览器在1G内存的机器上最多能使用20个Canvas的限制
  */
 class RenderTextureManager extends BaseClass {
-    private _pool:Array<egret.RenderTexture>;
-    private _maxNum:number;
-    private _useNum:number;
+    private _pool: Array<egret.RenderTexture>;
+    private _maxNum: number;
+    private _useNum: number;
 
     /**
      * 构造函数
@@ -26,10 +26,10 @@ class RenderTextureManager extends BaseClass {
      * 是否是低端手机的QQ浏览器
      * @returns {boolean}
      */
-    private isLowerQQBrowser():boolean {
+    private isLowerQQBrowser(): boolean {
         if (App.DeviceUtils.IsQQBrowser) {
             //判定机型，因为拿不到内存信息，现在只能根据机型进行判定
-            var arr:Array<string> = [
+            var arr: Array<string> = [
                 "2013022",
                 "Lenovo A630t",
                 "SM-G3818",
@@ -37,7 +37,7 @@ class RenderTextureManager extends BaseClass {
                 "GT-I9100"
             ];
 
-            var lower:boolean = false;
+            var lower: boolean = false;
             for (var i = 0, len = arr.length; i < len; i++) {
                 if (navigator.userAgent.indexOf(arr[i]) != -1) {
                     lower = true;
@@ -53,7 +53,7 @@ class RenderTextureManager extends BaseClass {
      * 获取一个egret.RenderTexture
      * @returns {egret.RenderTexture}
      */
-    public pop():egret.RenderTexture {
+    public pop(): egret.RenderTexture {
         var result = this._pool.pop();
         if (!result) {
             if (this._maxNum == -1 || this._useNum < this._maxNum) {
@@ -68,8 +68,8 @@ class RenderTextureManager extends BaseClass {
      * 回收一个egret.RenderTexture
      * @param texture
      */
-    public push(texture:egret.RenderTexture):void {
-        var exists:boolean = false;
+    public push(texture: egret.RenderTexture): void {
+        var exists: boolean = false;
         for (var i = 0, len = this._pool.length; i < len; i++) {
             if (this._pool[i] == texture) {
                 exists = true;

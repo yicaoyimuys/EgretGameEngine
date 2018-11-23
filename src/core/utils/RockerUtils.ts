@@ -3,23 +3,23 @@
  * 摇杆控制类
  */
 class RockerUtils extends BaseClass {
-    private keys:Array<number>;
-    private moveFlagRec:egret.Rectangle;
-    private moveFlagCheckRec:egret.Rectangle;
-    private moveFlag:egret.Bitmap;
-    private moveFlagWidthHelf:number;
+    private keys: Array<number>;
+    private moveFlagRec: egret.Rectangle;
+    private moveFlagCheckRec: egret.Rectangle;
+    private moveFlag: egret.Bitmap;
+    private moveFlagWidthHelf: number;
 
-    private moveFlagX:number;
-    private moveFlagY:number;
-    private isMoveing:boolean;
-    private moveFlagGoX:number;
-    private moveFlagGoY:number;
-    private mouseX:number;
-    private mouseY:number;
-    private checkKeying:boolean;
+    private moveFlagX: number;
+    private moveFlagY: number;
+    private isMoveing: boolean;
+    private moveFlagGoX: number;
+    private moveFlagGoY: number;
+    private mouseX: number;
+    private mouseY: number;
+    private checkKeying: boolean;
 
-    private dealKeyFunc:Function;
-    private dealKeyTarget:any;
+    private dealKeyFunc: Function;
+    private dealKeyTarget: any;
 
     public constructor() {
         super();
@@ -32,7 +32,7 @@ class RockerUtils extends BaseClass {
      * @param dealKeyFunc 摇杆移动时处理函数
      * @param dealKeyTarget 摇杆移动时处理函数所属对象
      */
-    public init(moveBg:egret.Bitmap, moveFlag:egret.Bitmap, dealKeyFunc:Function, dealKeyTarget:any):void {
+    public init(moveBg: egret.Bitmap, moveFlag: egret.Bitmap, dealKeyFunc: Function, dealKeyTarget: any): void {
         this.keys = [0, 0];
 
         this.mouseX = -1;
@@ -66,7 +66,7 @@ class RockerUtils extends BaseClass {
      * 键盘按下处理
      * @param keyCode
      */
-    private onKeyDown(keyCode:number):void {
+    private onKeyDown(keyCode: number): void {
         switch (keyCode) {
             case Keyboard.A:
                 this.keys[0] = -1;
@@ -84,7 +84,7 @@ class RockerUtils extends BaseClass {
                 this.keys[1] = 1;
                 this.startCheckKey();
                 break;
-            default :
+            default:
                 break;
         }
     }
@@ -93,7 +93,7 @@ class RockerUtils extends BaseClass {
      * 键盘弹起处理
      * @param keyCode
      */
-    private onKeyUp(keyCode:number):void {
+    private onKeyUp(keyCode: number): void {
         switch (keyCode) {
             case Keyboard.A:
                 if (this.keys[0] == -1) {
@@ -115,7 +115,7 @@ class RockerUtils extends BaseClass {
                     this.keys[1] = 0;
                 }
                 break;
-            default :
+            default:
                 break;
         }
     }
@@ -124,7 +124,7 @@ class RockerUtils extends BaseClass {
      * 事件拦截
      * @param e
      */
-    private stopEvent(e:egret.TouchEvent):void {
+    private stopEvent(e: egret.TouchEvent): void {
         e.stopPropagation();
     }
 
@@ -132,7 +132,7 @@ class RockerUtils extends BaseClass {
      * 手指离开Stage事件处理
      * @param e
      */
-    private leaveStateEvent(e:egret.TouchEvent):void {
+    private leaveStateEvent(e: egret.TouchEvent): void {
         if (e.stageX == this.mouseX && e.stageY == this.mouseY) {
             this.stopMove();
         }
@@ -141,7 +141,7 @@ class RockerUtils extends BaseClass {
     /**
      * 开始移动
      */
-    private startMove(e:egret.TouchEvent):void {
+    private startMove(e: egret.TouchEvent): void {
         this.isMoveing = true;
         this.moveFlagGoX = this.moveFlagX;
         this.moveFlagGoY = this.moveFlagY;
@@ -152,7 +152,7 @@ class RockerUtils extends BaseClass {
     /**
      * 停止移动
      */
-    private stopMove():void {
+    private stopMove(): void {
         this.isMoveing = false;
         this.keys[0] = 0;
         this.keys[1] = 0;
@@ -165,7 +165,7 @@ class RockerUtils extends BaseClass {
     /**
      * 复位摇杆位置
      */
-    private resetRockerPos():void {
+    private resetRockerPos(): void {
         this.moveFlag.x = this.moveFlagX;
         this.moveFlag.y = this.moveFlagY;
     }
@@ -174,7 +174,7 @@ class RockerUtils extends BaseClass {
      * 摇杆移动事件
      * @param e
      */
-    private heroMoveEvent(e:egret.TouchEvent):void {
+    private heroMoveEvent(e: egret.TouchEvent): void {
         this.runMove(e.stageX, e.stageY)
     }
 
@@ -182,7 +182,7 @@ class RockerUtils extends BaseClass {
      * 摇杆移动
      * @param e
      */
-    private runMove(stageX:number, stageY:number):void {
+    private runMove(stageX: number, stageY: number): void {
         if (!this.isMoveing) {
             return;
         }
@@ -200,7 +200,7 @@ class RockerUtils extends BaseClass {
             this.moveFlagGoX = this.mouseX;
             this.moveFlagGoY = this.mouseY;
         } else {
-            var radian:number = App.MathUtils.getRadian2(this.moveFlagX, this.moveFlagY, this.mouseX, this.mouseY);
+            var radian: number = App.MathUtils.getRadian2(this.moveFlagX, this.moveFlagY, this.mouseX, this.mouseY);
             this.moveFlagGoX = this.moveFlagX + Math.cos(radian) * this.moveFlagWidthHelf;
             this.moveFlagGoY = this.moveFlagY + Math.sin(radian) * this.moveFlagWidthHelf;
         }
@@ -227,7 +227,7 @@ class RockerUtils extends BaseClass {
     /**
      * 开启检测
      */
-    private startCheckKey():void {
+    private startCheckKey(): void {
         if (!this.checkKeying) {
             this.checkKeying = true;
             App.TimerManager.doFrame(1, 0, this.delKeys, this);
@@ -237,7 +237,7 @@ class RockerUtils extends BaseClass {
     /**
      * 停止检测
      */
-    private stopCheckKey():void {
+    private stopCheckKey(): void {
         this.keys[0] = 0;
         this.keys[1] = 0;
         if (this.checkKeying) {
@@ -249,7 +249,7 @@ class RockerUtils extends BaseClass {
     /**
      * 检测
      */
-    private delKeys():void {
+    private delKeys(): void {
         if (this.mouseX != -1 && !this.moveFlagCheckRec.contains(this.mouseX, this.mouseY)) {
             this.stopMove();
         }
@@ -274,7 +274,7 @@ class RockerUtils extends BaseClass {
     /**
      * 停止处理
      */
-    public stop():void {
+    public stop(): void {
         this.stopCheckKey();
         this.stopMove();
     }

@@ -15,7 +15,7 @@ class StringUtils extends BaseClass {
      * @param str
      * @returns {string}
      */
-    public trimSpace(str:string):string {
+    public trimSpace(str: string): string {
         return str.replace(/^\s*(.*?)[\s\n]*$/g, '$1');
     }
 
@@ -23,7 +23,7 @@ class StringUtils extends BaseClass {
      * 获取字符串长度，中文为2
      * @param str
      */
-    public getStringLength(str:string):number {
+    public getStringLength(str: string): number {
         var strArr = str.split("");
         var length = 0;
         for (var i = 0; i < strArr.length; i++) {
@@ -42,7 +42,7 @@ class StringUtils extends BaseClass {
      * @param str
      * @returns {boolean}
      */
-    public isChinese(str:string):boolean {
+    public isChinese(str: string): boolean {
         var reg = /^.*[\u4E00-\u9FA5]+.*$/;
         return reg.test(str);
     }

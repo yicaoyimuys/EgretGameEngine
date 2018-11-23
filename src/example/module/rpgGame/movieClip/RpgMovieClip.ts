@@ -43,8 +43,8 @@ class RpgMovieClip extends egret.Bitmap {
     private setBitmap(texture: egret.Texture, scaleX: number): void {
         this.texture = texture;
         this.scaleX = scaleX;
-        AnchorUtil.setAnchorX(this, 0.5);
-        AnchorUtil.setAnchorY(this, 1);
+        App.AnchorUtils.setAnchorX(this, 0.5);
+        App.AnchorUtils.setAnchorY(this, 1);
     }
 
     public setDefault(resName: string): void {

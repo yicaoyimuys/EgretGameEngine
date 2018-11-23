@@ -3,12 +3,12 @@
  * Timer管理器
  */
 class TimerManager extends BaseClass {
-    private _handlers:Array<TimerHandler>;
-    private _delHandlers:Array<TimerHandler>;
-    private _currTime:number;
-    private _currFrame:number;
-    private _count:number;
-    private _timeScale:number;
+    private _handlers: Array<TimerHandler>;
+    private _delHandlers: Array<TimerHandler>;
+    private _currTime: number;
+    private _currFrame: number;
+    private _count: number;
+    private _timeScale: number;
 
     /**
      * 构造函数
@@ -29,7 +29,7 @@ class TimerManager extends BaseClass {
      * 设置时间参数
      * @param timeScale
      */
-    public setTimeScale(timeScale:number):void {
+    public setTimeScale(timeScale: number): void {
         this._timeScale = timeScale;
     }
 
@@ -37,13 +37,13 @@ class TimerManager extends BaseClass {
      * 每帧执行函数
      * @param frameTime
      */
-    private onEnterFrame():void {
+    private onEnterFrame(): void {
         this._currFrame++;
         this._currTime = egret.getTimer();
-		App.DebugUtils.start("TimerManager:");
-        for (var i:number = 0; i < this._count; i++) {
-            var handler:TimerHandler = this._handlers[i];
-            var t:number = handler.userFrame ? this._currFrame : this._currTime;
+        App.DebugUtils.start("TimerManager:");
+        for (var i: number = 0; i < this._count; i++) {
+            var handler: TimerHandler = this._handlers[i];
+            var t: number = handler.userFrame ? this._currFrame : this._currTime;
             if (t >= handler.exeTime) {
                 App.DebugUtils.start(handler.method.toString());
                 handler.method.call(handler.methodObj, (this._currTime - handler.dealTime) * this._timeScale);
@@ -63,13 +63,13 @@ class TimerManager extends BaseClass {
             }
         }
         while (this._delHandlers.length) {
-            var handler:TimerHandler = this._delHandlers.pop();
+            var handler: TimerHandler = this._delHandlers.pop();
             this.remove(handler.method, handler.methodObj);
         }
-		App.DebugUtils.stop("TimerManager:");
+        App.DebugUtils.stop("TimerManager:");
     }
 
-    private create(useFrame:boolean, delay:number, repeatCount:number, method:Function, methodObj:any, complateMethod:Function, complateMethodObj:any):void {
+    private create(useFrame: boolean, delay: number, repeatCount: number, method: Function, methodObj: any, complateMethod: Function, complateMethodObj: any): void {
         //参数监测
         if (delay < 0 || repeatCount < 0 || method == null) {
             return;
@@ -79,7 +79,7 @@ class TimerManager extends BaseClass {
         this.remove(method, methodObj);
 
         //创建
-        var handler:TimerHandler = ObjectPool.pop("TimerHandler");
+        var handler: TimerHandler = ObjectPool.pop("TimerHandler");
         handler.userFrame = useFrame;
         handler.repeat = repeatCount == 0;
         handler.repeatCount = repeatCount;
@@ -105,7 +105,7 @@ class TimerManager extends BaseClass {
      * @param complateMethodObj 完成执行函数所属对象
      *
      */
-    public doTimer(delay:number, repeatCount:number, method:Function, methodObj:any, complateMethod:Function = null, complateMethodObj:any = null):void {
+    public doTimer(delay: number, repeatCount: number, method: Function, methodObj: any, complateMethod: Function = null, complateMethodObj: any = null): void {
         this.create(false, delay, repeatCount, method, methodObj, complateMethod, complateMethodObj);
     }
 
@@ -120,7 +120,7 @@ class TimerManager extends BaseClass {
      * @param complateMethodObj 完成执行函数所属对象
      *
      */
-    public doFrame(delay:number, repeatCount:number, method:Function, methodObj:any, complateMethod:Function = null, complateMethodObj:any = null):void {
+    public doFrame(delay: number, repeatCount: number, method: Function, methodObj: any, complateMethod: Function = null, complateMethodObj: any = null): void {
         this.create(true, delay, repeatCount, method, methodObj, complateMethod, complateMethodObj);
     }
 
@@ -129,7 +129,7 @@ class TimerManager extends BaseClass {
      * @return
      *
      */
-    public get count():number {
+    public get count(): number {
         return this._count;
     }
 
@@ -138,9 +138,9 @@ class TimerManager extends BaseClass {
      * @param method 要移除的函数
      * @param methodObj 要移除的函数对应的对象
      */
-    public remove(method:Function, methodObj:any):void {
-        for (var i:number = 0; i < this._count; i++) {
-            var handler:TimerHandler = this._handlers[i];
+    public remove(method: Function, methodObj: any): void {
+        for (var i: number = 0; i < this._count; i++) {
+            var handler: TimerHandler = this._handlers[i];
             if (handler.method == method && handler.methodObj == methodObj) {
                 this._handlers.splice(i, 1);
                 ObjectPool.push(handler);
@@ -154,9 +154,9 @@ class TimerManager extends BaseClass {
      * 清理
      * @param methodObj 要移除的函数对应的对象
      */
-    public removeAll(methodObj:any):void {
-        for (var i:number = 0; i < this._count; i++) {
-            var handler:TimerHandler = this._handlers[i];
+    public removeAll(methodObj: any): void {
+        for (var i: number = 0; i < this._count; i++) {
+            var handler: TimerHandler = this._handlers[i];
             if (handler.methodObj == methodObj) {
                 this._handlers.splice(i, 1);
                 ObjectPool.push(handler);
@@ -172,9 +172,9 @@ class TimerManager extends BaseClass {
      * @param methodObj
      *
      */
-    public isExists(method:Function, methodObj:any):boolean {
-        for (var i:number = 0; i < this._count; i++) {
-            var handler:TimerHandler = this._handlers[i];
+    public isExists(method: Function, methodObj: any): boolean {
+        for (var i: number = 0; i < this._count; i++) {
+            var handler: TimerHandler = this._handlers[i];
             if (handler.method == method && handler.methodObj == methodObj) {
                 return true;
             }
@@ -186,28 +186,28 @@ class TimerManager extends BaseClass {
 
 class TimerHandler {
     /**执行间隔*/
-    public delay:number = 0;
+    public delay: number = 0;
     /**是否重复执行*/
-    public repeat:boolean;
+    public repeat: boolean;
     /**重复执行次数*/
-    public repeatCount:number = 0;
+    public repeatCount: number = 0;
     /**是否用帧率*/
-    public userFrame:boolean;
+    public userFrame: boolean;
     /**执行时间*/
-    public exeTime:number = 0;
+    public exeTime: number = 0;
     /**处理函数*/
-    public method:Function;
+    public method: Function;
     /**处理函数所属对象*/
-    public methodObj:any;
+    public methodObj: any;
     /**完成处理函数*/
-    public complateMethod:Function;
+    public complateMethod: Function;
     /**完成处理函数所属对象*/
-    public complateMethodObj:any;
+    public complateMethodObj: any;
     /**上次的执行时间*/
-    public dealTime:number = 0;
+    public dealTime: number = 0;
 
     /**清理*/
-    public clear():void {
+    public clear(): void {
         this.method = null;
         this.methodObj = null;
         this.complateMethod = null;

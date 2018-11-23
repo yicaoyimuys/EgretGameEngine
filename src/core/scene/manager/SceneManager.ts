@@ -3,8 +3,8 @@
  * 场景管理类
  */
 class SceneManager extends BaseClass {
-    private _scenes:any;
-    private _currScene:number;
+    private _scenes: any;
+    private _currScene: number;
 
     /**
      * 构造函数
@@ -17,9 +17,9 @@ class SceneManager extends BaseClass {
     /**
      * 清空处理
      */
-    public clear():void {
-        var nowScene:BaseScene = this._scenes[this._currScene];
-        if(nowScene){
+    public clear(): void {
+        var nowScene: BaseScene = this._scenes[this._currScene];
+        if (nowScene) {
             nowScene.onExit();
             this._currScene = undefined;
         }
@@ -31,7 +31,7 @@ class SceneManager extends BaseClass {
      * @param key Scene唯一标识
      * @param scene Scene对象
      */
-    public register(key:number, scene:BaseScene):void {
+    public register(key: number, scene: BaseScene): void {
         this._scenes[key] = scene;
     }
 
@@ -39,14 +39,14 @@ class SceneManager extends BaseClass {
      * 切换场景
      * @param key 场景唯一标识
      */
-    public runScene(key:number, ...param:any[]):void {
-        var nowScene:BaseScene = this._scenes[key];
+    public runScene(key: number, ...param: any[]): void {
+        var nowScene: BaseScene = this._scenes[key];
         if (nowScene == null) {
-            Log.trace("场景" + key + "不存在");
+            Log.warn("场景" + key + "不存在");
             return;
         }
 
-        var oldScene:BaseScene = this._scenes[this._currScene];
+        var oldScene: BaseScene = this._scenes[this._currScene];
         if (oldScene) {
             oldScene.onExit();
         }
@@ -59,7 +59,7 @@ class SceneManager extends BaseClass {
      * 获取当前Scene
      * @returns {number}
      */
-    public getCurrScene():number {
+    public getCurrScene(): number {
         return this._currScene;
     }
 }

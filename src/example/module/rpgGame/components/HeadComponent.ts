@@ -29,7 +29,7 @@ class HeadComponent extends Component {
         this.nameTxt.stroke = 2;
         this.nameTxt.text = this.entity.propertyData.name;
         this.nameTxt.y = -160;
-        AnchorUtil.setAnchorX(this.nameTxt, 0.5);
+        App.AnchorUtils.setAnchorX(this.nameTxt, 0.5);
 
         parent.addChild(this.nameTxt);
     }
@@ -45,7 +45,7 @@ class HeadComponent extends Component {
         this.titleTxt.stroke = 2;
         this.titleTxt.text = this.entity.propertyData.title;
         this.titleTxt.y = -180;
-        AnchorUtil.setAnchorX(this.titleTxt, 0.5);
+        App.AnchorUtils.setAnchorX(this.titleTxt, 0.5);
 
         parent.addChild(this.titleTxt);
     }

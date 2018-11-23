@@ -2,10 +2,10 @@
  * Created by yangsong on 15-11-4.
  */
 class AllAsyncExecutor {
-    private _callBack:Function;
-    private _callBackTarget:any;
-    private _functions:Array<Array<any>>;
-    private _complateNum:number;
+    private _callBack: Function;
+    private _callBackTarget: any;
+    private _functions: Array<Array<any>>;
+    private _complateNum: number;
 
     /**
      * 构造函数
@@ -20,7 +20,7 @@ class AllAsyncExecutor {
      * @param callBack 此队列处理完成执行函数
      * @param callBackTarget 此队列处理完成执行函数所属对象
      */
-    public setCallBack(callBack:Function, callBackTarget:any):void {
+    public setCallBack(callBack: Function, callBackTarget: any): void {
         this._callBack = callBack;
         this._callBackTarget = callBackTarget;
     }
@@ -30,15 +30,15 @@ class AllAsyncExecutor {
      * @param $func 函数
      * @param $thisObj 函数所属对象
      */
-    public regist($func:Function, $thisObj:any):void {
+    public regist($func: Function, $thisObj: any): void {
         this._functions.push([$func, $thisObj]);
     }
 
     /**
      * 开始执行
      */
-    public start():void {
-        App.ArrayUtils.forEach(this._functions, function (arr:Array<any>):void {
+    public start(): void {
+        App.ArrayUtils.forEach(this._functions, function (arr: Array<any>): void {
             arr[0].call(arr[1]);
         }, this);
     }
@@ -46,7 +46,7 @@ class AllAsyncExecutor {
     /**
      * 执行完成
      */
-    public complate():void {
+    public complate(): void {
         if (!this._functions) {
             return;
         }

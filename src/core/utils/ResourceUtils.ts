@@ -149,7 +149,7 @@ class ResourceUtils extends BaseClass {
      * @param event
      */
     private onResourceLoadError(event: RES.ResourceEvent): void {
-        Log.trace(event.groupName + "资源组有资源加载失败");
+        Log.warn(event.groupName + "资源组有资源加载失败");
         this.onResourceLoadComplete(event);
     }
 

@@ -77,7 +77,7 @@ class ViewManager extends BaseClass {
     public open(key: number, ...param: any[]): IBaseView {
         var view: IBaseView = this.getView(key);
         if (view == null) {
-            Log.trace("UI_" + key + "不存在");
+            Log.warn("UI_" + key + "不存在");
             return;
         }
 

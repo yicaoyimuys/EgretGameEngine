@@ -32,13 +32,13 @@ class GameUIView extends BaseSpriteView {
         var moveFlagY:number = App.StageUtils.getHeight() - 120;
 
         var moveBg:egret.Bitmap = App.DisplayUtils.createBitmap("ui_moveBg_png");
-        AnchorUtil.setAnchor(moveBg, 0.5);
+        App.AnchorUtils.setAnchor(moveBg, 0.5);
         moveBg.x = moveFlagX;
         moveBg.y = moveFlagY;
         this.addChild(moveBg);
 
         var moveFlag:egret.Bitmap = App.DisplayUtils.createBitmap("ui_move_png");
-        AnchorUtil.setAnchor(moveFlag, 0.5);
+        App.AnchorUtils.setAnchor(moveFlag, 0.5);
         moveFlag.x = moveFlagX;
         moveFlag.y = moveFlagY;
         this.addChild(moveFlag);
@@ -139,7 +139,7 @@ class GameUIView extends BaseSpriteView {
     private createImageButton(imgName1:string, imgName2:string, $x:number, $y:number, callBack:Function):egret.Bitmap {
         var bitmap:egret.Bitmap = App.DisplayUtils.createBitmap(imgName1);
         bitmap.touchEnabled = true;
-        AnchorUtil.setAnchor(bitmap, 0.5);
+        App.AnchorUtils.setAnchor(bitmap, 0.5);
         bitmap.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function():void{
             bitmap.texture = RES.getRes(imgName2);
         }, this);

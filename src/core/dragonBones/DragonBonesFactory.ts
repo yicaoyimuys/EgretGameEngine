@@ -3,12 +3,12 @@
  * DragonBones工厂类
  */
 class DragonBonesFactory extends BaseClass {
-    private averageUtils:AverageUtils;
-    private factory:dragonBones.EgretFactory;
-    private isPlay:boolean;
-    private clocks:Array<dragonBones.WorldClock>;
-    private clocksLen:number;
-    private files:Array<string>;
+    private averageUtils: AverageUtils;
+    private factory: dragonBones.EgretFactory;
+    private isPlay: boolean;
+    private clocks: Array<dragonBones.WorldClock>;
+    private clocksLen: number;
+    private files: Array<string>;
 
     /**
      * 构造函数
@@ -30,7 +30,7 @@ class DragonBonesFactory extends BaseClass {
      * @param texture 动画资源
      * @param textureData 动画资源描述文件
      */
-    public initArmatureFile(skeletonData:any, texture:egret.Texture, textureData:any):void {
+    public initArmatureFile(skeletonData: any, texture: egret.Texture, textureData: any): void {
         if (this.files.indexOf(skeletonData.name) != -1) {
             return;
         }
@@ -43,8 +43,8 @@ class DragonBonesFactory extends BaseClass {
      * 移除动画文件
      * @param name
      */
-    public removeArmatureFile(name:string):void {
-        var index:number = this.files.indexOf(name);
+    public removeArmatureFile(name: string): void {
+        var index: number = this.files.indexOf(name);
         if (index != -1) {
             this.removeSkeletonData(name);
             this.removeTextureAtlas(name);
@@ -55,7 +55,7 @@ class DragonBonesFactory extends BaseClass {
     /**
      * 清空所有动画
      */
-    public clear():void {
+    public clear(): void {
         while (this.files.length) {
             this.removeArmatureFile(this.files[0]);
         }
@@ -65,7 +65,7 @@ class DragonBonesFactory extends BaseClass {
      * 添加动画描述文件
      * @param skeletonData
      */
-    public addSkeletonData(skeletonData:any):void {
+    public addSkeletonData(skeletonData: any): void {
         this.factory.parseDragonBonesData(skeletonData);
     }
 
@@ -74,7 +74,7 @@ class DragonBonesFactory extends BaseClass {
      * @param texture 动画资源
      * @param textureData 动画资源描述文件
      */
-    public addTextureAtlas(texture:egret.Texture, textureData:any):void {
+    public addTextureAtlas(texture: egret.Texture, textureData: any): void {
         this.factory.parseTextureAtlasData(textureData, texture);
     }
 
@@ -82,7 +82,7 @@ class DragonBonesFactory extends BaseClass {
      * 移除动画描述文件
      * @param skeletonData
      */
-    public removeSkeletonData(name:string):void {
+    public removeSkeletonData(name: string): void {
         this.factory.removeDragonBonesData(name);
     }
 
@@ -91,7 +91,7 @@ class DragonBonesFactory extends BaseClass {
      * @param texture 动画资源
      * @param textureData 动画资源描述文件
      */
-    public removeTextureAtlas(name:string):void {
+    public removeTextureAtlas(name: string): void {
         this.factory.removeTextureAtlasData(name);
     }
 
@@ -101,14 +101,14 @@ class DragonBonesFactory extends BaseClass {
      * @param fromDragonBonesDataName 动画文件名称
      * @returns {Armature}
      */
-    public makeArmature(name:string, fromDragonBonesDataName?:string, playSpeed:number = 1):DragonBonesArmature {
-        var armature:dragonBones.Armature = this.factory.buildArmature(name, fromDragonBonesDataName);
+    public makeArmature(name: string, fromDragonBonesDataName?: string, playSpeed: number = 1): DragonBonesArmature {
+        var armature: dragonBones.Armature = this.factory.buildArmature(name, fromDragonBonesDataName);
         if (armature == null) {
-            Log.trace("不存在Armature： " + name);
+            Log.warn("不存在Armature： " + name);
             return null;
         }
-        var clock:dragonBones.WorldClock = this.createWorldClock(playSpeed);
-        var result:DragonBonesArmature = new DragonBonesArmature(armature, clock);
+        var clock: dragonBones.WorldClock = this.createWorldClock(playSpeed);
+        var result: DragonBonesArmature = new DragonBonesArmature(armature, clock);
         return result;
     }
 
@@ -118,8 +118,8 @@ class DragonBonesFactory extends BaseClass {
      * @param fromDragonBonesDataName 动画文件名称
      * @returns {Armature}
      */
-    public makeFastArmature(name:string, fromDragonBonesDataName?:string, playSpeed:number = 1):DragonBonesArmature {
-        var result:DragonBonesArmature = this.makeArmature(name, fromDragonBonesDataName, playSpeed);
+    public makeFastArmature(name: string, fromDragonBonesDataName?: string, playSpeed: number = 1): DragonBonesArmature {
+        var result: DragonBonesArmature = this.makeArmature(name, fromDragonBonesDataName, playSpeed);
         result.getArmature().cacheFrameRate = 24;
         return result;
     }
@@ -129,13 +129,13 @@ class DragonBonesFactory extends BaseClass {
      * @param playSpeed
      * @returns {dragonBones.WorldClock}
      */
-    private createWorldClock(playSpeed:number):dragonBones.WorldClock {
-        for (var i:number = 0; i < this.clocksLen; i++) {
+    private createWorldClock(playSpeed: number): dragonBones.WorldClock {
+        for (var i: number = 0; i < this.clocksLen; i++) {
             if (this.clocks[i].timeScale == playSpeed) {
                 return this.clocks[i];
             }
         }
-        var newClock:dragonBones.WorldClock = new dragonBones.WorldClock();
+        var newClock: dragonBones.WorldClock = new dragonBones.WorldClock();
         newClock.timeScale = playSpeed;
         this.clocks.push(newClock);
         this.clocksLen = this.clocks.length;
@@ -146,11 +146,11 @@ class DragonBonesFactory extends BaseClass {
      * dragonBones体系的每帧刷新
      * @param advancedTime
      */
-    private onEnterFrame(advancedTime:number):void {
+    private onEnterFrame(advancedTime: number): void {
         this.averageUtils.push(advancedTime);
-        var time:number = this.averageUtils.getValue() * 0.001;
-        for (var i:number = 0; i < this.clocksLen; i++) {
-            var clock:dragonBones.WorldClock = this.clocks[i];
+        var time: number = this.averageUtils.getValue() * 0.001;
+        for (var i: number = 0; i < this.clocksLen; i++) {
+            var clock: dragonBones.WorldClock = this.clocks[i];
             clock.advanceTime(time);
         }
     }
@@ -158,7 +158,7 @@ class DragonBonesFactory extends BaseClass {
     /**
      * 停止
      */
-    public stop():void {
+    public stop(): void {
         if (this.isPlay) {
             App.TimerManager.remove(this.onEnterFrame, this);
             this.isPlay = false;
@@ -168,7 +168,7 @@ class DragonBonesFactory extends BaseClass {
     /**
      * 开启
      */
-    public start():void {
+    public start(): void {
         if (!this.isPlay) {
             this.isPlay = true;
             App.TimerManager.doFrame(1, 0, this.onEnterFrame, this);
