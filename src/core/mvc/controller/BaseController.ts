@@ -89,9 +89,9 @@ class BaseController {
      * @param viewParent View的父级
      * @returns {IBaseView}
      */
-    public registerView(viewClassZ: any, viewId: number, viewParent: egret.DisplayObjectContainer): any {
-        let view = new viewClassZ(this, viewParent);
-        App.ViewManager.register(viewId, view);
+    public registerView<T>(viewClass: { new (...args): T }, viewId: number, viewParent: egret.DisplayObjectContainer): T {
+        let view = new viewClass(this, viewParent);
+        App.ViewManager.register(viewId, <any>view);
         return view;
     }
 

@@ -13,6 +13,7 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
     private _playName: string;
 
     private _currAnimationState: dragonBones.AnimationState;
+    private _cacheAllSlotDisplayData: any;
 
     /**
      * 构造函数
@@ -148,11 +149,17 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
 
         this.removeChildren();
 
+        this._armature.dispose();
         this._armature = null;
         this._clock = null;
 
+        this._completeCalls.length = 0;
         this._completeCalls = null;
+        this._frameCalls.length = 0;
         this._frameCalls = null;
+
+        this._currAnimationState = null;
+        this._cacheAllSlotDisplayData = null;
     }
 
     /**
@@ -307,19 +314,66 @@ class DragonBonesArmature extends egret.DisplayObjectContainer {
      * 替换插槽
      */
     public changeSlot(slotName: string, displayObject: egret.DisplayObject): void {
-        if (!displayObject) {
-            return;
-        }
         let slot = this._armature.getSlot(slotName);
         if (!slot) {
-            egret.warn("Slot不存在", slotName);
+            // Log.warn("Slot不存在", slotName);
             return;
         }
-        let oldDisplayObject = slot.getDisplay();
-        displayObject.x = oldDisplayObject.x;
-        displayObject.y = oldDisplayObject.y;
-        displayObject.anchorOffsetX = oldDisplayObject.anchorOffsetX;
-        displayObject.anchorOffsetY = oldDisplayObject.anchorOffsetY;
+
+        if (displayObject) {
+            if (this._cacheAllSlotDisplayData) {
+                let cacheDisplayData = this._cacheAllSlotDisplayData[slotName];
+                if (cacheDisplayData) {
+                    displayObject.anchorOffsetX = cacheDisplayData.anchorOffsetX / cacheDisplayData.width * displayObject.width;
+                    displayObject.anchorOffsetY = cacheDisplayData.anchorOffsetY / cacheDisplayData.height * displayObject.height;
+                    displayObject.x = cacheDisplayData.x;
+                    displayObject.y = cacheDisplayData.y;
+                }
+            } else {
+                let oldDisplayObject = slot.getDisplay();
+                if (oldDisplayObject) {
+                    displayObject.anchorOffsetX = oldDisplayObject.anchorOffsetX / oldDisplayObject.width * displayObject.width;
+                    displayObject.anchorOffsetY = oldDisplayObject.anchorOffsetY / oldDisplayObject.height * displayObject.height;
+                    displayObject.x = oldDisplayObject.x;
+                    displayObject.y = oldDisplayObject.y;
+                }
+            }
+        }
         slot.setDisplay(displayObject);
+    }
+
+    /**
+     * 获取所有插槽
+     */
+    public getSlots(): Array<dragonBones.Slot> {
+        return this._armature["_slots"];
+    }
+
+    /**
+     * 获取所有插槽中对象的位置信息
+     */
+    public getAllSlotDisplayData(): any {
+        let slots = this.getSlots();
+        let result = {};
+        for (let i = 0, len = slots.length; i < len; i++) {
+            let slot = slots[i];
+            let displayObject = slot.getDisplay();
+            result[slot.name] = {
+                x: displayObject.x,
+                y: displayObject.y,
+                width: displayObject.width,
+                height: displayObject.height,
+                anchorOffsetX: displayObject.anchorOffsetX,
+                anchorOffsetY: displayObject.anchorOffsetY,
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 缓存所有插槽中对象的位置信息
+     */
+    public cacheAllSlotDisplayData(): void {
+        this._cacheAllSlotDisplayData = this.getAllSlotDisplayData();
     }
 }

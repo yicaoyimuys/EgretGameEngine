@@ -175,6 +175,14 @@ class MessageCenter extends BaseClass {
         msgVo.dispose();
         ObjectPool.push(msgVo);
     }
+
+    /**
+     * 判断指定类型的事件是否注册了监听
+     * @param type 事件类型
+     */
+    public isHasListener(type: string): boolean {
+        return this.dict[type] != undefined;
+    }
 }
 
 class MessageVo {
