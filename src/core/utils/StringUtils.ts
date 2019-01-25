@@ -2,7 +2,7 @@
  * Created by yangsong on 14/12/18.
  * 字符串操作工具类
  */
-class StringUtils extends BaseClass {
+class StringUtils extends SingtonClass {
     /**
      * 构造函数
      */
@@ -45,5 +45,16 @@ class StringUtils extends BaseClass {
     public isChinese(str: string): boolean {
         var reg = /^.*[\u4E00-\u9FA5]+.*$/;
         return reg.test(str);
+    }
+
+    /**
+     * 格式化字符串 "{0},{1}.format("text0","text1")
+     */
+    public format(val: string, ...param: any[]): string {
+        for (let i = 0, len = param.length; i < len; i++) {
+            let reg = new RegExp("({)" + i + "(})", "g");
+            val = val.replace(reg, param[i]);
+        }
+        return val;
     }
 }

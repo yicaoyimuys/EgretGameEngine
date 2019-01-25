@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/25.
  * Socket类
  */
-class Socket extends BaseClass {
+class Socket extends SingtonClass {
     private _needReconnect: boolean = false;
     private _maxReconnectCount = 10;
 

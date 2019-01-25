@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/22.
  * Controller管理类
  */
-class ControllerManager extends BaseClass {
+class ControllerManager extends SingtonClass {
     private _modules: any;
 
     /**

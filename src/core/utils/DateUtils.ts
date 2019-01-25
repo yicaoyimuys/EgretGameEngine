@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/22.
  * Date工具类
  */
-class DateUtils extends BaseClass {
+class DateUtils extends SingtonClass {
     public constructor() {
         super();
     }
@@ -10,7 +10,7 @@ class DateUtils extends BaseClass {
     /**
      * 根据秒数格式化字符串
      * @param second 秒数
-     * @param type 1:00:00:00   2:yyyy-mm-dd h:m:s    3:00:00   4:xx天前，xx小时前，xx分钟前
+     * @param type 1:00:00:00   2:yyyy-mm-dd h:m:s    3:00:00(分:秒)   4:xx天前，xx小时前，xx分钟前    6:00:00(时:分)  
      * @return
      *
      */
@@ -31,6 +31,9 @@ class DateUtils extends BaseClass {
                 break;
             case 5:
                 str = this.getFormatBySecond5(second);
+                break;
+            case 6:
+                str = this.getFormatBySecond6(second);
                 break;
         }
         return str;
@@ -69,7 +72,7 @@ class DateUtils extends BaseClass {
         return hours + ":" + mins + ":" + sens;
     }
 
-    //3: 00:00
+    //3:00:00(分:秒)
     private getFormatBySecond3(t: number = 0): string {
         var hourst: number = Math.floor(t / 3600);
         var minst: number = Math.floor((t - hourst * 3600) / 60);
@@ -212,6 +215,29 @@ class DateUtils extends BaseClass {
         return "";
     }
 
+    //6:00:00(时:分) 
+    private getFormatBySecond6(t: number = 0): string {
+        var hourst: number = Math.floor(t / 3600);
+        var minst: number = Math.floor((t - hourst * 3600) / 60);
+        var houers: string;
+        var mins: string;
+        if (hourst == 0) {
+            houers = "00";
+        } else if (hourst < 10) {
+            houers = "0" + hourst;
+        } else {
+            houers = "" + hourst;
+        }
+        if (minst == 0) {
+            mins = "00";
+        } else if (minst < 10) {
+            mins = "0" + minst;
+        } else {
+            mins = "" + minst;
+        }
+        return houers + ":" + mins;
+    }
+
 
     /**
      * 获取当前是周几
@@ -253,5 +279,13 @@ class DateUtils extends BaseClass {
                 RegExp.$1.length == 1 ? o[k] :
                     ("00" + o[k]).substr(("" + o[k]).length));
         return fmt;
+    }
+
+    /**
+     * 计算两个时间相差天数
+     */
+    public dateDifference(timestamp1: number, timestamp2: number): number {
+        const d_value: number = Math.abs(timestamp2 - timestamp1);
+        return Math.ceil(d_value / (24 * 60 * 60 * 1000));
     }
 }

@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/28.
  * 场景管理类
  */
-class SceneManager extends BaseClass {
+class SceneManager extends SingtonClass {
     private _scenes: any;
     private _currScene: number;
 

@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/23.
  * Debug调试工具
  */
-class DebugUtils extends BaseClass {
+class DebugUtils extends SingtonClass {
     private _isOpen: boolean;
     private _startTimes: any;
     private _threshold: number = 3;

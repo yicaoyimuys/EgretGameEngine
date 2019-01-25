@@ -1,7 +1,11 @@
 /**
  * Created by yangsong on 15-1-20.
  */
-class DeviceUtils extends BaseClass {
+class DeviceUtils extends SingtonClass {
+
+    public static OS_IOS: string = "ios";
+    public static OS_Android: string = "android";
+
     /**
      * 构造函数
      */
@@ -104,5 +108,27 @@ class DeviceUtils extends BaseClass {
      */
     public get IsOperaBrowser(): boolean {
         return this.IsHtml5 && navigator.userAgent.indexOf("Opera") != -1;
+    }
+
+    /**
+     * 得到设备系统 如：iOS/Android/WP7
+     */
+    public get DeviceOs(): string {
+        var os: string = "";
+        var ua: string;
+        ua = this.IsHtml5 ? navigator.userAgent.toLowerCase() : egret.Capabilities.os.toLowerCase();
+        if (ua.indexOf("ipod") != -1 || ua.indexOf("iphone") != -1 || ua.indexOf("ipad") != -1 || ua.indexOf("macintosh") != -1 || ua.indexOf("ios") != -1) {
+            os = "ios";
+        } else if (ua.indexOf("windows") != -1) {// ua.indexOf("Windows NT") != -1 || ua.indexOf("Windows Phone") != -1
+            os = "windows";
+        } else if (ua.indexOf("android") != -1) {
+            os = "android";
+        } else if (ua.indexOf("symbian") != -1) {
+            os = "symbian";
+        }
+        else if (ua.indexOf("linux") != -1) {
+            os = "linux";
+        }
+        return os;
     }
 }

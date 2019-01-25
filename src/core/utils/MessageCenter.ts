@@ -2,7 +2,7 @@
  * Created by yangsong on 2014/11/23.
  * 服务端返回消息处理
  */
-class MessageCenter extends BaseClass {
+class MessageCenter extends SingtonClass {
     private dict: any;
     private eVec: Array<MessageVo>;
     private lastRunTime: number;

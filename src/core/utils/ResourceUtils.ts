@@ -5,13 +5,14 @@
  * 封装Group的加载
  * 增加静默加载机制
  */
-class ResourceUtils extends BaseClass {
+class ResourceUtils extends SingtonClass {
     private _configs: Array<any>;
     private _onConfigComplete: Function;
     private _onConfigCompleteTarget: any;
 
     private _groups: any;
     private _groupIndex: number = 0;
+    private _itemLoadErrorFunction: Function;
 
     /**
      * 构造函数
@@ -25,6 +26,7 @@ class ResourceUtils extends BaseClass {
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceLoadProgress, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
+        RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onResourceItemLoadError, this);
     }
 
     /**
@@ -151,6 +153,24 @@ class ResourceUtils extends BaseClass {
     private onResourceLoadError(event: RES.ResourceEvent): void {
         Log.warn(event.groupName + "资源组有资源加载失败");
         this.onResourceLoadComplete(event);
+    }
+
+    /**
+     * 资源加载失败
+     * @param event
+     */
+    private onResourceItemLoadError(event: RES.ResourceEvent): void {
+        Log.warn(event.resItem.url + "资源加载失败");
+        if (this._itemLoadErrorFunction) {
+            this._itemLoadErrorFunction(event);
+        }
+    }
+
+    /**
+     * 注册资源加载失败处理函数
+     */
+    public registerItemLoadErrorFunction(func: (event: RES.ResourceEvent) => void): void {
+        this._itemLoadErrorFunction = func;
     }
 
     /**

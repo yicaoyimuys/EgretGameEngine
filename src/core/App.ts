@@ -23,7 +23,7 @@ class App {
      * @type {Http}
      */
     public static get Http(): Http {
-        return Http.getInstance();
+        return Http.getSingtonInstance();
     }
 
     /**
@@ -31,7 +31,7 @@ class App {
      * @type {null}
      */
     public static get Socket(): Socket {
-        return Socket.getInstance();
+        return Socket.getSingtonInstance();
     }
 
     /**
@@ -39,7 +39,7 @@ class App {
      * @type {ControllerManager}
      */
     public static get ControllerManager(): ControllerManager {
-        return ControllerManager.getInstance();
+        return ControllerManager.getSingtonInstance();
     }
 
     /**
@@ -47,7 +47,7 @@ class App {
      * @type {ViewManager}
      */
     public static get ViewManager(): ViewManager {
-        return ViewManager.getInstance();
+        return ViewManager.getSingtonInstance();
     }
 
     /**
@@ -55,7 +55,7 @@ class App {
      * @type {SceneManager}
      */
     public static get SceneManager(): SceneManager {
-        return SceneManager.getInstance();
+        return SceneManager.getSingtonInstance();
     }
 
     /**
@@ -63,7 +63,7 @@ class App {
      * @type {DebugUtils}
      */
     public static get DebugUtils(): DebugUtils {
-        return DebugUtils.getInstance();
+        return DebugUtils.getSingtonInstance();
     }
 
     /**
@@ -71,7 +71,7 @@ class App {
      * @type {MessageCenter}
      */
     public static get MessageCenter(): MessageCenter {
-        return MessageCenter.getInstance(0);
+        return MessageCenter.getSingtonInstance(0);
     }
 
     /**
@@ -79,7 +79,7 @@ class App {
      * @type {TimerManager}
      */
     public static get TimerManager(): TimerManager {
-        return TimerManager.getInstance();
+        return TimerManager.getSingtonInstance();
     }
 
     /**
@@ -87,7 +87,7 @@ class App {
      * @type {DateUtils}
      */
     public static get DateUtils(): DateUtils {
-        return DateUtils.getInstance();
+        return DateUtils.getSingtonInstance();
     }
 
     /**
@@ -95,7 +95,7 @@ class App {
      * @type {MathUtils}
      */
     public static get MathUtils(): MathUtils {
-        return MathUtils.getInstance();
+        return MathUtils.getSingtonInstance();
     }
 
     /**
@@ -103,7 +103,7 @@ class App {
      * @type {RandomUtils}
      */
     public static get RandomUtils(): RandomUtils {
-        return RandomUtils.getInstance();
+        return RandomUtils.getSingtonInstance();
     }
 
     /**
@@ -111,112 +111,112 @@ class App {
      * @type {DisplayUtils}
      */
     public static get DisplayUtils(): DisplayUtils {
-        return DisplayUtils.getInstance();
+        return DisplayUtils.getSingtonInstance();
     }
 
     /*
      * 图片合成数字工具类
      * */
     public static get BitmapNumber(): BitmapNumber {
-        return BitmapNumber.getInstance();
+        return BitmapNumber.getSingtonInstance();
     }
 
     /**
      * 引导工具类
      */
     public static get GuideUtils(): GuideUtils {
-        return GuideUtils.getInstance();
+        return GuideUtils.getSingtonInstance();
     }
 
     /**
      * Stage操作相关工具类
      */
     public static get StageUtils(): StageUtils {
-        return StageUtils.getInstance();
+        return StageUtils.getSingtonInstance();
     }
 
     /**
      * Effect工具类
      */
     public static get EffectUtils(): EffectUtils {
-        return EffectUtils.getInstance();
+        return EffectUtils.getSingtonInstance();
     }
 
     /**
      * 字符串工具类
      */
     public static get StringUtils(): StringUtils {
-        return StringUtils.getInstance();
+        return StringUtils.getSingtonInstance();
     }
 
     /**
      * 通过工具类
      */
     public static get CommonUtils(): CommonUtils {
-        return CommonUtils.getInstance();
+        return CommonUtils.getSingtonInstance();
     }
 
     /**
      * 音乐管理类
      */
     public static get SoundManager(): SoundManager {
-        return SoundManager.getInstance();
+        return SoundManager.getSingtonInstance();
     }
 
     /**
      * 设备工具类
      */
     public static get DeviceUtils(): DeviceUtils {
-        return DeviceUtils.getInstance();
+        return DeviceUtils.getSingtonInstance();
     }
 
     /**
      * 引擎扩展类
      */
     public static get EgretExpandUtils(): EgretExpandUtils {
-        return EgretExpandUtils.getInstance();
+        return EgretExpandUtils.getSingtonInstance();
     }
 
     /**
      * 键盘操作工具类
      */
     public static get KeyboardUtils(): KeyboardUtils {
-        return KeyboardUtils.getInstance();
+        return KeyboardUtils.getSingtonInstance();
     }
 
     /**
      * 摇杆操作工具类
      */
     public static get RockerUtils(): RockerUtils {
-        return RockerUtils.getInstance();
+        return RockerUtils.getSingtonInstance();
     }
 
     /**
      * 震动类
      */
     public static get ShockUtils(): ShockUtils {
-        return ShockUtils.getInstance();
+        return ShockUtils.getSingtonInstance();
     }
 
     /**
      * 资源加载工具类
      */
     public static get ResourceUtils(): ResourceUtils {
-        return ResourceUtils.getInstance();
+        return ResourceUtils.getSingtonInstance();
     }
 
     /**
      * RenderTextureManager
      */
     public static get RenderTextureManager(): RenderTextureManager {
-        return RenderTextureManager.getInstance();
+        return RenderTextureManager.getSingtonInstance();
     }
 
     /**
      * TextFlow
      */
     public static get TextFlowMaker(): TextFlowMaker {
-        return TextFlowMaker.getInstance();
+        return TextFlowMaker.getSingtonInstance();
     }
 
     /**
@@ -238,7 +238,7 @@ class App {
      * @constructor
      */
     public static get DelayOptManager(): DelayOptManager {
-        return DelayOptManager.getInstance();
+        return DelayOptManager.getSingtonInstance();
     }
 
     /**
@@ -247,7 +247,7 @@ class App {
      * @constructor
      */
     public static get ArrayUtils(): ArrayUtils {
-        return ArrayUtils.getInstance();
+        return ArrayUtils.getSingtonInstance();
     }
 
     /**
@@ -256,7 +256,7 @@ class App {
      * @constructor
      */
     public static get EasyLoading(): EasyLoading {
-        return EasyLoading.getInstance();
+        return EasyLoading.getSingtonInstance();
     }
 
     /**
@@ -265,7 +265,7 @@ class App {
      * @constructor
      */
     public static get DragonBonesFactory(): DragonBonesFactory {
-        return DragonBonesFactory.getInstance();
+        return DragonBonesFactory.getSingtonInstance();
     }
 
     /**
@@ -274,28 +274,28 @@ class App {
      * @constructor
      */
     public static get StarlingSwfFactory(): StarlingSwfFactory {
-        return StarlingSwfFactory.getInstance();
+        return StarlingSwfFactory.getSingtonInstance();
     }
 
     /**
      * AnchorUtils工具类
      */
     public static get AnchorUtils(): AnchorUtils {
-        return AnchorUtils.getInstance();
+        return AnchorUtils.getSingtonInstance();
     }
 
     /**
      * hack引擎的Touch事件
      */
     public static get TouchEventHook(): TouchEventHook {
-        return TouchEventHook.getInstance();
+        return TouchEventHook.getSingtonInstance();
     }
 
     /**
      * H5地址栏参数操作工作类
      */
     public static get LocationPropertyUtils(): LocationPropertyUtils {
-        return LocationPropertyUtils.getInstance();
+        return LocationPropertyUtils.getSingtonInstance();
     }
 
     /**

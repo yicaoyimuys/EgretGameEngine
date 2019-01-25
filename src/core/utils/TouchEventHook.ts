@@ -2,7 +2,7 @@
  * Created by Saco on 2015/1/14.
  * hack引擎的点击事件
  */
-class TouchEventHook extends BaseClass {
+class TouchEventHook extends SingtonClass {
     private _eventCallDic: any;
 
     public constructor() {

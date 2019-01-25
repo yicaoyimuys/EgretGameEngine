@@ -2,7 +2,7 @@
  * Created by yangsong on 15-1-14.
  * Sound管理类
  */
-class SoundManager extends BaseClass {
+class SoundManager extends SingtonClass {
     /**
      * 音乐文件清理时间
      * @type {number}
@@ -14,7 +14,7 @@ class SoundManager extends BaseClass {
     private LocalStorageKey_Effect: string = "effectMusicFlag";
 
     private effect: ISoundEffect;
-    private bg: SoundBg;
+    private bg: ISoundBg;
     private effectOn: boolean;
     private bgOn: boolean;
     private currBg: string;
@@ -30,14 +30,14 @@ class SoundManager extends BaseClass {
         this.bgVolume = 0.5;
         this.effectVolume = 0.5;
 
-        this.bg = new SoundBg();
-        this.bg.setVolume(this.bgVolume);
-
         if (App.DeviceUtils.IsWxGame) {
+            this.bg = new SoundBgWx();
             this.effect = new SoundEffectWx();
         } else {
+            this.bg = new SoundBg();
             this.effect = new SoundEffect();
         }
+        this.bg.setVolume(this.bgVolume);
         this.effect.setVolume(this.effectVolume);
 
         this.setDefaultSwitchState();
@@ -60,6 +60,9 @@ class SoundManager extends BaseClass {
         } else {
             this.effectOn = effectMusicFlag == "1";
         }
+
+        Log.info("背景音乐：", this.bgOn);
+        Log.info("音效：", this.effectOn);
     }
 
     /**
@@ -98,6 +101,26 @@ class SoundManager extends BaseClass {
      */
     public stopBg(): void {
         this.bg.stop();
+    }
+
+    /**
+     * 暂停背景音乐
+     */
+    public pauseBg(): void {
+        if (!this.bgOn)
+            return;
+
+        this.bg.pause();
+    }
+
+    /**
+     * 恢复背景音乐
+     */
+    public resumeBg(): void {
+        if (!this.bgOn)
+            return;
+
+        this.bg.resume();
     }
 
     /**

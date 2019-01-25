@@ -1,4 +1,4 @@
-class ViewManager extends BaseClass {
+class ViewManager extends SingtonClass {
     /**
      * 已注册的UI
      */
@@ -82,13 +82,13 @@ class ViewManager extends BaseClass {
         }
 
         if (view.isShow()) {
-            view.open.apply(view, param);
+            view.open(...param);;
             return view;
         }
 
         if (view.isInit()) {
             view.addToParent();
-            view.open.apply(view, param);
+            view.open(...param);;
         }
         else {
             App.EasyLoading.showLoading();
@@ -99,7 +99,7 @@ class ViewManager extends BaseClass {
             }.bind(this), function () {
                 view.initUI();
                 view.initData();
-                view.open.apply(view, param);
+                view.open(...param);
                 view.setVisible(true);
             }.bind(this));
         }
@@ -130,7 +130,7 @@ class ViewManager extends BaseClass {
         }
 
         view.removeFromParent();
-        view.close.apply(view, param);
+        view.close(...param);
     }
 
     /**

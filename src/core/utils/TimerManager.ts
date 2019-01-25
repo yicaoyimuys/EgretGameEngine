@@ -2,13 +2,15 @@
  * Created by yangsong on 2014/11/23.
  * Timer管理器
  */
-class TimerManager extends BaseClass {
+class TimerManager extends SingtonClass {
     private _handlers: Array<TimerHandler>;
     private _delHandlers: Array<TimerHandler>;
     private _currTime: number;
     private _currFrame: number;
     private _count: number;
     private _timeScale: number;
+    private _isPause: boolean;
+    private _pauseTime: number;
 
     /**
      * 构造函数
@@ -38,11 +40,20 @@ class TimerManager extends BaseClass {
      * @param frameTime
      */
     private onEnterFrame(): void {
+        if (this._isPause) {
+            return;
+        }
         this._currFrame++;
         this._currTime = egret.getTimer();
         App.DebugUtils.start("TimerManager:");
+        while (this._delHandlers.length) {
+            this.removeHandle(this._delHandlers.pop());
+        }
         for (var i: number = 0; i < this._count; i++) {
             var handler: TimerHandler = this._handlers[i];
+            if (this._delHandlers.indexOf(handler) != -1) {
+                continue;
+            }
             var t: number = handler.userFrame ? this._currFrame : this._currTime;
             if (t >= handler.exeTime) {
                 App.DebugUtils.start(handler.method.toString());
@@ -57,16 +68,25 @@ class TimerManager extends BaseClass {
                         if (handler.complateMethod) {
                             handler.complateMethod.apply(handler.complateMethodObj);
                         }
-                        this._delHandlers.push(handler);
+                        if (this._delHandlers.indexOf(handler) == -1) {
+                            this._delHandlers.push(handler);
+                        }
                     }
                 }
             }
         }
-        while (this._delHandlers.length) {
-            var handler: TimerHandler = this._delHandlers.pop();
-            this.remove(handler.method, handler.methodObj);
-        }
         App.DebugUtils.stop("TimerManager:");
+    }
+
+    private removeHandle(handler: TimerHandler): void {
+        var i = this._handlers.indexOf(handler);
+        if (i == -1) {
+            Log.warn("what????");
+            return;
+        }
+        this._handlers.splice(i, 1);
+        ObjectPool.push(handler);
+        this._count--;
     }
 
     private create(useFrame: boolean, delay: number, repeatCount: number, method: Function, methodObj: any, complateMethod: Function, complateMethodObj: any): void {
@@ -92,6 +112,26 @@ class TimerManager extends BaseClass {
         handler.dealTime = this._currTime;
         this._handlers.push(handler);
         this._count++;
+    }
+
+    /**
+     * 在指定的延迟（以毫秒为单位）后运行指定的函数。
+     * @param delay 执行间隔:毫秒
+     * @param method 执行函数
+     * @param methodObj 执行函数所属对象
+     */
+    public setTimeOut(delay: number, method: Function, methodObj: any): void {
+        this.doTimer(delay, 1, method, methodObj);
+    }
+
+    /**
+     * 在指定的帧后运行指定的函数。
+     * @param delay 执行间隔:帧频
+     * @param method 执行函数
+     * @param methodObj 执行函数所属对象
+     */
+    public setFrameOut(delay: number, method: Function, methodObj: any): void {
+        this.doFrame(delay, 1, method, methodObj);
     }
 
     /**
@@ -141,10 +181,8 @@ class TimerManager extends BaseClass {
     public remove(method: Function, methodObj: any): void {
         for (var i: number = 0; i < this._count; i++) {
             var handler: TimerHandler = this._handlers[i];
-            if (handler.method == method && handler.methodObj == methodObj) {
-                this._handlers.splice(i, 1);
-                ObjectPool.push(handler);
-                this._count--;
+            if (handler.method == method && handler.methodObj == methodObj && this._delHandlers.indexOf(handler) == -1) {
+                this._delHandlers.push(handler);
                 break;
             }
         }
@@ -157,11 +195,8 @@ class TimerManager extends BaseClass {
     public removeAll(methodObj: any): void {
         for (var i: number = 0; i < this._count; i++) {
             var handler: TimerHandler = this._handlers[i];
-            if (handler.methodObj == methodObj) {
-                this._handlers.splice(i, 1);
-                ObjectPool.push(handler);
-                this._count--;
-                i--;
+            if (handler.methodObj == methodObj && this._delHandlers.indexOf(handler) == -1) {
+                this._delHandlers.push(handler);
             }
         }
     }
@@ -175,11 +210,41 @@ class TimerManager extends BaseClass {
     public isExists(method: Function, methodObj: any): boolean {
         for (var i: number = 0; i < this._count; i++) {
             var handler: TimerHandler = this._handlers[i];
-            if (handler.method == method && handler.methodObj == methodObj) {
+            if (handler.method == method && handler.methodObj == methodObj && this._delHandlers.indexOf(handler) == -1) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * 暂停
+     */
+    public pause(): void {
+        if (this._isPause) {
+            return;
+        }
+        this._isPause = true;
+        this._pauseTime = egret.getTimer();
+    }
+
+    /**
+     * 从暂停中恢复
+     */
+    public resume(): void {
+        if (!this._isPause) {
+            return;
+        }
+        this._isPause = false;
+        this._currTime = egret.getTimer();
+        var gap = this._currTime - this._pauseTime;
+        for (var i: number = 0; i < this._count; i++) {
+            var handler: TimerHandler = this._handlers[i];
+            handler.dealTime += gap;
+            if (!handler.userFrame) {
+                handler.exeTime += gap;
+            }
+        }
     }
 }
 

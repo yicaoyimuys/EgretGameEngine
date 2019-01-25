@@ -2,7 +2,7 @@
  * Created by yangsong on 15-1-27.
  * 摇杆控制类
  */
-class RockerUtils extends BaseClass {
+class RockerUtils extends SingtonClass {
     private keys: Array<number>;
     private moveFlagRec: egret.Rectangle;
     private moveFlagCheckRec: egret.Rectangle;

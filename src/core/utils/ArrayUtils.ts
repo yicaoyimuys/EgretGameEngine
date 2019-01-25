@@ -1,7 +1,7 @@
 /**
  * Created by egret on 15-8-7.
  */
-class ArrayUtils extends BaseClass {
+class ArrayUtils extends SingtonClass {
     /**
      * 遍历操作
      * @param arr

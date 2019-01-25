@@ -2,7 +2,7 @@
  * Created by yangsong on 14-12-2.
  * 引导工具类，根据每个项目重写实现可重写实现
  */
-class GuideUtils extends BaseClass {
+class GuideUtils extends SingtonClass {
     //handDir  1:下面 2:上面
     //txtdir  箭头指向: 1:背景左箭头下 2:背景左箭头上 3:背景右箭头下 4:背景右箭头上
     private configData:any = {

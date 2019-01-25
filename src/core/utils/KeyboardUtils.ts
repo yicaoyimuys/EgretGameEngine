@@ -2,7 +2,7 @@
  * Created by yangsong on 15-1-26.
  * 键盘工具类
  */
-class KeyboardUtils extends BaseClass {
+class KeyboardUtils extends SingtonClass {
     private key_ups: Array<any>;
     private key_downs: Array<any>;
 

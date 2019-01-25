@@ -2,7 +2,7 @@
  * Created by Channing on 2014/12/6.
  * 震动
  */
-class ShockUtils extends BaseClass {
+class ShockUtils extends SingtonClass {
     public constructor() {
         super();
     }

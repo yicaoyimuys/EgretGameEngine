@@ -2,11 +2,12 @@
  * Created by yangsong on 15-1-14.
  * 背景音乐类
  */
-class SoundBg extends BaseSound {
+class SoundBg extends BaseSound implements ISoundBg {
     private _currBg: string;
     private _currSound: egret.Sound;
     private _currSoundChannel: egret.SoundChannel;
     private _volume: number;
+    private _pausePosition: number;
 
     /**
      * 构造函数
@@ -26,6 +27,7 @@ class SoundBg extends BaseSound {
         this._currSoundChannel = null;
         this._currSound = null;
         this._currBg = "";
+        this._pausePosition = null;
     }
 
     /**
@@ -41,6 +43,31 @@ class SoundBg extends BaseSound {
         if (sound) {
             this.playSound(sound);
         }
+    }
+
+    /**
+     * 暂停
+     */
+    public pause(): void {
+        if (!this._currSoundChannel) {
+            return;
+        }
+        this._pausePosition = this._currSoundChannel.position
+        this._currSoundChannel.stop();
+    }
+
+    /**
+     * 恢复
+     */
+    public resume(): void {
+        if (!this._currSoundChannel) {
+            return;
+        }
+        if (!this._pausePosition) {
+            return;
+        }
+        this._currSound.play(this._pausePosition);
+        this._pausePosition = null;
     }
 
     /**

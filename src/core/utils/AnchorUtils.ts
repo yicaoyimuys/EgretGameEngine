@@ -1,7 +1,7 @@
 /**
  * Created by Saco on 2015/9/16.
  */
-class AnchorUtils extends BaseClass {
+class AnchorUtils extends SingtonClass {
     private _propertyChange: any;
     private _anchorChange: any;
 
@@ -14,6 +14,11 @@ class AnchorUtils extends BaseClass {
         this._propertyChange = Object.create(null);
         this._anchorChange = Object.create(null);
         this.injectAnchor();
+    }
+
+    public clear(target: egret.DisplayObject): void {
+        delete this._propertyChange[target.hashCode];
+        delete this._anchorChange[target.hashCode];
     }
 
     public setAnchorX(target: egret.DisplayObject, value: number): void {

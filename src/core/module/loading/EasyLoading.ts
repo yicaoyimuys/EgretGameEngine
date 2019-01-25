@@ -1,7 +1,7 @@
 /**
  * Created by husong on 4/10/15.
  */
-class EasyLoading extends BaseClass {
+class EasyLoading extends SingtonClass {
 
     private content:egret.Sprite = null;
     private speed:number = 10 / (1000 / 60);

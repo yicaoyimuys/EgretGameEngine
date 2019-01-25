@@ -8,7 +8,7 @@
  *
  * Created by Saco on 2014/8/1.
  */
-class BitmapNumber extends BaseClass {
+class BitmapNumber extends SingtonClass {
     private _imgPool:egret.Bitmap[];
     private _containerPool:egret.DisplayObjectContainer[];
 

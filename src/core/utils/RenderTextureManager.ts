@@ -1,7 +1,7 @@
 /**
  * cacheAsBitmap的替代方案，解决QQ浏览器在1G内存的机器上最多能使用20个Canvas的限制
  */
-class RenderTextureManager extends BaseClass {
+class RenderTextureManager extends SingtonClass {
     private _pool: Array<egret.RenderTexture>;
     private _maxNum: number;
     private _useNum: number;

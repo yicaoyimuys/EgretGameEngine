@@ -1,7 +1,7 @@
 /**
  * Created by Saco on 2014/12/1.
  */
-class LocationPropertyUtils extends BaseClass {
+class LocationPropertyUtils extends SingtonClass {
     public constructor() {
         super();
     }
