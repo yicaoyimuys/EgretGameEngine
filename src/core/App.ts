@@ -299,6 +299,13 @@ class App {
     }
 
     /**
+     * Tween工具类
+     */
+    public static get TweenUtils(): TweenUtils {
+        return TweenUtils.getSingtonInstance();
+    }
+
+    /**
      * 初始化函数
      * @constructor
      */

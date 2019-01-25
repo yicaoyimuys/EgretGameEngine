@@ -56,10 +56,14 @@ class Main extends egret.DisplayObjectContainer {
 
         egret.lifecycle.onPause = () => {
             egret.ticker.pause();
+            App.TimerManager.pause();
+            App.TweenUtils.pause();
         }
 
         egret.lifecycle.onResume = () => {
             egret.ticker.resume();
+            App.TimerManager.resume();
+            App.TweenUtils.resume();
         }
     }
 

@@ -45,24 +45,14 @@ class CommonUtils extends SingtonClass {
      * 锁屏
      */
     public lock(): void {
-        var stage: egret.Stage = App.StageUtils.getStage();
-        stage.$children.forEach(child => {
-            if (child instanceof egret.DisplayObjectContainer) {
-                child.touchEnabled = child.touchChildren = false;
-            }
-        })
+        App.StageUtils.setTouchChildren(false);
     }
 
     /**
      * 解屏
      */
     public unlock(): void {
-        var stage: egret.Stage = App.StageUtils.getStage();
-        stage.$children.forEach(child => {
-            if (child instanceof egret.DisplayObjectContainer) {
-                child.touchEnabled = child.touchChildren = true;
-            }
-        })
+        App.StageUtils.setTouchChildren(true);
     }
 
     /**
