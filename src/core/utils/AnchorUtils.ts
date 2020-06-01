@@ -2,23 +2,13 @@
  * Created by Saco on 2015/9/16.
  */
 class AnchorUtils extends SingtonClass {
-    private _propertyChange: any;
-    private _anchorChange: any;
-
     public constructor() {
         super();
         this.init();
     }
 
     private init(): void {
-        this._propertyChange = Object.create(null);
-        this._anchorChange = Object.create(null);
         this.injectAnchor();
-    }
-
-    public clear(target: egret.DisplayObject): void {
-        delete this._propertyChange[target.hashCode];
-        delete this._anchorChange[target.hashCode];
     }
 
     public setAnchorX(target: egret.DisplayObject, value: number): void {
@@ -56,7 +46,7 @@ class AnchorUtils extends SingtonClass {
             },
             set: function (value) {
                 this.$setWidth(value);
-                self._propertyChange[this.hashCode] = true;
+                this._propertyChange = true;
                 egret.callLater(() => {
                     self.changeAnchor(this);
                 }, this);
@@ -71,7 +61,7 @@ class AnchorUtils extends SingtonClass {
             },
             set: function (value) {
                 this.$setHeight(value);
-                self._propertyChange[this.hashCode] = true;
+                this._propertyChange = true;
                 egret.callLater(() => {
                     self.changeAnchor(this);
                 }, this);
@@ -86,8 +76,8 @@ class AnchorUtils extends SingtonClass {
             },
             set: function (value) {
                 this._anchorX = value;
-                self._propertyChange[this.hashCode] = true;
-                self._anchorChange[this.hashCode] = true;
+                this._propertyChange = true;
+                this._anchorChange = true;
                 egret.callLater(() => {
                     self.changeAnchor(this);
                 }, this);
@@ -102,8 +92,8 @@ class AnchorUtils extends SingtonClass {
             },
             set: function (value) {
                 this._anchorY = value;
-                self._propertyChange[this.hashCode] = true;
-                self._anchorChange[this.hashCode] = true;
+                this._propertyChange = true;
+                this._anchorChange = true;
                 egret.callLater(() => {
                     self.changeAnchor(this);
                 }, this);
@@ -114,14 +104,14 @@ class AnchorUtils extends SingtonClass {
     }
 
     private changeAnchor(tar: any): void {
-        if (this._propertyChange[tar.hashCode] && this._anchorChange[tar.hashCode]) {
-            if (tar._anchorX) {
+        if (tar._propertyChange && tar._anchorChange) {
+            if (tar._anchorX != undefined) {
                 tar.anchorOffsetX = tar._anchorX * tar.width;
             }
-            if (tar._anchorY) {
+            if (tar._anchorY != undefined) {
                 tar.anchorOffsetY = tar._anchorY * tar.height;
             }
-            delete this._propertyChange[tar.hashCode];
+            delete tar._propertyChange;
         }
     }
 }
